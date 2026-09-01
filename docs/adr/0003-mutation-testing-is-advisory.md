@@ -50,7 +50,7 @@ Three were drafted before the first run, on the theory that "constants" and "con
 
 | Drafted subtraction | Assumed | Measured |
 | --- | --- | --- |
-| `!**/constants/**` | literal tables | `packages/core/src/constants/core.ts` scores **100%** (a `reduce` and `* 1024` arithmetic); `apps/expo/src/core/constants/global.ts` holds a real `windowDimension.width > 768` breakpoint whose `EqualityOperator` mutant **survives** |
+| `!**/constants/**` | literal tables | `packages/core/src/constants/core.ts` scores **100%** (a `reduce` and `* 1024` arithmetic); name-constant tables in `apps/{spa,web}/src/core/constants/global.ts` are accepted noise |
 | `!packages/core/src/constants/http.ts` | "106 lines of literal table" | **0 mutants.** It is numeric status codes and type aliases; Stryker has no numeric-literal mutator. The glob was dead config, and the `"application/json"` example justifying it does not appear in the file |
 | `!apps/web/src/app/{robots,sitemap}.ts` | literal-table shape | `robots.ts` **100%**, `sitemap.ts` **93.18%** — among the best-scoring files in the repo |
 
@@ -140,10 +140,9 @@ It is also why `mutator.excludedMutations` stays empty rather than dropping `Str
 | `packages/core/src/apis/auth.ts` | 50.00% | 12 | accepted noise (Zod half of a mixed module) |
 | `apps/web/src/core/utils/seo.tsx` | 54.69% | 64 | **Candidate Survivors** |
 | `apps/web/src/core/utils/evlog.ts` | 56.00% | 25 | **Candidate Survivors** |
-| `apps/expo/src/core/hooks/use-app-store.tsx` | 62.50% | 16 | **Candidate Survivors** |
 | `packages/core/src/utils/logger.ts` | 62.96% | 27 | mostly accepted noise |
 
-The point of the fourth column: a low score is not automatically a finding. Four of the eight worst-scoring modules are noise this ADR has already argued is not worth killing — they are listed rather than excluded precisely so the distinction stays visible and re-checkable. `seo.tsx` is the real work.
+The point of the fourth column: a low score is not automatically a finding. Four of the seven worst-scoring modules are noise this ADR has already argued is not worth killing — they are listed rather than excluded precisely so the distinction stays visible and re-checkable. `seo.tsx` is the real work.
 
 Against all that, `apps/web/src/core/utils/{security,error-helper,field-error-message,server-form-error,net,primitive}.ts` all score 100%, as do `apps/web/src/app/robots.ts` and `og-params.ts`. This is not a uniform "the tests are weak" signal; it is specific, which is what makes it actionable.
 
@@ -172,7 +171,7 @@ Three environment fixes were needed before the first successful run. Each is a w
 
 1. **`plugins: ["@stryker-mutator/vitest-runner"]`** — bun installs into an isolated `node_modules/.bun/` store and symlinks, which defeats Stryker's default `@stryker-mutator/*` plugin glob. Without it the runner never loads and `vitest` is reported as an unknown config option — a warning, not an error, so it fails confusingly later.
 2. **`tsconfigFile` pointed at a non-existent file** — see the comment in `stryker.config.mjs`. #6111 is not confined to the typescript-checker: Stryker's own `TSConfigPreprocessor` calls `ts.parseConfigFileTextToJson`, which typescript@7 removed, and it runs on every project that has a `tsconfig.json`. Declining the checker does **not** avoid it. Safe here only because no tsconfig in this repo uses a relative `extends` or any `references` — the preprocessor would have nothing to rewrite anyway.
-3. **`ignorePatterns`** — Stryker copies the project into `.stryker-tmp` with `fs.copyFile`, which fails on anything that is not a regular file. `.claude/skills` is a symlink to a directory (ENOTSUP) and `apps/expo/ios/Pods` is full of broken symlinks (ENOENT). Pruning tooling, docs and native build output also takes the sandbox from 12,303 files to 603, which is most of why a run is under 3 minutes.
+3. **`ignorePatterns`** — Stryker copies the project into `.stryker-tmp` with `fs.copyFile`, which fails on anything that is not a regular file. `.claude/skills` is a symlink to a directory (ENOTSUP). Pruning tooling, docs and native build output also takes the sandbox from 12,303 files to 603, which is most of why a run is under 3 minutes.
 
 `.fallowrc.json` also needs two entries, since fallow reads only the import graph: `stryker.config.mjs` joins the root-config `unused-files: off` override (nothing imports a file its own CLI loads), and `@stryker-mutator/core` / `@stryker-mutator/vitest-runner` join `ignoreDependencies` — they are resolved by binary and by plugin name (`testRunner: "vitest"`), never imported, so fallow reports them unused. That array is a flat list of package names with nowhere to put a `$comment`; this paragraph is the record.
 
@@ -180,15 +179,15 @@ Three environment fixes were needed before the first successful run. Each is a w
 
 Stryker copies the repo into `.stryker-tmp` and symlinks `node_modules`, so `node_modules/@workspace/core` inside the sandbox still resolves to the real, **unmutated** `packages/core`.
 
-We are saved by the alias: all four Vitest configs map `@workspace/core` to an absolute `packages/core/src` path built from `import.meta.dirname`, which re-resolves inside the sandbox. Replacing those path aliases with bare package resolution would silently stop mutants in `core` from ever reaching the app projects' tests.
+We are saved by the alias: all three Vitest configs map `@workspace/core` to an absolute `packages/core/src` path built from `import.meta.dirname`, which re-resolves inside the sandbox. Replacing those path aliases with bare package resolution would silently stop mutants in `core` from ever reaching the app projects' tests.
 
-> [ADR-0004](./0004-module-resolution-has-a-single-source-of-truth.md) removed the equivalent aliases from the app tsconfigs and from `apps/spa/vite.config.ts`, in favour of `@workspace/core`'s `exports` map. The four **Vitest** aliases named above are deliberately exempt, for the reason in this section. Do not delete them for consistency with that ADR — no test would fail if you did.
+> [ADR-0004](./0004-module-resolution-has-a-single-source-of-truth.md) removed the equivalent aliases from the app tsconfigs and from `apps/spa/vite.config.ts`, in favour of `@workspace/core`'s `exports` map. The three **Vitest** aliases named above are deliberately exempt, for the reason in this section. Do not delete them for consistency with that ADR — no test would fail if you did.
 
 ## Considered Options
 
 - **PR gate on mutation score** — rejected; #6073 makes it flaky, and a flaky gate gets disabled.
 - **Scheduled gate on `main`** — rejected for now; same flakiness, deferred rather than dismissed.
-- **Four per-project Stryker configs** — rejected; loses cross-context kills on `core`, which is aliased into all three apps, and the per-project configs are `defineProject` so they carry none of the root options.
+- **Four per-project Stryker configs** — rejected; loses cross-context kills on `core`, which is aliased into both apps, and the per-project configs are `defineProject` so they carry none of the root options.
 - **A standalone `mutate` list** — rejected; see "Scope is derived".
 - **An Ignorer plugin** (StrykerJS's answer to Stryker.NET's `ignore-methods`) — rejected; only ~10 logging call sites fall inside the mutation scope, and per-site annotation forces the reason the plugin would hide.
 - **Patching the runner** with #6146 via `bun patch` — rejected while advisory; it means owning a fork of an unmerged PR that rots on every upgrade. Reconsider if this ever gates.

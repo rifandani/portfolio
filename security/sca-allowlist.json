@@ -3,39 +3,18 @@
   "expires_format": "YYYY-MM-DD",
   "entries": [
     {
-      "id": "GHSA-mh99-v99m-4gvg",
-      "package": "brace-expansion",
-      "severity": "high",
-      "expires": "2026-11-06",
-      "reason": "Transitive via expo/eslint/workbox; bump when upstream releases land"
-    },
-    {
-      "id": "GHSA-rgw5-rvv9-x895",
-      "package": "brace-expansion",
-      "severity": "high",
-      "expires": "2026-11-06",
-      "reason": "Transitive via expo/eslint/workbox; bump when upstream releases land"
-    },
-    {
-      "id": "GHSA-3jxr-9vmj-r5cp",
-      "package": "brace-expansion",
-      "severity": "high",
-      "expires": "2026-11-06",
-      "reason": "Transitive via expo/eslint/workbox; bump when upstream releases land"
-    },
-    {
       "id": "GHSA-7p8r-x3mc-p8w7",
       "package": "fast-uri",
       "severity": "high",
       "expires": "2026-11-06",
-      "reason": "Transitive via ajv / dotenvx / expo; awaiting upstream"
+      "reason": "Transitive via ajv / dotenvx; awaiting upstream"
     },
     {
       "id": "GHSA-v2hh-gcrm-f6hx",
       "package": "fast-uri",
       "severity": "high",
       "expires": "2026-11-06",
-      "reason": "Transitive via ajv / dotenvx / expo; awaiting upstream"
+      "reason": "Transitive via ajv / dotenvx; awaiting upstream"
     },
     {
       "id": "GHSA-89xv-2m56-2m9x",
@@ -92,20 +71,6 @@
       "severity": "high",
       "expires": "2026-11-06",
       "reason": "Transitive via expo / dotenvx; awaiting upstream"
-    },
-    {
-      "id": "GHSA-5p2g-fcmc-qvqq",
-      "package": "image-size",
-      "severity": "high",
-      "expires": "2026-11-12",
-      "reason": "Transitive via metro/react-native; bump when RN/metro releases land"
-    },
-    {
-      "id": "GHSA-w3rx-r6r6-pgpr",
-      "package": "image-size",
-      "severity": "high",
-      "expires": "2026-11-12",
-      "reason": "Transitive via metro/react-native; bump when RN/metro releases land"
     },
     {
       "id": "GHSA-5p4m-2wfm-xmqj",

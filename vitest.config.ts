@@ -7,8 +7,8 @@ export default defineConfig({
     fileParallelism: true,
     css: false,
     passWithNoTests: false,
-    projects: ["packages/core", "apps/spa", "apps/web", "apps/expo"],
-    // `coverage` is root-only (it sits in Vitest's `NonProjectOptions`), so it cannot be split across the four `defineProject` configs.
+    projects: ["packages/core", "apps/spa", "apps/web"],
+    // `coverage` is root-only (it sits in Vitest's `NonProjectOptions`), so it cannot be split across the three `defineProject` configs.
     // Consequence: `--project <name> --coverage` measures this global `include` list against a partial run and reports every other project at 0%. Always run the whole suite (`bun test:unit:cov`).
     //
     // Scope rationale, the Logic Seam convention, and the threshold policy live in docs/adr/0001-unit-tests-are-pure-module-logic.md.
@@ -37,8 +37,8 @@ export default defineConfig({
       // Untested files only appear in the report when matched here, so a new logic-bearing folder must be added.
       include: [
         "packages/core/src/{apis,constants,libs,services,utils}/**/*.ts",
-        "apps/{spa,web,expo}/src/**/{actions,apis,constants,middlewares,services,utils}/**/*.{ts,tsx}",
-        "apps/{spa,web,expo}/src/**/*-store.{ts,tsx}",
+        "apps/{spa,web}/src/**/{actions,apis,constants,middlewares,services,utils}/**/*.{ts,tsx}",
+        "apps/{spa,web}/src/**/*-store.{ts,tsx}",
         "apps/web/src/app/**/*.ts",
         "apps/web/src/proxy.ts",
         "apps/web/src/core/providers/query/client.ts",
@@ -70,8 +70,6 @@ export default defineConfig({
         "apps/web/src/core/utils/evlog.ts",
         "apps/web/src/auth/actions/auth.ts",
         "apps/web/src/proxy.ts",
-        "apps/expo/src/core/hooks/use-app-store.tsx",
-        "apps/expo/src/core/services/mmkv.ts",
       ],
     },
   },

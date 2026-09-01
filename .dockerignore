@@ -4,8 +4,6 @@
 **/dist
 **/build
 **/.turbo
-**/.expo
-**/.tamagui
 **/dev-dist
 **/playwright-report
 **/playwright-test-results

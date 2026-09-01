@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# Worktree bootstrap for SPA + web + expo + portless (`/wt` skill).
+# Worktree bootstrap for SPA + web + portless (`/wt` skill).
 # Runs inside the new worktree. ROOT_WORKTREE_PATH = main checkout.
 set -euo pipefail
 
@@ -40,7 +40,7 @@ sync_app_envs() {
     fi
   done
 
-  # expo only ships .env.local(.example)
+  # Seed .env.local from example when missing
   local local_target="$app_dir/.env.local"
   local local_example="$app_dir/.env.local.example"
   if [[ ! -f "$local_target" && -f "$local_example" ]]; then
@@ -57,7 +57,6 @@ sync_app_envs() {
 echo "==> Syncing app env files from main checkout"
 sync_app_envs apps/spa .env.dev .env.prod .env.local
 sync_app_envs apps/web .env.dev .env.prod .env.local
-sync_app_envs apps/expo .env.local
 
 echo "==> Checking portless (required for bun spa / bun web)"
 if ! command -v portless >/dev/null 2>&1; then
@@ -81,5 +80,5 @@ echo ""
 echo "Worktree setup complete."
 echo "  SPA URL:  $spa_url"
 echo "  Web URL:  $web_url"
-echo "  Start:    bun spa   # or: bun web / bun expo"
+echo "  Start:    bun spa   # or: bun web"
 echo ""

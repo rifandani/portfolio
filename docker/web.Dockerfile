@@ -14,7 +14,6 @@ WORKDIR /repo
 COPY package.json bun.lock ./
 COPY apps/web/package.json apps/web/
 COPY apps/spa/package.json apps/spa/
-COPY apps/expo/package.json apps/expo/
 COPY packages/core/package.json packages/core/
 COPY packages/typescript-config/package.json packages/typescript-config/
 RUN bun install --frozen-lockfile

@@ -39,7 +39,6 @@ Source of truth is local env files. When changing them, update deployment/CI pro
 
 - [@workspace/spa](./apps/spa/README.md)
 - [@workspace/web](./apps/web/README.md)
-- [@workspace/expo](./apps/expo/README.md)
 
 ## 📦 Packages
 

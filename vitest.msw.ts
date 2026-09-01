@@ -4,8 +4,7 @@ import { setupServer } from "msw/node";
  * Base URL that every `Http` instance under test is pointed at, and the origin
  * every handler matches on. `setupServer` runs in Node with no `document.baseURI`,
  * so handler paths must be absolute — hence a shared constant rather than a
- * relative pattern. `apps/expo/vitest.config.ts` imports it for its `env` block so
- * the value is defined exactly once.
+ * relative pattern.
  *
  * Rationale and the Network Boundary / Module Boundary rule live in
  * docs/adr/0002-network-boundary-mocking-with-msw.md.

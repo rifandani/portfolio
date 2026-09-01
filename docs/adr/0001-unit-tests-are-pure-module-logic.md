@@ -1,6 +1,6 @@
 # Unit tests are pure module logic only
 
-We run Vitest projects (`core`, `spa`, `web`, `expo`) for Unit tests: utils, libs, registries, plain classes, non-React factories, and Zustand stores via `.getState()`. React components/hooks (RTL, hook harnesses), plain Zod shapes, Vitest UI, and browser mode are out of scope — UI behavior belongs in Playwright E2E. Files are `*.unit.test.ts` under `environment: 'node'` with shared polyfills; all four projects run in a single CI job, `unit`.
+We run Vitest projects (`core`, `spa`, `web`) for Unit tests: utils, libs, registries, plain classes, non-React factories, and Zustand stores via `.getState()`. React components/hooks (RTL, hook harnesses), plain Zod shapes, Vitest UI, and browser mode are out of scope — UI behavior belongs in Playwright E2E. Files are `*.unit.test.ts` under `environment: 'node'` with shared polyfills; all three projects run in a single CI job, `unit`.
 
 > Coverage was originally out of scope too. That clause was reversed on 2026-07-28 — see [Amendments](#amendments).
 > The four per-project CI jobs were collapsed into one on 2026-07-29 — same section.

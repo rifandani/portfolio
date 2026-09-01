@@ -90,7 +90,7 @@ jobs:
       - name: Lint and typecheck
         run: bun lint-typecheck
 
-  # Single gate for all four Vitest projects (core, spa, web, expo)
+  # Single gate for all three Vitest projects (core, spa, web)
   unit:
     runs-on: ubuntu-latest
     steps:

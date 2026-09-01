@@ -44,8 +44,6 @@
         "apps/web/src/core/components/typed-links.client.tsx",
         "apps/web/src/core/hooks/**",
         "apps/web/src/core/middlewares/rate-limit/**",
-        "apps/expo/src/test/react-native-mmkv-stub.ts",
-        "apps/expo/src/core/constants/**",
         "oxfmt.config.ts",
         "oxlint.config.ts",
         "stryker.config.mjs",
@@ -116,14 +114,6 @@
     "msw",
     "postcss-load-config",
     "workbox-core",
-    "@expo-google-fonts/space-grotesk",
-    "@expo/metro-config",
-    "@tamagui/animations-moti",
-    "burnt",
-    "expo-atlas",
-    "expo-dev-client",
-    "expo-system-ui",
-    "babel-plugin-react-compiler",
-    "metro-minify-terser"
+    "babel-plugin-react-compiler"
   ]
 }

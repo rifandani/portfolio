@@ -44,9 +44,9 @@ export default {
   // runner never loads and `vitest` below is reported as an unknown option.
   plugins: ["@stryker-mutator/vitest-runner"],
 
-  // Points at the *root* config so all four projects (core, spa, web, expo) load.
+  // Points at the *root* config so all three projects (core, spa, web) load.
   // That is deliberate, not incidental: `@workspace/core` is aliased by path into
-  // spa, web and expo, so a mutant in packages/core is covered by all four
+  // spa and web, so a mutant in packages/core is covered by all three
   // projects' tests. Per-project Stryker configs would hide those cross-context
   // kills — and the per-project configs use `defineProject`, so they carry none of
   // the root options (`pool`, `isolate`, `fileParallelism`) anyway.
@@ -60,7 +60,7 @@ export default {
   // not only when the typescript-checker is enabled, so declining the checker does
   // not avoid it. Its sole job is rewriting relative `extends`/`references` paths
   // that would escape the sandbox; every tsconfig here extends a *package*
-  // specifier (`@workspace/typescript-config/*`, `expo/tsconfig.base`) and none use
+  // specifier (`@workspace/typescript-config/*`) and none use
   // `references`, so there is nothing for it to rewrite. Revert to the default
   // ("tsconfig.json") once #6111 closes, or if a relative `extends` ever appears.
   tsconfigFile: "",
@@ -125,9 +125,8 @@ export default {
     "**/e2e/**",
     "**/playwright*/**",
     "**/.next/**",
-    "**/.expo/**",
     "**/dev-dist/**",
-    // Native and build output. Untracked, and `apps/expo/ios/Pods` in particular is
+    // Native and build output. Untracked; ios/Pods in particular is full of broken
     // full of broken symlinks that fail the copy outright (ENOENT on copyfile).
     "**/ios/**",
     "**/android/**",
@@ -135,7 +134,6 @@ export default {
     "**/.gradle/**",
     "**/dist/**",
     "**/build/**",
-    "**/.tamagui/**",
     "**/.tanstack/**",
     "**/.evlog/**",
     "**/.vercel/**",

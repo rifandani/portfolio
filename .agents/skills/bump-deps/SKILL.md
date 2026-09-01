@@ -6,7 +6,7 @@ disable-model-invocation: true
 
 # Bump deps
 
-Leading word: **bump**. Universe is the root `bump:deps` script (Expo/RN/Tamagui stay where that script leaves them).
+Leading word: **bump**. Universe is the root `bump:deps` script.
 
 ## 1. Apply
 

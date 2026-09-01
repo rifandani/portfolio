@@ -1,4 +1,4 @@
-# Worktree bootstrap for SPA + web + expo + portless (`/wt` skill).
+# Worktree bootstrap for SPA + web + portless (`/wt` skill).
 # Runs inside the new worktree. ROOT_WORKTREE_PATH = main checkout.
 $ErrorActionPreference = 'Stop'
 
@@ -59,7 +59,6 @@ function Sync-AppEnvs {
 Write-Host '==> Syncing app env files from main checkout'
 Sync-AppEnvs -AppDir 'apps/spa' -Files @('.env.dev', '.env.prod', '.env.local')
 Sync-AppEnvs -AppDir 'apps/web' -Files @('.env.dev', '.env.prod', '.env.local')
-Sync-AppEnvs -AppDir 'apps/expo' -Files @('.env.local')
 
 Write-Host '==> Checking portless (required for bun spa / bun web)'
 if (-not (Get-Command portless -ErrorAction SilentlyContinue)) {
@@ -81,5 +80,5 @@ Write-Host ''
 Write-Host 'Worktree setup complete.'
 Write-Host "  SPA URL:  $spaUrl"
 Write-Host "  Web URL:  $webUrl"
-Write-Host '  Start:    bun spa   # or: bun web / bun expo'
+Write-Host '  Start:    bun spa   # or: bun web'
 Write-Host ''

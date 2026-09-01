@@ -24,9 +24,6 @@ Multi-context monorepo:
 │   ├── web/
 │   │   ├── CONTEXT.md
 │   │   └── docs/adr/
-│   └── expo/
-│       ├── CONTEXT.md
-│       └── docs/adr/
 └── packages/
     └── core/
         ├── CONTEXT.md
@@ -39,7 +36,6 @@ Multi-context monorepo:
 | ------- | ------------ | ------------------- |
 | `spa`   | `apps/spa/CONTEXT.md` | `apps/spa/docs/adr/` |
 | `web`   | `apps/web/CONTEXT.md` | `apps/web/docs/adr/` |
-| `expo`  | `apps/expo/CONTEXT.md` | `apps/expo/docs/adr/` |
 | `core`  | `packages/core/CONTEXT.md` | `packages/core/docs/adr/` |
 
 When work spans multiple contexts, read each relevant `CONTEXT.md` and check both `docs/adr/` and the context-scoped ADR directories.
