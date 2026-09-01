@@ -1,0 +1,129 @@
+{
+  "$schema": "./node_modules/fallow/schema.json",
+  "entry": ["src/index.{ts,tsx,js,jsx}", "src/main.{ts,tsx,js,jsx}"],
+  "workspaces": {
+    "patterns": ["apps/*", "packages/*"]
+  },
+  "ignoreExports": [
+    { "file": "apps/spa/**/components/ui/**", "exports": ["*"] },
+    { "file": "apps/web/**/components/ui/**", "exports": ["*"] },
+    { "file": "apps/web/src/core/utils/evlog.ts", "exports": ["*"] },
+    {
+      "file": "vitest.msw.ts",
+      "exports": ["*"]
+    },
+    {
+      "file": "apps/spa/src/master-design/**",
+      "exports": ["*"]
+    },
+    {
+      "file": "apps/web/src/core/utils/i18n.ts",
+      "exports": ["default"]
+    },
+    {
+      "file": "apps/web/src/core/middlewares/rate-limit/rate-limit.ts",
+      "exports": ["rateLimit"]
+    }
+  ],
+  "overrides": [
+    {
+      "files": ["apps/spa/**/components/ui/**", "apps/web/**/components/ui/**"],
+      "rules": {
+        "unused-files": "off",
+        "unused-types": "off"
+      }
+    },
+    {
+      "files": [
+        "apps/spa/pwa-assets.config.ts",
+        "apps/spa/src/sw.ts",
+        "apps/spa/src/core/hooks/**",
+        "apps/web/pwa-assets.config.ts",
+        "apps/web/src/test/server-only-stub.ts",
+        "apps/web/src/app/api/rate-limit.ts",
+        "apps/web/src/core/components/typed-links.client.tsx",
+        "apps/web/src/core/hooks/**",
+        "apps/web/src/core/middlewares/rate-limit/**",
+        "apps/expo/src/test/react-native-mmkv-stub.ts",
+        "apps/expo/src/core/constants/**",
+        "oxfmt.config.ts",
+        "oxlint.config.ts",
+        "stryker.config.mjs",
+        "scripts/security/**",
+        "vitest.msw-setup.ts"
+      ],
+      "rules": {
+        "unused-files": "off"
+      }
+    }
+  ],
+  "ignoreFindings": [
+    "apps/spa/src/core/feature-flags/panel.tsx",
+    "apps/spa/src/core/providers/router/client.tsx",
+    "apps/spa/src/routeTree.gen.ts",
+    "apps/spa/src/routes/__root.tsx",
+    "apps/spa/src/core/providers/devtools.tsx"
+  ],
+  "duplicates": {
+    "minOccurrences": 3,
+    "ignore": [
+      "apps/web/playwright.config.ts",
+      "apps/web/vitest.config.ts",
+      "apps/web/src/core/styles/globals.css",
+      "apps/web/src/core/utils/telemetry.ts",
+      "apps/web/src/core/hooks/use-cdn-file-mutation.ts",
+      "apps/web/src/core/hooks/use-cdn-file-query.ts",
+      "apps/web/src/core/hooks/use-clipboard.ts",
+      "apps/web/src/core/hooks/use-lazy-query.ts",
+      "apps/web/src/core/hooks/use-mobile.ts",
+      "apps/web/src/core/providers/toast/context.client.tsx",
+      "apps/spa/src/auth/hooks/use-auth-login.ts",
+      "apps/spa/src/core/providers/i18n/context.tsx"
+    ]
+  },
+  "health": {
+    "ignore": [
+      "oxlint.config.ts",
+      "**/pwa-assets.config.ts",
+      "**/routeTree.gen.ts",
+      "**/*.gen.ts",
+      "**/components/ui/**",
+      "apps/spa/src/master-design/**",
+      "**/*.{test,spec}.{ts,tsx}",
+      "**/e2e/**",
+      "scripts/security/**"
+    ],
+    "thresholdOverrides": [
+      {
+        "files": ["apps/web/src/app/api/og/route.tsx"],
+        "functions": ["LightNextSvg", "DarkNextSvg"],
+        "maxUnitSize": 200,
+        "reason": "Inline OG SVG markup is declarative length, not control-flow complexity"
+      },
+      {
+        "files": ["apps/web/src/core/middlewares/rate-limit/store.ts"],
+        "functions": ["increment"],
+        "maxCrap": 50,
+        "maxCyclomatic": 15,
+        "reason": "Drizzle upsert with sliding-window expiry is branchy by design; covered by store.unit.test.ts"
+      }
+    ]
+  },
+  "ignoreDependencies": [
+    "@stryker-mutator/core",
+    "@stryker-mutator/vitest-runner",
+    "@opentelemetry/semantic-conventions",
+    "msw",
+    "postcss-load-config",
+    "workbox-core",
+    "@expo-google-fonts/space-grotesk",
+    "@expo/metro-config",
+    "@tamagui/animations-moti",
+    "burnt",
+    "expo-atlas",
+    "expo-dev-client",
+    "expo-system-ui",
+    "babel-plugin-react-compiler",
+    "metro-minify-terser"
+  ]
+}

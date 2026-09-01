@@ -1,0 +1,10 @@
+// fallow-ignore-file unused-file
+import { createEnv } from "@t3-oss/env-core";
+import { z } from "zod";
+
+export const ENV_SERVER = createEnv({
+  runtimeEnv: process.env,
+  server: {
+    APP_VARIANT: z.string().min(1),
+  },
+});

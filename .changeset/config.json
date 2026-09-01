@@ -1,0 +1,19 @@
+{
+  "$schema": "https://unpkg.com/@changesets/config@4.0.0/schema.json",
+  "changelog": "@changesets/cli/changelog",
+  "commit": false,
+  "fixed": [
+    [
+      "@workspace/core",
+      "@workspace/expo",
+      "@workspace/spa",
+      "@workspace/typescript-config",
+      "@workspace/web"
+    ]
+  ],
+  "linked": [],
+  "access": "restricted",
+  "updateInternalDependencies": "patch",
+  "ignore": [],
+  "privatePackages": { "version": true, "tag": false }
+}
