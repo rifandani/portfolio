@@ -1,10 +1,10 @@
 import { faker } from "@faker-js/faker";
+import type { FetchHandlerResult } from "next/experimental/testmode/playwright.js";
+
 import type {
   AuthSessionSchema,
   AuthUserSchema,
-} from "@workspace/core/apis/better-auth";
-import type { FetchHandlerResult } from "next/experimental/testmode/playwright.js";
-
+} from "@/core/apis/better-auth";
 import { SEED_USER } from "@/db/seed-user";
 
 export type FetchHandler = (

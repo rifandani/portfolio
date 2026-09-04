@@ -2,14 +2,12 @@
 /* oxlint-disable react/react-compiler */
 import type { UndefinedInitialDataOptions } from "@tanstack/react-query";
 import { skipToken, useQuery } from "@tanstack/react-query";
-import type {
-  CdnValidKeys,
-  GetCdnFileSuccessSchema,
-} from "@workspace/core/apis/cdn";
-import { cdnKeys, cdnRepositories } from "@workspace/core/apis/cdn";
-import { toCdnFile } from "@workspace/core/utils/dom";
 import type { HTTPError } from "ky";
 import type { Except } from "type-fest";
+
+import type { CdnValidKeys, GetCdnFileSuccessSchema } from "@/core/apis/cdn";
+import { cdnKeys, cdnRepositories } from "@/core/apis/cdn";
+import { toCdnFile } from "@/core/utils/dom";
 
 interface Opt {
   key: CdnValidKeys;

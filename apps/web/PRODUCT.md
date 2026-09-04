@@ -20,7 +20,7 @@ Not a blank Next starter and not an end-user product. The differentiator is the 
 
 ## Operating Context
 
-- Monorepo app under `apps/web`, shared logic via `@workspace/core`.
+- Monorepo app under `apps/web`.
 - Local dev via Next (`bun web` / `bun dev` with portless); Drizzle migrate/seed; Playwright e2e (local DB; CI e2e limited by auth mocking) and Vitest unit tests.
 - Sample product surface: register → login → authenticated home; demo user from seed (`vaandani@email.com`).
 - Engineers evaluate and learn by reading auth/DB wiring, SEO/observability/database docs, and ops hooks—not by completing an end-user business workflow.

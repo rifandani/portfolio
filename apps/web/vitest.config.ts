@@ -13,7 +13,7 @@ export default defineProject({
   resolve: {
     alias: {
       "@": path.join(root, "src"),
-      "@workspace/core": path.join(root, "../../packages/core/src"),
+      "@test/msw": path.join(root, "../../vitest.msw.ts"),
     },
   },
   test: {
@@ -21,6 +21,9 @@ export default defineProject({
     include: ["src/**/*.unit.test.ts"],
     environment: "node",
     isolate: true,
-    setupFiles: [path.join(root, "../../vitest.setup.ts")],
+    setupFiles: [
+      path.join(root, "../../vitest.setup.ts"),
+      path.join(root, "../../vitest.msw-setup.ts"),
+    ],
   },
 });

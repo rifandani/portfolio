@@ -39,7 +39,6 @@ Source of truth is local env files. When changing them, update deployment/CI pro
 
 ## 📦 Packages
 
-- [@workspace/core](./packages/core/README.md)
 - [@workspace/typescript-config](./packages/typescript-config/README.md)
 
 ## 📚 References

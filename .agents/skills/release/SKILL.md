@@ -15,9 +15,9 @@ Ask which branch if unclear: **add** (changeset for a PR) or **cut** (version + 
 1. Read `.changeset/config.json`.
 2. Confirm `fixed` is a non-empty group containing every workspace package below.
 
-**Packages (all three):** `@workspace/core`, `@workspace/typescript-config`, `@workspace/web`
+**Packages (both):** `@workspace/typescript-config`, `@workspace/web`
 
-**Done when:** those three names are present in `fixed[0]`. If not, stop — repo setup is wrong; do not patch config from this skill.
+**Done when:** those two names are present in `fixed[0]`. If not, stop — repo setup is wrong; do not patch config from this skill.
 
 ---
 
@@ -29,7 +29,7 @@ Write a pending changeset; do not commit.
 2. **Confirm** — Present the proposed bump + a short summary. Wait for the user to accept or override.
 3. **Write** — Create `.changeset/<slug>.md` (random short slug) with frontmatter listing **all three** packages at the confirmed bump, then the summary body. Prefer writing the file directly over interactive `bun cs`.
 
-**Done when:** the new `.changeset/*.md` exists, names all three packages, bump matches confirmation, and nothing was committed.
+**Done when:** the new `.changeset/*.md` exists, names both packages, bump matches confirmation, and nothing was committed.
 
 ---
 

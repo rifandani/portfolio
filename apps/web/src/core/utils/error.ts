@@ -1,12 +1,12 @@
 /* oxlint-disable promise/prefer-await-to-callbacks */
 import type { Span } from "@opentelemetry/api";
 import { SpanStatusCode } from "@opentelemetry/api";
-import type { ErrorResponseSchema } from "@workspace/core/apis/core";
-import { errorResponseSchema } from "@workspace/core/apis/core";
 import { HTTPError, TimeoutError } from "ky";
 import { match, P } from "ts-pattern";
 import { z } from "zod";
 
+import type { ErrorResponseSchema } from "@/core/apis/core";
+import { errorResponseSchema } from "@/core/apis/core";
 import { simplifyErrorObject } from "@/core/utils/error-helper";
 import { log } from "@/core/utils/evlog";
 import "server-only";

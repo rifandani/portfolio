@@ -2,13 +2,11 @@
 /* oxlint-disable react-doctor/query-mutation-missing-invalidation */
 import type { MutationState, UseMutationOptions } from "@tanstack/react-query";
 import { useMutation, useMutationState } from "@tanstack/react-query";
-import type {
-  CdnValidKeys,
-  GetCdnFileSuccessSchema,
-} from "@workspace/core/apis/cdn";
-import { cdnKeys, cdnRepositories } from "@workspace/core/apis/cdn";
 import type { HTTPError } from "ky";
 import type { Except } from "type-fest";
+
+import type { CdnValidKeys, GetCdnFileSuccessSchema } from "@/core/apis/cdn";
+import { cdnKeys, cdnRepositories } from "@/core/apis/cdn";
 
 interface Opt {
   key: CdnValidKeys;

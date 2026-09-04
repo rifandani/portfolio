@@ -1,7 +1,30 @@
-import { Http } from "@workspace/core/services/http";
+import type { Options } from "ky";
+import ky from "ky";
 
-import { ENV } from "@/core/constants/env";
-// Set config defaults when creating the instance
-export const http = new Http({
-  prefix: ENV.NEXT_PUBLIC_API_BASE_URL,
-});
+export class Http {
+  /**
+   * @description Ky instance
+   */
+  instance: typeof ky;
+  /**
+   * @description Create a new instance of Http service
+   * @param {Options} config Ky config options
+   */
+  constructor(config: Options) {
+    this.instance = ky.create(config);
+  }
+  /**
+   * @description Update the default configuration of the Http instance
+   * @param {Options} newConfig New configuration options
+   */
+  updateConfig(newConfig: Options): void {
+    this.instance = this.instance.extend(newConfig);
+  }
+  /**
+   * @description Reset or create new configuration of the Http instance
+   * @param {Options} newConfig New configuration options
+   */
+  resetConfig(newConfig: Options): void {
+    this.instance = ky.create(newConfig);
+  }
+}

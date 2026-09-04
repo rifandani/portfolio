@@ -2,9 +2,8 @@
 
 ## Contexts
 
-- [web](./apps/web/CONTEXT.md) — web app
-- [core](./packages/core/CONTEXT.md) — shared libraries and cross-app vocabulary
+- [web](./apps/web/CONTEXT.md) — web app (includes former shared core libraries)
 
 ## Relationships
 
-- **web → core**: web consumes core Message Catalogs and `initI18n`
+(None — single app context.)

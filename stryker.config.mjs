@@ -44,12 +44,9 @@ export default {
   // runner never loads and `vitest` below is reported as an unknown option.
   plugins: ["@stryker-mutator/vitest-runner"],
 
-  // Points at the *root* config so both projects (core, web) load.
-  // That is deliberate, not incidental: `@workspace/core` is aliased by path into
-  // web, so a mutant in packages/core is covered by both projects' tests.
-  // Per-project Stryker configs would hide those cross-context kills — and the
-  // per-project configs use `defineProject`, so they carry none of the root
-  // options (`pool`, `isolate`, `fileParallelism`) anyway.
+  // Points at the *root* config so the web project loads with root options
+  // (`pool`, `isolate`, `fileParallelism`). Per-project configs use `defineProject`
+  // and carry none of those.
   vitest: { configFile: "vitest.config.ts" },
 
   // Deliberately points at a file that does not exist, which makes Stryker's

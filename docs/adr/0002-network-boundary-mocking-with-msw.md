@@ -12,7 +12,7 @@ The three unit tests covering the API layer faked HTTP by replacing imports (`vi
 
 ## Scope
 
-MSW applies to exactly three files — `packages/core/src/apis/{auth,better-auth,cdn}.unit.test.ts`. That is the complete set: `apps/web/src` has no `apis/` directory and consumes core's repositories, and no other test in the suite touches the network.
+MSW applies to exactly three files — `apps/web/src/core/apis/{auth,better-auth,cdn}.unit.test.ts`. That is the complete set: no other test in the suite touches the network.
 
 ## Considered Options
 
@@ -20,13 +20,13 @@ MSW applies to exactly three files — `packages/core/src/apis/{auth,better-auth
 - **Fixtures from faker, shared with the `e2e/_helper.ts` builders** — rejected; unit failures must reproduce identically, and faker belongs where the point is "any valid user works". Fixtures stay as fixed literals.
 - **Fixtures derived from the Zod schemas** — rejected, and actively harmful: these modules exist to run `schema.parse(response)`, so a fixture generated from that schema can never fail it and the most valuable assertion becomes vacuous. Instead each file now has a *schema-violating 200* case alongside 401/404/500.
 - **`expect()` inside a resolver** — rejected as the documented anti-pattern. A throwing resolver becomes a failed response, so ky raises an `HTTPError` and the report shows a confusing 500 instead of the assertion. It also passes silently if the resolver never runs. **Use capture-then-assert**: stash the request/body in the resolver, assert in the test body after the `await`. Where the URL is the method's only input, the handler matching *is* the assertion — no request assertion needed.
-- **A shared handler catalog, or handlers inside `packages/core/src/mocks/`** — rejected; test-only code does not belong in the package every app imports from, and `packages/core`'s `exports` map has no entry for it. Root-level `vitest.msw.ts` matches the existing `vitest.{config,setup,env-mock}.ts` convention and sits beside the setup file that owns its lifecycle.
-- **Re-exporting `http`/`HttpResponse` through `vitest.msw.ts`** — rejected; handlers should look like textbook MSW so every upstream example applies. Test files import `msw` directly (root-hoisted devDependency, exactly as `vitest` already is — neither is declared in `packages/core/package.json`).
+- **A shared handler catalog, or handlers inside `apps/web/src/core/mocks/`** — rejected; test-only code does not belong next to production modules. Root-level `vitest.msw.ts` matches the existing `vitest.{config,setup,env-mock}.ts` convention and sits beside the setup file that owns its lifecycle.
+- **Re-exporting `http`/`HttpResponse` through `vitest.msw.ts`** — rejected; handlers should look like textbook MSW so every upstream example applies. Test files import `msw` directly (root-hoisted devDependency, exactly as `vitest` already is).
 - **A global server in `vitest.setup.ts`** — rejected on measurement, see below.
 
 ## Lifecycle: scoped, not global
 
-`server.listen()` lives in `vitest.msw-setup.ts`, added to `setupFiles` for the `core` project only. A single `setupServer` instance is shared process-wide, which matters because the root config runs `pool: "threads"` with `isolate: false`: files in a worker share globals, and two interceptor instances would contend for the same patched `fetch`/`http`/`XHR`.
+`server.listen()` lives in `vitest.msw-setup.ts`, added to `setupFiles` for the `web` project. A single `setupServer` instance is shared process-wide, which matters because the root config runs `pool: "threads"` with `isolate: false`: files in a worker share globals, and two interceptor instances would contend for the same patched `fetch`/`http`/`XHR`.
 
 The global alternative was preferred on design grounds — it would make "no unit test ever reaches the network" an invariant for all 55 files — but it was measured first and the cost decided it. Warm runs, 55 files:
 

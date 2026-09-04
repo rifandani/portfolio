@@ -4,7 +4,13 @@ Web app.
 
 ## Language
 
-(See [core](../../packages/core/CONTEXT.md) for shared i18n vocabulary when this app adopts it.)
+### i18n
+
+**Locale**: A next-intl locale tag from `I18N_LOCALES` (`en`, `id`). Selected via the `NEXT_LOCALE` cookie. _Avoid_: language, languageCode, lng, resolvedLanguage, `en-us`/`id-id` BCP-47 forms for this app's cookie value
+
+**Message Catalog**: The set of Translation Keys and strings for one Locale, owned as `apps/web/messages/{locale}.json` and loaded by next-intl. _Avoid_: resources, dictionary, i18n file, `libs/i18n`
+
+**Translation Key**: A flat identifier into a Message Catalog (e.g. `welcome`, `editProfile`). _Avoid_: nested namespaces like `auth.welcome`, i18next paths
 
 ### Component Catalog
 

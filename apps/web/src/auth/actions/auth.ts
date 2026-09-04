@@ -6,10 +6,6 @@ import {
   createServerValidate,
   ServerValidateError,
 } from "@tanstack/react-form-nextjs";
-import {
-  authSignInEmailRequestSchema,
-  authSignUpEmailRequestSchema,
-} from "@workspace/core/apis/better-auth";
 import { headers } from "next/headers";
 import { redirect } from "next/navigation";
 import { tryit } from "radashi";
@@ -17,6 +13,10 @@ import { tryit } from "radashi";
 import { loginFormOpts } from "@/auth/forms/login-form-options";
 import { registerFormOpts } from "@/auth/forms/register-form-options";
 import { auth } from "@/auth/utils/auth";
+import {
+  authSignInEmailRequestSchema,
+  authSignUpEmailRequestSchema,
+} from "@/core/apis/better-auth";
 import { serverErrorMapper } from "@/core/utils/error";
 import { serverFormError } from "@/core/utils/server-form-error";
 import { recordSpan } from "@/core/utils/telemetry";

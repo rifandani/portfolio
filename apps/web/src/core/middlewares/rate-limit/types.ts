@@ -1,5 +1,6 @@
-import type { StatusCode } from "@workspace/core/constants/http";
 import type { NextRequest } from "next/server";
+
+import type { StatusCode } from "@/core/constants/http";
 /**
  * Data returned from the `Store` when a client's hit counter is incremented.
  *

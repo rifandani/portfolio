@@ -23,16 +23,11 @@ const config: NextConfig = {
   typedRoutes: true, // stable since v15.5
   reactCompiler: true,
   /** Enables hot reloading for local packages without a build step */
-  transpilePackages: [
-    "@workspace/core",
-    "@t3-oss/env-nextjs",
-    "@t3-oss/env-core",
-  ],
+  transpilePackages: ["@t3-oss/env-nextjs", "@t3-oss/env-core"],
   images: {
     formats: ["image/avif", "image/webp"],
   },
   experimental: {
-    optimizePackageImports: ["@workspace/core"],
     testProxy: true, // for e2e testing server side
   },
 };

@@ -1,5 +1,6 @@
 import { formOptions } from "@tanstack/react-form-nextjs";
-import { authSignUpEmailRequestSchema } from "@workspace/core/apis/better-auth";
+
+import { authSignUpEmailRequestSchema } from "@/core/apis/better-auth";
 
 export const registerFormOpts = formOptions({
   defaultValues: {

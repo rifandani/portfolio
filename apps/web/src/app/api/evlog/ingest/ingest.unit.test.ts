@@ -62,16 +62,15 @@ describe("ingest", () => {
 
   it("isAllowedOrigin allows *.localhost proxies in development only", () => {
     const req = mockRequest({ host: "localhost:3000" });
+    // Use a .localhost origin that is NOT the mocked APP_URL host, so the
+    // development-only portless proxy branch is what we exercise.
+    const proxyOrigin = "https://web.other.localhost";
 
     vi.stubEnv("NODE_ENV", "development");
-    expect(isAllowedOrigin(req, "https://web.fe-monorepo.localhost")).toBe(
-      true
-    );
+    expect(isAllowedOrigin(req, proxyOrigin)).toBe(true);
 
     vi.stubEnv("NODE_ENV", "production");
-    expect(isAllowedOrigin(req, "https://web.fe-monorepo.localhost")).toBe(
-      false
-    );
+    expect(isAllowedOrigin(req, proxyOrigin)).toBe(false);
   });
 
   it("isAllowedOrigin rejects unknown hosts", () => {

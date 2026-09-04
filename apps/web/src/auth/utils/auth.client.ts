@@ -3,7 +3,7 @@ import { createAuthClient } from "better-auth/react";
 import { toast } from "sonner";
 
 // import { ENV } from '@/core/constants/env'
-import { http } from "@/core/services/http";
+import { http } from "@/core/services/http-client";
 
 export const authClient = createAuthClient({
   // baseURL: ENV.NEXT_PUBLIC_API_BASE_URL,

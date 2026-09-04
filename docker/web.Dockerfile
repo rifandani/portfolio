@@ -13,7 +13,6 @@ WORKDIR /repo
 # Workspace manifests only, so this layer caches until a package.json changes.
 COPY package.json bun.lock ./
 COPY apps/web/package.json apps/web/
-COPY packages/core/package.json packages/core/
 COPY packages/typescript-config/package.json packages/typescript-config/
 RUN bun install --frozen-lockfile
 

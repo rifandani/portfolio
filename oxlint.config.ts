@@ -39,15 +39,6 @@ export default defineConfig({
         "anti-slop/no-module-mocking": "off",
       },
     },
-    {
-      files: [
-        "packages/core/src/libs/i18n/locales/en-US.ts",
-        "packages/core/src/libs/i18n/locales/id-ID.ts",
-      ],
-      rules: {
-        "unicorn/filename-case": "off",
-      },
-    },
   ],
   ignorePatterns: [
     ...(core.ignorePatterns ?? []),

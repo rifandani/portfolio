@@ -5,36 +5,29 @@ How the engineering skills should consume this repo's domain documentation when 
 ## Before exploring, read these
 
 - **`CONTEXT-MAP.md`** at the repo root — points at one `CONTEXT.md` per context. Read each one relevant to the topic.
-- **`docs/adr/`** — read ADRs that touch the area you're about to work in. Also check context-scoped ADR directories (below) for decisions local to an app or package.
+- **`docs/adr/`** — read ADRs that touch the area you're about to work in. Also check context-scoped ADR directories (below) for decisions local to an app.
 
 If any of these files don't exist, **proceed silently**. Don't flag their absence; don't suggest creating them upfront. The `/domain-modeling` skill (reached via `/grill-with-docs` and `/improve-codebase-architecture`) creates them lazily when terms or decisions actually get resolved.
 
 ## File structure
 
-Multi-context monorepo:
-
 ```
 /
 ├── CONTEXT-MAP.md
 ├── docs/adr/                          ← system-wide decisions
-├── apps/
-│   └── web/
-│       ├── CONTEXT.md
-│       └── docs/adr/
-└── packages/
-    └── core/
+└── apps/
+    └── web/
         ├── CONTEXT.md
         └── docs/adr/
 ```
 
-### Context map (planned)
+### Context map
 
 | Context | `CONTEXT.md` | Context-scoped ADRs |
 | ------- | ------------ | ------------------- |
 | `web`   | `apps/web/CONTEXT.md` | `apps/web/docs/adr/` |
-| `core`  | `packages/core/CONTEXT.md` | `packages/core/docs/adr/` |
 
-When work spans multiple contexts, read each relevant `CONTEXT.md` and check both `docs/adr/` and the context-scoped ADR directories.
+When work spans multiple concerns, read `CONTEXT.md` and check both `docs/adr/` and the context-scoped ADR directory.
 
 ## Use the glossary's vocabulary
 
