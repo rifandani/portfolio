@@ -33,10 +33,7 @@ docker build -f docker/web.Dockerfile -t portfolio-web \
   --build-arg BUILD_ID="$(git rev-parse HEAD)" \
   .
 
-docker run --rm -p 3000:3000 \
-  -e DATABASE_URL="postgres://…" \
-  -e BETTER_AUTH_SECRET="…" \
-  portfolio-web
+docker run --rm -p 3000:3000 portfolio-web
 ```
 
 Or without Docker, from `apps/web`:
@@ -51,12 +48,12 @@ This split is not cosmetic — getting it wrong bakes secrets into an image:
 
 - **`NEXT_PUBLIC_*` are inlined into the client bundle at build time.** They are
   Docker **build args**. Changing one requires a rebuild, not a restart.
-- **Server-only vars (`DATABASE_URL`, `BETTER_AUTH_SECRET`) are runtime.** They
-  are injected with `-e` / secrets at container start and never copied into the
-  image (`.dockerignore` excludes every `.env*`).
+- **Server-only vars** (if added later) are runtime. Inject them with `-e` /
+  secrets at container start; never copy them into the image (`.dockerignore`
+  excludes every `.env*`).
 - The image therefore builds with `SKIP_ENV_VALIDATION=1`
-  (see [`env.ts`](../src/core/constants/env.ts)) because the server schema
-  cannot be satisfied at build time. Validation still runs at server boot.
+  (see [`env.ts`](../src/core/constants/env.ts)) so missing build-time env does
+  not fail the image build. Validation still runs at server boot when env is set.
 
 Reading a server env var at **runtime** (rather than having it inlined at build)
 requires dynamic rendering — `await connection()`, `cookies()`, or `headers()`

@@ -1,7 +1,8 @@
-/* oxlint-disable node/callback-return promise/prefer-await-to-callbacks */
-import { useLatest } from "@/core/hooks/use-latest";
 import { isNumber } from "radashi";
 import { useEffect, useRef } from "react";
+
+/* oxlint-disable node/callback-return promise/prefer-await-to-callbacks */
+import { useLatest } from "@/core/hooks/use-latest";
 
 interface FrameHandle {
   kind: "frame";

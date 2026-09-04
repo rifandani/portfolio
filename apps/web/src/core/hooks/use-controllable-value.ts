@@ -1,9 +1,10 @@
-/* oxlint-disable react/react-compiler react-doctor/react-compiler-no-manual-memoization eslint/func-style */
-import { useMemoizedFn } from "@/core/hooks/use-memoized-fn";
-import { useUpdate } from "@/core/hooks/use-update";
 import { isFunction } from "radashi";
 import type { SetStateAction } from "react";
 import { useMemo, useRef } from "react";
+
+/* oxlint-disable react/react-compiler react-doctor/react-compiler-no-manual-memoization eslint/func-style */
+import { useMemoizedFn } from "@/core/hooks/use-memoized-fn";
+import { useUpdate } from "@/core/hooks/use-update";
 
 interface Options<T> {
   defaultValue?: T;

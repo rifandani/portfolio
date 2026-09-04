@@ -2,19 +2,12 @@
 import { expect } from "@playwright/test";
 import { test as base } from "next/experimental/testmode/playwright.js";
 
-import { validUser } from "./_helper";
-
 interface NetworkError {
   url: string;
   method: string;
   status: number;
 }
 export interface TestOptions {
-  user: {
-    username: string;
-    email: string;
-    password: string;
-  };
   /** When true, GET document responses with 404 are not treated as network failures (e.g. not-found page tests). */
   allowExpected404: boolean;
 }
@@ -67,12 +60,6 @@ export const test = base.extend<TestOptions>({
       );
     }
   },
-  user: [
-    validUser,
-    {
-      option: true,
-    },
-  ],
 });
 export { expect } from "@playwright/test";
 export type { Page } from "@playwright/test";

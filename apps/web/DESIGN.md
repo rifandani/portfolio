@@ -238,7 +238,7 @@ Cards use a 24px internal gutter. Fields stack label → control at 8px, control
 
 Density is compact-from-`sm`: buttons, inputs, and nav items lose 4–8px of height above the mobile floor, then keep a 44px invisible hit area via `touch-target` on square icon controls.
 
-Login/register split 50/50 from `md`: form column `px-10` (`xl:px-20`), decorative column `shadow-2xl` with the Next.js mark. That split is a sample auth layout, not a global grid. Authenticated home is a centered `container` stack (`gap-2`, `py-24`) — thin on purpose.
+Home is a centered `container` stack (`gap-2`, `py-24`) — thin on purpose.
 
 Breakpoints (Tailwind defaults): `sm` 640px, `md` 768px, `lg` 1024px, `xl` 1280px, `2xl` 1536px.
 

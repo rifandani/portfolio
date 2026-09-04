@@ -1,5 +1,6 @@
-import { useMemoizedFn } from "@/core/hooks/use-memoized-fn";
 import { useState } from "react";
+
+import { useMemoizedFn } from "@/core/hooks/use-memoized-fn";
 
 /**
  * This hook is used for Checkbox group, supports multiple selection, single selection, select-all, select-none and semi-selected etc.

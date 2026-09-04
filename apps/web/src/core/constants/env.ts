@@ -6,10 +6,7 @@ import { z } from "zod";
 const portlessUrl = process.env.PORTLESS_URL || undefined;
 
 export const ENV = createEnv({
-  server: {
-    BETTER_AUTH_SECRET: z.string().min(1),
-    DATABASE_URL: z.string().min(1),
-  },
+  server: {},
   client: {
     NEXT_PUBLIC_API_BASE_URL: z.url(),
     NEXT_PUBLIC_APP_TITLE: z.string().min(1),
@@ -37,9 +34,8 @@ export const ENV = createEnv({
     NEXT_PUBLIC_OTEL_LOG_LEVEL: process.env.NEXT_PUBLIC_OTEL_LOG_LEVEL,
   },
   /**
-   * Container images build without runtime secrets (DATABASE_URL etc. are
-   * injected when the container starts, not baked in). Validation still runs
-   * on the server at boot and in every normal build.
+   * Container images may build before all env is present. Validation still
+   * runs on the server at boot and in every normal build.
    */
   skipValidation: process.env.SKIP_ENV_VALIDATION === "1",
   // extends: [vercel()],

@@ -1,5 +1,6 @@
-import { invariant as invariantImpl } from "@/core/utils/invariant";
 import { describe, expect, it, vi } from "vitest";
+
+import { invariant as invariantImpl } from "@/core/utils/invariant";
 
 // TS2775: a statement-level call to an `asserts condition` function requires its
 // target to carry an explicit type annotation, which an import binding cannot.

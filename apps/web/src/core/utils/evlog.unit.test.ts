@@ -16,8 +16,6 @@ const mocks = vi.hoisted(() => {
   const drain = { flush };
   const createError = vi.fn();
   const log = { error: vi.fn(), info: vi.fn() };
-  const identify = vi.fn();
-  const createAuthMiddleware = vi.fn(() => identify);
   // Typed on the one field the enrichment test reads back, so the recorded call
   // needs no cast.
   const createEvlog = vi.fn((_config: EvlogConfig) => ({
@@ -35,8 +33,6 @@ const mocks = vi.hoisted(() => {
     drain,
     createError,
     log,
-    identify,
-    createAuthMiddleware,
     createEvlog,
     createOTLPDrain: vi.fn(() => drain),
     createInstrumentation: vi.fn(() => ({
@@ -60,10 +56,6 @@ vi.mock("@/core/constants/env", () => ({
 
 vi.mock("@/core/constants/global", () => ({
   SERVICE_NAME: "web-test",
-}));
-
-vi.mock("@/auth/utils/auth", () => ({
-  auth: { id: "auth-instance" },
 }));
 
 vi.mock("@/core/utils/telemetry-register", () => ({
@@ -91,10 +83,6 @@ vi.mock("evlog/next", () => ({
   createEvlog: mocks.createEvlog,
 }));
 
-vi.mock("evlog/better-auth", () => ({
-  createAuthMiddleware: mocks.createAuthMiddleware,
-}));
-
 vi.mock("evlog/next/instrumentation/create", () => ({
   createInstrumentation: mocks.createInstrumentation,
 }));
@@ -117,9 +105,6 @@ describe("evlog wiring", () => {
         sampling: {
           keep: [{ status: 400 }, { duration: 1000 }],
           rates: { info: 10 },
-        },
-        routes: {
-          "/api/auth/**": { service: "auth-service" },
         },
       })
     );
@@ -160,19 +145,6 @@ describe("evlog wiring", () => {
     expect(mocks.traceContextEnricher).toHaveBeenCalledWith(ctx);
     expect(ctx.event.deploymentId).toBe("dpl_1");
     expect(ctx.event.region).toBe("sfo1");
-  });
-
-  it("wires identify via createAuthMiddleware", async () => {
-    const sut = await loadSut();
-
-    expect(mocks.createAuthMiddleware).toHaveBeenCalledWith(
-      { id: "auth-instance" },
-      expect.objectContaining({
-        exclude: ["/api/auth/**", "/api/public/**", "/api/health"],
-        include: ["/api/**"],
-      })
-    );
-    expect(sut.identify).toBe(mocks.identify);
   });
 
   it("flushEvlog delegates to drain.flush", async () => {

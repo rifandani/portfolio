@@ -1,6 +1,4 @@
 import type { DrainContext } from "evlog";
-import type { BetterAuthInstance } from "evlog/better-auth";
-import { createAuthMiddleware } from "evlog/better-auth";
 import {
   createRequestSizeEnricher,
   createTraceContextEnricher,
@@ -11,7 +9,6 @@ import { createInstrumentation } from "evlog/next/instrumentation/create";
 import { createOTLPDrain } from "evlog/otlp";
 import { createDrainPipeline } from "evlog/pipeline";
 
-import { auth } from "@/auth/utils/auth";
 import { ENV } from "@/core/constants/env";
 import { SERVICE_NAME } from "@/core/constants/global";
 import { registerOtelTracerAndMeter } from "@/core/utils/telemetry-register";
@@ -42,16 +39,7 @@ export const { withEvlog, useLogger, createError, log } = createEvlog({
     ],
     rates: { info: 10 },
   },
-  // 5. Route-based service names
-  routes: {
-    "/api/auth/**": { service: "auth-service" },
-  },
-  // 6. Custom tail sampling - business logic
-  // keep: (ctx) => {
-  //   const user = ctx.context.user as { premium?: boolean } | undefined
-  //   if (user?.premium) ctx.shouldKeep = true
-  // },
-  // 7. Enrich every event with user agent, request size, and deployment info
+  // 5. Enrich every event with user agent, request size, and deployment info
   enrich: (ctx) => {
     for (const enricher of enrichers) {
       enricher(ctx);
@@ -61,22 +49,6 @@ export const { withEvlog, useLogger, createError, log } = createEvlog({
   },
   drain,
 });
-// ------------------------------------------------------------
-// Better Auth Middleware
-// ------------------------------------------------------------
-export const identify = createAuthMiddleware(
-  // SAFETY: `auth` is a Better Auth instance; the evlog middleware types it
-  // against its own vendored copy of that interface.
-  auth as BetterAuthInstance,
-  {
-    exclude: ["/api/auth/**", "/api/public/**", "/api/health"],
-    include: ["/api/**"],
-    // extend: (session) => ({
-    //   organization: session.user.activeOrganization,
-    //   role: session.user.role,
-    // }),
-  }
-);
 // ------------------------------------------------------------
 // Instrumentation
 // ------------------------------------------------------------

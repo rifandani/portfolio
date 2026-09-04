@@ -31,7 +31,6 @@ export const registerOtelTracerAndMeter = async () => {
     { PeriodicExportingMetricReader },
     { BatchSpanProcessor },
     { registerOTel },
-    { PgInstrumentation },
   ] = await Promise.all([
     import("@opentelemetry/exporter-metrics-otlp-http"),
     import("@opentelemetry/exporter-trace-otlp-http"),
@@ -39,7 +38,6 @@ export const registerOtelTracerAndMeter = async () => {
     import("@opentelemetry/sdk-metrics"),
     import("@opentelemetry/sdk-trace-base"),
     import("@vercel/otel"),
-    import("@opentelemetry/instrumentation-pg"),
   ]);
   bridgeOtelEnv();
   registerOTel({
@@ -64,11 +62,6 @@ export const registerOtelTracerAndMeter = async () => {
     // dns/fs/net/runtime-node/undici instrumentations are intentionally omitted: too verbose.
     // http instrumentation is omitted too — incoming requests are already traced by Next.js,
     // and enabling both causes "ended Span" / "end() once" errors on the same request.
-    instrumentations: [
-      new PgInstrumentation({
-        addSqlCommenterCommentToQueries: true,
-        enhancedDatabaseReporting: true,
-      }),
-    ],
+    instrumentations: [],
   });
 };

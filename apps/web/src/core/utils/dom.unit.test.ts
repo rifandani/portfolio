@@ -1,3 +1,5 @@
+import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
+
 import {
   createSearchParams,
   createSearchParamsWithComma,
@@ -12,7 +14,6 @@ import {
   saveFile,
   toCdnFile,
 } from "@/core/utils/dom";
-import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 
 describe("isBrowser", () => {
   it("is false when window is undefined", () => {

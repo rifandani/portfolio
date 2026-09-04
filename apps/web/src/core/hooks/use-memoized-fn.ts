@@ -15,7 +15,7 @@ type AnyFunction = (...args: any[]) => any;
  * Using `useMemoizedFn`, you can omit the second parameter deps,
  * and ensure that the function reference never change.
  */
-export const useMemoizedFn = <T extends AnyFunction>(fn: T) => {
+const useMemoizedFn = <T extends AnyFunction>(fn: T) => {
   const fnRef = useRef<T>(fn);
   // why not write `fnRef.current = fn`?
   // https://github.com/alibaba/hooks/issues/728

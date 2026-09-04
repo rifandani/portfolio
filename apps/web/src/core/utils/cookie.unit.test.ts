@@ -1,5 +1,6 @@
-import { parseSetCookieHeader } from "@/core/utils/cookie";
 import { describe, expect, it } from "vitest";
+
+import { parseSetCookieHeader } from "@/core/utils/cookie";
 
 describe("parseSetCookieHeader", () => {
   it("parses name, value, and common attributes", () => {

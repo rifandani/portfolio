@@ -12,7 +12,7 @@ The three unit tests covering the API layer faked HTTP by replacing imports (`vi
 
 ## Scope
 
-MSW applies to exactly three files — `apps/web/src/core/apis/{auth,better-auth,cdn}.unit.test.ts`. That is the complete set: no other test in the suite touches the network.
+MSW applies to exactly one file — `apps/web/src/core/apis/cdn.unit.test.ts`. That is the complete set: no other test in the suite touches the network. (Earlier revisions also covered `auth` / `better-auth` API modules; those modules were removed with the portfolio’s public-site cut.)
 
 ## Considered Options
 
@@ -46,5 +46,5 @@ Interceptor install costs ~140ms per *file*, so the bill scales with files touch
 
 - **`auth.ts`'s `afterResponse` hook was deleted.** It set `Authorization` on `request.headers` *after* the response returned, only on status 200 — and ky (verified in `2.0.2`, `distribution/core/Ky.js:623`) passes `response.clone()` and never retries a 200, so nothing read the mutated request. It was a no-op. The old test could only "pass" by pulling the hook out of `post.mock.calls[0]` and invoking it by hand; two of four tests existed to do that, asserting the body *ran* rather than that it *did* anything. Under MSW the effect is unobservable, which is how the dead code surfaced. Coverage branches went 99.51% → **100%** as a result; the whole suite is now 100/100/100/100 against the `perFile: 90` floor.
 - **`@test/msw` is aliased twice per project** — in `vitest.config.ts` (`resolve.alias`) and `tsconfig.json` (`paths`) — for `core` only. Not added to web, which would be dead config.
-- **ky retries GET twice by default** on 408/413/429/500/502/503/504, so the cdn 500 case passes `retry: 0` to avoid ~0.9s of backoff. POST is not retried by default, so the auth/better-auth 500 cases need nothing.
+- **ky retries GET twice by default** on 408/413/429/500/502/503/504, so the cdn 500 case passes `retry: 0` to avoid ~0.9s of backoff. POST is not retried by default.
 - **fallow:** `vitest.msw-setup.ts` needs `unused-files: "off"` in `.fallowrc.json`, since `setupFiles` loads it by path and no import edge reaches it. Separately, `fallow dead-code` reports `msw` under "dev dependencies used in production" because it counts `*.unit.test.ts` under `src/` as production; every `msw` import site is a test file or `vitest.msw.ts`, it must stay a devDependency, and the finding is not suppressible via rule severity (the same limitation already noted for `fallow security`). Both `check:dead-code` and `check:audit` exit 0, so it is informational.

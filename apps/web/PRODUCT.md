@@ -8,61 +8,58 @@ web
 
 ## Users
 
-Frontend and full-stack engineers who need a production-ready Next.js App Router baseline. Situation: starting or re-scaffolding a fullstack web app and wanting battle-tested auth, data, and ops patterns instead of a blank `create-next-app` shell. Job: fork/clone this template and ship a real Next.js app faster with fewer foundational mistakes.
+Visitors who want to see Tri Rizeki Rifandani’s work. Situation: evaluating a developer’s projects and writing from a public site. Job: browse portfolio content without an account.
 
 ## Product Purpose
 
-`@workspace/web` is a bulletproof Next.js 16 template. It exists so engineers can bootstrap an accessible, observable, SEO-aware PWA with Better Auth, Drizzle persistence, and a reusable React Aria UI kit already wired. Success means a developer can adopt the app as a starting point and trust the foundations (RSC/App Router, auth, DB, SEO, a11y components, tests, observability) without rebuilding them.
+`@workspace/web` is a personal portfolio site on Next.js 16. It exists so visitors can view projects, writing, and contact paths in an accessible, SEO-aware PWA. Success means a clear public site with solid foundations (RSC/App Router, SEO, a11y components, tests, observability).
 
 ## Positioning
 
-Not a blank Next starter and not an end-user product. The differentiator is the co-equal bar of **accessibility (React Aria)** and **fullstack production scaffolding** (Better Auth, Drizzle, PWA, SEO, observability, Playwright/unit tests). Neighboring templates can list a stack; they cannot truthfully claim this combination as the reason to exist without shipping the same teaching surfaces.
+A personal portfolio, not a blank Next starter and not a SaaS product. The differentiator is accessible UI (React Aria) plus production scaffolding (PWA, SEO, observability, Playwright/unit tests) without auth.
 
 ## Operating Context
 
 - Monorepo app under `apps/web`.
-- Local dev via Next (`bun web` / `bun dev` with portless); Drizzle migrate/seed; Playwright e2e (local DB; CI e2e limited by auth mocking) and Vitest unit tests.
-- Sample product surface: register → login → authenticated home; demo user from seed (`vaandani@email.com`).
-- Engineers evaluate and learn by reading auth/DB wiring, SEO/observability/database docs, and ops hooks—not by completing an end-user business workflow.
-- Auth OpenAPI reference available at the app’s `/api/auth/reference` in local/dev.
+- Local dev via Next (`bun web` / `bun dev` with portless); Playwright e2e and Vitest unit tests.
+- Public home page; no login or register.
+- Engineers maintain foundations via docs and ops hooks—not end-user auth workflows.
 
 ## Capabilities and Constraints
 
 Confirmed:
 
-- Fullstack Next.js 16 App Router (RSC, route handlers, server-oriented auth).
-- Better Auth + Drizzle schema/migrations/seed; sample login and register.
+- Fullstack Next.js 16 App Router (RSC, route handlers).
+- Static portfolio content (no app database).
 - UI built on React Aria Components / Intent UI patterns.
 - PWA assets, SEO (metadata, OG, sitemap, robots), OpenTelemetry/observability hooks.
-- MIT license; package identity `@workspace/web` / description “Bulletproof Next.js 16 Template”; author Tri Rizeki Rifandani.
+- MIT license; package identity `@workspace/web`; author Tri Rizeki Rifandani.
 
 Undecided / open:
 
-- No named commercial product, pricing, or customer segment beyond “engineers adopting the template.”
+- Exact portfolio content sections (projects, writing, contact) and visual direction beyond the current home shell.
 - No formal WCAG level (A/AA/AAA) committed; a11y is a hard practice constraint via React Aria, not a certified claim.
-- Whether the template will stay demo-thin or grow a real domain product remains open; until then treat end-user copy and workflows as sample scaffolding.
-- Root README notes a possible future move of `web` into a separate fullstack monorepo—undecided; do not design as if that split already happened.
+- Root README notes a possible future move of `web` into a separate monorepo—undecided.
 
 ## Brand Commitments
 
-- Name/identity: `@workspace/web`, “Bulletproof Next.js 16 Template.”
+- Name/identity: `@workspace/web`, personal portfolio for Tri Rizeki Rifandani.
 - Author: Tri Rizeki Rifandani.
-- No separate marketing brand system, logo lockup, or voice guide beyond this template framing.
+- No separate marketing brand system beyond this framing.
 
 ## Evidence on Hand
 
-- Runnable app: register, login, home; seeded demo user documented in README.
-- Docs: `docs/database.md`, `docs/observability.md`, `docs/seo.md`, app `CLAUDE.md` / `README.md`.
-- Tests and scripts (Playwright, Vitest, drizzle, auth:gen).
-- No real customer testimonials, case studies, benchmarks, or press—future work must not fabricate them.
+- Runnable public home; theme and language toggles.
+- Docs: `docs/observability.md`, `docs/seo.md`, `docs/self-hosting.md`, app `CLAUDE.md` / `README.md`.
+- Tests and scripts (Playwright, Vitest).
+- No customer testimonials, case studies, or benchmarks—do not invent them.
 
 ## Product Principles
 
-1. **Bootstrap, don’t pretend** — demo screens stay thin; foundations teach and transfer.
+1. **Public by default** — no account wall; content is for visitors.
 2. **Accessible by default** — React Aria patterns are non-regressible product truth.
-3. **Ship-ready fullstack scaffolding** — auth, DB, PWA, SEO, observability, and tests stay first-class and visible.
-4. **Server truth is part of the product** — App Router / Better Auth / Drizzle wiring is teaching surface, not incidental plumbing.
-5. **Honest claims** — no invented customers, metrics, or WCAG certification.
+3. **Ship-ready foundations** — PWA, SEO, observability, and tests stay first-class.
+4. **Honest claims** — no invented customers, metrics, or WCAG certification.
 
 ## Accessibility & Inclusion
 

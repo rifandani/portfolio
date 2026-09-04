@@ -1,7 +1,8 @@
-import { useMemoizedFn } from "@/core/hooks/use-memoized-fn";
-import { useUpdateEffect } from "@/core/hooks/use-update-effect";
 import { isFunction } from "radashi";
 import { useState } from "react";
+
+import { useMemoizedFn } from "@/core/hooks/use-memoized-fn";
+import { useUpdateEffect } from "@/core/hooks/use-update-effect";
 
 export type SetState<S> = S | ((prevState?: S) => S);
 export interface Options<T> {
@@ -75,9 +76,7 @@ const readStoredValue = <T>(
  * @param getStorage Function that returns the storage object to use (localStorage or sessionStorage)
  * @returns A hook that manages state with the specified storage
  */
-export const createUseStorageState = (
-  getStorage: () => Storage | undefined
-) => {
+const createUseStorageState = (getStorage: () => Storage | undefined) => {
   /**
    * Custom hook for managing state that persists in browser storage
    * @param key Storage key to store/retrieve the value

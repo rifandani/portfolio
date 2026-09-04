@@ -16,8 +16,8 @@ describe("collectPageRoutes", () => {
   it("collects pages and skips private, group, and api dirs", () => {
     tmp = fs.mkdtempSync(path.join(os.tmpdir(), "sitemap-"));
     fs.writeFileSync(path.join(tmp, "page.tsx"), "");
-    fs.mkdirSync(path.join(tmp, "login"));
-    fs.writeFileSync(path.join(tmp, "login", "page.tsx"), "");
+    fs.mkdirSync(path.join(tmp, "about"));
+    fs.writeFileSync(path.join(tmp, "about", "page.tsx"), "");
     fs.mkdirSync(path.join(tmp, "_private"));
     fs.writeFileSync(path.join(tmp, "_private", "page.tsx"), "");
     fs.mkdirSync(path.join(tmp, "(group)"));
@@ -25,7 +25,7 @@ describe("collectPageRoutes", () => {
     fs.mkdirSync(path.join(tmp, "api"));
     fs.writeFileSync(path.join(tmp, "api", "page.tsx"), "");
 
-    expect(collectPageRoutes(tmp).toSorted()).toEqual(["/", "/login"]);
+    expect(collectPageRoutes(tmp).toSorted()).toEqual(["/", "/about"]);
   });
 
   it("keeps nested routes under a directory that has no page of its own", () => {
@@ -58,9 +58,9 @@ describe("sitemap", () => {
     // SAFETY: `readdirSync` is heavily overloaded; the cast selects the string-path
     // overload this test drives.
     vi.spyOn(fs, "readdirSync").mockImplementation(((dir: string) =>
-      dir.endsWith("login")
+      dir.endsWith("about")
         ? [dirent("page.tsx")]
-        : [dirent("page.tsx"), dirent("login", true)]) as never);
+        : [dirent("page.tsx"), dirent("about", true)]) as never);
 
     expect(sitemap()).toEqual([
       {
@@ -69,7 +69,7 @@ describe("sitemap", () => {
       },
       {
         lastModified: expect.any(Date),
-        url: "https://web.portfolio.localhost/login",
+        url: "https://web.portfolio.localhost/about",
       },
     ]);
   });

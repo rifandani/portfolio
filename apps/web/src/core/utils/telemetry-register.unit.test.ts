@@ -20,7 +20,6 @@ const OTLPMetricExporter = vi.hoisted(() => vi.fn());
 const OTLPTraceExporter = vi.hoisted(() => vi.fn());
 const PeriodicExportingMetricReader = vi.hoisted(() => vi.fn());
 const BatchSpanProcessor = vi.hoisted(() => vi.fn());
-const PgInstrumentation = vi.hoisted(() => vi.fn());
 
 vi.mock("@vercel/otel", () => ({ registerOTel }));
 vi.mock("@opentelemetry/exporter-metrics-otlp-http", () => ({
@@ -33,7 +32,6 @@ vi.mock("@opentelemetry/sdk-metrics", () => ({
   PeriodicExportingMetricReader,
 }));
 vi.mock("@opentelemetry/sdk-trace-base", () => ({ BatchSpanProcessor }));
-vi.mock("@opentelemetry/instrumentation-pg", () => ({ PgInstrumentation }));
 vi.mock("@opentelemetry/resources", () => ({
   envDetector: "env",
   hostDetector: "host",
@@ -60,14 +58,11 @@ describe("registerOtelTracerAndMeter", () => {
     expect(BatchSpanProcessor).toHaveBeenCalled();
     expect(OTLPMetricExporter).toHaveBeenCalled();
     expect(PeriodicExportingMetricReader).toHaveBeenCalled();
-    expect(PgInstrumentation).toHaveBeenCalledWith({
-      addSqlCommenterCommentToQueries: true,
-      enhancedDatabaseReporting: true,
-    });
     expect(registerOTel).toHaveBeenCalledWith(
       expect.objectContaining({
         serviceName: "web-test",
         propagators: ["tracecontext", "baggage"],
+        instrumentations: [],
         resourceDetectors: ["env", "host", "os", "serviceInstance", "process"],
       })
     );

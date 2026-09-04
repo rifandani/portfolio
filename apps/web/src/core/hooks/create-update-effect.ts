@@ -17,7 +17,7 @@ type EffectHookType = typeof useEffect | typeof useLayoutEffect;
  * const useUpdateLayoutEffect = createUpdateEffect(useLayoutEffect)
  * ```
  */
-export const createUpdateEffect: (hook: EffectHookType) => EffectHookType =
+const createUpdateEffect: (hook: EffectHookType) => EffectHookType =
   (hook) => (effect, deps) => {
     // Track whether component has mounted
     const isMountedRef = useRef(false);

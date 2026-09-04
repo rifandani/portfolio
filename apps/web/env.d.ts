@@ -32,12 +32,6 @@ declare namespace NodeJS {
     /** Set to "true" by playwright's webServer to keep devtools out of E2E runs */
     readonly NEXT_PUBLIC_E2E?: "true" | "false";
 
-    /**
-     * Server environment variables
-     */
-    readonly DATABASE_URL: string;
-    readonly BETTER_AUTH_SECRET: string;
-
     /** Injected by portless; also exposed via next.config `env` for the client */
     readonly PORTLESS_URL?: string;
   }

@@ -1,11 +1,8 @@
 import { server } from "@test/msw";
-import {
-  cdnKeys,
-  cdnRepositories,
-  cdnValidKeys,
-} from "@/core/apis/cdn";
 import { http, HttpResponse } from "msw";
 import { describe, expect, it } from "vitest";
+
+import { cdnKeys, cdnRepositories, cdnValidKeys } from "@/core/apis/cdn";
 
 const fileUrl = "https://cdn.example.com/a.png";
 

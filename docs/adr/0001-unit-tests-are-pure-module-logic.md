@@ -34,7 +34,7 @@ To skip unreachable defensive code instead of testing it, use `/* v8 ignore next
 
 Mutation testing is what surfaced it — that file scored 9.09%, the worst in the repo, with survivors like `z.number().min(1)` → `.min(100)` ([ADR-0003](./0003-mutation-testing-is-advisory.md)). The fix is to stop measuring what we deliberately do not test, not to start testing it: measuring it inflates the very number the 90% floor is meant to defend.
 
-Scope is narrow and structural: **modules that contain only schema declarations**. Files that mix schemas with functions — `apis/{auth,better-auth,cdn}.ts`, whose `authKeys`/`authRepositories` are MSW-tested per [ADR-0002](./0002-network-boundary-mocking-with-msw.md) — stay in. Their Zod-constraint mutants survive and are accepted noise, recorded as such in ADR-0003.
+Scope is narrow and structural: **modules that contain only schema declarations**. Files that mix schemas with functions — e.g. `apis/cdn.ts`, whose repository helpers are MSW-tested per [ADR-0002](./0002-network-boundary-mocking-with-msw.md) — stay in. Their Zod-constraint mutants survive and are accepted noise, recorded as such in ADR-0003. (The former `apis/{auth,better-auth}.ts` mixed modules were removed with the public portfolio cut.)
 
 `coverage` is root-only (Vitest's `NonProjectOptions`), so `--project <name> --coverage` measures the global include list against a partial run and reports the other projects at 0%. There is deliberately no `web:test:unit:cov`-style script despite the symmetry with the per-project ones: coverage is whole-suite only, via `bun test:unit:cov`.
 

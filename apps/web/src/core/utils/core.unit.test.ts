@@ -1,3 +1,5 @@
+import { describe, expect, it } from "vitest";
+
 import {
   clamp,
   deepReadObject,
@@ -9,7 +11,6 @@ import {
   toCamelCase,
   toSnakeCase,
 } from "@/core/utils/core";
-import { describe, expect, it } from "vitest";
 
 describe("clamp", () => {
   it("clamps above max", () => {

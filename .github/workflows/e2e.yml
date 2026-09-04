@@ -30,14 +30,14 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
-  # Placeholder until web e2e can mock Better Auth on the server side.
+  # Placeholder until web e2e is re-enabled in CI (auth removed; public site needs no session mock).
   pending:
     runs-on: ubuntu-latest
     steps:
       - name: No active e2e suite
-        run: echo "web e2e stays disabled until auth mocking lands (see commented job below)"
+        run: echo "web e2e stays disabled in CI for now (see commented job below)"
 
-  # TODO: uncomment this when we are able to mock the auth api (better-auth) on the server-side
+  # TODO: uncomment when CI e2e (DB / webServer) is wired for the public portfolio
   # dev-web-e2e:
   #   timeout-minutes: 30
   #   runs-on: ubuntu-latest

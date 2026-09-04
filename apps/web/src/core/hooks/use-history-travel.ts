@@ -1,7 +1,8 @@
-import { useMemoizedFn } from "@/core/hooks/use-memoized-fn";
 import { isNumber } from "radashi";
 import { useRef, useState } from "react";
 import type { Dispatch, SetStateAction } from "react";
+
+import { useMemoizedFn } from "@/core/hooks/use-memoized-fn";
 /**
  * Interface representing the history data structure
  * @template T Type of the value being tracked

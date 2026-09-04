@@ -52,18 +52,14 @@ export default defineConfig({
         // scored 100% statements/branches/lines with no test file in existence.
         // Mutation testing is what exposed it (9.09%, ADR-0003). Excluded so the
         // coverage figure means something. Modules that mix schemas with repositories
-        // (`auth.ts`, `better-auth.ts`, `cdn.ts`) stay in — their functions are tested.
+        // (`cdn.ts`) stay in — their functions are tested.
         "apps/web/src/core/apis/core.ts",
         "apps/web/src/core/services/http-client.ts",
-        "apps/web/src/auth/utils/auth.ts",
-        "apps/web/src/auth/utils/auth.client.ts",
         "apps/web/src/app/**/route.ts",
         "apps/web/src/app/manifest.ts",
-        "apps/web/src/app/api/rate-limit.ts",
         "apps/web/src/core/utils/i18n.ts",
         // Logic Seam shells — logic lives in tested siblings (ADR-0001).
         "apps/web/src/core/utils/evlog.ts",
-        "apps/web/src/auth/actions/auth.ts",
         "apps/web/src/proxy.ts",
       ],
     },

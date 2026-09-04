@@ -1,12 +1,5 @@
 import { defineConfig, devices } from "@playwright/test";
-// make sure to sync this with `e2e/_base.ts`
-interface TestOptions {
-  user: {
-    username: string;
-    email: string;
-    password: string;
-  };
-}
+
 /**
  * http://localhost:3002
  * http://127.0.0.1:3002
@@ -16,7 +9,7 @@ const baseURL = `http://localhost:${port}`;
 /**
  * See https://playwright.dev/docs/test-configuration.
  */
-export default defineConfig<TestOptions>({
+export default defineConfig({
   testDir: "./e2e",
   /* Run tests in files in parallel */
   fullyParallel: true,
@@ -41,35 +34,22 @@ export default defineConfig<TestOptions>({
     contextOptions: {
       reducedMotion: "reduce",
     },
-    /* Populates context with given storage state */
-    // storageState: 'playwright/.auth/user.json',
   },
   /* Capture git info in trace viewer and report */
   captureGitInfo: { commit: true, diff: true },
   /* Configure projects for major browsers */
   projects: [
-    // Setup project
-    { name: "setup", testMatch: /.*\.setup\.ts/u },
     {
-      dependencies: ["setup"],
       name: "chromium",
       use: {
         ...devices["Desktop Chrome"],
-        storageState: "playwright/.auth/user.json",
-        // we can adjust user per project here, this will override the user in the base config
-        // user: {
-        //   username: 'emilysnew',
-        //   password: 'emilyspassnew',
-        // },
       },
     },
     // when we add more projects, make sure we also change `test:install` script
     // {
     //   name: 'firefox',
-    //   dependencies: ['setup'],
     //   use: {
     //     ...devices['Desktop Firefox'],
-    //     storageState: 'playwright/.auth/user.json',
     //   },
     // },
   ],

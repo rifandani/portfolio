@@ -55,9 +55,7 @@ describe("ingest", () => {
 
   it("isAllowedOrigin accepts matching hosts", () => {
     const req = mockRequest({ host: "web.portfolio.localhost" });
-    expect(isAllowedOrigin(req, "https://web.portfolio.localhost")).toBe(
-      true
-    );
+    expect(isAllowedOrigin(req, "https://web.portfolio.localhost")).toBe(true);
   });
 
   it("isAllowedOrigin allows *.localhost proxies in development only", () => {

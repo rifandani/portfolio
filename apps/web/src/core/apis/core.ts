@@ -3,7 +3,7 @@ import { z } from "zod";
 export const errorResponseSchema = z.object({
   message: z.string(),
 });
-export const resourceListRequestSchema = z.object({
+const resourceListRequestSchema = z.object({
   delay: z.number().optional().describe("artificial delay in ms."),
   limit: z
     .number()
@@ -22,7 +22,7 @@ export const resourceListRequestSchema = z.object({
     .optional()
     .describe("skip the first n items."),
 });
-export const resourceListResponseSchema = z.object({
+const resourceListResponseSchema = z.object({
   limit: z.number(),
   skip: z.number(),
   total: z.number(),

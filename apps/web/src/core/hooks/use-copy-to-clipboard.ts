@@ -1,7 +1,8 @@
 "use client";
 
-import { canWriteToClipboard } from "@/core/utils/dom";
 import { useEffect, useRef, useState } from "react";
+
+import { canWriteToClipboard } from "@/core/utils/dom";
 
 export interface UseCopyToClipboardProps {
   timeout?: number;

@@ -1,5 +1,6 @@
-import { Http } from "@/core/services/http";
 import { describe, expect, it } from "vitest";
+
+import { Http } from "@/core/services/http";
 
 describe("Http", () => {
   it("creates a ky instance from config", () => {
