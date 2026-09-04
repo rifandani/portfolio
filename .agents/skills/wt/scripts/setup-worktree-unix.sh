@@ -1,12 +1,11 @@
 #!/usr/bin/env bash
-# Worktree bootstrap for SPA + web + portless (`/wt` skill).
+# Worktree bootstrap for web + portless (`/wt` skill).
 # Runs inside the new worktree. ROOT_WORKTREE_PATH = main checkout.
 set -euo pipefail
 
 ROOT="${ROOT_WORKTREE_PATH:?ROOT_WORKTREE_PATH is required}"
 
-# Matches portless.json / `bun spa` / `bun web` (`portless run --name *.fe-monorepo`).
-SPA_PORTLESS_NAME="spa.fe-monorepo"
+# Matches portless.json / `bun web` (`portless run --name *.fe-monorepo`).
 WEB_PORTLESS_NAME="web.fe-monorepo"
 
 echo "==> Installing workspace dependencies"
@@ -55,10 +54,9 @@ sync_app_envs() {
 }
 
 echo "==> Syncing app env files from main checkout"
-sync_app_envs apps/spa .env.dev .env.prod .env.local
 sync_app_envs apps/web .env.dev .env.prod .env.local
 
-echo "==> Checking portless (required for bun spa / bun web)"
+echo "==> Checking portless (required for bun web)"
 if ! command -v portless >/dev/null 2>&1; then
   echo "error: portless not on PATH. Install once on the machine:"
   echo "  npm install -g portless"
@@ -66,11 +64,7 @@ if ! command -v portless >/dev/null 2>&1; then
   exit 1
 fi
 
-# `portless run` prefixes linked worktrees: https://<branch>.spa.fe-monorepo.localhost
-spa_url="$(portless get "$SPA_PORTLESS_NAME" 2>/dev/null || true)"
-if [[ -z "$spa_url" ]]; then
-  spa_url="https://${SPA_PORTLESS_NAME}.localhost"
-fi
+# `portless run` prefixes linked worktrees: https://<branch>.web.fe-monorepo.localhost
 web_url="$(portless get "$WEB_PORTLESS_NAME" 2>/dev/null || true)"
 if [[ -z "$web_url" ]]; then
   web_url="https://${WEB_PORTLESS_NAME}.localhost"
@@ -78,7 +72,6 @@ fi
 
 echo ""
 echo "Worktree setup complete."
-echo "  SPA URL:  $spa_url"
 echo "  Web URL:  $web_url"
-echo "  Start:    bun spa   # or: bun web"
+echo "  Start:    bun web"
 echo ""

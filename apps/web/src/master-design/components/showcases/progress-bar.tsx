@@ -6,7 +6,6 @@ import {
   ProgressBarTrack,
   ProgressBarValue,
 } from "@/core/components/ui/progress-bar";
-
 import { Variant, VariantGrid } from "@/master-design/components/variant";
 
 export const ProgressBarShowcase = () => {

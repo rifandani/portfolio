@@ -4,7 +4,6 @@ import {
   ToggleGroup,
   ToggleGroupItem,
 } from "@/core/components/ui/toggle-group";
-
 import { Variant, VariantGrid } from "@/master-design/components/variant";
 
 export const ToggleGroupShowcase = () => {

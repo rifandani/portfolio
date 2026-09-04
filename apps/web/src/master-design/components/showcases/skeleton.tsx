@@ -1,5 +1,4 @@
 import { Skeleton } from "@/core/components/ui/skeleton";
-
 import { Variant, VariantGrid } from "@/master-design/components/variant";
 
 const Sample = () => (

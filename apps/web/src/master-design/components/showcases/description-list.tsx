@@ -5,7 +5,6 @@ import {
   DescriptionList,
   DescriptionTerm,
 } from "@/core/components/ui/description-list";
-
 import { Variant, VariantGrid } from "@/master-design/components/variant";
 
 export const DescriptionListShowcase = () => {

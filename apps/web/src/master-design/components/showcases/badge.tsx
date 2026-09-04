@@ -1,7 +1,6 @@
 import { useTranslations } from "next-intl";
 
 import { Badge } from "@/core/components/ui/badge";
-
 import { Variant, VariantGrid } from "@/master-design/components/variant";
 
 const intents = [

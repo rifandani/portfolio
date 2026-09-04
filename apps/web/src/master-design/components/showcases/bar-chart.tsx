@@ -1,12 +1,11 @@
 import { useTranslations } from "next-intl";
 
 import { BarChart } from "@/core/components/ui/bar-chart";
-
+import { Variant } from "@/master-design/components/variant";
 import {
   createRevenueConfig,
   createRevenueData,
 } from "@/master-design/constants/fixtures";
-import { Variant } from "@/master-design/components/variant";
 
 export const BarChartShowcase = () => {
   const t = useTranslations();

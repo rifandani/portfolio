@@ -6,7 +6,6 @@ import {
   MultipleSelectContent,
   MultipleSelectItem,
 } from "@/core/components/ui/multiple-select";
-
 import { Variant, VariantGrid } from "@/master-design/components/variant";
 
 export const MultipleSelectShowcase = () => {

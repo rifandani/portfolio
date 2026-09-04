@@ -7,7 +7,6 @@ import {
   SnippetTabPanels,
   SnippetTabsList,
 } from "@/core/components/ui/snippet";
-
 import { Variant, VariantGrid } from "@/master-design/components/variant";
 
 export const SnippetShowcase = () => {

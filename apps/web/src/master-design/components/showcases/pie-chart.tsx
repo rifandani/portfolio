@@ -1,9 +1,11 @@
 import { useTranslations } from "next-intl";
 
 import { PieChart } from "@/core/components/ui/pie-chart";
-
-import { createShareConfig, createShareData } from "@/master-design/constants/fixtures";
 import { Variant } from "@/master-design/components/variant";
+import {
+  createShareConfig,
+  createShareData,
+} from "@/master-design/constants/fixtures";
 
 export const PieChartShowcase = () => {
   const t = useTranslations();

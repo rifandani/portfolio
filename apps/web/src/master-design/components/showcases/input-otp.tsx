@@ -6,7 +6,6 @@ import {
   InputOTPLabel,
   InputOTPSlot,
 } from "@/core/components/ui/input-otp";
-
 import { Variant, VariantGrid } from "@/master-design/components/variant";
 
 export const InputOtpShowcase = () => {

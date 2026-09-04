@@ -2,7 +2,6 @@ import { useTranslations } from "next-intl";
 
 import { Label } from "@/core/components/ui/field";
 import { Tag, TagGroup, TagList } from "@/core/components/ui/tag-group";
-
 import { Variant, VariantGrid } from "@/master-design/components/variant";
 
 export const TagGroupShowcase = () => {

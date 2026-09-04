@@ -2,7 +2,6 @@ import { useTranslations } from "next-intl";
 
 import { Label } from "@/core/components/ui/field";
 import { Slider, SliderOutput, SliderTrack } from "@/core/components/ui/slider";
-
 import { Variant, VariantGrid } from "@/master-design/components/variant";
 
 export const SliderShowcase = () => {

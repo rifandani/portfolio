@@ -1,7 +1,6 @@
 import { useTranslations } from "next-intl";
 
 import { Loader } from "@/core/components/ui/loader";
-
 import { Variant, VariantGrid } from "@/master-design/components/variant";
 
 export const LoaderShowcase = () => {

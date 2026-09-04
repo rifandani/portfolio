@@ -5,7 +5,6 @@ import {
   PaginationNext,
   PaginationPrevious,
 } from "@/core/components/ui/pagination";
-
 import { Variant, VariantGrid } from "@/master-design/components/variant";
 
 export const PaginationShowcase = () => (

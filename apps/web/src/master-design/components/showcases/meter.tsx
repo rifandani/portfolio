@@ -6,7 +6,6 @@ import {
   MeterTrack,
   MeterValue,
 } from "@/core/components/ui/meter";
-
 import { Variant, VariantGrid } from "@/master-design/components/variant";
 
 export const MeterShowcase = () => {

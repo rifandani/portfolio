@@ -9,7 +9,6 @@ import {
   LeaderboardStart,
   LeaderboardTitle,
 } from "@/core/components/ui/leaderboard";
-
 import { Variant, VariantGrid } from "@/master-design/components/variant";
 
 export const LeaderboardShowcase = () => {

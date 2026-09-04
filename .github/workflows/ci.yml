@@ -90,7 +90,7 @@ jobs:
       - name: Lint and typecheck
         run: bun lint-typecheck
 
-  # Single gate for all three Vitest projects (core, spa, web)
+  # Single gate for both Vitest projects (core, web)
   unit:
     runs-on: ubuntu-latest
     steps:
@@ -127,37 +127,6 @@ jobs:
           name: unit-coverage-report
           path: coverage/vitest
           retention-days: 3
-
-  dev-spa-build:
-    runs-on: ubuntu-latest
-    environment: dev
-    steps:
-      - name: Checkout branch
-        uses: actions/checkout@v7
-
-      - name: Setup Node.js
-        uses: actions/setup-node@v7
-        with:
-          node-version-file: .node-version
-
-      - name: Install bun
-        uses: oven-sh/setup-bun@v2
-
-      - name: Install deps and disallow changes to lockfile
-        run: bun ci
-
-      - name: Prepare env file
-        env:
-          SPA_ENV_FILE: ${{ secrets.SPA_ENV_FILE }}
-        run: |
-          if [ -n "$SPA_ENV_FILE" ]; then
-            echo "$SPA_ENV_FILE" > apps/spa/.env.dev
-          else
-            cp apps/spa/.env.dev.example apps/spa/.env.dev
-          fi
-
-      - name: Build
-        run: bun spa build
 
   dev-web-build:
     runs-on: ubuntu-latest

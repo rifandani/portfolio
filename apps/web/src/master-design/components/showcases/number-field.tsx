@@ -2,7 +2,6 @@ import { useTranslations } from "next-intl";
 
 import { Label } from "@/core/components/ui/field";
 import { NumberField, NumberInput } from "@/core/components/ui/number-field";
-
 import { Variant, VariantGrid } from "@/master-design/components/variant";
 
 export const NumberFieldShowcase = () => {

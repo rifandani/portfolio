@@ -7,7 +7,6 @@ import {
   CarouselHandler,
   CarouselItem,
 } from "@/core/components/ui/carousel";
-
 import { Variant, VariantGrid } from "@/master-design/components/variant";
 
 export const CarouselShowcase = () => {

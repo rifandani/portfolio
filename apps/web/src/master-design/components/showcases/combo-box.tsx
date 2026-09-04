@@ -7,7 +7,6 @@ import {
   ComboBoxItem,
 } from "@/core/components/ui/combo-box";
 import { Label } from "@/core/components/ui/field";
-
 import { Variant, VariantGrid } from "@/master-design/components/variant";
 
 export const ComboBoxShowcase = () => {

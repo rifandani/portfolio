@@ -1,6 +1,6 @@
 # Shared Message Catalog; app-owned Translation Provider
 
-Expo drops i18next and uses `@workspace/core` `initI18n` with the same Message Catalog as spa. Catalogs and flat Translation Keys live in core; each app keeps its own React Translation Provider because locale discovery differs (browser vs Device Locale). Manual Locale changes are not overwritten by OS changes on resume.
+Apps use `@workspace/core` `initI18n` with a shared Message Catalog. Catalogs and flat Translation Keys live in core; each app keeps its own React Translation Provider because locale discovery differs. Manual Locale changes are not overwritten by OS changes on resume.
 
 ## Considered Options
 

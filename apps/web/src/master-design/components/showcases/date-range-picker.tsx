@@ -6,7 +6,6 @@ import {
   DateRangePickerTrigger,
 } from "@/core/components/ui/date-range-picker";
 import { Label } from "@/core/components/ui/field";
-
 import { Variant, VariantGrid } from "@/master-design/components/variant";
 
 const range = {

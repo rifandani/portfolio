@@ -1,7 +1,6 @@
 import { useTranslations } from "next-intl";
 
 import { Note } from "@/core/components/ui/note";
-
 import { Variant, VariantGrid } from "@/master-design/components/variant";
 
 const intents = ["default", "info", "warning", "danger", "success"] as const;

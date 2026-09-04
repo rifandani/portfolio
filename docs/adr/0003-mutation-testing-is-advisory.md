@@ -50,13 +50,13 @@ Three were drafted before the first run, on the theory that "constants" and "con
 
 | Drafted subtraction | Assumed | Measured |
 | --- | --- | --- |
-| `!**/constants/**` | literal tables | `packages/core/src/constants/core.ts` scores **100%** (a `reduce` and `* 1024` arithmetic); name-constant tables in `apps/{spa,web}/src/core/constants/global.ts` are accepted noise |
+| `!**/constants/**` | literal tables | `packages/core/src/constants/core.ts` scores **100%** (a `reduce` and `* 1024` arithmetic); name-constant tables in `apps/web/src/core/constants/global.ts` are accepted noise |
 | `!packages/core/src/constants/http.ts` | "106 lines of literal table" | **0 mutants.** It is numeric status codes and type aliases; Stryker has no numeric-literal mutator. The glob was dead config, and the `"application/json"` example justifying it does not appear in the file |
 | `!apps/web/src/app/{robots,sitemap}.ts` | literal-table shape | `robots.ts` **100%**, `sitemap.ts` **93.18%** — among the best-scoring files in the repo |
 
 The lesson is the rule: **a directory name is not evidence, and neither is a plausible-sounding example.** Subtract a file only after reading a report for it.
 
-What that leaves is genuine, accepted noise rather than hidden noise: roughly 18 of the surviving mutants are `StringLiteral` replacements on exported name constants (`apps/{spa,web}/src/core/constants/global.ts`, `packages/core/src/constants/date.ts` — telemetry meter and tracer names). Killing those requires a test that restates the constant, which is the padding ADR-0001's coverage amendment exists to prevent. They stay visible and unkilled. Treat a `StringLiteral` survivor on a bare name constant as known noise; treat any *other* mutator surviving in those files as a real finding, which is exactly the distinction a blanket exclusion would have destroyed.
+What that leaves is genuine, accepted noise rather than hidden noise: roughly 18 of the surviving mutants are `StringLiteral` replacements on exported name constants (`apps/web/src/core/constants/global.ts`, `packages/core/src/constants/date.ts` — telemetry meter and tracer names). Killing those requires a test that restates the constant, which is the padding ADR-0001's coverage amendment exists to prevent. They stay visible and unkilled. Treat a `StringLiteral` survivor on a bare name constant as known noise; treat any *other* mutator surviving in those files as a real finding, which is exactly the distinction a blanket exclusion would have destroyed.
 
 `mutator.excludedMutations` is set to `[]` explicitly rather than omitted, so the choice is visible where a reader would look for it. It is the right escape hatch for "this whole mutator class is noise here", but that is an empirical claim, and making it before reading a report blinds the tool to its own best findings — the same mistake the blanket `constants` glob made.
 
@@ -134,7 +134,6 @@ It is also why `mutator.excludedMutations` stays empty rather than dropping `Str
 
 | Module | Mutation score | Mutants | Class |
 | --- | --- | --- | --- |
-| `apps/spa/src/core/constants/global.ts` | 0.00% | 12 | accepted noise (name constants) |
 | `apps/web/src/core/constants/global.ts` | 0.00% | 4 | accepted noise (name constants) |
 | `packages/core/src/constants/date.ts` | 33.33% | 3 | accepted noise (format strings) |
 | `packages/core/src/apis/auth.ts` | 50.00% | 12 | accepted noise (Zod half of a mixed module) |
@@ -179,9 +178,9 @@ Three environment fixes were needed before the first successful run. Each is a w
 
 Stryker copies the repo into `.stryker-tmp` and symlinks `node_modules`, so `node_modules/@workspace/core` inside the sandbox still resolves to the real, **unmutated** `packages/core`.
 
-We are saved by the alias: all three Vitest configs map `@workspace/core` to an absolute `packages/core/src` path built from `import.meta.dirname`, which re-resolves inside the sandbox. Replacing those path aliases with bare package resolution would silently stop mutants in `core` from ever reaching the app projects' tests.
+We are saved by the alias: both Vitest configs map `@workspace/core` to an absolute `packages/core/src` path built from `import.meta.dirname`, which re-resolves inside the sandbox. Replacing those path aliases with bare package resolution would silently stop mutants in `core` from ever reaching the app project's tests.
 
-> [ADR-0004](./0004-module-resolution-has-a-single-source-of-truth.md) removed the equivalent aliases from the app tsconfigs and from `apps/spa/vite.config.ts`, in favour of `@workspace/core`'s `exports` map. The three **Vitest** aliases named above are deliberately exempt, for the reason in this section. Do not delete them for consistency with that ADR — no test would fail if you did.
+> [ADR-0004](./0004-module-resolution-has-a-single-source-of-truth.md) removed the equivalent aliases from the app tsconfig, in favour of `@workspace/core`'s `exports` map. The **Vitest** aliases named above are deliberately exempt, for the reason in this section. Do not delete them for consistency with that ADR — no test would fail if you did.
 
 ## Considered Options
 

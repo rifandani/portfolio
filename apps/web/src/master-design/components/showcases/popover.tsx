@@ -8,7 +8,6 @@ import {
   PopoverHeader,
   PopoverTitle,
 } from "@/core/components/ui/popover";
-
 import { Variant, VariantGrid } from "@/master-design/components/variant";
 
 export const PopoverShowcase = () => {

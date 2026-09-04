@@ -1,7 +1,6 @@
 import { useTranslations } from "next-intl";
 
 import { Heading } from "@/core/components/ui/heading";
-
 import { Variant, VariantGrid } from "@/master-design/components/variant";
 
 export const HeadingShowcase = () => {

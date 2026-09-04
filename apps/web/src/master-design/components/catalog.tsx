@@ -6,9 +6,9 @@ import { useState } from "react";
 
 import { ThemeToggle } from "@/core/components/theme-toggle.client";
 import { SearchField, SearchInput } from "@/core/components/ui/search-field";
-
 import { categories, entryIds } from "@/master-design/constants/registry";
 import { useScrollSpy } from "@/master-design/hooks/use-scroll-spy";
+
 import { CatalogNav } from "./catalog-nav";
 
 export const MasterDesignCatalog = () => {

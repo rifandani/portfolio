@@ -1,6 +1,6 @@
 # Core
 
-Shared libraries and cross-app vocabulary used by spa, web, and expo.
+Shared libraries and cross-app vocabulary used by web.
 
 ## Language
 

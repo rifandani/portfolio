@@ -10,7 +10,6 @@ import {
   DisclosurePanel,
   DisclosureTrigger,
 } from "@/core/components/ui/disclosure-group";
-
 import { categories } from "@/master-design/constants/registry";
 import type { Category, ComponentEntry } from "@/master-design/types/types";
 

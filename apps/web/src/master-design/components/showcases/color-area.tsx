@@ -1,7 +1,6 @@
 import { ColorArea } from "@/core/components/ui/color-area";
-
-import { brandHsl } from "@/master-design/constants/fixtures";
 import { Variant } from "@/master-design/components/variant";
+import { brandHsl } from "@/master-design/constants/fixtures";
 
 export const ColorAreaShowcase = () => (
   <Variant label="default">

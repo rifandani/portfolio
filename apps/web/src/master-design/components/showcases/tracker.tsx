@@ -1,7 +1,6 @@
 import { useTranslations } from "next-intl";
 
 import { Tracker } from "@/core/components/ui/tracker";
-
 import { Variant, VariantGrid } from "@/master-design/components/variant";
 
 export const TrackerShowcase = () => {

@@ -1,7 +1,6 @@
 import { useTranslations } from "next-intl";
 
 import { Separator } from "@/core/components/ui/separator";
-
 import { Variant, VariantGrid } from "@/master-design/components/variant";
 
 export const SeparatorShowcase = () => {

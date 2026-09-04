@@ -1,5 +1,4 @@
 import { Avatar } from "@/core/components/ui/avatar";
-
 import { Variant, VariantGrid } from "@/master-design/components/variant";
 
 export const AvatarShowcase = () => (

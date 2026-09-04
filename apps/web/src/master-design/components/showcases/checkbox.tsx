@@ -6,7 +6,6 @@ import {
   CheckboxGroup,
 } from "@/core/components/ui/checkbox";
 import { Description } from "@/core/components/ui/field";
-
 import { Variant, VariantGrid } from "@/master-design/components/variant";
 
 export const CheckboxShowcase = () => {

@@ -1,7 +1,6 @@
 import { useTranslations } from "next-intl";
 
 import { Code, Strong, Text, TextLink } from "@/core/components/ui/text";
-
 import { Variant, VariantGrid } from "@/master-design/components/variant";
 
 export const TextShowcase = () => {

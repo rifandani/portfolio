@@ -1,7 +1,6 @@
 import { useTranslations } from "next-intl";
 
 import { FileTrigger } from "@/core/components/ui/file-trigger";
-
 import { Variant, VariantGrid } from "@/master-design/components/variant";
 
 export const FileTriggerShowcase = () => {

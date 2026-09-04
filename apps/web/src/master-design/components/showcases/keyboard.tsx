@@ -1,5 +1,4 @@
 import { Keyboard } from "@/core/components/ui/keyboard";
-
 import { Variant, VariantGrid } from "@/master-design/components/variant";
 
 export const KeyboardShowcase = () => (

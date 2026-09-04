@@ -1,9 +1,0 @@
-# @workspace/spa
-
-## 🔧 Fixme
-
-~
-
-## 🎯 Todo
-
-~

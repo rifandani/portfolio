@@ -12,7 +12,6 @@ import {
   CommandMenuSearch,
   CommandMenuSection,
 } from "@/core/components/ui/command-menu";
-
 import { Variant, VariantGrid } from "@/master-design/components/variant";
 
 export const CommandMenuShowcase = () => {

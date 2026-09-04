@@ -18,12 +18,9 @@ Multi-context monorepo:
 ├── CONTEXT-MAP.md
 ├── docs/adr/                          ← system-wide decisions
 ├── apps/
-│   ├── spa/
-│   │   ├── CONTEXT.md
-│   │   └── docs/adr/
-│   ├── web/
-│   │   ├── CONTEXT.md
-│   │   └── docs/adr/
+│   └── web/
+│       ├── CONTEXT.md
+│       └── docs/adr/
 └── packages/
     └── core/
         ├── CONTEXT.md
@@ -34,7 +31,6 @@ Multi-context monorepo:
 
 | Context | `CONTEXT.md` | Context-scoped ADRs |
 | ------- | ------------ | ------------------- |
-| `spa`   | `apps/spa/CONTEXT.md` | `apps/spa/docs/adr/` |
 | `web`   | `apps/web/CONTEXT.md` | `apps/web/docs/adr/` |
 | `core`  | `packages/core/CONTEXT.md` | `packages/core/docs/adr/` |
 

@@ -3,7 +3,6 @@ import { useTranslations } from "next-intl";
 import { Label } from "@/core/components/ui/field";
 import { TextField } from "@/core/components/ui/text-field";
 import { Textarea } from "@/core/components/ui/textarea";
-
 import { Variant, VariantGrid } from "@/master-design/components/variant";
 
 export const TextareaShowcase = () => {

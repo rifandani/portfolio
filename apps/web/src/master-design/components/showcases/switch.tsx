@@ -1,7 +1,6 @@
 import { useTranslations } from "next-intl";
 
 import { Switch, SwitchField } from "@/core/components/ui/switch";
-
 import { Variant, VariantGrid } from "@/master-design/components/variant";
 
 export const SwitchShowcase = () => {

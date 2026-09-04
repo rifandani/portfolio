@@ -16,7 +16,7 @@ Frontend and full-stack engineers who need a production-ready Next.js App Router
 
 ## Positioning
 
-Not a blank Next starter and not an end-user product. The differentiator is the co-equal bar of **accessibility (React Aria)** and **fullstack production scaffolding** (Better Auth, Drizzle, PWA, SEO, observability, Playwright/unit tests). Sibling `@workspace/spa` covers client-only React; this app owns the server-backed Next path. Neighboring templates can list a stack; they cannot truthfully claim this combination as the reason to exist without shipping the same teaching surfaces.
+Not a blank Next starter and not an end-user product. The differentiator is the co-equal bar of **accessibility (React Aria)** and **fullstack production scaffolding** (Better Auth, Drizzle, PWA, SEO, observability, Playwright/unit tests). Neighboring templates can list a stack; they cannot truthfully claim this combination as the reason to exist without shipping the same teaching surfaces.
 
 ## Operating Context
 

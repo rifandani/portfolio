@@ -1,7 +1,6 @@
 import { useTranslations } from "next-intl";
 
 import { Container } from "@/core/components/ui/container";
-
 import { Variant, VariantGrid } from "@/master-design/components/variant";
 
 export const ContainerShowcase = () => {

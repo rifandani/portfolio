@@ -1,7 +1,6 @@
 import { useTranslations } from "next-intl";
 
 import { ShowMore } from "@/core/components/ui/show-more";
-
 import { Variant, VariantGrid } from "@/master-design/components/variant";
 
 export const ShowMoreShowcase = () => {

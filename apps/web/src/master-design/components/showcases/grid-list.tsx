@@ -6,9 +6,8 @@ import {
   GridListItem,
   GridListLabel,
 } from "@/core/components/ui/grid-list";
-
-import { demoUsers } from "@/master-design/constants/fixtures";
 import { Variant, VariantGrid } from "@/master-design/components/variant";
+import { demoUsers } from "@/master-design/constants/fixtures";
 
 export const GridListShowcase = () => {
   const t = useTranslations();

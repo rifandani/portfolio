@@ -6,7 +6,6 @@ import {
   DisclosurePanel,
   DisclosureTrigger,
 } from "@/core/components/ui/disclosure-group";
-
 import { Variant, VariantGrid } from "@/master-design/components/variant";
 
 export const DisclosureGroupShowcase = () => {

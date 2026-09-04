@@ -6,7 +6,6 @@ import {
   ChoiceBoxItem,
   ChoiceBoxLabel,
 } from "@/core/components/ui/choice-box";
-
 import { Variant, VariantGrid } from "@/master-design/components/variant";
 
 export const ChoiceBoxShowcase = () => {

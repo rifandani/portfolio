@@ -2,7 +2,6 @@ import { useTranslations } from "next-intl";
 
 import { Label } from "@/core/components/ui/field";
 import { Radio, RadioField, RadioGroup } from "@/core/components/ui/radio";
-
 import { Variant, VariantGrid } from "@/master-design/components/variant";
 
 export const RadioShowcase = () => {

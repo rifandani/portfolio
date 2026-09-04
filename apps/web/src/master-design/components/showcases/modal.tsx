@@ -11,7 +11,6 @@ import {
   ModalHeader,
   ModalTitle,
 } from "@/core/components/ui/modal";
-
 import { Variant, VariantGrid } from "@/master-design/components/variant";
 
 export const ModalShowcase = () => {

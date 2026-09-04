@@ -2,7 +2,6 @@ import { ArrowRightIcon } from "@heroicons/react/16/solid";
 import { useTranslations } from "next-intl";
 
 import { Button } from "@/core/components/ui/button";
-
 import { Variant, VariantGrid } from "@/master-design/components/variant";
 
 const intents = [

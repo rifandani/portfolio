@@ -7,7 +7,6 @@ import {
   SelectItem,
   SelectTrigger,
 } from "@/core/components/ui/select";
-
 import { Variant, VariantGrid } from "@/master-design/components/variant";
 
 export const SelectShowcase = () => {

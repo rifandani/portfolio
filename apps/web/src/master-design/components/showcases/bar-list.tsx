@@ -1,7 +1,6 @@
 import { useTranslations } from "next-intl";
 
 import { BarList } from "@/core/components/ui/bar-list";
-
 import { Variant, VariantGrid } from "@/master-design/components/variant";
 
 export const BarListShowcase = () => {

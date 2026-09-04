@@ -5,15 +5,10 @@
     "patterns": ["apps/*", "packages/*"]
   },
   "ignoreExports": [
-    { "file": "apps/spa/**/components/ui/**", "exports": ["*"] },
     { "file": "apps/web/**/components/ui/**", "exports": ["*"] },
     { "file": "apps/web/src/core/utils/evlog.ts", "exports": ["*"] },
     {
       "file": "vitest.msw.ts",
-      "exports": ["*"]
-    },
-    {
-      "file": "apps/spa/src/master-design/**",
       "exports": ["*"]
     },
     {
@@ -27,7 +22,7 @@
   ],
   "overrides": [
     {
-      "files": ["apps/spa/**/components/ui/**", "apps/web/**/components/ui/**"],
+      "files": ["apps/web/**/components/ui/**"],
       "rules": {
         "unused-files": "off",
         "unused-types": "off"
@@ -35,9 +30,6 @@
     },
     {
       "files": [
-        "apps/spa/pwa-assets.config.ts",
-        "apps/spa/src/sw.ts",
-        "apps/spa/src/core/hooks/**",
         "apps/web/pwa-assets.config.ts",
         "apps/web/src/test/server-only-stub.ts",
         "apps/web/src/app/api/rate-limit.ts",
@@ -55,13 +47,7 @@
       }
     }
   ],
-  "ignoreFindings": [
-    "apps/spa/src/core/feature-flags/panel.tsx",
-    "apps/spa/src/core/providers/router/client.tsx",
-    "apps/spa/src/routeTree.gen.ts",
-    "apps/spa/src/routes/__root.tsx",
-    "apps/spa/src/core/providers/devtools.tsx"
-  ],
+  "ignoreFindings": [],
   "duplicates": {
     "minOccurrences": 3,
     "ignore": [
@@ -74,9 +60,7 @@
       "apps/web/src/core/hooks/use-clipboard.ts",
       "apps/web/src/core/hooks/use-lazy-query.ts",
       "apps/web/src/core/hooks/use-mobile.ts",
-      "apps/web/src/core/providers/toast/context.client.tsx",
-      "apps/spa/src/auth/hooks/use-auth-login.ts",
-      "apps/spa/src/core/providers/i18n/context.tsx"
+      "apps/web/src/core/providers/toast/context.client.tsx"
     ]
   },
   "health": {
@@ -86,7 +70,6 @@
       "**/routeTree.gen.ts",
       "**/*.gen.ts",
       "**/components/ui/**",
-      "apps/spa/src/master-design/**",
       "**/*.{test,spec}.{ts,tsx}",
       "**/e2e/**",
       "scripts/security/**"

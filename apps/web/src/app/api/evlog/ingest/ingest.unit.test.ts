@@ -64,12 +64,12 @@ describe("ingest", () => {
     const req = mockRequest({ host: "localhost:3000" });
 
     vi.stubEnv("NODE_ENV", "development");
-    expect(isAllowedOrigin(req, "https://spa.fe-monorepo.localhost")).toBe(
+    expect(isAllowedOrigin(req, "https://web.fe-monorepo.localhost")).toBe(
       true
     );
 
     vi.stubEnv("NODE_ENV", "production");
-    expect(isAllowedOrigin(req, "https://spa.fe-monorepo.localhost")).toBe(
+    expect(isAllowedOrigin(req, "https://web.fe-monorepo.localhost")).toBe(
       false
     );
   });

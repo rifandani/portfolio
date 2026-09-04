@@ -6,7 +6,6 @@ import {
   DatePickerTrigger,
 } from "@/core/components/ui/date-picker";
 import { Label } from "@/core/components/ui/field";
-
 import { Variant, VariantGrid } from "@/master-design/components/variant";
 
 export const DatePickerShowcase = () => {

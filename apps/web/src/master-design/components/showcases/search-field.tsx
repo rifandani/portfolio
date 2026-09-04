@@ -2,7 +2,6 @@ import { useTranslations } from "next-intl";
 
 import { Label } from "@/core/components/ui/field";
 import { SearchField, SearchInput } from "@/core/components/ui/search-field";
-
 import { Variant, VariantGrid } from "@/master-design/components/variant";
 
 export const SearchFieldShowcase = () => {

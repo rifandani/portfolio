@@ -6,7 +6,6 @@ import {
   DropdownSection,
 } from "@/core/components/ui/dropdown";
 import { ListBox } from "@/core/components/ui/list-box";
-
 import { Variant, VariantGrid } from "@/master-design/components/variant";
 
 export const DropdownShowcase = () => {

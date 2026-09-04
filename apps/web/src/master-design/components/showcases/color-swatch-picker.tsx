@@ -3,7 +3,6 @@ import {
   ColorSwatchPicker,
   ColorSwatchPickerItem,
 } from "@/core/components/ui/color-swatch-picker";
-
 import { Variant } from "@/master-design/components/variant";
 
 export const ColorSwatchPickerShowcase = () => (

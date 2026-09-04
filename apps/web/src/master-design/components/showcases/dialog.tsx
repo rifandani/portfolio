@@ -14,7 +14,6 @@ import {
   ModalTitle,
 } from "@/core/components/ui/modal";
 import { TextField } from "@/core/components/ui/text-field";
-
 import { Variant, VariantGrid } from "@/master-design/components/variant";
 
 export const DialogShowcase = () => {

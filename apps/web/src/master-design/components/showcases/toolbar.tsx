@@ -6,7 +6,6 @@ import {
   ToolbarItem,
   ToolbarSeparator,
 } from "@/core/components/ui/toolbar";
-
 import { Variant, VariantGrid } from "@/master-design/components/variant";
 
 export const ToolbarShowcase = () => {

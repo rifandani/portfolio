@@ -1,7 +1,6 @@
 import { useTranslations } from "next-intl";
 
 import { ListBox, ListBoxItem } from "@/core/components/ui/list-box";
-
 import { Variant, VariantGrid } from "@/master-design/components/variant";
 
 export const ListBoxShowcase = () => {

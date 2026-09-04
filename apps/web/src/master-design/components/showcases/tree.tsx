@@ -1,7 +1,6 @@
 import { useTranslations } from "next-intl";
 
 import { Tree, TreeContent, TreeItem } from "@/core/components/ui/tree";
-
 import { Variant, VariantGrid } from "@/master-design/components/variant";
 
 export const TreeShowcase = () => {

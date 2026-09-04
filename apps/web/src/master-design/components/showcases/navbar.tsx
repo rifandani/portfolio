@@ -8,7 +8,6 @@ import {
   NavbarSpacer,
   NavbarStart,
 } from "@/core/components/ui/navbar";
-
 import { Variant, VariantGrid } from "@/master-design/components/variant";
 
 export const NavbarShowcase = () => {

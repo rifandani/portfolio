@@ -1,5 +1,4 @@
 import { ColorSwatch } from "@/core/components/ui/color-swatch";
-
 import { Variant, VariantGrid } from "@/master-design/components/variant";
 
 export const ColorSwatchShowcase = () => (

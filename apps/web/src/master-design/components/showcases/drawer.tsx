@@ -11,7 +11,6 @@ import {
   DrawerTitle,
   DrawerTrigger,
 } from "@/core/components/ui/drawer";
-
 import { Variant, VariantGrid } from "@/master-design/components/variant";
 
 export const DrawerShowcase = () => {

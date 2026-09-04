@@ -1,7 +1,6 @@
 import { useTranslations } from "next-intl";
 
 import { ProgressCircle } from "@/core/components/ui/progress-circle";
-
 import { Variant, VariantGrid } from "@/master-design/components/variant";
 
 export const ProgressCircleShowcase = () => {

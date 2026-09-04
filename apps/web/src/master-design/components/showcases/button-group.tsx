@@ -2,7 +2,6 @@ import { useTranslations } from "next-intl";
 
 import { Button } from "@/core/components/ui/button";
 import { ButtonGroup } from "@/core/components/ui/button-group";
-
 import { Variant, VariantGrid } from "@/master-design/components/variant";
 
 export const ButtonGroupShowcase = () => {

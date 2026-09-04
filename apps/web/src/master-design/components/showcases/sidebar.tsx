@@ -10,7 +10,6 @@ import {
   SidebarProvider,
   SidebarSection,
 } from "@/core/components/ui/sidebar";
-
 import { Variant, VariantGrid } from "@/master-design/components/variant";
 
 export const SidebarShowcase = () => {

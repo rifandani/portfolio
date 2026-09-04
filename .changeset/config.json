@@ -3,12 +3,7 @@
   "changelog": "@changesets/cli/changelog",
   "commit": false,
   "fixed": [
-    [
-      "@workspace/core",
-      "@workspace/spa",
-      "@workspace/typescript-config",
-      "@workspace/web"
-    ]
+    ["@workspace/core", "@workspace/typescript-config", "@workspace/web"]
   ],
   "linked": [],
   "access": "restricted",

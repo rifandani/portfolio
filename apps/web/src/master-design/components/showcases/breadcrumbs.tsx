@@ -1,7 +1,6 @@
 import { useTranslations } from "next-intl";
 
 import { Breadcrumbs, BreadcrumbsItem } from "@/core/components/ui/breadcrumbs";
-
 import { Variant, VariantGrid } from "@/master-design/components/variant";
 
 export const BreadcrumbsShowcase = () => {

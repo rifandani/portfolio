@@ -7,7 +7,6 @@ import {
   TabPanels,
   Tabs,
 } from "@/core/components/ui/tabs";
-
 import { Variant, VariantGrid } from "@/master-design/components/variant";
 
 export const TabsShowcase = () => {

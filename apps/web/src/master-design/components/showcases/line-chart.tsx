@@ -1,12 +1,11 @@
 import { useTranslations } from "next-intl";
 
 import { LineChart } from "@/core/components/ui/line-chart";
-
+import { Variant } from "@/master-design/components/variant";
 import {
   createRevenueConfig,
   createRevenueData,
 } from "@/master-design/constants/fixtures";
-import { Variant } from "@/master-design/components/variant";
 
 export const LineChartShowcase = () => {
   const t = useTranslations();

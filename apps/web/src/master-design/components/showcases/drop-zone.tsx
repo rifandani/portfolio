@@ -1,7 +1,6 @@
 import { useTranslations } from "next-intl";
 
 import { DropZone } from "@/core/components/ui/drop-zone";
-
 import { Variant, VariantGrid } from "@/master-design/components/variant";
 
 export const DropZoneShowcase = () => {

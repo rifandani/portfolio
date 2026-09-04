@@ -4,7 +4,6 @@ import { useTranslations } from "next-intl";
 import { Label } from "@/core/components/ui/field";
 import { Input, InputGroup } from "@/core/components/ui/input";
 import { TextField } from "@/core/components/ui/text-field";
-
 import { Variant, VariantGrid } from "@/master-design/components/variant";
 
 export const InputShowcase = () => {

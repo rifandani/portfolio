@@ -11,9 +11,8 @@ import {
 import { ColorThumb } from "@/core/components/ui/color-thumb";
 import { Label } from "@/core/components/ui/field";
 import { Input } from "@/core/components/ui/input";
-
-import { brandHsl } from "@/master-design/constants/fixtures";
 import { Variant } from "@/master-design/components/variant";
+import { brandHsl } from "@/master-design/constants/fixtures";
 
 export const ColorPickerShowcase = () => {
   const t = useTranslations();

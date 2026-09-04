@@ -2,7 +2,6 @@ import { CalendarDate } from "@internationalized/date";
 import { useTranslations } from "next-intl";
 
 import { RangeCalendar } from "@/core/components/ui/range-calendar";
-
 import { Variant, VariantGrid } from "@/master-design/components/variant";
 
 export const RangeCalendarShowcase = () => {

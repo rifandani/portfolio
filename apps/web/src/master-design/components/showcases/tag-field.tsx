@@ -3,7 +3,6 @@ import { useTranslations } from "next-intl";
 import { Label } from "@/core/components/ui/field";
 import { Input } from "@/core/components/ui/input";
 import { TagField } from "@/core/components/ui/tag-field";
-
 import { Variant, VariantGrid } from "@/master-design/components/variant";
 
 export const TagFieldShowcase = () => {

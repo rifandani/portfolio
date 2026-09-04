@@ -5,7 +5,6 @@ import {
   TooltipContent,
   TooltipTrigger,
 } from "@/core/components/ui/tooltip";
-
 import { Variant, VariantGrid } from "@/master-design/components/variant";
 
 export const TooltipShowcase = () => {

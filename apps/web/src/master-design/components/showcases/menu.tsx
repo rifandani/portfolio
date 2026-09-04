@@ -7,7 +7,6 @@ import {
   MenuItem,
   MenuTrigger,
 } from "@/core/components/ui/menu";
-
 import { Variant, VariantGrid } from "@/master-design/components/variant";
 
 export const MenuShowcase = () => {

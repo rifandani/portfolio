@@ -1,5 +1,4 @@
 import { Toggle } from "@/core/components/ui/toggle";
-
 import { Variant, VariantGrid } from "@/master-design/components/variant";
 
 export const ToggleShowcase = () => (

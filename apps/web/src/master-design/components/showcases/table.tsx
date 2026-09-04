@@ -9,7 +9,6 @@ import {
   TableHeader,
   TableRow,
 } from "@/core/components/ui/table";
-
 import { demoUsers } from "@/master-design/constants/fixtures";
 
 const statusIntent = {
