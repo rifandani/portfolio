@@ -4,6 +4,7 @@ import { trace } from "@opentelemetry/api";
 import { log } from "evlog/next/client";
 import { useEffect } from "react";
 
+import { StatusScreen } from "@/core/components/status-screen";
 import { Button } from "@/core/components/ui";
 import {
   TRACER_ROOT_ROUTE,
@@ -43,29 +44,22 @@ export default function Error({
   }, [error]);
 
   return (
-    <div className="flex min-h-screen flex-col items-center justify-center p-4">
-      <div className="max-w-md space-y-8 text-center">
-        {/* Hero Section */}
-        <div className="space-y-4">
-          <h1 className="text-primary text-8xl font-bold">4xx</h1>
-          <h2 className="text-2xl font-semibold">Oops!</h2>
-          <p className="text-muted-fg">Something went wrong</p>
-        </div>
-
-        {/* Quick Actions */}
-        <div className="flex flex-col justify-center gap-4 sm:flex-row">
-          <Button
-            intent="primary"
-            className="flex items-center"
-            onClick={
-              // Attempt to recover by trying to re-render the segment
-              () => reset()
-            }
-          >
-            Try again
-          </Button>
-        </div>
-      </div>
-    </div>
+    <StatusScreen
+      code="4xx"
+      title="Oops!"
+      description="Something went wrong"
+      action={
+        <Button
+          intent="primary"
+          className="flex items-center"
+          onClick={
+            // Attempt to recover by trying to re-render the segment
+            () => reset()
+          }
+        >
+          Try again
+        </Button>
+      }
+    />
   );
 }

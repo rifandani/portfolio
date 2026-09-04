@@ -2,6 +2,7 @@ import { getTranslations } from "next-intl/server";
 import { headers } from "next/headers";
 
 import { auth } from "@/auth/utils/auth";
+import { StatusScreen } from "@/core/components/status-screen";
 import { Link } from "@/core/components/ui";
 
 export default async function NotFound() {
@@ -11,27 +12,20 @@ export default async function NotFound() {
   });
 
   return (
-    <div className="flex min-h-screen flex-col items-center justify-center p-4">
-      <div className="max-w-md space-y-8 text-center">
-        {/* Hero Section */}
-        <div className="space-y-4">
-          <h1 className="text-primary text-8xl font-bold">404</h1>
-          <h2 className="text-2xl font-semibold">{t("notFound")}</h2>
-          <p className="text-muted-foreground">{t("gone")}</p>
-        </div>
-
-        {/* Quick Actions */}
-        <div className="flex flex-col justify-center gap-4 sm:flex-row">
-          <Link
-            href={session === null ? "/login" : "/"}
-            className="flex items-center"
-          >
-            {t("backTo", {
-              target: session === null ? "Login" : t("title"),
-            })}
-          </Link>
-        </div>
-      </div>
-    </div>
+    <StatusScreen
+      code="404"
+      title={t("notFound")}
+      description={t("gone")}
+      action={
+        <Link
+          href={session === null ? "/login" : "/"}
+          className="flex items-center"
+        >
+          {t("backTo", {
+            target: session === null ? "Login" : t("title"),
+          })}
+        </Link>
+      }
+    />
   );
 }

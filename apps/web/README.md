@@ -6,6 +6,8 @@
 
 ## 🎯 Todo
 
+- [ ] move packages/core into apps/web
+- [ ] init impeccable
 - [ ] drizzle beta
 
 ## Testing
