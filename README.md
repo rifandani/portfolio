@@ -1,8 +1,8 @@
-# fe-monorepo
+# portfolio
 
-[![Ask DeepWiki](https://deepwiki.com/badge.svg)](https://deepwiki.com/rifandani/fe-monorepo)
+[![Ask DeepWiki](https://deepwiki.com/badge.svg)](https://deepwiki.com/rifandani/portfolio)
 
-[![Mintlify Docs]](https://rifandani-fe-monorepo.mintlify.app)
+[![Mintlify Docs]](https://rifandani-portfolio.mintlify.app)
 
 ## 🎯 Todo
 

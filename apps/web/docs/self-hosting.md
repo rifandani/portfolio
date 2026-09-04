@@ -24,7 +24,7 @@ the `DEPLOYMENT_ID` / `BUILD_ID` blocks in `next.config.ts` stay inactive.
 Build from the **repo root** (the monorepo is the build context):
 
 ```bash
-docker build -f docker/web.Dockerfile -t fe-monorepo-web \
+docker build -f docker/web.Dockerfile -t portfolio-web \
   --build-arg NEXT_PUBLIC_APP_TITLE="@workspace/web" \
   --build-arg NEXT_PUBLIC_APP_URL="https://my-app.com" \
   --build-arg NEXT_PUBLIC_API_BASE_URL="https://api.my-app.com/api" \
@@ -36,7 +36,7 @@ docker build -f docker/web.Dockerfile -t fe-monorepo-web \
 docker run --rm -p 3000:3000 \
   -e DATABASE_URL="postgres://…" \
   -e BETTER_AUTH_SECRET="…" \
-  fe-monorepo-web
+  portfolio-web
 ```
 
 Or without Docker, from `apps/web`:

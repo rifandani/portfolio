@@ -7,8 +7,8 @@ if (-not $env:ROOT_WORKTREE_PATH) {
 }
 
 $Root = $env:ROOT_WORKTREE_PATH
-# Matches portless.json / `bun web` (`portless run --name *.fe-monorepo`).
-$WebPortlessName = 'web.fe-monorepo'
+# Matches portless.json / `bun web` (`portless run --name *.portfolio`).
+$WebPortlessName = 'web.portfolio'
 
 Write-Host '==> Installing workspace dependencies'
 bun install --frozen-lockfile

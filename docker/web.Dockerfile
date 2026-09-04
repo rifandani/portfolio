@@ -5,7 +5,7 @@
 # the default (non-standalone) output. See apps/web/docs/self-hosting.md.
 #
 # Build from the REPO ROOT (the monorepo is the build context):
-#   docker build -f docker/web.Dockerfile -t fe-monorepo-web .
+#   docker build -f docker/web.Dockerfile -t portfolio-web .
 
 # ---------- deps: install the workspace with bun ----------
 FROM oven/bun:1.3.14 AS deps

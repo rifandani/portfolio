@@ -5,8 +5,8 @@ set -euo pipefail
 
 ROOT="${ROOT_WORKTREE_PATH:?ROOT_WORKTREE_PATH is required}"
 
-# Matches portless.json / `bun web` (`portless run --name *.fe-monorepo`).
-WEB_PORTLESS_NAME="web.fe-monorepo"
+# Matches portless.json / `bun web` (`portless run --name *.portfolio`).
+WEB_PORTLESS_NAME="web.portfolio"
 
 echo "==> Installing workspace dependencies"
 bun install --frozen-lockfile
@@ -64,7 +64,7 @@ if ! command -v portless >/dev/null 2>&1; then
   exit 1
 fi
 
-# `portless run` prefixes linked worktrees: https://<branch>.web.fe-monorepo.localhost
+# `portless run` prefixes linked worktrees: https://<branch>.web.portfolio.localhost
 web_url="$(portless get "$WEB_PORTLESS_NAME" 2>/dev/null || true)"
 if [[ -z "$web_url" ]]; then
   web_url="https://${WEB_PORTLESS_NAME}.localhost"

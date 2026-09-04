@@ -1,4 +1,4 @@
-name: fe-monorepo
+name: portfolio
 
 services:
   pg:

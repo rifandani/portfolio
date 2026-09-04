@@ -6,7 +6,7 @@ Always talk in ASD-STE100 Simplified Technical English.
 
 ### Issue tracker
 
-GitHub Issues on `rifandani/fe-monorepo` via `gh` CLI; external PRs are not a triage surface. See `docs/agents/issue-tracker.md`.
+GitHub Issues on `rifandani/portfolio` via `gh` CLI; external PRs are not a triage surface. See `docs/agents/issue-tracker.md`.
 
 ### Triage labels
 

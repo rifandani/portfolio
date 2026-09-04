@@ -4,7 +4,7 @@ import { describe, expect, it, vi } from "vitest";
 import { getAllowedHosts, isAllowedOrigin, parseIngestBody } from "./ingest";
 
 vi.mock("@/core/constants/env", () => ({
-  ENV: { NEXT_PUBLIC_APP_URL: "https://web.fe-monorepo.localhost" },
+  ENV: { NEXT_PUBLIC_APP_URL: "https://web.portfolio.localhost" },
 }));
 
 vi.mock("@/core/utils/evlog", () => ({
@@ -37,9 +37,9 @@ const mockRequest = (init: {
 describe("ingest", () => {
   it("getAllowedHosts includes app url host", () => {
     const hosts = getAllowedHosts(
-      mockRequest({ host: "web.fe-monorepo.localhost" })
+      mockRequest({ host: "web.portfolio.localhost" })
     );
-    expect(hosts.has("web.fe-monorepo.localhost")).toBe(true);
+    expect(hosts.has("web.portfolio.localhost")).toBe(true);
   });
 
   it("getAllowedHosts collects every forwarded host and skips absent headers", () => {
@@ -49,13 +49,13 @@ describe("ingest", () => {
     expect([...hosts].toSorted()).toEqual([
       "a.test",
       "b.test",
-      "web.fe-monorepo.localhost",
+      "web.portfolio.localhost",
     ]);
   });
 
   it("isAllowedOrigin accepts matching hosts", () => {
-    const req = mockRequest({ host: "web.fe-monorepo.localhost" });
-    expect(isAllowedOrigin(req, "https://web.fe-monorepo.localhost")).toBe(
+    const req = mockRequest({ host: "web.portfolio.localhost" });
+    expect(isAllowedOrigin(req, "https://web.portfolio.localhost")).toBe(
       true
     );
   });

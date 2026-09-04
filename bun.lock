@@ -3,7 +3,7 @@
   "configVersion": 1,
   "workspaces": {
     "": {
-      "name": "fe-monorepo",
+      "name": "portfolio",
       "devDependencies": {
         "@changesets/cli": "3.0.0",
         "@chenglou/freerange": "0.0.4",

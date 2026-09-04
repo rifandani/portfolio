@@ -6,6 +6,7 @@
 
 ## 🎯 Todo
 
+- [ ] remove better-auth
 - [ ] init impeccable
 - [ ] drizzle beta
 
@@ -37,4 +38,4 @@ bun web db:seed
 
 Demo login: `vaandani@email.com` / `vaandani` (see `src/db/seed-user.ts`).
 
-OpenAPI reference: `https://web.fe-monorepo.localhost/api/auth/reference`
+OpenAPI reference: `https://web.portfolio.localhost/api/auth/reference`

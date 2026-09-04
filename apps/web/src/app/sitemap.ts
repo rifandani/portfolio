@@ -6,7 +6,7 @@ import type { MetadataRoute } from "next";
 // fallow-ignore-next-line security-sink -- both components are literals rooted at process.cwd(), not request input
 const APP_DIR = path.join(process.cwd(), "src/app");
 const url = new URL(
-  process.env.NEXT_PUBLIC_APP_URL ?? "https://web.fe-monorepo.localhost"
+  process.env.NEXT_PUBLIC_APP_URL ?? "https://web.portfolio.localhost"
 );
 const SKIP_DIRS = new Set(["api"]);
 const PAGE_FILES = new Set(["page.ts", "page.tsx"]);

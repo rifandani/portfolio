@@ -15,7 +15,7 @@ describe("robots", () => {
     const robots = await importRobots();
 
     expect(robots().sitemap).toBe(
-      "https://web.fe-monorepo.localhost/sitemap.xml"
+      "https://web.portfolio.localhost/sitemap.xml"
     );
   });
 

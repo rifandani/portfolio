@@ -1,6 +1,6 @@
 {
-  "name": "fe-monorepo",
+  "name": "portfolio",
   "apps": {
-    "apps/web": { "name": "web.fe-monorepo" }
+    "apps/web": { "name": "web.portfolio" }
   }
 }

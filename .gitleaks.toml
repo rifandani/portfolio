@@ -1,5 +1,5 @@
 # https://github.com/gitleaks/gitleaks
-title = "fe-monorepo"
+title = "portfolio"
 
 [extend]
 useDefault = true

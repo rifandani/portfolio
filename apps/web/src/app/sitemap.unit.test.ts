@@ -65,11 +65,11 @@ describe("sitemap", () => {
     expect(sitemap()).toEqual([
       {
         lastModified: expect.any(Date),
-        url: "https://web.fe-monorepo.localhost/",
+        url: "https://web.portfolio.localhost/",
       },
       {
         lastModified: expect.any(Date),
-        url: "https://web.fe-monorepo.localhost/login",
+        url: "https://web.portfolio.localhost/login",
       },
     ]);
   });

@@ -20,7 +20,7 @@ const ldParams = {
   url:
     process.env.NODE_ENV === "production"
       ? "https://web.com"
-      : "https://web.fe-monorepo.localhost",
+      : "https://web.portfolio.localhost",
   title,
   description,
 };
