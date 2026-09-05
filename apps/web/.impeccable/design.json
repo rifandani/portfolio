@@ -1,6 +1,6 @@
 {
   "schemaVersion": 2,
-  "generatedAt": "2026-08-18T13:52:00Z",
+  "generatedAt": "2026-09-04T17:07:54.296Z",
   "title": "Design System: @workspace/web",
   "extensions": {
     "colorMeta": {
@@ -458,7 +458,7 @@
     "typographyMeta": {
       "display": {
         "displayName": "Display",
-        "purpose": "Heading 1 page titles from sm up (1.5rem). Not marketing heroes. Login/home text-3xl are one-offs."
+        "purpose": "Heading 1 page titles from sm up (1.5rem). Not marketing heroes. Home text-3xl/4xl title is a one-off shell."
       },
       "headline": {
         "displayName": "Headline",
@@ -601,15 +601,15 @@
   ],
   "narrative": {
     "northStar": "The Engine Room",
-    "overview": "This is an Operate-mode system. Engineers are below deck with the machinery — App Router, Better Auth, Drizzle, observability — not in a showroom. The kit is cool, operational, and restrained: Geist with one saturated helm signal, surfaces that rest flat and lift only when they float.\n\nAccessibility is product truth, not a coat of paint. React Aria focus rings, 44px touch targets, and forced-colors fallbacks are part of the craft. Demo screens stay thin; the wiring is the proof surface.\n\nVisual rejections confirmed by the incumbent kit and the chosen world: marketing-landing spectacle, neon accents, skeuomorphism, decorative illustration, and hover-lift theater.",
+    "overview": "This is the visual system for Tri Rizeki Rifandani's public portfolio app, built on an Operate-mode Intent UI kit. The machinery is App Router, React Aria, PWA, SEO, and observability — not a showroom starter brand. The kit is cool, operational, and restrained: Geist with one saturated helm signal, surfaces that rest flat and lift only when they float.\n\nAccessibility is product truth, not a coat of paint. React Aria focus rings, 44px touch targets, and forced-colors fallbacks are part of the craft. Public home stays thin; the Component Catalog at /master-design is the proof surface for the kit.\n\nVisual rejections confirmed by the incumbent kit: marketing-landing spectacle, neon accents, skeuomorphism, decorative illustration, hover-lift theater, and leftover \"bulletproof Next template\" branding.",
     "keyCharacteristics": [
       "One accent (Helm Blue). Status colors are machinery lights, not brand.",
-      "Geist + Geist Mono. No display serif, no second sans. (@theme still lists Inter as leftover kit copy — do not load it.)",
+      "Geist + Geist Mono. No display serif, no second sans. (@theme still lists Inter as leftover kit copy — do not load it; layout.tsx loads Geist via next/font.)",
       "Soft-rect 8px default. Pills only for badges, toggles, and circular icon buttons.",
       "Hybrid depth: tone + hairline at rest; shadow only on overlays.",
       "Light and dark as equal citizens. Primary chroma does not shift.",
       "16px body on mobile, 14px from sm up. Page titles stay in the 1.25–1.5rem band.",
-      "One Geist Mono welcome line on authenticated home is the console tell — not a second body face."
+      "One Geist Mono welcome line on the public home is the console tell — not a second body face."
     ],
     "rules": [
       {
@@ -639,12 +639,12 @@
       },
       {
         "name": "The One-Line Console Rule",
-        "body": "Geist Mono as display-size type is allowed once: the authenticated home welcome. Do not set paragraphs or forms in mono.",
+        "body": "Geist Mono as display-size type is allowed once: the public home welcome. Do not set paragraphs or forms in mono.",
         "section": "typography"
       },
       {
         "name": "The Flat-By-Default Rule",
-        "body": "Surfaces are flat at rest. Shadows appear only as a response to floating (overlay) or to the login sample pane.",
+        "body": "Surfaces are flat at rest. Shadows appear only as a response to floating (overlay).",
         "section": "elevation"
       },
       {
@@ -664,13 +664,14 @@
       "Do default to 8px soft-rects, 24px card gutters, and shadow-xs + Hairline on resting surfaces.",
       "Do step type down at sm (16px → 14px body) and keep a 44px hit area on square icon controls.",
       "Do put status only in Note, Badge, validation, and meter/progress — never as a decorative wash.",
-      "Do keep authenticated home thin: title, one mono welcome, theme/i18n/profile controls."
+      "Do keep public home thin: title, one mono welcome, theme/i18n toggles."
     ],
     "donts": [
       "Don't introduce a second brand hue, a display serif, or a 3rem+ hero type scale.",
       "Don't lift cards or buttons on hover (translateY, colored drop-shadows, skeuomorphic bevels).",
-      "Don't use shadow-2xl outside the login sample pane.",
-      "Don't paint marketing-landing spectacle, neon, or illustration into app chrome.",
+      "Don't introduce shadow-2xl on app chrome.",
+      "Don't paint marketing-landing spectacle, neon, or illustration into kit chrome.",
+      "Don't brand the UI as a generic Next.js template.",
       "Don't fabricate end-user brand claims, testimonials, or a WCAG certification level.",
       "Don't load Inter alongside Geist. One sans."
     ]

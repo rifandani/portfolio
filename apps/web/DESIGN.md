@@ -1,6 +1,6 @@
 ---
 name: "@workspace/web"
-description: Bulletproof Next.js 16 template — accessible Intent UI kit in the engine room
+description: Personal portfolio UI kit — accessible Intent UI in the engine room
 colors:
   helm-blue: "oklch(0.546 0.245 262.881)"
   helm-blue-fg: "oklch(1 0 0)"
@@ -143,29 +143,29 @@ components:
 
 **Creative North Star: "The Engine Room"**
 
-This is an Operate-mode system. Engineers are below deck with the machinery — App Router, Better Auth, Drizzle, observability — not in a showroom. The kit is cool, operational, and restrained: Geist with one saturated helm signal, surfaces that rest flat and lift only when they float.
+This is the visual system for Tri Rizeki Rifandani’s public portfolio app, built on an Operate-mode Intent UI kit. The machinery is App Router, React Aria, PWA, SEO, and observability — not a showroom starter brand. The kit is cool, operational, and restrained: Geist with one saturated helm signal, surfaces that rest flat and lift only when they float.
 
-Accessibility is product truth, not a coat of paint. React Aria focus rings, 44px touch targets, and forced-colors fallbacks are part of the craft. Demo screens stay thin; the wiring is the proof surface.
+Accessibility is product truth, not a coat of paint. React Aria focus rings, 44px touch targets, and forced-colors fallbacks are part of the craft. Public home stays thin; the Component Catalog at `/master-design` is the proof surface for the kit.
 
-Visual rejections confirmed by the incumbent kit and the chosen world: marketing-landing spectacle, neon accents, skeuomorphism, decorative illustration, and hover-lift theater.
+Visual rejections confirmed by the incumbent kit: marketing-landing spectacle, neon accents, skeuomorphism, decorative illustration, hover-lift theater, and leftover “bulletproof Next template” branding.
 
 **Key Characteristics:**
 
 - One accent (Helm Blue). Status colors are machinery lights, not brand.
-- Geist + Geist Mono. No display serif, no second sans. (`@theme` still lists Inter as leftover kit copy — do not load it.)
+- Geist + Geist Mono. No display serif, no second sans. (`@theme` still lists Inter as leftover kit copy — do not load it; `layout.tsx` loads Geist via `next/font`.)
 - Soft-rect 8px default. Pills only for badges, toggles, and circular icon buttons.
 - Hybrid depth: tone + hairline at rest; shadow only on overlays.
 - Light and dark as equal citizens. Primary chroma does not shift.
 - 16px body on mobile, 14px from `sm` up. Page titles stay in the 1.25–1.5rem band.
-- One Geist Mono welcome line on authenticated home is the console tell — not a second body face.
+- One Geist Mono welcome line on the public home is the console tell — not a second body face.
 
 ## Colors
 
-Cool violet-neutral paper with a single saturated blue-indigo as the action voice. Canonical values live in `:root` as OKLCH; dark theme inverts surfaces, not the signal.
+Cool violet-neutral paper with a single saturated blue-indigo as the action voice. Canonical values live in `:root` as OKLCH (`src/core/styles/globals.css`); dark theme inverts surfaces, not the signal.
 
 ### Primary
 
-- **Helm Blue** (`helm-blue`): Primary buttons, focus ring, sidebar current, chart-1, login title. The only high-chroma brand voice.
+- **Helm Blue** (`helm-blue`): Primary buttons, focus ring (`--ring`), sidebar current, chart-1. The only high-chroma brand voice.
 - **On-Primary** (`helm-blue-fg`): Text and icons on Helm Blue fills.
 - **Helm Wash** (`helm-blue-subtle`): 15% wash for badges, selected rows, calendar cells. Dark uses 10%.
 - **Helm Ink** (`helm-blue-subtle-fg`): Text on the wash; also text links.
@@ -179,11 +179,11 @@ No tertiary role. `accent` equals `secondary` in light; do not invent a third br
 
 ### Neutral
 
-- **Paper** (`paper`): App canvas and cards.
-- **Cool Graphite** (`cool-graphite`): Primary text.
-- **Violet Paper** (`violet-paper`): Muted wells, code chips, default notes.
-- **Muted Ink** (`muted-ink`): Secondary copy, placeholders, icon rest state.
-- **Hairline** (`hairline`): Default borders, scrollbar thumb.
+- **Paper** (`paper`): App canvas and cards (`--bg` / `--card`).
+- **Cool Graphite** (`cool-graphite`): Primary text (`--fg`).
+- **Violet Paper** (`violet-paper`): Muted wells, code chips, default notes (`--muted`).
+- **Muted Ink** (`muted-ink`): Secondary copy, placeholders, icon rest state (`--muted-fg`).
+- **Hairline** (`hairline`): Default borders, scrollbar thumb (`--border`).
 - **Input Stroke** (`input-stroke`): Field borders at rest (one step stronger than Hairline).
 - **Overlay** (`overlay` / `overlay-fg`): Popovers, menus, toasts.
 - **Navbar / Sidebar** (`navbar`, `sidebar`): Chrome slightly off Paper so the canvas reads as the work surface.
@@ -211,12 +211,12 @@ No tertiary role. `accent` equals `secondary` in light; do not invent a third br
 
 ### Hierarchy
 
-- **Display** (600, 1.5rem / 2, tracking-tight): Heading level 1 from `sm` up. Page titles in the engine room, not marketing heroes. Login's `text-3xl` welcome and home's `text-3xl`/`text-4xl` title are one-offs; do not promote them to the scale.
+- **Display** (600, 1.5rem / 2, tracking-tight): Heading level 1 from `sm` up (`Heading` level 1). Page titles in the engine room, not marketing heroes. Home’s `text-3xl`/`text-4xl` title is a one-off shell; do not promote it to the scale.
 - **Headline** (600, 1.25rem / 2, tracking-tight): Heading level 2. Section titles.
 - **Title** (600, 1rem / 1.5): Card titles, Heading 4, compact chrome.
 - **Body** (400, 0.875rem / 1.5 from `sm`; 1rem / 1.5 on mobile): Default copy and field text. Muted Ink for supporting paragraphs.
 - **Label** (500, 0.875rem / 1.5): Buttons, field labels, nav items. Badges drop to 0.75rem / 1.25.
-- **Mono** (500, 0.8125rem): Inline `Code` chips. Home welcome may use 1.25–1.5rem Geist Mono as the one console tell.
+- **Mono** (500, 0.8125rem): Inline code chips. Home welcome may use 1.25–1.5rem Geist Mono as the one console tell.
 
 Mobile body and headings step up one Tailwind size so 16px remains the readable floor on touch.
 
@@ -226,37 +226,36 @@ Mobile body and headings step up one Tailwind size so 16px remains the readable 
 
 **The Two-Size Body Rule.** Body is 16px on mobile and 14px from `sm`. Do not mix a third body size in the same view.
 
-**The One-Line Console Rule.** Geist Mono as display-size type is allowed once: the authenticated home welcome. Do not set paragraphs or forms in mono.
+**The One-Line Console Rule.** Geist Mono as display-size type is allowed once: the public home welcome. Do not set paragraphs or forms in mono.
 
 ## Layout
 
 Tailwind's default 4px spacing scale. Recurring gutters: 8 / 16 / 24 / 32 (`sm` / `md` / `lg` / `xl`).
 
-Container is `max-width: 80rem` (`xl`) with 16px horizontal padding. Navbar content can open to `2xl` (96rem). Float navbar caps at `7xl` / `xl` with 16px inset.
+Container is `max-width: 80rem` (`xl`) with 16px horizontal padding (`Container` sets `--container-breakpoint: var(--breakpoint-xl)`). Navbar content can open to `2xl` (96rem). Float navbar caps at `7xl` / `xl` with 16px inset.
 
-Cards use a 24px internal gutter. Fields stack label → control at 8px, control → error at 8px. Form clusters use 24px between fieldsets.
+Cards use a 24px internal gutter (`--gutter: --spacing(6)`). Fields stack label → control at 8px, control → error at 8px. Form clusters use 24px between fieldsets.
 
 Density is compact-from-`sm`: buttons, inputs, and nav items lose 4–8px of height above the mobile floor, then keep a 44px invisible hit area via `touch-target` on square icon controls.
 
-Home is a centered `container` stack (`gap-2`, `py-24`) — thin on purpose.
+Home is a centered `container` stack (`gap-2`, `py-24`) — thin on purpose. Theme and language toggles are the only chrome beside title/welcome.
 
 Breakpoints (Tailwind defaults): `sm` 640px, `md` 768px, `lg` 1024px, `xl` 1280px, `2xl` 1536px.
 
 ## Elevation & Depth
 
-Hybrid. Resting surfaces are flat: Paper (or Card, which equals Paper) plus a 1px Hairline and `shadow-xs` so the edge reads, not so the card floats. Dark mode leans even flatter — tooltips drop shadow entirely and keep a ring.
+Hybrid. Resting surfaces are flat: Paper (or Card, which equals Paper) plus a 1px Hairline and `shadow-xs` so the edge reads, not so the card floats. Dark mode leans even flatter — overlays keep a muted ring; tooltips stay quiet.
 
-Overlays (popover, modal, sheet, command menu) are the only places structural lift is allowed: `shadow-xs` or `shadow-lg` plus `drop-shadow-xl` and a muted ring (`muted-fg/20`, `border` in dark). Depth is a state of floating, not a property of content.
+Overlays (popover, modal, sheet, command menu) are the only places structural lift is allowed: `shadow-xs` or `shadow-lg` plus `drop-shadow-xl` and a muted ring (`muted-fg/20`, `border` in dark). Depth is a state of floating, not a property of content. No `shadow-2xl` exists in the current codebase — do not introduce it.
 
 ### Shadow Vocabulary
 
-- **Resting edge** (`box-shadow: 0 1px 2px 0 rgb(0 0 0 / 0.05)`): Cards, float navbar, float sidebar, inputs-adjacent chrome.
+- **Resting edge** (`box-shadow: 0 1px 2px 0 rgb(0 0 0 / 0.05)`): Cards, float navbar, float sidebar, inset navbar content.
 - **Overlay lift** (`box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1)` plus `filter: drop-shadow(0 9px 7px rgb(0 0 0 / 0.1))`): Popovers, modals, sheets, command menu.
-- **Auth sample only** (`shadow-2xl` on the login decorative pane): Do not reuse on app chrome.
 
 ### Named Rules
 
-**The Flat-By-Default Rule.** Surfaces are flat at rest. Shadows appear only as a response to floating (overlay) or to the login sample pane.
+**The Flat-By-Default Rule.** Surfaces are flat at rest. Shadows appear only as a response to floating (overlay).
 
 **The Ring-Over-Glow Rule.** Focus and hover never use colored drop-shadows. Use a 2–3px ring at 20% Helm Blue (or the intent color).
 
@@ -310,7 +309,7 @@ Intents: `primary` | `secondary` | `warning` | `danger` | `success` | `outline` 
 - **Style:** Transparent fill, 8px corners, Input Stroke border, 16px/14px text.
 - **Hover:** Border to `muted-fg/30`.
 - **Focus:** Border `ring/70`, 3px ring at `ring/20` (Helm Blue). Invalid swaps to Alarm Vermillion subtle-fg and matching ring.
-- **Disabled:** Violet Paper fill, 50% opacity.
+- **Disabled:** Violet Paper fill.
 - **Error / Required:** Field error in Alarm Vermillion Ink. Required labels append a vermillion asterisk.
 
 ### Navigation
@@ -318,7 +317,7 @@ Intents: `primary` | `secondary` | `warning` | `danger` | `success` | `outline` 
 - **Default navbar:** Hairline bottom, Navbar fill. Items are 8px-radius, medium, 14px from `md`. Hover/press → Fog. Current → Cool Graphite.
 - **Float navbar:** 12px shell, Hairline, resting edge shadow, content padded 16px.
 - **Focus:** 2px ring at 20% Helm Blue plus inset ring.
-- **Mobile:** Grid item layout; desktop row. Sidebar current uses Helm Blue fill (same signal as primary buttons).
+- **Mobile:** Sheet-backed toggle; desktop row. Sidebar current uses Helm Blue fill (same signal as primary buttons).
 
 ### Note (signature)
 
@@ -333,13 +332,14 @@ Status callout: 8px, 16px padding, 15% current-color border, `backdrop-blur-2xl`
 - **Do** default to 8px soft-rects, 24px card gutters, and `shadow-xs` + Hairline on resting surfaces.
 - **Do** step type down at `sm` (16px → 14px body) and keep a 44px hit area on square icon controls.
 - **Do** put status only in Note, Badge, validation, and meter/progress — never as a decorative wash.
-- **Do** keep authenticated home thin: title, one mono welcome, theme/i18n/profile controls.
+- **Do** keep public home thin: title, one mono welcome, theme/i18n toggles.
 
 ### Don't:
 
 - **Don't** introduce a second brand hue, a display serif, or a 3rem+ hero type scale.
 - **Don't** lift cards or buttons on hover (`translateY`, colored drop-shadows, skeuomorphic bevels).
-- **Don't** use `shadow-2xl` outside the login sample pane.
-- **Don't** paint marketing-landing spectacle, neon, or illustration into app chrome.
+- **Don't** introduce `shadow-2xl` on app chrome.
+- **Don't** paint marketing-landing spectacle, neon, or illustration into kit chrome.
+- **Don't** brand the UI as a generic Next.js template.
 - **Don't** fabricate end-user brand claims, testimonials, or a WCAG certification level.
 - **Don't** load Inter alongside Geist. One sans.
