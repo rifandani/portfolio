@@ -31,6 +31,8 @@ jobs:
 
       - name: Install bun
         uses: oven-sh/setup-bun@v2
+        with:
+          bun-version: 1.4.0
 
       - name: Install deps and disallow changes to lockfile
         run: bun ci
@@ -42,7 +44,7 @@ jobs:
           if [ -n "$WEB_ENV_FILE" ]; then
             echo "$WEB_ENV_FILE" > apps/web/.env.dev
           else
-            cp apps/web/.env.dev.example apps/web/.env.dev
+            cp apps/web/.env.example apps/web/.env.dev
           fi
 
       - name: Run mutation testing
