@@ -33,6 +33,10 @@ gh secret set WEB_ENV_FILE -e prod -f ./apps/web/.env.prod
 
 Source of truth is local env files. When changing them, update deployment/CI project env too. -->
 
+## 🗒️ Notes
+
+- We have adjusted `/tdd` skills from original Matt Pocock's
+
 ## 📱 Apps
 
 - [@workspace/web](./apps/web/README.md)
