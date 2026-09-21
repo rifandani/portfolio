@@ -54,6 +54,9 @@ export default defineConfig({
         // coverage figure means something. Modules that mix schemas with repositories
         // (`cdn.ts`) stay in — their functions are tested.
         "apps/web/src/core/apis/core.ts",
+        // Composition root: one `new Http(...)` declaration. The wiring that
+        // can be wrong — reading the Access Token, responding to a rejected
+        // one — lives in `core/services/http.ts`, which is measured.
         "apps/web/src/core/services/http-client.ts",
         "apps/web/src/app/**/route.ts",
         "apps/web/src/app/manifest.ts",

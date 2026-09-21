@@ -25,3 +25,15 @@ Web app.
 ### Feature Flags
 
 **Feature Flag**: A named boolean that gates a product surface for local development. Defaults ON in development and OFF otherwise; a developer may override the default via the Feature Flags Devtools panel, and that override persists across reloads until reset. Production builds never honor an ON override for gated surfaces. _Avoid_: kill switch, remote config, experiment, A/B test
+
+### Errors
+
+**Error Envelope**: The `{ message }` body the API returns on a failed request. Present on most failures, absent on some — a caller may never assume it parsed. _Avoid_: error response, error body, error payload
+
+### Session
+
+**Session**: What one successful login produces — the signed-in person together with the credentials that prove it. The app persists exactly one, or none. This app has no login yet; `Http` carries the seam (`HttpAuthConfig`) for the one it will get. _Avoid_: user, appUser, auth state, current user
+
+**Access Token**: The credential sent with a request to prove the Session. Read per request by `HttpAuthConfig.getToken`, never read by a caller. _Avoid_: token, bearer, jwt, auth header
+
+**End Session**: The single flow that discards a Session, whether the person signed out or the server rejected the Access Token (`HttpAuthConfig.onUnauthorized`). Distinct from the store setter it calls. _Avoid_: logout, sign out, log off
