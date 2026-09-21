@@ -26,6 +26,7 @@
     "build:prod": "cp .env.prod .env.local && next build",
     "build:standalone": "BUILD_STANDALONE=1 next build",
     "start": "next start",
+    "zap:serve": "next start --port 4100 --hostname 0.0.0.0",
     "start:standalone": "node .next/standalone/apps/web/server.js",
     "build-and-preview": "bun run build && bun run start"
   },

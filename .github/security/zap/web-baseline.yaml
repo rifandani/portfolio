@@ -1,0 +1,114 @@
+# OWASP ZAP Automation Framework plan — passive baseline for `apps/web`.
+#
+# This one file is the whole scan. `.github/workflows/dast.yml` runs it through
+# `zaproxy/action-af`, and `bun zap:web` runs it through `scripts/security/zap.ts`;
+# both issue the same `docker run` with the repository root mounted at
+# `/zap/wrk`, so a plan that passes on a laptop behaves the same in CI.
+#
+# Three things here are deliberate and look like omissions. The reasoning lives
+# once in docs/adr/0005-dast-scans-a-locally-served-build.md; read it before
+# undoing any of them:
+#   1. Passive only, and no `web-active.yaml`. We own the whole stack, so unlike
+#      a frontend-only repo an active plan is *legitimate* here — it is deferred
+#      on triage cost, not forbidden.
+#   2. No `ajaxSpider`. The app server-renders, so the plain spider sees real
+#      markup and the extra 10+ minutes of browser driving buys little.
+#   3. `/api` is IN scope. We serve it. Note that `apps/web/src/proxy.ts` has a
+#      matcher that excludes `api`, so these routes carry none of the security
+#      headers the page routes get — findings there are real.
+#
+# Adding a route to the app means adding it below.
+
+env:
+  contexts:
+    - name: web
+      urls:
+        - ${ZAP_TARGET}/
+        - ${ZAP_TARGET}/blogs
+        - ${ZAP_TARGET}/projects
+        # Gated by the `componentCatalog` Feature Flag, which is OFF outside
+        # development — so this seed exercises the gate's rejection path, which
+        # is the part worth scanning.
+        - ${ZAP_TARGET}/master-design
+        # Metadata routes. `proxy.ts` excludes robots/sitemap from its matcher,
+        # so they are served bare.
+        - ${ZAP_TARGET}/robots.txt
+        - ${ZAP_TARGET}/sitemap.xml
+        - ${ZAP_TARGET}/manifest.webmanifest
+        # Route handlers. `/api/og` takes user-controlled `title` and `logo`
+        # query values and renders them into an image; its defaults make a
+        # bare GET valid, so it is reachable without seeding a payload.
+        - ${ZAP_TARGET}/api/health
+        - ${ZAP_TARGET}/api/og
+      includePaths:
+        - "\\Q${ZAP_TARGET}\\E.*"
+      excludePaths:
+        # The OTel collector and any devtools endpoint the app talks to are not
+        # ours to scan, and a passive run that follows one would report on
+        # someone else's host.
+        - ".*/ingest/.*"
+  parameters:
+    failOnError: true
+    failOnWarning: false
+    progressToStdout: true
+
+jobs:
+  - type: passiveScan-config
+    parameters:
+      maxAlertsPerRule: 10
+      scanOnlyInScope: true
+
+  # Triaged findings go here, with a reason and a date — the same convention as
+  # the timed entries in the SCA allowlist. Entries must name a `ruleName` and
+  # be URL-scoped; a global suppression is never the answer.
+  #
+  # `deleteGlobalAlerts` clears filters left in the ZAP session before applying
+  # this list. It resets, it does not suppress — it is what makes the run
+  # reproducible from an empty list.
+  - type: alertFilter
+    parameters:
+      deleteGlobalAlerts: true
+    alertFilters: []
+
+  - type: spider
+    parameters:
+      context: web
+      maxDuration: 5
+      # Read-only. Both default to `true`, so both are stated. Nothing in this
+      # app writes yet, but `postForm: true` against a deployed target — which
+      # the `target_url` override makes possible — would post real data.
+      postForm: false
+      processForm: false
+
+  - type: passiveScan-wait
+    parameters:
+      maxDuration: 10
+
+  - type: report
+    parameters:
+      template: sarif-json
+      reportDir: /zap/wrk/.zap-reports
+      reportFile: web-baseline.sarif
+      reportTitle: "web — DAST baseline"
+
+  - type: report
+    parameters:
+      template: traditional-html
+      reportDir: /zap/wrk/.zap-reports
+      reportFile: web-baseline.html
+      reportTitle: "web — DAST baseline"
+
+  # Medium, not High. A passive baseline reads responses; it does not attack, so
+  # the server-side logic this app does have is not what it reports on. Its
+  # findings are header-level Mediums — and one of them is known and expected:
+  # `proxy.ts` sets `contentSecurityPolicy: false`. A High threshold would be
+  # green in the face of that, which reads as assurance it does not provide.
+  # `warnExitValue: 0` keeps Low findings reportable without failing the run.
+  - type: exitStatus
+    parameters:
+      errorLevel: Medium
+      warnLevel: Low
+      okExitValue: 0
+      errorExitValue: 1
+      warnExitValue: 0
+    alwaysRun: true

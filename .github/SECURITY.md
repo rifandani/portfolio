@@ -19,7 +19,8 @@ Aligned with OWASP Top 10 (2021) as the secure-coding baseline. ASVS is not mand
 | Secret detection | `ci.yml` | gitleaks | Any finding |
 | SCA / dependency scanning | `security.yml` | [OSV-Scanner](https://github.com/google/osv-scanner) via `scripts/security/sca-gate.ts` | High and Critical |
 | SAST | `security.yml` | CodeQL (`security-extended`) | security-severity ≥ 7.0 (High/Critical) |
-| DAST / pentest / platform assessment | — | — | Out of scope (Security Governance item 10) |
+| DAST | `dast.yml` | [OWASP ZAP](https://www.zaproxy.org/) baseline via `.github/security/zap/web-baseline.yaml` | No — push to `main`, weekly, and manual only; gates nothing |
+| Pentest / platform assessment | — | — | Out of scope (Security Governance item 10) |
 | Container / IaC scanning | — | — | N/A (no production images / IaC in repo) |
 
 Dependabot (`.github/dependabot.yml`) opens monthly update PRs; it does not replace the SCA gate.
@@ -29,7 +30,7 @@ Dependabot (`.github/dependabot.yml`) opens monthly update PRs; it does not repl
 | Severity | Gate | Exception |
 | --- | --- | --- |
 | Critical | Blocks | Not allowlistable. PR label `security-exception` only, Application lead approval |
-| High | Blocks | Timed entry in `security/sca-allowlist.json` (SCA) and/or `security-exception` label |
+| High | Blocks | Timed entry in `.github/security/sca-allowlist.json` (SCA) and/or `security-exception` label |
 | Medium / Low | Does not block | Track and fix in normal backlog |
 
 **Exception approval:** Application lead applies the `security-exception` label on the PR (or renews an SCA allowlist entry with a new `expires` date and reason). Infrastructure owns pipeline capability; Application lead owns risk acceptance.
@@ -48,4 +49,6 @@ Dependabot (`.github/dependabot.yml`) opens monthly update PRs; it does not repl
 ```bash
 bun run audit:sca      # same SCA gate as CI
 bun run check:security # fallow security candidates (informational; not the CI SAST gate)
+bun run zap:web:serve  # serve a production build on :4100 for a local DAST scan
+ZAP_TARGET=http://web.portfolio.localhost:4100 bun run zap:web  # same plan CI runs
 ```

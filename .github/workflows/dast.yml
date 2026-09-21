@@ -1,0 +1,176 @@
+# Dynamic application security testing for `apps/web`.
+#
+# The plan lives in `.github/security/zap/web-baseline.yaml` and is the same file
+# `bun zap:web` runs locally. `zaproxy/action-af` issues the same `docker run`
+# that `scripts/security/zap.ts` does — repository root at `/zap/wrk`, host
+# network — so a plan that passes on a laptop behaves the same here.
+#
+# What is scanned:
+#   By default this job builds `apps/web` and serves it with `next start` on the
+#   runner, then scans that. It can do so honestly because this app's security
+#   headers come from `apps/web/src/proxy.ts` (`@nosecone/next`) — they are in
+#   the repository, not in hosting configuration, so the served build emits the
+#   real ones. That buys a hermetic run tied to the commit being scanned, with
+#   no repository variable to set before the workflow does anything.
+#
+#   Set the `WEB_TARGET_URL` repository variable (or pass `target_url`) to scan a
+#   deployment instead. That is the only way to see what the hosting layer adds
+#   or strips, so it is worth doing periodically — it is an override, not the
+#   default, because it reports on whatever is deployed rather than on this ref.
+#   A URL is not a credential, so this is a variable and not a secret: Settings →
+#   Secrets and variables → Actions → Variables.
+#
+#   See docs/adr/0005-dast-scans-a-locally-served-build.md.
+#
+# Passive only. The spider submits no forms and no active scanner runs, so
+# nothing here writes through a route handler — which matters most in the
+# `target_url` case, where the target is a real deployment.
+#
+# There is no PR trigger and so no `security-exception` escape hatch: nothing
+# here can block a merge. This gates nothing, the same as `e2e.yml` — a red run
+# here is information, not a block.
+name: DAST
+
+on:
+  push:
+    branches:
+      - main
+  schedule:
+    # Weekly, an hour after the Security workflow so the two do not collide.
+    - cron: "0 7 * * 1"
+  workflow_dispatch:
+    inputs:
+      target_url:
+        description: "Scan this deployed URL instead of a build served on the runner"
+        required: false
+        type: string
+
+env:
+  FORCE_COLOR: "1"
+
+permissions:
+  contents: read
+
+# A superseded scan only reports on a ref that has already been replaced.
+concurrency:
+  group: dast-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  baseline:
+    name: Baseline (web)
+    runs-on: ubuntu-latest
+    environment: dev
+    permissions:
+      contents: read
+      security-events: write
+    steps:
+      - name: Resolve the target
+        id: target
+        env:
+          REMOTE: ${{ inputs.target_url || vars.WEB_TARGET_URL }}
+        run: |
+          if [ -n "$REMOTE" ]; then
+            echo "Scanning the deployment at $REMOTE" >> "$GITHUB_STEP_SUMMARY"
+            echo "url=$REMOTE" >> "$GITHUB_OUTPUT"
+            echo "local=false" >> "$GITHUB_OUTPUT"
+          else
+            echo "Scanning a build served on the runner" >> "$GITHUB_STEP_SUMMARY"
+            echo "url=http://127.0.0.1:4100" >> "$GITHUB_OUTPUT"
+            echo "local=true" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Checkout
+        uses: actions/checkout@v7
+
+      - name: Setup Node.js
+        if: steps.target.outputs.local == 'true'
+        uses: actions/setup-node@v7
+        with:
+          node-version-file: .node-version
+
+      - name: Install bun
+        if: steps.target.outputs.local == 'true'
+        uses: oven-sh/setup-bun@v2
+        with:
+          bun-version: 1.4.0
+
+      - name: Install deps and disallow changes to lockfile
+        if: steps.target.outputs.local == 'true'
+        run: bun ci
+
+      # Same pattern as ci.yml's build job, plus an override of the two public
+      # URLs. They are baked in at build time, and a build that advertises
+      # `web.portfolio.localhost` would emit absolute links the spider then
+      # discards as out of context — a green scan of almost nothing.
+      - name: Prepare env file
+        if: steps.target.outputs.local == 'true'
+        env:
+          WEB_ENV_FILE: ${{ secrets.WEB_ENV_FILE }}
+        run: |
+          if [ -n "$WEB_ENV_FILE" ]; then
+            echo "$WEB_ENV_FILE" > apps/web/.env.dev
+          else
+            cp apps/web/.env.example apps/web/.env.dev
+          fi
+          {
+            echo 'NEXT_PUBLIC_APP_URL="http://127.0.0.1:4100"'
+            echo 'NEXT_PUBLIC_API_BASE_URL="http://127.0.0.1:4100/api"'
+          } >> apps/web/.env.dev
+
+      - name: Build
+        if: steps.target.outputs.local == 'true'
+        run: bun web build
+
+      - name: Serve
+        if: steps.target.outputs.local == 'true'
+        run: |
+          bun web zap:serve &
+          for _ in $(seq 1 60); do
+            if curl -fsS http://127.0.0.1:4100/api/health > /dev/null; then
+              echo "app is up"
+              exit 0
+            fi
+            sleep 1
+          done
+          echo "app did not become healthy within 60s" >&2
+          exit 1
+
+      - name: Baseline scan
+        uses: zaproxy/action-af@v0.3.0
+        env:
+          ZAP_TARGET: ${{ steps.target.outputs.url }}
+        with:
+          plan: .github/security/zap/web-baseline.yaml
+          # A list of variable NAMES, not assignments. The action turns each into
+          # a `-e NAME` and Docker copies the value from the step env above.
+          docker_env_vars: |
+            ZAP_TARGET
+
+      - name: Locate the SARIF report
+        id: sarif
+        if: always()
+        run: |
+          FILE=$(find .zap-reports -name 'web-baseline.sarif*' 2>/dev/null | head -1)
+          echo "file=${FILE}" >> "$GITHUB_OUTPUT"
+
+      # Best-effort, exactly as security.yml treats its CodeQL upload: code
+      # scanning needs a public repo or GitHub Code Security on a private one,
+      # and a repo without it should still get the artifact and the exit gate.
+      # The scan's own Medium threshold is what fails the job; losing the
+      # code-scanning record does not.
+      - name: Upload SARIF to code scanning
+        if: always() && steps.sarif.outputs.file != ''
+        continue-on-error: true
+        uses: github/codeql-action/upload-sarif@v4
+        with:
+          sarif_file: ${{ steps.sarif.outputs.file }}
+          category: "/dast:web-baseline"
+
+      - name: Save reports as artifact
+        if: always()
+        uses: actions/upload-artifact@v7
+        with:
+          name: dast-web-baseline
+          path: .zap-reports
+          retention-days: 7

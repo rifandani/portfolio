@@ -76,6 +76,7 @@ Login to dashboard at `http://localhost:3111` with credentials:
 
 ### Security
 
+- [DAST (OWASP ZAP)](./docs/security/dast.md)
 - [web.dev](https://web.dev/learn/privacy/welcome)
 
 ### SEO
