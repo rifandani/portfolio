@@ -299,3 +299,144 @@ body::before {
     animation-delay: 0s !important;
   }
 }
+
+/**
+ * Raking light on a content card.
+ *
+ * A card is a sheet of paper resting on the grained canvas, so the pointer is
+ * treated as a light held over the sheet rather than as a reason to lift it —
+ * Flat-By-Default holds, and nothing translates, scales, or grows a shadow.
+ * Three layers read one position, `--lit-px` / `--lit-py`, the pointer in
+ * normalised card space, written by `lit-card.client.tsx`:
+ *
+ * - `::before` grades the `secondary` hover wash so it is brightest under the
+ *   light and falls away, instead of washing the whole card flat. A small
+ *   Helm Teal specular sits inside it — a few percent over a ninth of the card,
+ *   which keeps the One Voice Rule intact.
+ * - `::after` wakes the hairline to Helm Teal only where the light reaches it.
+ *   It is painted as a 1px gradient border through `mask-composite`, so it is
+ *   an edge and not a glow (Ring-Over-Glow).
+ * - `[data-lit-print]` drifts the preview inside its fixed frame, so the print
+ *   moves toward the light and the card does not move at all.
+ *
+ * The default light sits at the centre, as the fallback in every `var()` rather
+ * than as a declaration here — declaring it on the card would shadow the value
+ * the tracker sets on the wrapper and inherits down. That centred default is
+ * what keyboard focus, coarse pointers, reduced motion, and a failed script all
+ * get: a symmetrical lit card that still reads as the hover state.
+ */
+.card-lit {
+  /**
+   * Shared by the fade below and by `lit-card.client.tsx`, which waits out this
+   * long before returning the light to centre. The light must not move while it
+   * is still on screen, so the two cannot drift apart.
+   */
+  --lit-fade: 280ms;
+  position: relative;
+}
+
+.card-lit::before,
+.card-lit::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity var(--lit-fade) cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.card-lit::before {
+  /**
+   * In light, `--secondary` (Fog) is darker than the card, so the wash reads on
+   * its own. In dark it sits barely off `--card`, so the light is pulled a step
+   * toward `--fg` there — in both themes the pool moves away from the sheet.
+   */
+  --lit-wash: var(--secondary);
+  background-image:
+    radial-gradient(
+      8rem 6rem at calc(var(--lit-px, 0.5) * 100%)
+        calc(var(--lit-py, 0.5) * 100%),
+      color-mix(in oklab, var(--primary) 16%, transparent),
+      color-mix(in oklab, var(--primary) 0%, transparent) 72%
+    ),
+    radial-gradient(
+      22rem 15rem at calc(var(--lit-px, 0.5) * 100%)
+        calc(var(--lit-py, 0.5) * 100%),
+      var(--lit-wash),
+      color-mix(in oklab, var(--lit-wash) 0%, transparent) 74%
+    );
+}
+
+:is(.dark .card-lit)::before {
+  --lit-wash: color-mix(in oklab, var(--fg) 9%, var(--secondary));
+}
+
+.card-lit::after {
+  padding: 1px;
+  background-image: radial-gradient(
+    15rem 11rem at calc(var(--lit-px, 0.5) * 100%)
+      calc(var(--lit-py, 0.5) * 100%),
+    var(--primary),
+    color-mix(in oklab, var(--primary) 65%, transparent) 34%,
+    color-mix(in oklab, var(--primary) 0%, transparent) 80%
+  );
+  -webkit-mask-image: linear-gradient(#000 0 0), linear-gradient(#000 0 0);
+  -webkit-mask-clip: content-box, border-box;
+  -webkit-mask-composite: xor;
+  mask-image: linear-gradient(#000 0 0), linear-gradient(#000 0 0);
+  mask-clip: content-box, border-box;
+  mask-composite: exclude;
+}
+
+.card-lit:hover::before,
+.card-lit:hover::after,
+.card-lit:focus-visible::before,
+.card-lit:focus-visible::after {
+  opacity: 1;
+}
+
+/**
+ * The print follows the light with a little weight: the transition runs on
+ * every pointer move, so the drift trails the cursor instead of snapping to it.
+ *
+ * The duration here is the exit, and it is shorter than the entrance below so
+ * the print has settled before the light has finished fading — nothing is left
+ * moving on a card the pointer has already left.
+ */
+.card-lit [data-lit-print] {
+  transition:
+    scale 200ms cubic-bezier(0.16, 1, 0.3, 1),
+    translate 200ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.card-lit:hover [data-lit-print],
+.card-lit:focus-visible [data-lit-print] {
+  transition-duration: 320ms;
+  scale: 1.08;
+  translate: calc((var(--lit-px, 0.5) - 0.5) * -12px)
+    calc((var(--lit-py, 0.5) - 0.5) * -9px);
+}
+
+/* Reduced motion keeps the lit state and drops every movement in it. */
+@media (prefers-reduced-motion: reduce) {
+  .card-lit::before,
+  .card-lit::after,
+  .card-lit [data-lit-print] {
+    transition: none;
+  }
+
+  .card-lit:hover [data-lit-print],
+  .card-lit:focus-visible [data-lit-print] {
+    scale: 1;
+    translate: none;
+  }
+}
+
+/* Light is decoration: a forced palette draws its own hover and focus. */
+@media (forced-colors: active) {
+  .card-lit::before,
+  .card-lit::after {
+    display: none;
+  }
+}

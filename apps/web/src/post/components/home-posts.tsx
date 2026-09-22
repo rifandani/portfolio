@@ -20,7 +20,7 @@ export const HomePosts = async () => {
       action={
         <Link
           href="/posts"
-          className="text-primary-subtle-fg shrink-0 text-sm/6 underline underline-offset-4"
+          className="text-primary-subtle-fg shrink-0 text-sm/6"
         >
           {t("homeAllPosts")}
         </Link>

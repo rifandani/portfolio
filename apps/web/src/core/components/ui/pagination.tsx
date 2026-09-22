@@ -55,6 +55,7 @@ const PaginationItem = ({
     <li>
       <Link
         data-slot="pagination-item"
+        variant="plain"
         href={isCurrent ? undefined : props.href}
         aria-current={isCurrent ? 'page' : undefined}
         className={buttonStyles({

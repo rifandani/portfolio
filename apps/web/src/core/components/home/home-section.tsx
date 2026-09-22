@@ -1,4 +1,5 @@
 import type { ReactNode } from "react";
+import { twMerge } from "tailwind-merge";
 
 import { Heading } from "@/core/components/ui/heading";
 import { Text } from "@/core/components/ui/text";
@@ -9,16 +10,21 @@ import { Text } from "@/core/components/ui/text";
  * each with an `allHref` + `allLabel` pair that only meant anything when both
  * were passed. The trailing link is one `action` slot instead, so a caller
  * composes the link it wants rather than describing one through props.
+ *
+ * `listClassName` exists for the one section whose stack is not a plain gap:
+ * work experience draws a rail between its rows and owns its own spacing.
  */
 export const HomeSection = ({
   id,
   title,
   action,
+  listClassName,
   children,
 }: {
   id: string;
   title: string;
   action?: ReactNode;
+  listClassName?: string;
   children: ReactNode;
 }) => (
   <section aria-labelledby={id} className="mt-24">
@@ -28,7 +34,9 @@ export const HomeSection = ({
       </Heading>
       {action}
     </div>
-    <ul className="mt-6 flex flex-col gap-4">{children}</ul>
+    <ul className={twMerge("mt-6 flex flex-col gap-4", listClassName)}>
+      {children}
+    </ul>
   </section>
 );
 

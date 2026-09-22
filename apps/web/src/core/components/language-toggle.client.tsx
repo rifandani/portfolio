@@ -9,13 +9,7 @@ import { toast } from "sonner";
 
 import { setUserLocaleAction } from "@/core/actions/i18n";
 import { Button } from "@/core/components/ui/button";
-import {
-  Menu,
-  MenuContent,
-  MenuHeader,
-  MenuItem,
-  MenuSection,
-} from "@/core/components/ui/menu";
+import { Menu, MenuContent, MenuItem } from "@/core/components/ui/menu";
 import type { I18NLocale } from "@/core/constants/i18n";
 
 export const LanguageToggle = () => {
@@ -34,6 +28,7 @@ export const LanguageToggle = () => {
       </Button>
 
       <MenuContent
+        aria-label={t("language")}
         selectionMode="single"
         selectedKeys={new Set([locale])}
         onSelectionChange={(_selection) => {
@@ -50,16 +45,12 @@ export const LanguageToggle = () => {
           });
         }}
       >
-        <MenuSection>
-          <MenuHeader separator>{t("language")}</MenuHeader>
-
-          <MenuItem id="en" isDisabled={isPending}>
-            English
-          </MenuItem>
-          <MenuItem id="id" isDisabled={isPending}>
-            Indonesia
-          </MenuItem>
-        </MenuSection>
+        <MenuItem id="en" isDisabled={isPending}>
+          English
+        </MenuItem>
+        <MenuItem id="id" isDisabled={isPending}>
+          Indonesia
+        </MenuItem>
       </MenuContent>
     </Menu>
   );

@@ -57,7 +57,7 @@ export default async function AboutPage() {
           <Text className="mt-4 max-w-prose text-base/7">
             <Link
               href={`mailto:${aboutContent.email}`}
-              className="text-primary-subtle-fg underline underline-offset-4"
+              className="text-primary-subtle-fg"
             >
               {t("aboutEmailMe")}
             </Link>

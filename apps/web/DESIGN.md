@@ -163,7 +163,7 @@ The machinery underneath is App Router, React Aria, PWA, SEO, and observability.
 - Hybrid depth: tone + hairline at rest; shadow only on overlays. Cards never lift.
 - Light and dark as equal citizens. Primary chroma does not shift.
 - 16px body on mobile, 14px from `sm` up — except hero and lead paragraphs, which hold 16px/1.75 at every width.
-- One card silhouette, shared by work entries, projects, and posts, on home and on both index pages.
+- One card silhouette, shared by projects and posts, on home and on both index pages. Work rows are the one public row without it: they hang off the work rail instead.
 
 Visual rejections: marketing-landing spectacle, neon accents, skeuomorphism, decorative illustration, hover-lift theater, and leftover "bulletproof Next template" branding.
 
@@ -251,7 +251,7 @@ Public surfaces use `SiteContainer` instead: the same `Container` capped at `lg`
 
 Every public route renders through `SiteShell` (`src/core/components/site-shell.tsx`): sticky header, `<main>`, footer. A new public surface writes its content and nothing else.
 
-Public page rhythm: page padding `py-16` / `sm:py-24`; sections separated by `mt-24`; cards within a section stacked at `gap-4`. Generosity here is vertical, not horizontal — the column stays at 64rem.
+Public page rhythm: page padding `py-16` / `sm:py-24`; sections separated by `mt-24`; cards within a section stacked at `gap-4`. Work experience is the exception: its rows carry their own 32px / `sm` 40px bottom spacing so the rail runs through the interval instead of jumping it, and so shell-less rows still read as separate entries. Generosity here is vertical, not horizontal — the column stays at 64rem.
 
 The home page is: identity hero → work experience (all roles) → projects (first three) → writing (three most recent) → footer. Each preview section carries an "All …" link to its own index at the heading baseline.
 
@@ -280,7 +280,7 @@ Overlays (popover, modal, sheet, command menu) are the only places structural li
 
 ### Named Rules
 
-**The Flat-By-Default Rule.** Surfaces are flat at rest. Shadows appear only as a response to floating (overlay). A card hover washes its background; it never lifts, scales, or grows a shadow.
+**The Flat-By-Default Rule.** Surfaces are flat at rest. Shadows appear only as a response to floating (overlay). A card hover washes its background and may light it; it never lifts, scales, or grows a shadow. The sheet stays on the canvas — what moves is the light on it and the print inside its frame.
 
 **The Ring-Over-Glow Rule.** Focus and hover never use colored drop-shadows. Use a 2–3px ring at 20% Helm Teal (or the intent color).
 
@@ -331,7 +331,7 @@ Intents: `primary` | `secondary` | `warning` | `danger` | `success` | `outline` 
 ### Chips
 
 - **Style:** Default Badge is a pill. Primary uses Helm Wash + Helm Ink. Outline uses Hairline, no fill.
-- **Tech tags** on project cards are a quieter relative: Stone Well fill, Muted Ink text, mono at 0.75rem, full radius. They label, they do not signal.
+- **Tech tags** on project cards are a quieter relative: the `secondary` Badge in mono. They label, they do not signal.
 - **State:** Group hover/focus shifts to a 20% overlay of the intent color.
 
 ### Cards / Containers
@@ -363,16 +363,31 @@ Status callout: 8px, 16px padding, 15% current-color border, `backdrop-blur-2xl`
 
 ### Content Card (signature)
 
-One silhouette, three fillings, defined once in `src/core/components/portfolio/card-shell.ts` and used by `WorkCard`, `ProjectCard`, and `PostCard` on home and on both index pages.
+One silhouette, two fillings, defined once in `src/portfolio/components/card-shell.ts` and used by `ProjectCard` and `PostCard` on home and on both index pages. Every card that wears it is also a link, so the shell only ever reaches the page through `cardLinkClass`.
 
 - **Shell:** Card fill, 1px Hairline, 8px radius, `shadow-xs`, 20px / `sm` 24px padding.
-- **Media:** 48×48 soft-rect logo with a 1px Hairline border; post cards instead carry the wide OG image (`aspect-[1200/630]`, `w-28` / `sm:w-40`).
+- **Media:** one wide preview image in a fixed frame that owns the 1px Hairline border and the clip (`aspect-[1200/630]`, `w-28` / `sm:w-40`, `self-start`), the same on project and post cards. The frame never moves; the print inside it does. The 48×48 soft-rect logo belongs to work rows only.
 - **Type:** Roboto semibold `h3` title, Muted Ink description at body size, mono meta (date range, publish date, reading time).
-- **Interactive:** Project and post cards are one full-card link and wash `secondary/40` on hover and focus. Work cards are static — a role has nowhere to navigate to.
+- **Interactive:** Project and post cards are one full-card link, lit by the pointer (`card-lit`, `lit-card.client.tsx`). One position, `--lit-px` / `--lit-py`, drives three layers: the `secondary` wash graded around the light instead of flat, a Helm Teal specular at ~16% under it, and the Hairline waking to Helm Teal where the light reaches the border — a 1px gradient edge through `mask-composite`, never a glow. The print drifts and scales ~1.08 inside its frame, trailing the light by 320ms and settling back in 200ms — the exit is shorter than the entrance, so nothing is left moving on a card the pointer has left.
+- **Leaving:** the light holds exactly where the pointer left it and only fades. It returns to centre after the fade has finished, when nothing is visible to move — recentring it on `pointerleave` snaps the light to the middle at full brightness.
+- **Default light:** centred (0.5 / 0.5), carried as the `var()` fallback rather than a declaration on the card, which would shadow the tracked value. Keyboard focus, coarse pointers, reduced motion, and a failed script all get that symmetrical lit state plus the outline ring. Reduced motion keeps the lit state and drops every movement in it; forced colors drop the light entirely.
+
+### Work Rail (signature)
+
+Work experience reads as a chronology, so its rows hang off a vertical rail in the left gutter (`src/portfolio/components/work-timeline-item.tsx`). The row carries no card shell: a dated entry already held by a rail does not need a second container, and the card borders fight the line. Separation comes from the rail and the row interval instead.
+
+- **Gutter:** a 10px rail column, then 16px / `sm` 20px to the row's 48×48 logo.
+- **Line:** 1px at 30% Muted Ink. Hairline is tuned to separate a card from the canvas and disappears when it has to carry a bare line on the dark canvas.
+- **Node:** a 10px circle, Canvas fill with a 45% Muted Ink border, centred 7px down so it lands on the role title's first line — the row's first mark, with no card padding before it. It aligns with the title, not with the logo tile beside it: the title is what the row is read from.
+- **Current role:** the one node filled Helm Teal with a 2px `ring-primary/20`. This is the accent earning its keep — one node on the page, and the date range says the same thing in words.
+- **Rhythm:** 32px / `sm` 40px between rows. Without borders the interval is the only separation, so it runs wider than the 16px card stacks below it.
+- **Construction:** each row owns the segment above its node and the segment down to the next one, so the line starts and ends exactly on a node whatever height the rows take. The whole rail column is `aria-hidden`; it repeats what the dates already say.
 
 ### Named Rules
 
-**The One-Card Rule.** Work, project, and post cards share a silhouette and differ only in filling. A surface that needs a fourth card shape needs a different surface.
+**The Rail-Is-Chronology Rule.** The rail belongs to work experience, which is the one home section ordered by time. Projects and writing are ranked, not dated — they stay a plain stack.
+
+**The One-Card Rule.** Project and post cards share one silhouette and differ only in filling. A surface that needs a third card shape needs a different surface — and a row that is neither ranked nor navigable, like a work entry, needs no card at all.
 
 **The Static-Work Rule.** A work entry is not a link. Do not give it hover affordances it cannot honor.
 
@@ -392,7 +407,7 @@ One silhouette, three fillings, defined once in `src/core/components/portfolio/c
 ### Don't:
 
 - **Don't** introduce a second brand hue or a fourth font family.
-- **Don't** lift cards or buttons on hover (`translateY`, scale, colored drop-shadows, skeuomorphic bevels).
+- **Don't** lift cards or buttons on hover (`translateY`, card scale, colored drop-shadows, skeuomorphic bevels). Lighting a card and drifting its print inside a fixed frame are not lift — the card's own box never moves.
 - **Don't** introduce `shadow-2xl` on app chrome.
 - **Don't** paint marketing-landing spectacle, neon, or illustration into chrome.
 - **Don't** widen public surfaces past 64rem.

@@ -1,8 +1,11 @@
 import { getLocale, getTranslations } from "next-intl/server";
 import Image from "next/image";
 
-import { Link } from "@/core/components/ui/link";
-import { cardLinkClass } from "@/portfolio/components/card-shell";
+import {
+  cardBodyClass,
+  cardMediaClass,
+} from "@/portfolio/components/card-shell";
+import { LitCard } from "@/portfolio/components/lit-card.client";
 import type { PostEntry } from "@/post/constants/posts";
 
 /** Publish dates follow the reader's Locale, not a fixed English format. */
@@ -19,16 +22,19 @@ const formatPublished = (iso: string, locale: string) =>
 export const PostCard = async ({ entry }: { entry: PostEntry }) => {
   const [t, locale] = await Promise.all([getTranslations(), getLocale()]);
   return (
-    <Link href={entry.href} className={cardLinkClass}>
-      <div className="flex gap-4 sm:gap-5">
-        <Image
-          src={entry.ogImageSrc}
-          alt={entry.ogImageAlt}
-          width={160}
-          height={84}
-          className="border-border aspect-[1200/630] w-28 shrink-0 rounded-lg border object-cover sm:w-40"
-          unoptimized
-        />
+    <LitCard href={entry.href}>
+      <div className={cardBodyClass}>
+        <div className={cardMediaClass}>
+          <Image
+            src={entry.ogImageSrc}
+            alt={entry.ogImageAlt}
+            width={160}
+            height={84}
+            className="size-full object-cover"
+            data-lit-print
+            unoptimized
+          />
+        </div>
         <div className="min-w-0 flex-1">
           <h3 className="text-fg font-display text-base/6 font-semibold text-pretty">
             {entry.title}
@@ -45,6 +51,6 @@ export const PostCard = async ({ entry }: { entry: PostEntry }) => {
           </p>
         </div>
       </div>
-    </Link>
+    </LitCard>
   );
 };

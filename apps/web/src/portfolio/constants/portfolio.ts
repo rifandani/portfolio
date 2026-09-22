@@ -13,12 +13,13 @@ export const portfolioIdentity = {
   roleSentence:
     "[Synthetic] Frontend engineer, design-system builder & accessibility advocate.",
   summary:
-    "[Synthetic] Design-minded engineer. I build accessible web products with clear structure, careful UI, and production-ready foundations.",
+    "Prefer to keep learning, continue challenging myself, and do interesting things that matter. I'm always open to collaborating on exciting projects and innovative/disruptive ideas.",
   copyright: "© 2026 Tri Rizeki Rifandani. All rights reserved.",
 } as const;
 
 export interface SocialLink {
-  id: string;
+  /** Closed set — each id also names the mark the home list renders for it. */
+  id: "github" | "linkedin" | "email";
   /** Translation key for the visible label. */
   labelKey: "socialGithub" | "socialLinkedin" | "socialEmail";
   href: string;
@@ -29,9 +30,21 @@ export interface SocialLink {
  * profile before this site goes public.
  */
 export const socialLinks: SocialLink[] = [
-  { id: "github", labelKey: "socialGithub", href: "https://github.com/" },
-  { id: "linkedin", labelKey: "socialLinkedin", href: "https://linkedin.com/" },
-  { id: "email", labelKey: "socialEmail", href: "mailto:example@example.com" },
+  {
+    id: "github",
+    labelKey: "socialGithub",
+    href: "https://github.com/rifandani",
+  },
+  {
+    id: "linkedin",
+    labelKey: "socialLinkedin",
+    href: "https://linkedin.com/in/rifandani",
+  },
+  {
+    id: "email",
+    labelKey: "socialEmail",
+    href: "mailto:tri.rifandani@gmail.com",
+  },
 ];
 
 /** [Synthetic] About-page content. Replace with the real biography. */
@@ -47,7 +60,7 @@ export const aboutContent = {
     "[Synthetic] Accessibility from keyboard paths to forced-colors fallbacks.",
     "[Synthetic] Production foundations — SEO, observability, and performance budgets.",
   ],
-  email: "example@example.com",
+  email: "tri.rifandani@gmail.com",
 } as const;
 
 export interface ExperienceEntry {
@@ -60,6 +73,11 @@ export interface ExperienceEntry {
   logoAlt: string;
   /** One prose line. Work cards show a sentence, not a bullet list. */
   summary: string;
+  /**
+   * The role held today. Marks this entry's node on the work rail. It is not
+   * read off `end`, which is display copy.
+   */
+  isCurrent?: boolean;
 }
 
 export const experienceEntries: ExperienceEntry[] = [
@@ -69,6 +87,7 @@ export const experienceEntries: ExperienceEntry[] = [
     role: "Senior Frontend Engineer",
     start: "2023",
     end: "Present",
+    isCurrent: true,
     logoSrc: "/placeholders/company-a.svg",
     logoAlt: "Synthetic logo for Northwind Labs",
     summary:

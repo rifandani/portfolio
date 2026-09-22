@@ -208,6 +208,7 @@ const NavbarItem = ({ className, isCurrent, ...props }: NavbarItemProps) => {
   return (
     <Link
       data-slot="navbar-item"
+      variant="plain"
       aria-current={isCurrent ? 'page' : undefined}
       className={cx(
         [
