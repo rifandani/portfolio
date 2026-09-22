@@ -1,7 +1,8 @@
-import { getTranslations } from "next-intl/server";
-
-import { LanguageToggle } from "@/core/components/language-toggle.client";
-import { ThemeToggle } from "@/core/components/theme-toggle.client";
+import {
+  HomeDirectionContract,
+  HomePageContent,
+} from "@/core/components/home/home-sections";
+import { SiteShell } from "@/core/components/site-shell";
 import {
   createMetadata,
   createWebPage,
@@ -11,7 +12,7 @@ import {
 
 const title = "Home";
 const description =
-  "Personal portfolio. Explore projects, writing, and contact details.";
+  "Personal portfolio for Tri Rizeki Rifandani — work experience, projects, and writing.";
 const ldParams = {
   url:
     process.env.NODE_ENV === "production"
@@ -26,20 +27,14 @@ export const metadata = createMetadata({
   description,
 });
 
-export default async function HomePage() {
-  const t = await getTranslations();
-
+export default function HomePage() {
   return (
-    <div className="container mx-auto flex flex-col items-center gap-y-2 py-24">
-      <h1 className="text-3xl sm:text-4xl">{t("title")}</h1>
-      <h2 className="font-mono text-xl sm:text-2xl">{t("welcome")}</h2>
-
-      <div className="flex items-center gap-x-2">
-        <ThemeToggle />
-        <LanguageToggle />
-      </div>
-
+    <>
+      <HomeDirectionContract />
+      <SiteShell>
+        <HomePageContent />
+      </SiteShell>
       <JsonLd graphs={[createWebSite(ldParams), createWebPage(ldParams)]} />
-    </div>
+    </>
   );
 }

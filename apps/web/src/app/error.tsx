@@ -5,7 +5,7 @@ import { log } from "evlog/next/client";
 import { useEffect } from "react";
 
 import { StatusScreen } from "@/core/components/status-screen";
-import { Button } from "@/core/components/ui";
+import { Button } from "@/core/components/ui/button";
 import {
   TRACER_ROOT_ROUTE,
   TRACER_ROOT_ROUTE_ON_ERROR,

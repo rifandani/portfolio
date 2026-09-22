@@ -1,7 +1,7 @@
 import { getTranslations } from "next-intl/server";
 
 import { StatusScreen } from "@/core/components/status-screen";
-import { Link } from "@/core/components/ui";
+import { Link } from "@/core/components/ui/link";
 
 export default async function NotFound() {
   const t = await getTranslations();

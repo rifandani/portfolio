@@ -8,6 +8,12 @@ const securityMiddleware = createMiddleware({
   ...defaults,
   // disabled because we depend on iconify, next-themes, etc...
   contentSecurityPolicy: false,
+  /**
+   * COEP `require-corp` blocks cross-origin subresources that carry no CORP/CORS
+   * headers, which breaks local dev tooling injected from another origin.
+   * Production keeps the default.
+   */
+  crossOriginEmbedderPolicy: process.env.NODE_ENV !== "development",
 });
 
 const REQUEST_ID_HEADER = "x-request-id";

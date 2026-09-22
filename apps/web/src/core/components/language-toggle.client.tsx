@@ -8,14 +8,14 @@ import type { Selection } from "react-stately";
 import { toast } from "sonner";
 
 import { setUserLocaleAction } from "@/core/actions/i18n";
+import { Button } from "@/core/components/ui/button";
 import {
-  Button,
   Menu,
   MenuContent,
   MenuHeader,
   MenuItem,
   MenuSection,
-} from "@/core/components/ui";
+} from "@/core/components/ui/menu";
 import type { I18NLocale } from "@/core/constants/i18n";
 
 export const LanguageToggle = () => {
@@ -26,7 +26,11 @@ export const LanguageToggle = () => {
     <Menu>
       <Button intent="outline" data-slot="menu-trigger">
         <GlobeAltIcon className="size-6" />
-        {locale === "en" ? "English" : "Indonesia"}
+        {/* The label is chrome, not information: it drops below `sm` so the
+            public topbar fits one row at 390px. */}
+        <span className="hidden sm:inline">
+          {locale === "en" ? "English" : "Indonesia"}
+        </span>
       </Button>
 
       <MenuContent

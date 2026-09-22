@@ -7,10 +7,10 @@ import { ENV } from "@/core/constants/env";
 
 const applicationName = ENV.NEXT_PUBLIC_APP_TITLE;
 const author = {
-  name: "Rizeki Rifandani",
+  name: "Tri Rizeki Rifandani",
   url: "https://web.com",
 } satisfies Metadata["authors"];
-const publisher = "Rizeki Rifandani";
+const publisher = "Tri Rizeki Rifandani";
 const twitterHandle = "@tri_rizeki";
 const appUrl = ENV.NEXT_PUBLIC_APP_URL;
 interface MetadataParts {

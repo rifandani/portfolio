@@ -1,23 +1,24 @@
 ---
 name: "@workspace/web"
-description: Personal portfolio UI kit — accessible Intent UI in the engine room
+description: Personal portfolio UI kit — accessible Intent UI, plain-speech public surfaces
 colors:
-  helm-blue: "oklch(0.546 0.245 262.881)"
-  helm-blue-fg: "oklch(1 0 0)"
-  helm-blue-subtle: "oklch(0.623 0.214 259.815 / 0.15)"
-  helm-blue-subtle-fg: "oklch(0.488 0.243 264.376)"
+  helm-teal: "oklch(0.6 0.118 184.704)"
+  helm-teal-fg: "oklch(1 0 0)"
+  helm-teal-subtle: "oklch(0.704 0.14 182.503 / 0.15)"
+  helm-teal-subtle-fg: "oklch(0.511 0.096 186.391)"
   paper: "oklch(1 0 0)"
-  cool-graphite: "oklch(0.21 0.006 285.885)"
-  violet-paper: "oklch(0.967 0.001 286.375)"
-  muted-ink: "oklch(0.552 0.016 285.938)"
-  fog: "oklch(0.92 0.004 286.32)"
-  fog-fg: "oklch(0.141 0.005 285.823)"
+  sand-canvas: "oklch(0.99 0.0035 85)"
+  warm-graphite: "oklch(0.216 0.006 56.043)"
+  stone-well: "oklch(0.97 0.001 106.424)"
+  muted-ink: "oklch(0.538 0.013 58.071)"
+  fog: "oklch(0.923 0.003 48.717)"
+  fog-fg: "oklch(0.147 0.004 49.25)"
   overlay: "oklch(1 0 0)"
-  overlay-fg: "oklch(0.141 0.005 285.823)"
-  hairline: "oklch(0.911 0.006 286.286)"
-  input-stroke: "oklch(0.871 0.006 286.286)"
-  navbar: "oklch(0.995 0 0)"
-  sidebar: "oklch(0.985 0 0)"
+  overlay-fg: "oklch(0.147 0.004 49.25)"
+  hairline: "oklch(0.909 0.005 56.366)"
+  input-stroke: "oklch(0.869 0.005 56.366)"
+  navbar: "oklch(0.995 0.001 106.423)"
+  sidebar: "oklch(0.985 0.001 106.423)"
   turbine-teal: "oklch(0.596 0.145 163.225)"
   turbine-teal-fg: "oklch(1 0 0)"
   turbine-teal-subtle: "oklch(0.696 0.17 162.48 / 0.15)"
@@ -33,35 +34,42 @@ colors:
   info-subtle: "oklch(0.685 0.169 237.323 / 0.15)"
   info-subtle-fg: "oklch(0.5 0.134 242.749)"
 typography:
+  hero:
+    fontFamily: "Roboto, ui-sans-serif, system-ui, sans-serif"
+    fontSize: "1.875rem"
+    fontSizeSm: "3rem"
+    fontWeight: 600
+    lineHeight: 1.33
+    letterSpacing: "-0.025em"
   display:
-    fontFamily: "Geist, ui-sans-serif, system-ui, sans-serif"
+    fontFamily: "Roboto, ui-sans-serif, system-ui, sans-serif"
     fontSize: "1.5rem"
     fontWeight: 600
     lineHeight: 2
     letterSpacing: "-0.025em"
   headline:
-    fontFamily: "Geist, ui-sans-serif, system-ui, sans-serif"
+    fontFamily: "Roboto, ui-sans-serif, system-ui, sans-serif"
     fontSize: "1.25rem"
     fontWeight: 600
     lineHeight: 2
     letterSpacing: "-0.025em"
   title:
-    fontFamily: "Geist, ui-sans-serif, system-ui, sans-serif"
+    fontFamily: "Roboto, ui-sans-serif, system-ui, sans-serif"
     fontSize: "1rem"
     fontWeight: 600
     lineHeight: 1.5
   body:
-    fontFamily: "Geist, ui-sans-serif, system-ui, sans-serif"
+    fontFamily: "Quicksand, ui-sans-serif, system-ui, sans-serif"
     fontSize: "0.875rem"
     fontWeight: 400
     lineHeight: 1.5
   label:
-    fontFamily: "Geist, ui-sans-serif, system-ui, sans-serif"
+    fontFamily: "Quicksand, ui-sans-serif, system-ui, sans-serif"
     fontSize: "0.875rem"
     fontWeight: 500
     lineHeight: 1.5
   mono:
-    fontFamily: "Geist Mono, ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace"
+    fontFamily: "IBM Plex Mono, ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace"
     fontSize: "0.8125rem"
     fontWeight: 500
     fontFeature: '"ss02", "zero"'
@@ -79,15 +87,15 @@ spacing:
   xl: "32px"
 components:
   button-primary:
-    backgroundColor: "{colors.helm-blue}"
-    textColor: "{colors.helm-blue-fg}"
+    backgroundColor: "{colors.helm-teal}"
+    textColor: "{colors.helm-teal-fg}"
     typography: "{typography.label}"
     rounded: "{rounded.lg}"
     padding: "6px 12px"
     height: "36px"
   button-primary-hover:
-    backgroundColor: "color-mix(in oklab, oklch(1 0 0) 10%, oklch(0.546 0.245 262.881) 90%)"
-    textColor: "{colors.helm-blue-fg}"
+    backgroundColor: "color-mix(in oklab, oklch(1 0 0) 10%, oklch(0.6 0.118 184.704) 90%)"
+    textColor: "{colors.helm-teal-fg}"
     rounded: "{rounded.lg}"
   button-secondary:
     backgroundColor: "{colors.fog}"
@@ -98,39 +106,39 @@ components:
     height: "36px"
   button-outline:
     backgroundColor: "transparent"
-    textColor: "{colors.cool-graphite}"
+    textColor: "{colors.warm-graphite}"
     typography: "{typography.label}"
     rounded: "{rounded.lg}"
     padding: "6px 12px"
     height: "36px"
   button-plain:
     backgroundColor: "transparent"
-    textColor: "{colors.cool-graphite}"
+    textColor: "{colors.warm-graphite}"
     typography: "{typography.label}"
     rounded: "{rounded.lg}"
     padding: "6px 12px"
     height: "36px"
   input:
     backgroundColor: "transparent"
-    textColor: "{colors.cool-graphite}"
+    textColor: "{colors.warm-graphite}"
     typography: "{typography.body}"
     rounded: "{rounded.lg}"
     padding: "6px 12px"
     height: "36px"
   card:
     backgroundColor: "{colors.paper}"
-    textColor: "{colors.cool-graphite}"
+    textColor: "{colors.warm-graphite}"
     rounded: "{rounded.lg}"
     padding: "24px"
   badge-primary:
-    backgroundColor: "{colors.helm-blue-subtle}"
-    textColor: "{colors.helm-blue-subtle-fg}"
+    backgroundColor: "{colors.helm-teal-subtle}"
+    textColor: "{colors.helm-teal-subtle-fg}"
     typography: "{typography.label}"
     rounded: "{rounded.full}"
     padding: "0 7px"
     height: "20px"
   note:
-    backgroundColor: "{colors.violet-paper}"
+    backgroundColor: "{colors.stone-well}"
     textColor: "{colors.fog-fg}"
     typography: "{typography.body}"
     rounded: "{rounded.lg}"
@@ -141,49 +149,50 @@ components:
 
 ## Overview
 
-**Creative North Star: "The Engine Room"**
+**Creative North Star: "Plain Speech"**
 
-This is the visual system for Tri Rizeki Rifandani’s public portfolio app, built on an Operate-mode Intent UI kit. The machinery is App Router, React Aria, PWA, SEO, and observability — not a showroom starter brand. The kit is cool, operational, and restrained: Geist with one saturated helm signal, surfaces that rest flat and lift only when they float.
+This is the visual system for Tri Rizeki Rifandani's public portfolio app. The public surfaces do one job: say who this person is, then let a visitor scan the work. The layout is conventional on purpose — a wordmark topbar, a hero that states the role in one sentence, then stacked bordered cards for work, projects, and writing. Nothing asks the reader to learn a novel structure before they can read.
 
-Accessibility is product truth, not a coat of paint. React Aria focus rings, 44px touch targets, and forced-colors fallbacks are part of the craft. Public home stays thin; the Component Catalog at `/master-design` is the proof surface for the kit.
-
-Visual rejections confirmed by the incumbent kit: marketing-landing spectacle, neon accents, skeuomorphism, decorative illustration, hover-lift theater, and leftover “bulletproof Next template” branding.
+The machinery underneath is App Router, React Aria, PWA, SEO, and observability. Accessibility is product truth, not a coat of paint: React Aria focus rings, 44px touch targets, and forced-colors fallbacks are part of the craft. The Component Catalog at `/master-design` remains the kit proof surface and keeps the denser app-chrome density.
 
 **Key Characteristics:**
 
-- One accent (Helm Blue). Status colors are machinery lights, not brand.
-- Geist + Geist Mono. No display serif, no second sans. (`@theme` still lists Inter as leftover kit copy — do not load it; `layout.tsx` loads Geist via `next/font`.)
+- One accent (Helm Teal). Status colors are machinery lights, not brand.
+- Roboto for headings, Quicksand for body, IBM Plex Mono for meta. Three faces, three jobs, no fourth.
 - Soft-rect 8px default. Pills only for badges, toggles, and circular icon buttons.
-- Hybrid depth: tone + hairline at rest; shadow only on overlays.
+- Hybrid depth: tone + hairline at rest; shadow only on overlays. Cards never lift.
 - Light and dark as equal citizens. Primary chroma does not shift.
-- 16px body on mobile, 14px from `sm` up. Page titles stay in the 1.25–1.5rem band.
-- One Geist Mono welcome line on the public home is the console tell — not a second body face.
+- 16px body on mobile, 14px from `sm` up — except hero and lead paragraphs, which hold 16px/1.75 at every width.
+- One card silhouette, shared by work entries, projects, and posts, on home and on both index pages.
+
+Visual rejections: marketing-landing spectacle, neon accents, skeuomorphism, decorative illustration, hover-lift theater, and leftover "bulletproof Next template" branding.
 
 ## Colors
 
-Cool violet-neutral paper with a single saturated blue-indigo as the action voice. Canonical values live in `:root` as OKLCH (`src/core/styles/globals.css`); dark theme inverts surfaces, not the signal.
+Warm stone-neutral paper with a single desaturated teal as the action voice. Canonical values live in `:root` as OKLCH (`src/core/styles/globals.css`); dark theme inverts surfaces, not the signal.
 
 ### Primary
 
-- **Helm Blue** (`helm-blue`): Primary buttons, focus ring (`--ring`), sidebar current, chart-1. The only high-chroma brand voice.
-- **On-Primary** (`helm-blue-fg`): Text and icons on Helm Blue fills.
-- **Helm Wash** (`helm-blue-subtle`): 15% wash for badges, selected rows, calendar cells. Dark uses 10%.
-- **Helm Ink** (`helm-blue-subtle-fg`): Text on the wash; also text links.
+- **Helm Teal** (`helm-teal`): Primary buttons, focus ring (`--ring`), sidebar current, chart-1. The only high-chroma brand voice.
+- **On-Primary** (`helm-teal-fg`): Text and icons on Helm Teal fills.
+- **Helm Wash** (`helm-teal-subtle`): 15% wash for badges, selected rows, calendar cells. Dark uses 10%.
+- **Helm Ink** (`helm-teal-subtle-fg`): Text on the wash; also text links.
 
 ### Secondary
 
-- **Fog** (`fog`): Secondary / accent fill — the same token in light. Quiet chrome, pressed nav, hover overlays.
+- **Fog** (`fog`): Secondary / accent fill — the same token in light. Quiet chrome, pressed nav, hover overlays, card hover wash.
 - **Fog Ink** (`fog-fg`): Text on Fog.
 
 No tertiary role. `accent` equals `secondary` in light; do not invent a third brand hue.
 
 ### Neutral
 
-- **Paper** (`paper`): App canvas and cards (`--bg` / `--card`).
-- **Cool Graphite** (`cool-graphite`): Primary text (`--fg`).
-- **Violet Paper** (`violet-paper`): Muted wells, code chips, default notes (`--muted`).
-- **Muted Ink** (`muted-ink`): Secondary copy, placeholders, icon rest state (`--muted-fg`).
-- **Hairline** (`hairline`): Default borders, scrollbar thumb (`--border`).
+- **Paper** (`paper`): App surfaces and cards (`--bg` / `--card`). On public routes this is the sheet, not the canvas.
+- **Sand Canvas** (`sand-canvas`): The page canvas behind every route (`--canvas`, painted on `html`). One step warm and off Paper, so white cards read as sheets resting on it. Carries the paper grain.
+- **Warm Graphite** (`warm-graphite`): Primary text (`--fg`).
+- **Stone Well** (`stone-well`): Muted wells, code chips, tech tags, default notes (`--muted`).
+- **Muted Ink** (`muted-ink`): Secondary copy, placeholders, icon rest state (`--muted-fg`). Set one notch darker than Stone-family mid-grey so it clears 4.5:1 over the grained Sand Canvas (4.85:1), not only over Paper.
+- **Hairline** (`hairline`): Default borders, card borders, scrollbar thumb (`--border`).
 - **Input Stroke** (`input-stroke`): Field borders at rest (one step stronger than Hairline).
 - **Overlay** (`overlay` / `overlay-fg`): Popovers, menus, toasts.
 - **Navbar / Sidebar** (`navbar`, `sidebar`): Chrome slightly off Paper so the canvas reads as the work surface.
@@ -197,50 +206,66 @@ No tertiary role. `accent` equals `secondary` in light; do not invent a third br
 
 ### Named Rules
 
-**The One Voice Rule.** Helm Blue occupies ≤10% of any given screen. Its rarity is the point. Never wash a whole view in primary.
+**The One Voice Rule.** Helm Teal occupies ≤10% of any given screen. Its rarity is the point. Never wash a whole view in primary.
 
-**The Same-Signal Rule.** Helm Blue does not change chroma between light and dark. Only surfaces invert.
+**The Same-Signal Rule.** Helm Teal does not change chroma between light and dark. Only surfaces invert.
 
 **The Status-Is-Not-Brand Rule.** Teal, vermillion, and amber never appear as decorative chrome. They mean a state.
 
 ## Typography
 
-**Display Font:** Geist (ui-sans-serif, system-ui) **Body Font:** Geist (same family; loaded via `next/font` in `layout.tsx`) **Label/Mono Font:** Geist Mono (`ss02`, `zero` for tabular/slashed zero)
+**Heading Font:** Roboto (`--font-display`) **Body Font:** Quicksand (`--font-sans`) **Meta / Mono Font:** IBM Plex Mono (`--font-mono`)
 
-**Character:** One grotesque, Next-native. Hierarchy is weight and tracking, not a second family. Geist Mono is for code chips, snippets, and a single home welcome line.
+All three load through `next/font/google` in `src/app/layout.tsx` and are exposed as Tailwind theme variables in `src/core/styles/globals.css`. Do not add a fourth family, and do not set body copy in the heading face.
+
+**Character:** Roboto gives headings a flatter, more neutral skeleton than the rounded Quicksand body, so hierarchy reads as a change of voice rather than a change of size alone. IBM Plex Mono carries dates, durations, tech tags, and code — anything a reader scans rather than reads.
 
 ### Hierarchy
 
-- **Display** (600, 1.5rem / 2, tracking-tight): Heading level 1 from `sm` up (`Heading` level 1). Page titles in the engine room, not marketing heroes. Home’s `text-3xl`/`text-4xl` title is a one-off shell; do not promote it to the scale.
-- **Headline** (600, 1.25rem / 2, tracking-tight): Heading level 2. Section titles.
-- **Title** (600, 1rem / 1.5): Card titles, Heading 4, compact chrome.
-- **Body** (400, 0.875rem / 1.5 from `sm`; 1rem / 1.5 on mobile): Default copy and field text. Muted Ink for supporting paragraphs.
-- **Label** (500, 0.875rem / 1.5): Buttons, field labels, nav items. Badges drop to 0.75rem / 1.25.
-- **Mono** (500, 0.8125rem): Inline code chips. Home welcome may use 1.25–1.5rem Geist Mono as the one console tell.
+- **Hero** (Roboto 600, 1.875rem / 2.5 on mobile, 3rem / 3.5 from `sm`, tracking-tight): The one-sentence role statement on home, and the first-person headline on `/about`. Applied as a per-surface class on `Heading level={1}`, not as a new font token.
+- **Display** (Roboto 600, 1.5rem / 2, tracking-tight): `Heading level={1}` at rest — kit page titles and index-page titles (which step to 1.875 / `sm` 2.25rem).
+- **Headline** (Roboto 600, 1.25rem / 2, tracking-tight): `Heading level={2}`. Home section titles (Work experience, Projects, Writing).
+- **Title** (Roboto 600, 1rem / 1.5): Card titles (`h3` inside a card), `Heading level={4}`, compact chrome.
+- **Body** (Quicksand 400, 0.875rem / 1.5 from `sm`; 1rem / 1.5 on mobile): Default copy, field text, card descriptions. Muted Ink for supporting copy.
+- **Lead** (Quicksand 400, 1rem / 1.75 at every width): The home summary, the `/about` biography paragraphs, and index-page intros. The one place body copy does not step down at `sm`.
+- **Label** (Quicksand 500, 0.875rem / 1.5): Buttons, field labels, nav items. Badges drop to 0.75rem / 1.25.
+- **Meta** (IBM Plex Mono 500, 0.75rem / `sm` 0.875rem): Date ranges, publish dates, reading time, tech tags, social link labels, footer lines.
 
 Mobile body and headings step up one Tailwind size so 16px remains the readable floor on touch.
 
 ### Named Rules
 
-**The No-Hero Type Rule.** There is no 3–4rem display scale in this system. If a screen needs spectacle type, the screen is in the wrong mode.
+**The Three-Face Rule.** Roboto heads, Quicksand reads, IBM Plex Mono counts. A face outside its job is a bug, and a fourth family does not exist.
 
-**The Two-Size Body Rule.** Body is 16px on mobile and 14px from `sm`. Do not mix a third body size in the same view.
+**The One-Hero Rule.** The display-scale hero appears once per surface, at the top, and never below the fold. It states a fact about the person; it is not a section title that got promoted.
 
-**The One-Line Console Rule.** Geist Mono as display-size type is allowed once: the public home welcome. Do not set paragraphs or forms in mono.
+**The Lead-Holds Rule.** Body copy steps 16px → 14px at `sm`, except lead paragraphs, which hold 16px/1.75 at every width. Do not mix a third body size in one view.
 
 ## Layout
 
 Tailwind's default 4px spacing scale. Recurring gutters: 8 / 16 / 24 / 32 (`sm` / `md` / `lg` / `xl`).
 
-Container is `max-width: 80rem` (`xl`) with 16px horizontal padding (`Container` sets `--container-breakpoint: var(--breakpoint-xl)`). Navbar content can open to `2xl` (96rem). Float navbar caps at `7xl` / `xl` with 16px inset.
+App-kit `Container` is `max-width: 80rem` (`xl`) with 16px horizontal padding. Navbar content can open to `2xl` (96rem). Float navbar caps at `7xl` / `xl`.
 
-Cards use a 24px internal gutter (`--gutter: --spacing(6)`). Fields stack label → control at 8px, control → error at 8px. Form clusters use 24px between fieldsets.
+Public surfaces use `SiteContainer` instead: the same `Container` capped at `lg` (64rem). The kit width is sized for dense app chrome; the public column is one text-led read. Header, page content, and footer all share `SiteContainer`, so the topbar aligns with the content.
+
+Every public route renders through `SiteShell` (`src/core/components/site-shell.tsx`): sticky header, `<main>`, footer. A new public surface writes its content and nothing else.
+
+Public page rhythm: page padding `py-16` / `sm:py-24`; sections separated by `mt-24`; cards within a section stacked at `gap-4`. Generosity here is vertical, not horizontal — the column stays at 64rem.
+
+The home page is: identity hero → work experience (all roles) → projects (first three) → writing (three most recent) → footer. Each preview section carries an "All …" link to its own index at the heading baseline.
+
+Cards use a 20px internal gutter on mobile and 24px from `sm`. Fields stack label → control at 8px, control → error at 8px. Form clusters use 24px between fieldsets.
 
 Density is compact-from-`sm`: buttons, inputs, and nav items lose 4–8px of height above the mobile floor, then keep a 44px invisible hit area via `touch-target` on square icon controls.
 
-Home is a centered `container` stack (`gap-2`, `py-24`) — thin on purpose. Theme and language toggles are the only chrome beside title/welcome.
+### Named Rules
 
-Breakpoints (Tailwind defaults): `sm` 640px, `md` 768px, `lg` 1024px, `xl` 1280px, `2xl` 1536px.
+**The One-Column Rule.** Public surfaces cap at 64rem and read top to bottom. Widening the column strands a card's meta from its title and leaves the hero beside empty canvas.
+
+**The One-Shell Rule.** Public routes render through `SiteShell`. A page that assembles its own header or footer will drift from the others.
+
+**The Preview-Then-Index Rule.** A home section that has an index shows at most three entries and links to it. Home introduces; the index enumerates. Work experience has no index route, so it is the one section that lists in full — if it ever grows one, it takes the three-entry cap with it.
 
 ## Elevation & Depth
 
@@ -250,31 +275,43 @@ Overlays (popover, modal, sheet, command menu) are the only places structural li
 
 ### Shadow Vocabulary
 
-- **Resting edge** (`box-shadow: 0 1px 2px 0 rgb(0 0 0 / 0.05)`): Cards, float navbar, float sidebar, inset navbar content.
+- **Resting edge** (`box-shadow: 0 1px 2px 0 rgb(0 0 0 / 0.05)`): Content cards, kit cards, float navbar, float sidebar, inset navbar content.
 - **Overlay lift** (`box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1)` plus `filter: drop-shadow(0 9px 7px rgb(0 0 0 / 0.1))`): Popovers, modals, sheets, command menu.
 
 ### Named Rules
 
-**The Flat-By-Default Rule.** Surfaces are flat at rest. Shadows appear only as a response to floating (overlay).
+**The Flat-By-Default Rule.** Surfaces are flat at rest. Shadows appear only as a response to floating (overlay). A card hover washes its background; it never lifts, scales, or grows a shadow.
 
-**The Ring-Over-Glow Rule.** Focus and hover never use colored drop-shadows. Use a 2–3px ring at 20% Helm Blue (or the intent color).
+**The Ring-Over-Glow Rule.** Focus and hover never use colored drop-shadows. Use a 2–3px ring at 20% Helm Teal (or the intent color).
+
+## Texture
+
+The page canvas carries a fine paper grain: one fixed layer on `body::before`, a tiled fractal-noise SVG used as a mask and tinted by `--grain`, so the same tile darkens light paper and lightens dark paper. `fractalNoise` at `baseFrequency 0.9` over three octaves sets the speckle size, and an `feComponentTransfer` stretches the alpha (`slope 2.2`, `intercept -0.6`) so grains resolve as distinct specks instead of a flat mid-alpha wash — that transfer raises visible texture without moving the mean. The tile draws at its display size (180px), so one noise cell lands on roughly one CSS pixel at every viewport.
+
+It sits at `z-index: -1` — above the canvas paint, below every route's content — takes no pointer events, and is hidden under `forced-colors` and in print.
+
+### Named Rules
+
+**The Canvas-Only Rule.** Grain belongs to the canvas. Cards, chrome, and overlays stay smooth, so the texture reads as the surface content rests on and never as noise inside the content.
+
+**The Mean-Luminance Rule.** The grain moves the canvas it sits on: it darkens the light canvas by about 2% on average and lightens the dark canvas by about the same, so both `--canvas` values are set away from the tone they render as (light `#f9f8f7`, dark `#151312`). Two checks re-open whenever `--grain-opacity` moves — text on the canvas against the composited value, and card-against-canvas separation, which in dark mode collapses if the grain lightens the canvas up to the card.
 
 ## Shapes
 
-Soft-rectangles. The default silhouette is `rounded-lg` (8px) on buttons, cards, inputs, notes, tooltips, nav items. Controls inset by 1px (`calc(var(--radius-lg) - 1px)`) so the inner fill sits inside the border.
+Soft-rectangles. The default silhouette is `rounded-lg` (8px) on buttons, cards, inputs, notes, tooltips, nav items, and card media. Controls inset by 1px (`calc(var(--radius-lg) - 1px)`) so the inner fill sits inside the border.
 
 - **sm (4px):** Code chips, square badges, tight inner clips.
 - **md (6px):** Color swatches.
 - **lg (8px):** The system default.
 - **xl (12px):** Float navbar shell.
 - **2xl (16px):** Modals (`rounded-t-2xl` on mobile, `rounded-2xl` from `sm`).
-- **full:** Default badges, switch thumbs, circular icon buttons, progress tracks.
+- **full:** Default badges, tech tags, switch thumbs, circular icon buttons, progress tracks.
 
 Borders are 1px Hairline or Input Stroke. Overlays add a 1px ring at 15–20% muted. No hard squares, no 24px+ squircles on controls.
 
 ### Named Rules
 
-**The Soft-Rect Rule.** 8px is the default corner. Pills are for badges, toggles, and circular icon buttons only.
+**The Soft-Rect Rule.** 8px is the default corner. Pills are for badges, tech tags, toggles, and circular icon buttons only.
 
 ## Components
 
@@ -283,7 +320,7 @@ Refined and restrained. Confidence lives in focus treatment, not motion. Hover i
 ### Buttons
 
 - **Shape:** Soft-rect 8px (`rounded-lg`). Circular only when `isCircle`.
-- **Primary:** Helm Blue fill, on-primary text, 15% graphite border, medium weight. Default size `md`: 36px tall from `sm` (40px on mobile), `6px 12px` padding.
+- **Primary:** Helm Teal fill, on-primary text, 15% graphite border, medium weight. Default size `md`: 36px tall from `sm` (40px on mobile), `6px 12px` padding.
 - **Hover / Focus:** Hover mixes 10% on-primary into the fill. Focus-visible: 2px outline + 2px ring with 3px Paper offset. Disabled/pending at 50% opacity.
 - **Secondary:** Fog fill, Fog Ink text, muted-fg icons.
 - **Warning / Danger / Success:** Status fills; same geometry. Do not use as brand.
@@ -294,7 +331,8 @@ Intents: `primary` | `secondary` | `warning` | `danger` | `success` | `outline` 
 ### Chips
 
 - **Style:** Default Badge is a pill. Primary uses Helm Wash + Helm Ink. Outline uses Hairline, no fill.
-- **State:** Group hover/focus shifts to a 20% overlay of the intent color. Intents: primary, secondary, success, info, warning, danger, outline.
+- **Tech tags** on project cards are a quieter relative: Stone Well fill, Muted Ink text, mono at 0.75rem, full radius. They label, they do not signal.
+- **State:** Group hover/focus shifts to a 20% overlay of the intent color.
 
 ### Cards / Containers
 
@@ -302,44 +340,63 @@ Intents: `primary` | `secondary` | `warning` | `danger` | `success` | `outline` 
 - **Background:** Paper / Card (same token in light).
 - **Shadow Strategy:** Resting edge (`shadow-xs`) plus Hairline border. See Elevation.
 - **Border:** 1px Hairline.
-- **Internal Padding:** 24px gutter; header/content/footer share it. Tables flush and get a muted header well.
+- **Internal Padding:** 24px gutter on kit cards; public content cards use 20px on mobile, 24px from `sm`.
 
 ### Inputs / Fields
 
 - **Style:** Transparent fill, 8px corners, Input Stroke border, 16px/14px text.
 - **Hover:** Border to `muted-fg/30`.
-- **Focus:** Border `ring/70`, 3px ring at `ring/20` (Helm Blue). Invalid swaps to Alarm Vermillion subtle-fg and matching ring.
-- **Disabled:** Violet Paper fill.
+- **Focus:** Border `ring/70`, 3px ring at `ring/20` (Helm Teal). Invalid swaps to Alarm Vermillion subtle-fg and matching ring.
+- **Disabled:** Stone Well fill.
 - **Error / Required:** Field error in Alarm Vermillion Ink. Required labels append a vermillion asterisk.
 
 ### Navigation
 
-- **Default navbar:** Hairline bottom, Navbar fill. Items are 8px-radius, medium, 14px from `md`. Hover/press → Fog. Current → Cool Graphite.
+- **Default navbar:** Hairline bottom, Navbar fill. Items are 8px-radius, medium, 14px from `md`. Hover/press → Fog. Current → Warm Graphite.
 - **Float navbar:** 12px shell, Hairline, resting edge shadow, content padded 16px.
-- **Focus:** 2px ring at 20% Helm Blue plus inset ring.
-- **Mobile:** Sheet-backed toggle; desktop row. Sidebar current uses Helm Blue fill (same signal as primary buttons).
+- **Public site header:** Sticky (`bg-navbar/90`, `backdrop-blur-md`), 56px tall (`h-14`). Left: the wordmark, in the heading face, linking home. Right: About / Projects / Blog plain links, then theme and language toggles. One row at every width — three links do not earn a mobile sheet.
+- **Focus:** 2px ring at 20% Helm Teal plus inset ring.
 
 ### Note (signature)
 
-Status callout: 8px, 16px padding, 15% current-color border, `backdrop-blur-2xl`, 32px circular indicator. Intents paint the matching subtle wash. Default sits on Violet Paper at 50%. This is how the kit speaks status in-flow — not toast-only, not banner-chrome.
+Status callout: 8px, 16px padding, 15% current-color border, `backdrop-blur-2xl`, 32px circular indicator. Intents paint the matching subtle wash. Default sits on Stone Well at 50%. This is how the kit speaks status in-flow — not toast-only, not banner-chrome.
+
+### Content Card (signature)
+
+One silhouette, three fillings, defined once in `src/core/components/portfolio/card-shell.ts` and used by `WorkCard`, `ProjectCard`, and `PostCard` on home and on both index pages.
+
+- **Shell:** Card fill, 1px Hairline, 8px radius, `shadow-xs`, 20px / `sm` 24px padding.
+- **Media:** 48×48 soft-rect logo with a 1px Hairline border; post cards instead carry the wide OG image (`aspect-[1200/630]`, `w-28` / `sm:w-40`).
+- **Type:** Roboto semibold `h3` title, Muted Ink description at body size, mono meta (date range, publish date, reading time).
+- **Interactive:** Project and post cards are one full-card link and wash `secondary/40` on hover and focus. Work cards are static — a role has nowhere to navigate to.
+
+### Named Rules
+
+**The One-Card Rule.** Work, project, and post cards share a silhouette and differ only in filling. A surface that needs a fourth card shape needs a different surface.
+
+**The Static-Work Rule.** A work entry is not a link. Do not give it hover affordances it cannot honor.
 
 ## Do's and Don'ts
 
 ### Do:
 
-- **Do** keep Helm Blue rare (The One Voice Rule) and identical across themes (The Same-Signal Rule).
+- **Do** keep Helm Teal rare (The One Voice Rule) and identical across themes (The Same-Signal Rule).
 - **Do** use React Aria focus rings (2px + 20% wash, Paper offset on buttons) as a visible craft detail.
-- **Do** default to 8px soft-rects, 24px card gutters, and `shadow-xs` + Hairline on resting surfaces.
-- **Do** step type down at `sm` (16px → 14px body) and keep a 44px hit area on square icon controls.
+- **Do** default to 8px soft-rects and `shadow-xs` + Hairline on resting surfaces.
+- **Do** head in Roboto, read in Quicksand, count in IBM Plex Mono (The Three-Face Rule).
+- **Do** render every public route through `SiteShell` (The One-Shell Rule).
+- **Do** preview at most three entries on home for any section that has an index, and link to it (The Preview-Then-Index Rule).
+- **Do** put public copy in `messages/en.json` and `messages/id.json`; leave names, titles, and prose content in `core/constants/portfolio.ts`.
 - **Do** put status only in Note, Badge, validation, and meter/progress — never as a decorative wash.
-- **Do** keep public home thin: title, one mono welcome, theme/i18n toggles.
 
 ### Don't:
 
-- **Don't** introduce a second brand hue, a display serif, or a 3rem+ hero type scale.
-- **Don't** lift cards or buttons on hover (`translateY`, colored drop-shadows, skeuomorphic bevels).
+- **Don't** introduce a second brand hue or a fourth font family.
+- **Don't** lift cards or buttons on hover (`translateY`, scale, colored drop-shadows, skeuomorphic bevels).
 - **Don't** introduce `shadow-2xl` on app chrome.
-- **Don't** paint marketing-landing spectacle, neon, or illustration into kit chrome.
+- **Don't** paint marketing-landing spectacle, neon, or illustration into chrome.
+- **Don't** widen public surfaces past 64rem.
+- **Don't** repeat the display-scale hero below the first screen.
+- **Don't** hardcode public-facing English in a component.
 - **Don't** brand the UI as a generic Next.js template.
 - **Don't** fabricate end-user brand claims, testimonials, or a WCAG certification level.
-- **Don't** load Inter alongside Geist. One sans.

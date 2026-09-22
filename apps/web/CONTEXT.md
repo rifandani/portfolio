@@ -37,3 +37,25 @@ Web app.
 **Access Token**: The credential sent with a request to prove the Session. Read per request by `HttpAuthConfig.getToken`, never read by a caller. _Avoid_: token, bearer, jwt, auth header
 
 **End Session**: The single flow that discards a Session, whether the person signed out or the server rejected the Access Token (`HttpAuthConfig.onUnauthorized`). Distinct from the store setter it calls. _Avoid_: logout, sign out, log off
+
+### Public Site
+
+**Public Site**: The set of routes a visitor reads without signing in — Home, About, Projects, Posts. Distinct from the Component Catalog, which serves developers. _Avoid_: marketing site, landing page, front end
+
+**Site Shell**: The header and footer every Public Site route renders through. A route supplies its content and nothing else. _Avoid_: layout, wrapper, template, chrome
+
+**Wordmark**: The person's short name in the topbar, linking Home. It is text, not a logo asset. _Avoid_: logo, brand mark, monogram
+
+**Identity Hero**: The first block of Home — the Role Sentence, the summary, and the Social Links. One per surface, at the top. _Avoid_: hero banner, masthead, jumbotron, above the fold
+
+**Role Sentence**: The single sentence at display scale that states what the person does. Distinct from the role title, which is a short noun phrase. _Avoid_: tagline, headline, slogan, bio
+
+**Content Card**: The one card silhouette the Public Site uses for every entry. Comes in three fillings — Work Card, Project Card, Post Card. _Avoid_: tile, panel, item, row
+
+**Work Card**: A Content Card for one role in the work history. Static — a role has no destination. _Avoid_: experience item, job card, channel row
+
+**Project Card**: A Content Card for one project. The whole card is one link. _Avoid_: portfolio item, showcase tile
+
+**Post Card**: A Content Card for one piece of writing. Carries the wide OG image the other two do not. _Avoid_: article card, blog row, entry
+
+**Preview Section**: A Home section that shows at most three entries and links to its own index. _Avoid_: featured section, highlights, teaser, channel

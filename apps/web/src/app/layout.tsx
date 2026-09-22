@@ -2,7 +2,7 @@ import type { Viewport } from "next";
 import { NextIntlClientProvider } from "next-intl";
 import { getLocale, getMessages } from "next-intl/server";
 import { ThemeProvider as NextThemesProvider } from "next-themes";
-import { Geist, Geist_Mono } from "next/font/google";
+import { IBM_Plex_Mono, Quicksand, Roboto } from "next/font/google";
 import { connection } from "next/server";
 import { NuqsAdapter } from "nuqs/adapters/next/app";
 
@@ -12,14 +12,20 @@ import { createMetadata } from "@/core/utils/seo";
 
 import "@/core/styles/globals.css";
 
-const fontSans = Geist({
+const fontSans = Quicksand({
   subsets: ["latin"],
-  variable: "--font-sans",
+  variable: "--font-quicksand",
 });
 
-const fontMono = Geist_Mono({
+const fontDisplay = Roboto({
   subsets: ["latin"],
-  variable: "--font-mono",
+  variable: "--font-roboto",
+});
+
+const fontMono = IBM_Plex_Mono({
+  subsets: ["latin"],
+  weight: ["400", "500", "600", "700"],
+  variable: "--font-ibm-plex-mono",
 });
 
 export const metadata = createMetadata({
@@ -30,8 +36,10 @@ export const metadata = createMetadata({
 export const generateViewport = (): Viewport => ({
   colorScheme: "light dark",
   themeColor: [
-    { media: "(prefers-color-scheme: light)", color: "#ffffff" },
-    { media: "(prefers-color-scheme: dark)", color: "#020203" },
+    // Kept in step with `--canvas` in globals.css so the browser chrome
+    // matches the paper canvas instead of flashing pure white.
+    { media: "(prefers-color-scheme: light)", color: "#fbfaf7" },
+    { media: "(prefers-color-scheme: dark)", color: "#100e0c" },
   ],
 });
 
@@ -47,7 +55,7 @@ const RootLayout = async ({ children }: LayoutProps<"/">) => {
     // suppressHydrationWarning for next-themes
     <html lang={locale} suppressHydrationWarning>
       <head>
-        <meta name="msapplication-TileColor" content="#ffffff" />
+        <meta name="msapplication-TileColor" content="#fbfaf7" />
         <link rel="icon" href="/favicon.svg" sizes="any" type="image/svg+xml" />
         <link
           rel="apple-touch-icon"
@@ -57,7 +65,7 @@ const RootLayout = async ({ children }: LayoutProps<"/">) => {
       </head>
 
       <body
-        className={` ${fontSans.variable} ${fontMono.variable} min-h-svh font-sans antialiased`}
+        className={`${fontSans.variable} ${fontDisplay.variable} ${fontMono.variable} min-h-svh font-sans antialiased`}
       >
         <IconSprite />
 
