@@ -257,3 +257,45 @@ body::before {
     display: none;
   }
 }
+
+/**
+ * Theme sweep.
+ *
+ * The theme toggle drives the View Transitions API by hand (see
+ * `theme-toggle.client.tsx`) and animates a circular `clip-path` on the new
+ * root snapshot. The browser's default for `root` is a crossfade of both
+ * snapshots, which would wash the sweep out, so both animations are dropped and
+ * the old page is simply held still underneath while the new one is revealed
+ * over it.
+ */
+::view-transition-old(root),
+::view-transition-new(root) {
+  animation: none;
+  mix-blend-mode: normal;
+}
+
+::view-transition-old(root) {
+  z-index: 0;
+}
+
+::view-transition-new(root) {
+  z-index: 1;
+}
+
+/* The overlay sits above the page: let clicks through while it plays. */
+::view-transition {
+  pointer-events: none;
+}
+
+/**
+ * Motion is decoration here — the toggle already skips the transition under
+ * reduced motion, but this also covers any transition started elsewhere.
+ */
+@media (prefers-reduced-motion: reduce) {
+  ::view-transition-group(*),
+  ::view-transition-old(*),
+  ::view-transition-new(*) {
+    animation-duration: 0s !important;
+    animation-delay: 0s !important;
+  }
+}
