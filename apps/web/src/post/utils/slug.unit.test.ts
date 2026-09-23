@@ -1,6 +1,6 @@
 import { describe, expect, it } from "vitest";
 
-import { postPath, toSlug } from "./slug";
+import { postMarkdownPath, postPath, toSlug } from "./slug";
 
 describe("toSlug", () => {
   it("turns a title into a URL-friendly Slug", () => {
@@ -26,6 +26,14 @@ describe("postPath", () => {
   it("places a Post Detail at its Slug under /posts", () => {
     expect(postPath("clarity-over-complexity")).toBe(
       "/posts/clarity-over-complexity"
+    );
+  });
+});
+
+describe("postMarkdownPath", () => {
+  it("places the Post Markdown at the Post Detail path plus .md", () => {
+    expect(postMarkdownPath("clarity-over-complexity")).toBe(
+      "/posts/clarity-over-complexity.md"
     );
   });
 });

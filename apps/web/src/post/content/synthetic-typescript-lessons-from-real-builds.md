@@ -13,7 +13,7 @@ This is a synthetic placeholder Post. It shows how a Post Detail renders until r
 
 Data that crosses a boundary gets a schema. Inside the boundary, the type is a fact, not a hope.
 
-```ts
+```ts title="post.ts" {8} mark="z.infer"
 import { z } from "zod";
 
 const postSchema = z.object({

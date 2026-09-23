@@ -24,7 +24,10 @@ export const SiteFooter = async () => {
             {portfolioIdentity.fullName}
           </span>
           <span className={footerMetaClass}>
-            © <span className="tabular-nums">{portfolioIdentity.copyrightYear}</span>
+            ©{" "}
+            <span className="tabular-nums">
+              {portfolioIdentity.copyrightYear}
+            </span>
             <span aria-hidden="true" className="px-2 opacity-50">
               ·
             </span>

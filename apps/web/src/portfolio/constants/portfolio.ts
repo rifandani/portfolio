@@ -42,20 +42,19 @@ export const socialLinks: SocialLink[] = [
   },
 ];
 
-/** [Synthetic] About-page content. Replace with the real biography. */
+/**
+ * About-page content, as Translation Keys in render order. The copy lives in
+ * `messages/*.json`. It extends the home thesis — "Software Engineer by Craft.
+ * AI Engineer by Obsession." — so keep the two in the same voice.
+ */
 export const aboutContent = {
-  headline:
-    "[Synthetic] I'm Rizki. I build web products that stay clear under pressure.",
-  paragraphs: [
-    "[Synthetic] I work on the front end, where design decisions turn into shipped behaviour. Most of my time goes to component systems, accessibility, and the unglamorous foundations that keep a product honest as it grows.",
-    "[Synthetic] I care about interfaces that explain themselves. Clear structure, readable states, and keyboard paths that work are not extras — they are the product.",
-    "Prefer to keep learning, continue challenging myself, and do interesting things that matter. I'm always open to collaborating on exciting projects and innovative/disruptive ideas.",
+  paragraphKeys: [
+    "aboutParagraph1",
+    "aboutParagraph2",
+    "aboutParagraph3",
+    "aboutParagraph4",
   ],
-  skills: [
-    "[Synthetic] Design systems and reusable component APIs.",
-    "[Synthetic] Accessibility from keyboard paths to forced-colors fallbacks.",
-    "[Synthetic] Production foundations — SEO, observability, and performance budgets.",
-  ],
+  skillKeys: ["aboutSkill1", "aboutSkill2", "aboutSkill3", "aboutSkill4"],
   email: "tri.rifandani@gmail.com",
 } as const;
 

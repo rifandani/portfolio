@@ -16,8 +16,13 @@ A Post is one Markdown file in the repo (the Post Source), with YAML frontmatter
 - Render with the React renderer in a Server Component. Give it the parsed Post Document, not the string. Do not use the HTML or Octane renderers.
 - Use only the built-in syntax profile, with `headingIds` and `headingAnchors`. Do not add extensions until a Post needs one.
 - Keep the safe defaults: `allowHtml` is off and the default `urlTransform` applies.
-- Syntax highlighting is an external integration. One module gives the synchronous `highlighter` callback, and no other module knows about highlighting.
+- Syntax highlighting is an external integration. One module (`src/post/utils/highlighter.ts`) gives the synchronous `highlighter` callback, and no other module knows about highlighting. The Post parser can only ask that module two questions: which problems a Code Block has, and which code a reader reads.
+- That module registers only the languages that Posts use. A Code Block names a registered language or none. A Code Block that names an unregistered language stops the build, because pages render per request and a render error would be a 500.
+- The module has no server-only imports, so the server and the browser can share the same highlighter. `PostDocument` is a Server Component, so no highlighter code goes to the browser now.
+- Code Blocks use the fence metadata of `@tanstack/highlight`: `title="…"`, `{2-4}`, `ins`, `del`, `focus`, `error`, `warning`, `lineNumbers`, and the `[!code ++]` / `[!code --]` comments. We add one key of our own: `mark="term"` marks each exact match of the term as a character range. A `mark` term that is not in the code stops the build.
+- Colors come from `th-*` classes and CSS variables in `post-document.css`. The markup is the same in all themes; the `.dark` class changes only the variables.
 - Post Markdown (the text of "Copy page") is an export, not a view. It is the title, the summary, and the Post Source text without its frontmatter, as written. Do not make it again from the Post Document, and do not remove fence metadata or `[!code …]` comments from it.
+- Post Markdown also has its own URL: the Post Detail URL plus `.md` (`/posts/{slug}.md`), served as `text/markdown`. A rewrite sends that URL to a route handler, because the `[slug]` page segment would otherwise take `{slug}.md` as a Slug. An Assistant Handoff prompt contains this absolute URL, not the Post Markdown text: a long Post in a query string goes over the URL limits of browsers and Assistants.
 - The parser returns frontmatter as a raw string. We parse it as YAML and check it with a zod schema. A bad Post Source stops the build.
 
 ## Considered Options

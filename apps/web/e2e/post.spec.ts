@@ -19,6 +19,46 @@ test("opens a Post Detail from the posts index", async ({ page }) => {
   ).toBeVisible();
 });
 
+const SLUG = "synthetic-typescript-lessons-from-real-builds";
+
+test("serves the Post Markdown at the Post Detail URL plus .md", async ({
+  request,
+}) => {
+  const response = await request.get(`/posts/${SLUG}.md`);
+
+  expect(response.status()).toBe(200);
+  expect(response.headers()["content-type"]).toBe(
+    "text/markdown; charset=utf-8"
+  );
+  expect(await response.text()).toMatch(
+    /^# \[Synthetic\] TypeScript lessons from real builds\n/u
+  );
+});
+
+test("hands the Post Markdown URL to each Assistant", async ({ page }) => {
+  await page.goto(`/posts/${SLUG}`);
+
+  const trigger = page.getByRole("button", {
+    name: /More page actions|Aksi halaman lainnya/u,
+  });
+  // A press before hydration does nothing, so press until the menu opens.
+  await expect(async () => {
+    await trigger.click();
+    await expect(page.getByRole("menu")).toBeVisible({ timeout: 1000 });
+  }).toPass();
+
+  const items = page.getByRole("menuitem");
+  await expect(items).toHaveCount(5);
+  await expect(items.first()).toHaveAttribute(
+    "href",
+    new RegExp(`/posts/${SLUG}\\.md$`, "u")
+  );
+  const claude = new URL((await items.nth(1).getAttribute("href")) ?? "");
+  expect(claude.origin).toBe("https://claude.ai");
+  expect(claude.searchParams.get("q")).toContain(`/posts/${SLUG}.md`);
+  await expect(items.nth(1)).toHaveAttribute("target", "_blank");
+});
+
 test.describe("unknown Slug", () => {
   test.use({ allowExpected404: true });
 
@@ -29,5 +69,11 @@ test.describe("unknown Slug", () => {
     await expect(page.getByRole("link")).toHaveText(
       /Back to Home page|Kembali ke halaman Home/u
     );
+  });
+
+  test("has no Post Markdown", async ({ request }) => {
+    const response = await request.get("/posts/no-such-post.md");
+
+    expect(response.status()).toBe(404);
   });
 });

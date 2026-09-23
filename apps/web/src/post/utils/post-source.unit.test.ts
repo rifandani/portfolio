@@ -15,9 +15,11 @@ const source = (text: string) => ({ path: "clarity.md", text });
 
 describe("parsePostSource", () => {
   it("reads the Post metadata from the frontmatter", () => {
-    const { document: _, markdown: __, ...post } = parsePostSource(
-      source(`${FRONTMATTER}\n\nShort text.\n`)
-    );
+    const {
+      document: _,
+      markdown: __,
+      ...post
+    } = parsePostSource(source(`${FRONTMATTER}\n\nShort text.\n`));
 
     expect(post).toEqual({
       slug: "clarity-over-complexity",
@@ -117,6 +119,27 @@ describe("parsePostSource", () => {
 
     // 201 words: one more minute than 200, so a missed construct shows here.
     expect(post.readingMinutes).toBe(2);
+  });
+
+  it("does not count diff notes in code as words", () => {
+    const prose = Array.from({ length: 199 }, () => "word").join(" ");
+
+    const post = parsePostSource(
+      source(
+        `${FRONTMATTER}\n\n${prose}\n\n\`\`\`ts\na // [!code ++]\n\`\`\`\n`
+      )
+    );
+
+    // 200 words: the note would make 203.
+    expect(post.readingMinutes).toBe(1);
+  });
+
+  it("rejects a Code Block, nested ones too, that cannot render as written", () => {
+    const text = `${FRONTMATTER}\n\n- item\n\n  \`\`\`rust\n  fn main() {}\n  \`\`\`\n`;
+
+    expect(() => parsePostSource(source(text))).toThrow(
+      /clarity\.md[\s\S]*language "rust" is not registered/u
+    );
   });
 
   it("keeps the safe defaults: no script URLs and no raw HTML", () => {

@@ -151,6 +151,110 @@
   line-height: 1.6;
 }
 
+/* A fence `title` puts the block in a frame with a caption above it. */
+.post-document figure.tm-code-frame > figcaption {
+  border: 1px solid var(--border);
+  border-bottom: 0;
+  border-radius: var(--radius) var(--radius) 0 0;
+  background: var(--secondary);
+  padding: 0.375rem 1rem;
+  color: var(--muted-fg);
+  font-family: var(--font-ibm-plex-mono), ui-monospace, monospace;
+  font-size: 0.8125rem;
+}
+
+.post-document figure.tm-code-frame > pre.tm-code {
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
+}
+
+/*
+ * Line annotations. A wrapped line fills the scroll width of the block and
+ * reaches into its padding, so its tint and its left edge meet the border.
+ */
+.post-document .th-line {
+  position: relative;
+  display: inline-block;
+  box-sizing: border-box;
+  min-width: calc(100% + 2rem);
+  margin-inline: -1rem;
+  border-left: 2px solid transparent;
+  padding-inline: calc(1rem - 2px) 1rem;
+}
+
+.post-document .th-line--highlighted {
+  border-left-color: var(--primary);
+  background: var(--primary-subtle);
+}
+
+.post-document .th-line--inserted {
+  border-left-color: var(--success);
+  background: var(--success-subtle);
+}
+
+.post-document .th-line--deleted {
+  border-left-color: var(--danger);
+  background: var(--danger-subtle);
+}
+
+.post-document .th-line--error {
+  text-decoration: underline wavy var(--danger);
+  text-decoration-skip-ink: none;
+  text-underline-offset: 0.25em;
+}
+
+.post-document .th-line--warning {
+  text-decoration: underline wavy var(--warning);
+  text-decoration-skip-ink: none;
+  text-underline-offset: 0.25em;
+}
+
+.post-document pre:has(.th-line--focused) .th-line:not(.th-line--focused) {
+  opacity: 0.45;
+  transition: opacity 150ms ease-out;
+}
+
+.post-document pre:has(.th-line--focused):hover .th-line {
+  opacity: 1;
+}
+
+/* The diff sign sits in the left padding, so the code keeps its column. */
+.post-document :is(.th-line--inserted, .th-line--deleted)::after {
+  position: absolute;
+  top: 0;
+  left: 0.25rem;
+  user-select: none;
+}
+
+.post-document .th-line--inserted::after {
+  color: var(--success-subtle-fg);
+  content: "+";
+}
+
+.post-document .th-line--deleted::after {
+  color: var(--danger-subtle-fg);
+  content: "-";
+}
+
+.post-document .th-line--numbered::before {
+  display: inline-block;
+  width: 2ch;
+  margin-right: 1.5ch;
+  color: var(--th-comment);
+  content: attr(data-line);
+  text-align: right;
+  user-select: none;
+}
+
+/*
+ * A `mark` term: one exact range of characters. A range that crosses tokens
+ * is split into sibling spans, so it has no radius or outline to break.
+ */
+.post-document .th-mark {
+  background: var(--primary-subtle);
+  box-shadow: inset 0 -2px 0 var(--primary);
+}
+
 .post-document {
   --th-attr: #0550ae;
   --th-code-inline: #953800;
@@ -259,7 +363,8 @@
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .post-heading-anchor {
+  .post-heading-anchor,
+  .post-document .th-line {
     transition: none;
   }
 }

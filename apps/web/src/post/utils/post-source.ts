@@ -1,5 +1,6 @@
 import type {
   BlockNode,
+  CodeBlockNode,
   InlineNode,
   MarkdownDocument,
   ParseOptions,
@@ -8,6 +9,7 @@ import { parseMarkdown } from "@tanstack/markdown/parser";
 import { parse as parseYaml } from "yaml";
 import { z } from "zod";
 
+import { codeBlockProblems, readableCode } from "@/post/utils/highlighter";
 import { toSlug } from "@/post/utils/slug";
 
 /** One Post Source file as read from disk. */
@@ -83,7 +85,9 @@ const blockText = (node: BlockNode): string[] => {
     case "paragraph": {
       return node.children.flatMap(inlineText);
     }
-    case "code":
+    case "code": {
+      return [readableCode(node.value)];
+    }
     case "html": {
       return [node.value];
     }
@@ -100,6 +104,27 @@ const blockText = (node: BlockNode): string[] => {
     case "callout":
     case "component": {
       return node.children.flatMap(blockText);
+    }
+    default: {
+      return [];
+    }
+  }
+};
+
+/** Every Code Block in a block node, nested ones too. */
+const codeBlocksOf = (node: BlockNode): CodeBlockNode[] => {
+  switch (node.type) {
+    case "code": {
+      return [node];
+    }
+    case "list":
+    case "footnotes": {
+      return node.items.flatMap((item) => item.children.flatMap(codeBlocksOf));
+    }
+    case "blockquote":
+    case "callout":
+    case "component": {
+      return node.children.flatMap(codeBlocksOf);
     }
     default: {
       return [];
@@ -141,7 +166,8 @@ const readingMinutesOf = (document: MarkdownDocument) => {
 
 /**
  * Parse one Post Source into a Post. Throws, naming the file, when the
- * frontmatter is missing or invalid, so a bad Post Source stops the build.
+ * frontmatter is missing or invalid or a Code Block cannot render as written,
+ * so a bad Post Source stops the build.
  */
 export const parsePostSource = ({ path, text }: PostSourceFile): Post => {
   const document = parseMarkdown(text, PARSE_OPTIONS);
@@ -151,6 +177,15 @@ export const parsePostSource = ({ path, text }: PostSourceFile): Post => {
   if (!result.success) {
     throw new Error(
       `Invalid Post Source ${path}:\n${z.prettifyError(result.error)}`
+    );
+  }
+  const problems: string[] = [];
+  for (const block of document.children.flatMap(codeBlocksOf)) {
+    problems.push(...codeBlockProblems(block));
+  }
+  if (problems.length > 0) {
+    throw new Error(
+      `Invalid Code Block in Post Source ${path}:\n${problems.map((problem) => `- ${problem}`).join("\n")}`
     );
   }
   return {

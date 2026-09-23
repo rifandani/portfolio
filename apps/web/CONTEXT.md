@@ -68,8 +68,18 @@ Web app.
 
 **Post Document**: The parsed tree of one Post's text. All views of the Post come from it, not from the Post Source text. _Avoid_: body, content, AST, markdown
 
-**Post Markdown**: The Markdown text a reader copies from a Post Detail: the title as a heading, the summary, and the Post Source text without its metadata. It is an export, not a view, so it comes from the Post Source text and not from the Post Document. _Avoid_: raw markdown, page markdown, md, source text
+**Post Markdown**: The Markdown text a reader copies from a Post Detail: the title as a heading, the summary, and the Post Source text without its metadata. It is an export, not a view, so it comes from the Post Source text and not from the Post Document. It also has its own address, so a reader or an Assistant can open it as plain text. _Avoid_: raw markdown, page markdown, md, source text
+
+**Page Actions**: The "Copy page" button and the menu next to it at the top of a Post Detail. Each action gives the Post Markdown to the reader or to an Assistant. _Avoid_: share menu, toolbar, options, split button
+
+**Assistant**: An outside AI chat product that a reader can send a Post to (Claude, ChatGPT, T3 Chat, Cursor). _Avoid_: AI, LLM, chatbot, provider, model
+
+**Assistant Handoff**: Opening an Assistant with a prompt that points it at the address of one Post's Post Markdown, so the reader can ask questions about that Post. The prompt carries the address, not the text. _Avoid_: share to AI, ask AI, LLM link, deep link
 
 **Slug**: The URL-friendly name of one Post. It is made from the title one time and then it does not change. _Avoid_: permalink, handle, post id, path
 
 **Post Detail**: The Public Site page that shows one full Post at its Slug. _Avoid_: article page, post page, blog detail
+
+**Code Block**: A fenced block of code in a Post, in one named language or in none. Its colors come from the page theme, so it has one form in all themes. _Avoid_: snippet, code sample, fence, pre
+
+**Code Annotation**: A mark in a Code Block that points the reader at a part of the code: some lines (highlighted, inserted, deleted, focused, error, warning), or each match of one exact term. _Avoid_: decoration, highlight, callout

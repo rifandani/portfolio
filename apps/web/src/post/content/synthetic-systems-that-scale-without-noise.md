@@ -13,9 +13,10 @@ This is a synthetic placeholder Post. It shows how a Post Detail renders until r
 
 Name each color by its role, not by its hue. A component then asks for a role, and a theme answers it.
 
-```css
+```css title="button.css"
 .button {
-  background: var(--primary);
+  background: #0d9488; /* [!code --] */
+  background: var(--primary); /* [!code ++] */
   color: var(--primary-fg);
 }
 ```

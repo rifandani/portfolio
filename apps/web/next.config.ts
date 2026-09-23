@@ -35,6 +35,10 @@ const config: NextConfig = {
   outputFileTracingIncludes: {
     "/**": ["./src/post/content/*.md"],
   },
+  rewrites: () =>
+    Promise.resolve([
+      { source: "/posts/:slug.md", destination: "/posts/:slug/markdown" },
+    ]),
   experimental: {
     testProxy: true, // for e2e testing server side
   },

@@ -33,7 +33,12 @@ export const WorkCard = ({ entry }: { entry: ExperienceEntry }) => (
           </p>
         </div>
         <p className="text-muted-fg group-hover/row:text-fg shrink-0 font-mono text-xs/5 transition-colors duration-200 sm:text-sm/6">
-          {entry.start} – {entry.end}
+          {entry.start} –{" "}
+          {entry.isCurrent ? (
+            <span className="text-primary">{entry.end}</span>
+          ) : (
+            entry.end
+          )}
         </p>
       </div>
       <Text className="text-muted-fg mt-3 text-base/6 text-pretty sm:text-sm/6">

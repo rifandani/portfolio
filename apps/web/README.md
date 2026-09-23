@@ -6,7 +6,9 @@
 
 ## 🎯 Todo
 
-~
+- https://www.aihero.dev/sitemap.md
+- https://www.aihero.dev/llms.txt
+- https://www.aihero.dev/rss.xml
 
 ## Testing
 

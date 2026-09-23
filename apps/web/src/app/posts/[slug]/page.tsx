@@ -11,17 +11,21 @@ import { Text } from "@/core/components/ui/text";
 import { ENV } from "@/core/constants/env";
 import { createMetadata, JsonLd } from "@/core/utils/seo";
 import { portfolioIdentity } from "@/portfolio/constants/portfolio";
-import { CopyPageButton } from "@/post/components/copy-page-button.client";
+import { PageActions } from "@/post/components/page-actions.client";
 import { PostDocument } from "@/post/components/post-document";
 import { PostMeta } from "@/post/components/post-meta";
 import { getPost, getPosts } from "@/post/services/posts";
-import { postPath } from "@/post/utils/slug";
+import { postMarkdownPath, postPath } from "@/post/utils/slug";
 
 /** Every Slug is known at build time; any other Slug is a 404. */
 export const dynamicParams = false;
 
 export const generateStaticParams = () =>
   getPosts().map((post) => ({ slug: post.slug }));
+
+/** Absolute, because an Assistant fetches it from outside the site. */
+const markdownUrlOf = (slug: string) =>
+  new URL(postMarkdownPath(slug), ENV.NEXT_PUBLIC_APP_URL).href;
 
 const findPost = async (params: PageProps<"/posts/[slug]">["params"]) => {
   const { slug } = await params;
@@ -36,6 +40,7 @@ export const generateMetadata = async ({
     title: post.title,
     description: post.summary,
     openGraph: { type: "article", publishedTime: post.publishedAt },
+    alternates: { types: { "text/markdown": markdownUrlOf(post.slug) } },
   });
 };
 
@@ -68,7 +73,10 @@ export default async function PostDetailPage({
             </Text>
             <div className="mt-4 flex flex-wrap items-center justify-between gap-x-6 gap-y-3">
               <PostMeta post={post} />
-              <CopyPageButton markdown={post.markdown} />
+              <PageActions
+                markdown={post.markdown}
+                markdownUrl={markdownUrlOf(post.slug)}
+              />
             </div>
           </header>
           <div className="mt-10">

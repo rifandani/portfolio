@@ -329,6 +329,7 @@ Refined and restrained. Confidence lives in focus treatment, not motion — the 
 Intents: `primary` | `secondary` | `warning` | `danger` | `success` | `outline` | `plain`. Sizes: `xs`–`lg` and `sq-*` squares.
 
 - **Copy page (Post Detail):** Outline `sm`, on the meta row at the end. It copies the Post Markdown. On success, the clipboard icon and the label cross-fade to a check and "Copied!" in 180ms. The icons also scale a little. The border takes Turbine Teal at 60%. It holds 2s, then returns. The success tone marks a state, so it obeys the Status-Is-Not-Brand Rule — never amber. Both states share one grid cell, so the width never jumps. The accessible name stays "Copy page"; an `<output>` announces the copy. Reduced motion swaps at once.
+- **Page Actions menu (Post Detail):** A `ButtonGroup` joins "Copy page" to an outline square trigger with a muted chevron, at the same height. The menu opens at the bottom end. Each item has a muted monochrome icon, a `font-medium` label, and a muted description. Assistant marks take `currentColor`, never brand colors. Every item opens a new tab.
 
 ### Chips
 

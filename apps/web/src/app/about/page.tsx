@@ -1,3 +1,4 @@
+import type { Metadata } from "next";
 import { getTranslations } from "next-intl/server";
 
 import { SiteContainer } from "@/core/components/site-container";
@@ -8,11 +9,13 @@ import { Text } from "@/core/components/ui/text";
 import { createMetadata } from "@/core/utils/seo";
 import { aboutContent } from "@/portfolio/constants/portfolio";
 
-const title = "About";
-const description =
-  "About Tri Rizeki Rifandani — background, focus, and how to get in touch.";
-
-export const metadata = createMetadata({ title, description });
+export const generateMetadata = async (): Promise<Metadata> => {
+  const t = await getTranslations();
+  return createMetadata({
+    title: t("aboutTitle"),
+    description: t("aboutDescription"),
+  });
+};
 
 export default async function AboutPage() {
   const t = await getTranslations();
@@ -23,13 +26,13 @@ export default async function AboutPage() {
           level={1}
           className="max-w-3xl text-3xl/10 text-pretty sm:text-5xl/14"
         >
-          {aboutContent.headline}
+          {t("aboutHeadline")}
         </Heading>
 
         <div className="mt-10 max-w-prose space-y-5">
-          {aboutContent.paragraphs.map((paragraph) => (
-            <Text key={paragraph} className="text-base/7 text-pretty">
-              {paragraph}
+          {aboutContent.paragraphKeys.map((key) => (
+            <Text key={key} className="text-base/7 text-pretty">
+              {t(key)}
             </Text>
           ))}
         </div>
@@ -39,12 +42,12 @@ export default async function AboutPage() {
             {t("aboutSkills")}
           </Heading>
           <ul className="divide-border border-border mt-6 divide-y border-y">
-            {aboutContent.skills.map((skill) => (
+            {aboutContent.skillKeys.map((key) => (
               <li
-                key={skill}
+                key={key}
                 className="text-muted-fg py-4 text-base/6 text-pretty sm:text-sm/6"
               >
-                {skill}
+                {t(key)}
               </li>
             ))}
           </ul>

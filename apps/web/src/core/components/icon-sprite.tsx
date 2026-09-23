@@ -78,9 +78,58 @@ export const IconSprite = () => (
         />
       </symbol>
       {/* #endregion */}
+
+      {/* #region icon-claude */}
+      <symbol id="icon-claude" viewBox="0 0 24 24">
+        <path
+          fill="currentColor"
+          d="M17.3 3.54h-3.67l6.7 16.92H24Zm-10.61 0L0 20.46h3.74l1.37-3.55h7.01l1.37 3.55h3.74L10.54 3.54Zm-.37 10.22 2.29-5.95 2.29 5.95Z"
+        />
+      </symbol>
+      {/* #endregion */}
+
+      {/* #region icon-chatgpt */}
+      <symbol id="icon-chatgpt" viewBox="0 0 24 24">
+        <path
+          fill="currentColor"
+          d="M22.28 9.82a5.98 5.98 0 0 0-.52-4.91 6.05 6.05 0 0 0-6.51-2.9A6.07 6.07 0 0 0 4.98 4.18a5.98 5.98 0 0 0-4 2.9 6.05 6.05 0 0 0 .74 7.1 5.98 5.98 0 0 0 .51 4.91 6.05 6.05 0 0 0 6.51 2.9A5.98 5.98 0 0 0 13.26 24a6.06 6.06 0 0 0 5.77-4.21 5.99 5.99 0 0 0 4-2.9 6.06 6.06 0 0 0-.75-7.07zm-9.02 12.61a4.48 4.48 0 0 1-2.88-1.04l.14-.08 4.78-2.76a.79 .79 0 0 0 .39-.68v-6.74l2.02 1.17a.07 .07 0 0 1 .04 .05v5.58a4.5 4.5 0 0 1-4.49 4.49zm-9.66-4.13a4.47 4.47 0 0 1-.53-3.01l.14 .09 4.78 2.76a.77 .77 0 0 0 .78 0l5.84-3.37v2.33a.08 .08 0 0 1-.03 .06L9.74 19.95a4.5 4.5 0 0 1-6.14-1.65zM2.34 7.9a4.49 4.49 0 0 1 2.37-1.97V11.6a.77 .77 0 0 0 .39 .68l5.81 3.35-2.02 1.17a.08 .08 0 0 1-.07 0l-4.83-2.79A4.5 4.5 0 0 1 2.34 7.87zm16.6 3.86L13.1 8.36 15.12 7.2a.08 .08 0 0 1 .07 0l4.83 2.79a4.49 4.49 0 0 1-.68 8.1v-5.68a.79 .79 0 0 0-.41-.67zm2.01-3.02l-.14-.09-4.77-2.78a.78 .78 0 0 0-.79 0L9.41 9.23V6.9a.07 .07 0 0 1 .03-.06l4.83-2.79a4.5 4.5 0 0 1 6.68 4.66zM8.31 12.86l-2.02-1.16a.08 .08 0 0 1-.04-.06V6.07a4.5 4.5 0 0 1 7.38-3.45l-.14 .08L8.7 5.46a.79 .79 0 0 0-.39 .68zm1.1-2.37l2.6-1.5 2.61 1.5v3l-2.6 1.5-2.61-1.5Z"
+        />
+      </symbol>
+      {/* #endregion */}
+
+      {/* #region icon-t3 */}
+      <symbol
+        id="icon-t3"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        strokeWidth={2}
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      >
+        <path d="M3 5h8M7 5v14M14 5h6.5l-4.25 5.25a4.5 4.5 0 1 1-2.93 7.68" />
+      </symbol>
+      {/* #endregion */}
+
+      {/* #region icon-cursor */}
+      <symbol id="icon-cursor" viewBox="0 0 24 24">
+        <path
+          fill="currentColor"
+          d="M11.5 .13 1.89 5.68a.84 .84 0 0 0-.42 .73v11.19c0 .3 .16 .57 .42 .72l9.61 5.55a1 1 0 0 0 1 0l9.61-5.55a.84 .84 0 0 0 .42-.72V6.4a.84 .84 0 0 0-.42-.73L12.5 .13a1.01 1.01 0 0 0-1 0M2.66 6.34h18.55c.26 0 .43 .29 .3 .52L12.23 22.92c-.06 .11-.23 .06-.23-.06V12.34a.59 .59 0 0 0-.29-.51l-9.11-5.26c-.11-.06-.06-.23 .06-.23"
+        />
+      </symbol>
+      {/* #endregion */}
     </defs>
   </svg>
 );
+
+/** Sprite symbol ids for Assistant handoff targets, keyed like `assistant-handoff`. */
+export const ASSISTANT_ICON_IDS = {
+  claude: "icon-claude",
+  chatgpt: "icon-chatgpt",
+  t3: "icon-t3",
+  cursor: "icon-cursor",
+} as const;
 
 /**
  * One icon taken out of the sprite above. `id` is a symbol id without the `#`,
