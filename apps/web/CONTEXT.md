@@ -59,3 +59,15 @@ Web app.
 **Post Card**: A Content Card for one piece of writing. Carries the wide OG image the other two do not. _Avoid_: article card, blog row, entry
 
 **Preview Section**: A Home section that shows at most three entries and links to its own index. _Avoid_: featured section, highlights, teaser, channel
+
+### Posts
+
+**Post**: One piece of writing on the Public Site. It has one language, and all Locales show the same text. _Avoid_: article, blog, blog post, entry
+
+**Post Source**: The written file of one Post — its metadata and its Markdown text. It is the canonical form of the Post. _Avoid_: md file, content file, raw post
+
+**Post Document**: The parsed tree of one Post's text. All views of the Post come from it, not from the Post Source text. _Avoid_: body, content, AST, markdown
+
+**Slug**: The URL-friendly name of one Post. It is made from the title one time and then it does not change. _Avoid_: permalink, handle, post id, path
+
+**Post Detail**: The Public Site page that shows one full Post at its Slug. _Avoid_: article page, post page, blog detail

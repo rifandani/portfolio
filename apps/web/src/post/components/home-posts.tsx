@@ -6,13 +6,13 @@ import {
 } from "@/core/components/home/home-section";
 import { Link } from "@/core/components/ui/link";
 import { PostCard } from "@/post/components/post-card";
-import { postsByRecent } from "@/post/constants/posts";
+import { getPosts } from "@/post/services/posts";
 
 const HOME_PREVIEW_COUNT = 3;
 
 export const HomePosts = async () => {
   const t = await getTranslations();
-  const posts = postsByRecent().slice(0, HOME_PREVIEW_COUNT);
+  const posts = getPosts().slice(0, HOME_PREVIEW_COUNT);
   return (
     <HomeSection
       id="home-posts-heading"
@@ -29,9 +29,9 @@ export const HomePosts = async () => {
       {posts.length === 0 ? (
         <HomeSectionEmpty>{t("homeNoPosts")}</HomeSectionEmpty>
       ) : (
-        posts.map((entry) => (
-          <li key={entry.id}>
-            <PostCard entry={entry} />
+        posts.map((post) => (
+          <li key={post.slug}>
+            <PostCard post={post} />
           </li>
         ))
       )}

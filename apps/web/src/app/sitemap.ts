@@ -3,6 +3,9 @@ import path from "node:path";
 
 import type { MetadataRoute } from "next";
 
+import { getPosts } from "@/post/services/posts";
+import { postPath } from "@/post/utils/slug";
+
 // fallow-ignore-next-line security-sink -- both components are literals rooted at process.cwd(), not request input
 const APP_DIR = path.join(process.cwd(), "src/app");
 const url = new URL(
@@ -11,16 +14,20 @@ const url = new URL(
 const SKIP_DIRS = new Set(["api"]);
 const PAGE_FILES = new Set(["page.ts", "page.tsx"]);
 
-/** Private (`_foo`) and route-group (`(foo)`) segments never reach the URL. */
-const isHiddenSegment = (name: string) =>
-  name.startsWith("_") || name.startsWith("(");
+/**
+ * Private (`_foo`) and route-group (`(foo)`) segments never reach the URL.
+ * Dynamic (`[foo]`) segments have no URL of their own; their entries are added
+ * from content below.
+ */
+const hasNoOwnUrl = (name: string) =>
+  name.startsWith("_") || name.startsWith("(") || name.startsWith("[");
 
 /** A directory contributes routes unless it is hidden or explicitly skipped. */
 const isTraversable = (entry: fs.Dirent) =>
   entry.isDirectory() &&
-  !(isHiddenSegment(entry.name) || SKIP_DIRS.has(entry.name));
+  !(hasNoOwnUrl(entry.name) || SKIP_DIRS.has(entry.name));
 
-/** Collect `page.ts(x)` routes under `dir`, skipping `_` / `(` segments and `api`. */
+/** Collect `page.ts(x)` routes under `dir`, skipping `_` / `(` / `[` segments and `api`. */
 export const collectPageRoutes = (dir: string, segment = ""): string[] => {
   const nested: string[] = [];
   let hasPage = false;
@@ -41,7 +48,10 @@ export const collectPageRoutes = (dir: string, segment = ""): string[] => {
 };
 
 const sitemap = (): MetadataRoute.Sitemap => {
-  const routes = collectPageRoutes(APP_DIR);
+  const routes = [
+    ...collectPageRoutes(APP_DIR),
+    ...getPosts().map((post) => postPath(post.slug)),
+  ];
   return routes.map((route) => ({
     lastModified: new Date(),
     url: new URL(route, url).href,

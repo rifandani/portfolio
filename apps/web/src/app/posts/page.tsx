@@ -6,7 +6,7 @@ import { Heading } from "@/core/components/ui/heading";
 import { Text } from "@/core/components/ui/text";
 import { createMetadata } from "@/core/utils/seo";
 import { PostCard } from "@/post/components/post-card";
-import { postsByRecent } from "@/post/constants/posts";
+import { getPosts } from "@/post/services/posts";
 
 export const metadata = createMetadata({
   title: "Posts",
@@ -15,7 +15,7 @@ export const metadata = createMetadata({
 
 export default async function PostsPage() {
   const t = await getTranslations();
-  const posts = postsByRecent();
+  const posts = getPosts();
   return (
     <SiteShell>
       <SiteContainer className="py-16 sm:py-24">
@@ -27,9 +27,9 @@ export default async function PostsPage() {
         </Text>
 
         <ul className="mt-10 flex flex-col gap-4">
-          {posts.map((entry) => (
-            <li key={entry.id}>
-              <PostCard entry={entry} />
+          {posts.map((post) => (
+            <li key={post.slug}>
+              <PostCard post={post} />
             </li>
           ))}
         </ul>

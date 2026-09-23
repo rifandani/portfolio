@@ -27,6 +27,14 @@ const config: NextConfig = {
   images: {
     formats: ["image/avif", "image/webp"],
   },
+  /**
+   * Pages render per request (the root layout calls `connection()`), so the
+   * Post store reads Post Sources from disk at runtime. The tracer cannot see
+   * a directory read, so name the files. See ADR-0004 (web).
+   */
+  outputFileTracingIncludes: {
+    "/**": ["./src/post/content/*.md"],
+  },
   experimental: {
     testProxy: true, // for e2e testing server side
   },

@@ -6,6 +6,10 @@ import { afterEach, describe, expect, it, vi } from "vitest";
 
 import sitemap, { collectPageRoutes } from "./sitemap";
 
+vi.mock("@/post/services/posts", () => ({
+  getPosts: () => [{ slug: "clarity-over-complexity" }],
+}));
+
 describe("collectPageRoutes", () => {
   let tmp: string;
 
@@ -37,6 +41,15 @@ describe("collectPageRoutes", () => {
     expect(collectPageRoutes(tmp)).toEqual(["/docs/intro"]);
   });
 
+  it("skips dynamic segments, which have no URL of their own", () => {
+    tmp = fs.mkdtempSync(path.join(os.tmpdir(), "sitemap-"));
+    fs.mkdirSync(path.join(tmp, "posts", "[slug]"), { recursive: true });
+    fs.writeFileSync(path.join(tmp, "posts", "page.tsx"), "");
+    fs.writeFileSync(path.join(tmp, "posts", "[slug]", "page.tsx"), "");
+
+    expect(collectPageRoutes(tmp)).toEqual(["/posts"]);
+  });
+
   it("ignores non-page files", () => {
     tmp = fs.mkdtempSync(path.join(os.tmpdir(), "sitemap-"));
     fs.writeFileSync(path.join(tmp, "layout.tsx"), "");
@@ -52,7 +65,7 @@ const dirent = (name: string, isDirectory = false) =>
   ({ name, isDirectory: () => isDirectory }) as fs.Dirent;
 
 describe("sitemap", () => {
-  it("maps collected routes to absolute URLs", () => {
+  it("maps collected routes and each Post Detail to absolute URLs", () => {
     // the app dir is resolved from `process.cwd()` at import time, so stub the
     // reads instead of depending on the real tree
     // SAFETY: `readdirSync` is heavily overloaded; the cast selects the string-path
@@ -70,6 +83,10 @@ describe("sitemap", () => {
       {
         lastModified: expect.any(Date),
         url: "https://web.portfolio.localhost/about",
+      },
+      {
+        lastModified: expect.any(Date),
+        url: "https://web.portfolio.localhost/posts/clarity-over-complexity",
       },
     ]);
   });
