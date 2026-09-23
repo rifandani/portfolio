@@ -14,7 +14,7 @@ THESIS: Conventional personal site — a wordmark topbar, an identity hero at di
 OWN-WORLD: Paper and Cool Graphite, rare Helm Blue, Quicksand body with Roboto headings and IBM Plex Mono meta, soft-rect 8px, bordered cards, flat-by-default.
 STORY: Visitor reads the role sentence, scans the work history, then follows a card into projects or writing.
 FIRST VIEWPORT: Wordmark plus About / Projects / Posts and toggles; the role sentence and summary as the thesis; social links; the first work cards.
-FORM: Stacked single column, 64rem cap, generous vertical rhythm.
+FORM: Stacked single column, 64rem cap, generous vertical rhythm; the hero splits 7/5 from lg for the Glyph Engine (craft icosahedron melting into an obsession blob, printed in mono).
 FINISH: unreviewed and undocumented is unfinished; this build ends with the finish review, the verdict, and DESIGN.md
 -->`,
     }}

@@ -9,11 +9,6 @@ export const portfolioIdentity = {
   shortName: "Rizki",
   /** [Synthetic] Replace with the real title. */
   role: "software engineer",
-  /** Hero headline. One sentence, set at display scale. [Synthetic] */
-  roleSentence:
-    "[Synthetic] Frontend engineer, design-system builder & accessibility advocate.",
-  summary:
-    "Prefer to keep learning, continue challenging myself, and do interesting things that matter. I'm always open to collaborating on exciting projects and innovative/disruptive ideas.",
   copyright: "© 2026 Tri Rizeki Rifandani. All rights reserved.",
 } as const;
 
@@ -54,6 +49,7 @@ export const aboutContent = {
   paragraphs: [
     "[Synthetic] I work on the front end, where design decisions turn into shipped behaviour. Most of my time goes to component systems, accessibility, and the unglamorous foundations that keep a product honest as it grows.",
     "[Synthetic] I care about interfaces that explain themselves. Clear structure, readable states, and keyboard paths that work are not extras — they are the product.",
+    "Prefer to keep learning, continue challenging myself, and do interesting things that matter. I'm always open to collaborating on exciting projects and innovative/disruptive ideas.",
   ],
   skills: [
     "[Synthetic] Design systems and reusable component APIs.",

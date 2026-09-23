@@ -165,7 +165,7 @@ The machinery underneath is App Router, React Aria, PWA, SEO, and observability.
 - 16px body on mobile, 14px from `sm` up — except hero and lead paragraphs, which hold 16px/1.75 at every width.
 - One card silhouette, shared by projects and posts, on home and on both index pages. Work rows are the one public row without it: they hang off the work rail instead.
 
-Visual rejections: marketing-landing spectacle, neon accents, skeuomorphism, decorative illustration, hover-lift theater, and leftover "bulletproof Next template" branding.
+Visual rejections: marketing-landing spectacle, neon accents, skeuomorphism, decorative illustration, hover-lift theater, and leftover "bulletproof Next template" branding. The one sanctioned exception is the Glyph Engine in the home hero (see Components): it is made from the system's own mono face and tokens, it acts out the headline, and it is not illustration.
 
 ## Colors
 
@@ -253,7 +253,7 @@ Every public route renders through `SiteShell` (`src/core/components/site-shell.
 
 Public page rhythm: page padding `py-16` / `sm:py-24`; sections separated by `mt-24`; cards within a section stacked at `gap-4`. Work experience is the exception: its rows carry their own 32px / `sm` 40px bottom spacing so the rail runs through the interval instead of jumping it, and so shell-less rows still read as separate entries. Generosity here is vertical, not horizontal — the column stays at 64rem.
 
-The home page is: identity hero → work experience (all roles) → projects (first three) → writing (three most recent) → footer. Each preview section carries an "All …" link to its own index at the heading baseline.
+The home page is: identity hero (text in the left 7 of 12 columns, the Glyph Engine in the right 5 from `lg`; behind the headline below `lg`) → work experience (all roles) → projects (first three) → writing (three most recent) → footer. Each preview section carries an "All …" link to its own index at the heading baseline.
 
 Cards use a 20px internal gutter on mobile and 24px from `sm`. Fields stack label → control at 8px, control → error at 8px. Form clusters use 24px between fieldsets.
 
@@ -315,7 +315,7 @@ Borders are 1px Hairline or Input Stroke. Overlays add a 1px ring at 15–20% mu
 
 ## Components
 
-Refined and restrained. Confidence lives in focus treatment, not motion. Hover is a 10% overlay mix or a Fog wash — never `translateY`.
+Refined and restrained. Confidence lives in focus treatment, not motion — the Glyph Engine is the one ambient motion on the site. Hover is a 10% overlay mix or a Fog wash — never `translateY`.
 
 ### Buttons
 
@@ -371,6 +371,21 @@ One silhouette, two fillings, defined once in `src/portfolio/components/card-she
 - **Interactive:** Project and post cards are one full-card link, lit by the pointer (`card-lit`, `lit-card.client.tsx`). One position, `--lit-px` / `--lit-py`, drives three layers: the `secondary` wash graded around the light instead of flat, a Helm Teal specular at ~16% under it, and the Hairline waking to Helm Teal where the light reaches the border — a 1px gradient edge through `mask-composite`, never a glow. The print drifts and scales ~1.08 inside its frame, trailing the light by 320ms and settling back in 200ms — the exit is shorter than the entrance, so nothing is left moving on a card the pointer has left.
 - **Leaving:** the light holds exactly where the pointer left it and only fades. It returns to centre after the fade has finished, when nothing is visible to move — recentring it on `pointerleave` snaps the light to the middle at full brightness.
 - **Default light:** centred (0.5 / 0.5), carried as the `var()` fallback rather than a declaration on the card, which would shadow the tracked value. Keyboard focus, coarse pointers, reduced motion, and a failed script all get that symmetrical lit state plus the outline ring. Reduced motion keeps the lit state and drops every movement in it; forced colors drop the light entirely.
+
+### Glyph Engine (signature)
+
+The home hero's one authored motion (`src/portfolio/utils/glyph-engine.ts`, mounted by `glyph-engine.client.tsx`). It acts out the headline: a solid raymarched once per character cell on a Canvas 2D and printed in IBM Plex Mono, like donut.c. A hard-faceted icosahedron (craft) melts into a gyroid-displaced blob (obsession), holds, then locks back into its facets. There is no library; the renderer is about 550 lines of plain TypeScript.
+
+- **Cycle:** 12s. Craft holds 4.5s, melts 2.5s (ease-in-out), obsession holds 3s, locks back in 1.3s (ease-out quart — quicker and harder than the melt, because precision is the craft half's character). The surface churns hardest mid-transition.
+- **Print:** ramp ` .:-=+*#%@`, about 36 columns, stepped at ~30fps so it reads as print, not video. The first 1.1s scrambles the cells inside the bound and resolves the solid out of the noise.
+- **Ink:** read from the tokens at runtime, so it follows the theme with no second palette. Levels 1–3 print in Muted Ink, the rest in Warm Graphite. Helm Teal prints only on specular peaks, a few glyphs at a time — never a wash (The One Voice Rule).
+- **Light:** key from the upper left and a weak fill from the lower right, so the shadow side still prints form.
+- **Pointer:** a fine pointer anywhere on the page tilts the solid toward itself, eased. Coarse pointers get the auto-rotation only.
+- **Attention lens (hover):** resting a fine pointer on the solid flips its nature under the cursor — the local morph is `g + w·(1 − 2g)`, so on the crystal it melts a churning pocket, during the blob hold it freezes a patch of facets, and at the midpoint of a transition it does nothing, with no jump anywhere. The lens is a view-space field (radius 0.46 view units, a smoothstep edge from 38%), weighted once per ray. It eases in over ~200ms and out over ~130ms, and a trail of fading points lets the surface heal behind a moving cursor over 750ms. A one-cell ring of Helm Teal marks the lens edge the way a focus ring would; inside the lens specular peaks stay ink, so the pocket never floods teal. It is decoration like the rest: no cursor change, no click, no keyboard path needed.
+- **Placement:** from `lg`, the right 5 of 12 hero columns, square. Below `lg`, it sits behind the headline at 20% (30% in dark), radially masked so it fades before the summary.
+- **Discipline:** `aria-hidden` and no pointer events. It pauses off screen and in background tabs, and the clock only advances while it runs, so resuming never jumps. Reduced motion prints one still, mid-melt frame and redraws only on resize or a theme change. Without script or a 2D context, the box stays empty.
+
+**The One-Moment Rule.** The Glyph Engine is the only ambient motion on the site. A second one splits the attention it exists to hold. Other motion stays a response to the reader (card light, theme transition).
 
 ### Work Rail (signature)
 
