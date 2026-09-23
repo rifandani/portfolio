@@ -19,6 +19,10 @@ import type { ExperienceEntry } from "@/portfolio/constants/portfolio";
  * Rail and node ride on Muted Ink rather than Hairline: Hairline is tuned to
  * separate a card from the canvas it sits on, and on the dark canvas it drops
  * out of sight when it has to carry a 1px line on its own.
+ *
+ * `data-rail-row` and `data-rail-node` are what `WorkRailList` measures to send
+ * its bead down the rail. The node sits one layer up so the lit trace runs
+ * behind it, the way the resting line does.
  */
 export const WorkTimelineItem = ({
   entry,
@@ -29,15 +33,16 @@ export const WorkTimelineItem = ({
   isFirst: boolean;
   isLast: boolean;
 }) => (
-  <li className="flex gap-4 sm:gap-5">
+  <li data-rail-row className="group/row flex gap-4 sm:gap-5">
     <div
       aria-hidden="true"
       className="flex w-2.5 shrink-0 flex-col items-center"
     >
       <span className={twMerge("h-[7px] w-px", !isFirst && "bg-muted-fg/30")} />
       <span
+        data-rail-node
         className={twMerge(
-          "size-2.5 shrink-0 rounded-full border",
+          "relative z-[1] size-2.5 shrink-0 rounded-full border",
           entry.isCurrent
             ? "bg-primary border-primary ring-primary/20 ring-2"
             : "bg-canvas border-muted-fg/45"

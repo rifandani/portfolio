@@ -440,3 +440,97 @@ body::before {
     display: none;
   }
 }
+
+/**
+ * Rail scrub.
+ *
+ * Work rows are not links, so the pointer never washes or lights a row. It
+ * reads the rail instead: a bead — the current role's node, repeated — runs
+ * from the first node down to the node of the row under the pointer, and a
+ * Helm Teal trace fills the rail behind it. The lit length is the distance
+ * back in time. `work-rail-list.client.tsx` writes the geometry.
+ *
+ * `--rail-reach` is registered so the transition runs on the number itself.
+ * The bead's offset and the trace's length both read that one interpolated
+ * value, so the bead always sits exactly on the end of its trace.
+ *
+ * Travel down is 560ms on an ease-out cubic, so the bead visibly runs past
+ * the nodes between instead of arriving in the first frame — an expo curve
+ * covers half the distance in 45ms and reads as a jump. The return is 260ms
+ * and the fade waits for it, so the bead goes home to the first node before it
+ * goes out and never disappears mid-rail.
+ */
+@property --rail-reach {
+  syntax: "<number>";
+  inherits: true;
+  initial-value: 0;
+}
+
+.work-rail {
+  position: relative;
+  --rail-reach: 0;
+  transition: --rail-reach 260ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.work-rail[data-scrub="on"] {
+  transition-duration: 560ms;
+  transition-timing-function: cubic-bezier(0.33, 1, 0.68, 1);
+}
+
+.work-rail-trace,
+.work-rail-bead {
+  position: absolute;
+  top: var(--rail-from, 12px);
+  left: var(--rail-x, 5px);
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 140ms linear 240ms;
+}
+
+.work-rail[data-scrub="on"] .work-rail-trace,
+.work-rail[data-scrub="on"] .work-rail-bead {
+  opacity: 1;
+  transition-delay: 0ms;
+}
+
+/**
+ * Faint at the first node, full Helm Teal at the bead: the trace is brightest
+ * where the reader is. It is 1px wide and paints under the nodes, which sit a
+ * layer up, so it reads as the rail itself lighting and not as a second line.
+ */
+.work-rail-trace {
+  width: 1px;
+  height: calc(var(--rail-reach) * 1px);
+  margin-left: -0.5px;
+  background-image: linear-gradient(
+    to bottom,
+    color-mix(in oklab, var(--primary) 45%, transparent),
+    var(--primary)
+  );
+}
+
+.work-rail-bead {
+  z-index: 2;
+  width: 10px;
+  height: 10px;
+  margin: -5px 0 0 -5px;
+  border-radius: 9999px;
+  translate: 0 calc(var(--rail-reach) * 1px);
+}
+
+/* Reduced motion keeps the reading and drops the travel: the bead jumps. */
+@media (prefers-reduced-motion: reduce) {
+  .work-rail,
+  .work-rail-trace,
+  .work-rail-bead {
+    transition: none;
+  }
+}
+
+/* The scrub is decoration: a forced palette keeps the plain rail. */
+@media (forced-colors: active) {
+  .work-rail-trace,
+  .work-rail-bead {
+    display: none;
+  }
+}

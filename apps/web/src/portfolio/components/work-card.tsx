@@ -32,7 +32,7 @@ export const WorkCard = ({ entry }: { entry: ExperienceEntry }) => (
             {entry.company}
           </p>
         </div>
-        <p className="text-muted-fg shrink-0 font-mono text-xs/5 sm:text-sm/6">
+        <p className="text-muted-fg group-hover/row:text-fg shrink-0 font-mono text-xs/5 transition-colors duration-200 sm:text-sm/6">
           {entry.start} – {entry.end}
         </p>
       </div>

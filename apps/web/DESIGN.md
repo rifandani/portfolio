@@ -385,7 +385,7 @@ The home hero's one authored motion (`src/portfolio/utils/glyph-engine.ts`, moun
 - **Placement:** from `lg`, the right 5 of 12 hero columns, square. Below `lg`, it sits behind the headline at 20% (30% in dark), radially masked so it fades before the summary.
 - **Discipline:** `aria-hidden` and no pointer events. It pauses off screen and in background tabs, and the clock only advances while it runs, so resuming never jumps. Reduced motion prints one still, mid-melt frame and redraws only on resize or a theme change. Without script or a 2D context, the box stays empty.
 
-**The One-Moment Rule.** The Glyph Engine is the only ambient motion on the site. A second one splits the attention it exists to hold. Other motion stays a response to the reader (card light, theme transition).
+**The One-Moment Rule.** The Glyph Engine is the only ambient motion on the site. A second one splits the attention it exists to hold. Other motion stays a response to the reader (card light, rail scrub, theme transition).
 
 ### Work Rail (signature)
 
@@ -397,6 +397,7 @@ Work experience reads as a chronology, so its rows hang off a vertical rail in t
 - **Current role:** the one node filled Helm Teal with a 2px `ring-primary/20`. This is the accent earning its keep — one node on the page, and the date range says the same thing in words.
 - **Rhythm:** 32px / `sm` 40px between rows. Without borders the interval is the only separation, so it runs wider than the 16px card stacks below it.
 - **Construction:** each row owns the segment above its node and the segment down to the next one, so the line starts and ends exactly on a node whatever height the rows take. The whole rail column is `aria-hidden`; it repeats what the dates already say.
+- **Scrub (hover):** a fine pointer on a row sends a bead — the current-role node repeated — down the rail from the first node to that row's node, and a 1px Helm Teal trace fills the rail behind it, from 45% at the first node to full at the bead. The lit length is how far back in time the reader is looking. The row's date range steps from Muted Ink to Warm Graphite. Travel is 560ms on an ease-out cubic so the bead visibly passes the nodes between; the return to the first node is 260ms, and the bead fades only after it is home. One registered number, `--rail-reach`, drives the bead and the trace, so they cannot come apart (`work-rail-list.client.tsx`, `.work-rail` rules). The trace paints under the nodes. Touch, keyboard, and no-script get the plain rail; reduced motion keeps the reading and drops the travel; forced colors drop the bead and trace.
 
 ### Named Rules
 
@@ -404,7 +405,7 @@ Work experience reads as a chronology, so its rows hang off a vertical rail in t
 
 **The One-Card Rule.** Project and post cards share one silhouette and differ only in filling. A surface that needs a third card shape needs a different surface — and a row that is neither ranked nor navigable, like a work entry, needs no card at all.
 
-**The Static-Work Rule.** A work entry is not a link. Do not give it hover affordances it cannot honor.
+**The Static-Work Rule.** A work entry is not a link. Do not give it hover affordances it cannot honor: no row wash, no card light, no pointer cursor. The pointer reads the rail (the scrub), never the row.
 
 ## Do's and Don'ts
 

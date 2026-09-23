@@ -13,7 +13,7 @@ export const navLinkClass = twMerge(
   "text-muted-fg hover:text-fg text-sm/6 font-medium",
   // The current page holds the rule open and keeps the brighter foreground.
   "aria-[current=page]:text-fg aria-[current=page]:bg-[size:100%_1px]",
-  "focus-visible:outline-ring rounded-xs outline-0 focus-visible:outline-2 focus-visible:outline-offset-4"
+  "focus-visible:outline-ring outline-0 focus-visible:outline-2 focus-visible:outline-offset-4"
 );
 
 const navItems = [

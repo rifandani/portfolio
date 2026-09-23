@@ -4,6 +4,7 @@ import {
   HomeSection,
   HomeSectionEmpty,
 } from "@/core/components/home/home-section";
+import { WorkRailList } from "@/portfolio/components/work-rail-list.client";
 import { WorkTimelineItem } from "@/portfolio/components/work-timeline-item";
 import { experienceEntries } from "@/portfolio/constants/portfolio";
 
@@ -16,6 +17,7 @@ export const HomeExperience = async () => {
       // The rail runs unbroken between rows, so the spacing lives on each row
       // instead of in a list gap the line would have to jump.
       listClassName="gap-0"
+      listAs={WorkRailList}
     >
       {experienceEntries.length === 0 ? (
         <HomeSectionEmpty>{t("homeNoRoles")}</HomeSectionEmpty>
