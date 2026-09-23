@@ -15,7 +15,7 @@ const source = (text: string) => ({ path: "clarity.md", text });
 
 describe("parsePostSource", () => {
   it("reads the Post metadata from the frontmatter", () => {
-    const { document: _, ...post } = parsePostSource(
+    const { document: _, markdown: __, ...post } = parsePostSource(
       source(`${FRONTMATTER}\n\nShort text.\n`)
     );
 
@@ -44,6 +44,44 @@ describe("parsePostSource", () => {
       },
       { type: "paragraph", children: [{ type: "text", value: "Hello." }] },
     ]);
+  });
+
+  it("makes the Post Markdown from the title, the summary, and the text as written", () => {
+    const text = [
+      "## First steps",
+      "",
+      '```ts title="a.ts" {1}',
+      "a // [!code ++]",
+      "```",
+      "",
+    ].join("\n");
+
+    const { markdown } = parsePostSource(source(`${FRONTMATTER}\n\n${text}`));
+
+    expect(markdown).toBe(
+      [
+        "# Clarity: over complexity",
+        "",
+        "Why restrained UI systems help people scan faster.",
+        "",
+        "## First steps",
+        "",
+        '```ts title="a.ts" {1}',
+        "a // [!code ++]",
+        "```",
+        "",
+      ].join("\n")
+    );
+  });
+
+  it("removes the frontmatter as the parser finds it, with a BOM and CRLF line ends", () => {
+    const text = `\uFEFF${FRONTMATTER}\n\nHello.\n`.replaceAll("\n", "\r\n");
+
+    const { markdown } = parsePostSource(source(text));
+
+    expect(markdown).toBe(
+      "# Clarity: over complexity\n\nWhy restrained UI systems help people scan faster.\n\nHello.\n"
+    );
   });
 
   it("counts reading time from every word in the Post Document, code too", () => {

@@ -17,6 +17,7 @@ A Post is one Markdown file in the repo (the Post Source), with YAML frontmatter
 - Use only the built-in syntax profile, with `headingIds` and `headingAnchors`. Do not add extensions until a Post needs one.
 - Keep the safe defaults: `allowHtml` is off and the default `urlTransform` applies.
 - Syntax highlighting is an external integration. One module gives the synchronous `highlighter` callback, and no other module knows about highlighting.
+- Post Markdown (the text of "Copy page") is an export, not a view. It is the title, the summary, and the Post Source text without its frontmatter, as written. Do not make it again from the Post Document, and do not remove fence metadata or `[!code …]` comments from it.
 - The parser returns frontmatter as a raw string. We parse it as YAML and check it with a zod schema. A bad Post Source stops the build.
 
 ## Considered Options

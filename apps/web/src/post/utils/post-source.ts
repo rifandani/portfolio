@@ -26,6 +26,8 @@ export interface Post {
   ogImageAlt: string;
   readingMinutes: number;
   document: MarkdownDocument;
+  /** Post Markdown: what "Copy page" copies (ADR-0004). */
+  markdown: string;
 }
 
 /**
@@ -105,6 +107,32 @@ const blockText = (node: BlockNode): string[] => {
   }
 };
 
+/**
+ * The Post Source text after its frontmatter. It follows the frontmatter rule
+ * of the pinned `parseMarkdown` (ADR-0004): it drops a BOM, makes all line
+ * ends LF, and cuts at the first `---` line after a `---` first line.
+ */
+const bodyOf = (text: string) => {
+  const lines = text
+    .replace(/^\uFEFF/u, "")
+    .replaceAll(/\r\n?/gu, "\n")
+    .split("\n");
+  const end = lines[0] === "---" ? lines.indexOf("---", 1) : -1;
+  return lines
+    .slice(end + 1)
+    .join("\n")
+    .replace(/^(?:[ \t]*\n)+/u, "");
+};
+
+/**
+ * Post Markdown is an export, not a view: the Post Source text as written,
+ * not made again from the Post Document (ADR-0004).
+ */
+const postMarkdownOf = (
+  text: string,
+  { title, summary }: Pick<Post, "title" | "summary">
+) => `# ${title}\n\n${summary}\n\n${bodyOf(text)}`;
+
 const readingMinutesOf = (document: MarkdownDocument) => {
   const text = document.children.flatMap(blockText);
   const words = text.join(" ").split(/\s+/u).filter(Boolean).length;
@@ -129,5 +157,6 @@ export const parsePostSource = ({ path, text }: PostSourceFile): Post => {
     ...result.data,
     readingMinutes: readingMinutesOf(document),
     document,
+    markdown: postMarkdownOf(text, result.data),
   };
 };

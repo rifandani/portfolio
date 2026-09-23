@@ -11,6 +11,7 @@ import { Text } from "@/core/components/ui/text";
 import { ENV } from "@/core/constants/env";
 import { createMetadata, JsonLd } from "@/core/utils/seo";
 import { portfolioIdentity } from "@/portfolio/constants/portfolio";
+import { CopyPageButton } from "@/post/components/copy-page-button.client";
 import { PostDocument } from "@/post/components/post-document";
 import { PostMeta } from "@/post/components/post-meta";
 import { getPost, getPosts } from "@/post/services/posts";
@@ -65,7 +66,10 @@ export default async function PostDetailPage({
             <Text className="mt-4 max-w-prose text-base/7 text-pretty">
               {post.summary}
             </Text>
-            <PostMeta post={post} className="mt-4" />
+            <div className="mt-4 flex flex-wrap items-center justify-between gap-x-6 gap-y-3">
+              <PostMeta post={post} />
+              <CopyPageButton markdown={post.markdown} />
+            </div>
           </header>
           <div className="mt-10">
             <PostDocument document={post.document} />

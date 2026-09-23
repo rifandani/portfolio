@@ -328,6 +328,8 @@ Refined and restrained. Confidence lives in focus treatment, not motion — the 
 
 Intents: `primary` | `secondary` | `warning` | `danger` | `success` | `outline` | `plain`. Sizes: `xs`–`lg` and `sq-*` squares.
 
+- **Copy page (Post Detail):** Outline `sm`, on the meta row at the end. It copies the Post Markdown. On success, the clipboard icon and the label cross-fade to a check and "Copied!" in 180ms. The icons also scale a little. The border takes Turbine Teal at 60%. It holds 2s, then returns. The success tone marks a state, so it obeys the Status-Is-Not-Brand Rule — never amber. Both states share one grid cell, so the width never jumps. The accessible name stays "Copy page"; an `<output>` announces the copy. Reduced motion swaps at once.
+
 ### Chips
 
 - **Style:** Default Badge is a pill. Primary uses Helm Wash + Helm Ink. Outline uses Hairline, no fill.

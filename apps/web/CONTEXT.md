@@ -68,6 +68,8 @@ Web app.
 
 **Post Document**: The parsed tree of one Post's text. All views of the Post come from it, not from the Post Source text. _Avoid_: body, content, AST, markdown
 
+**Post Markdown**: The Markdown text a reader copies from a Post Detail: the title as a heading, the summary, and the Post Source text without its metadata. It is an export, not a view, so it comes from the Post Source text and not from the Post Document. _Avoid_: raw markdown, page markdown, md, source text
+
 **Slug**: The URL-friendly name of one Post. It is made from the title one time and then it does not change. _Avoid_: permalink, handle, post id, path
 
 **Post Detail**: The Public Site page that shows one full Post at its Slug. _Avoid_: article page, post page, blog detail

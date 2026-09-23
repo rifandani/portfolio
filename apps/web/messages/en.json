@@ -377,6 +377,8 @@
   "homeNoProjects": "No projects published yet.",
   "homeNoPosts": "No posts published yet.",
   "postReadingTime": "{minutes} min read",
+  "postCopyPage": "Copy page",
+  "postCopied": "Copied!",
   "aboutSkills": "What I bring",
   "aboutContact": "Get in touch",
   "aboutEmailMe": "Email me",
