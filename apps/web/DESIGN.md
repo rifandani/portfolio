@@ -229,7 +229,7 @@ All three load through `next/font/google` in `src/app/layout.tsx` and are expose
 - **Body** (Quicksand 400, 0.875rem / 1.5 from `sm`; 1rem / 1.5 on mobile): Default copy, field text, card descriptions. Muted Ink for supporting copy.
 - **Lead** (Quicksand 400, 1rem / 1.75 at every width): The home summary, the `/about` biography paragraphs, and index-page intros. The one place body copy does not step down at `sm`.
 - **Label** (Quicksand 500, 0.875rem / 1.5): Buttons, field labels, nav items. Badges drop to 0.75rem / 1.25.
-- **Meta** (IBM Plex Mono 500, 0.75rem / `sm` 0.875rem): Date ranges, publish dates, reading time, tech tags, social link labels, footer lines.
+- **Meta** (IBM Plex Mono 500, 0.75rem / `sm` 0.875rem): Date ranges, publish dates, reading time, tech tags, social link labels. The footer is a colophon: the full name signs in Roboto 600 (Fg, tracking-tight, matching the topbar wordmark), and the year, rights line, and build credit set as Meta in spaced caps (0.75rem at every width, `0.08em` tracking, uppercase, tabular year).
 
 Mobile body and headings step up one Tailwind size so 16px remains the readable floor on touch.
 

@@ -9,7 +9,7 @@ export const portfolioIdentity = {
   shortName: "Rizki",
   /** [Synthetic] Replace with the real title. */
   role: "software engineer",
-  copyright: "© 2026 Tri Rizeki Rifandani. All rights reserved.",
+  copyrightYear: 2026,
 } as const;
 
 export interface SocialLink {

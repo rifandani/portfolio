@@ -20,12 +20,42 @@ export const IconSprite = () => (
       {/* #endregion */}
 
       {/* #region icon-nextjs */}
-      <symbol id="icon-nextjs" viewBox="0 0 512 512">
-        <path d="M0 0h512v512H0z" fill="none" />
-        <path
-          fill="currentColor"
-          d="M386.399 35.508C217.06-64.061 1.885 57.55.012 253.882c-1.828 191.716 201.063 315.545 370.02 231.163L185.56 213.636v167.997c0 18.614-35.619 18.614-35.619 0V156.421c0-14.776 27.448-15.989 35.226-3.145L395.43 470.572c157.95-101.737 155.817-338.136-9.031-435.064m-23.756 317.939L326.91 298.87V149.458c0-13.932 35.732-13.932 35.732 0z"
-        />
+      <linearGradient
+        id="icon-nextjs-gradient-a"
+        x1="55.633%"
+        x2="83.228%"
+        y1="56.385%"
+        y2="96.08%"
+      >
+        <stop offset="0%" stopColor="#fff" />
+        <stop offset="100%" stopColor="#fff" stopOpacity="0" />
+      </linearGradient>
+      <linearGradient
+        id="icon-nextjs-gradient-b"
+        x1="50%"
+        x2="49.953%"
+        y1="0%"
+        y2="73.438%"
+      >
+        <stop offset="0%" stopColor="#fff" />
+        <stop offset="100%" stopColor="#fff" stopOpacity="0" />
+      </linearGradient>
+      <circle id="icon-nextjs-circle" cx="128" cy="128" r="128" />
+      <mask id="icon-nextjs-mask" fill="#fff">
+        <use href="#icon-nextjs-circle" />
+      </mask>
+      <symbol id="icon-nextjs" viewBox="0 0 256 256">
+        <g mask="url(#icon-nextjs-mask)">
+          <circle cx="128" cy="128" r="128" />
+          <path
+            fill="url(#icon-nextjs-gradient-a)"
+            d="M212.634 224.028L98.335 76.8H76.8v102.357h17.228V98.68L199.11 234.446a128 128 0 0 0 13.524-10.418"
+          />
+          <path
+            fill="url(#icon-nextjs-gradient-b)"
+            d="M163.556 76.8h17.067v102.4h-17.067z"
+          />
+        </g>
       </symbol>
       {/* #endregion */}
 
