@@ -1,15 +1,23 @@
 import type { Metadata } from "next";
 import { getTranslations } from "next-intl/server";
-import Image from "next/image";
 
 import { SiteContainer } from "@/core/components/site-container";
 import { SiteShell } from "@/core/components/site-shell";
 import { Heading } from "@/core/components/ui/heading";
-import { Link } from "@/core/components/ui/link";
 import { Text } from "@/core/components/ui/text";
 import { createMetadata } from "@/core/utils/seo";
 import { CvLink } from "@/portfolio/components/cv-link.client";
-import { aboutContent } from "@/portfolio/constants/portfolio";
+import { IdBadge } from "@/portfolio/components/id-badge.client";
+import {
+  aboutContent,
+  experienceEntries,
+  portfolioIdentity,
+} from "@/portfolio/constants/portfolio";
+
+/** The job title from the CV, not the synthetic identity role. */
+const currentRole =
+  experienceEntries.find((entry) => entry.isCurrent)?.role ??
+  portfolioIdentity.role;
 
 export const generateMetadata = async (): Promise<Metadata> => {
   const t = await getTranslations();
@@ -25,7 +33,7 @@ export default async function AboutPage() {
     <SiteShell>
       <SiteContainer className="py-16 sm:py-24">
         {/*
-         * From `lg` the portrait takes the right four columns beside the
+         * From `lg` the ID badge takes the right four columns beside the
          * headline and the biography, and holds still while the biography
          * scrolls. Below `lg` it steps in between the two, beside the CV link,
          * so the one action on the page is on the first screen.
@@ -38,18 +46,17 @@ export default async function AboutPage() {
             {t("aboutHeadline")}
           </Heading>
 
-          <div className="flex items-end gap-5 lg:sticky lg:top-24 lg:col-span-4 lg:col-start-9 lg:row-span-2 lg:row-start-1 lg:flex-col lg:items-stretch lg:gap-4 lg:self-start">
-            <div className="border-border bg-card aspect-4/5 w-28 shrink-0 overflow-hidden rounded-lg border shadow-xs sm:w-36 lg:w-full">
-              <Image
-                src={aboutContent.portraitSrc}
-                alt={t("aboutPortraitAlt")}
-                width={320}
-                height={400}
-                className="size-full object-cover"
-                loading="eager"
-                unoptimized
-              />
-            </div>
+          <div className="flex items-end gap-5 lg:sticky lg:top-20 lg:col-span-4 lg:col-start-9 lg:row-span-2 lg:row-start-1 lg:flex-col lg:items-stretch lg:gap-6 lg:self-start">
+            <IdBadge
+              portraitSrc={aboutContent.portraitSrc}
+              fullName={portfolioIdentity.fullName}
+              shortName={portfolioIdentity.shortName}
+              role={currentRole}
+              email={aboutContent.email}
+              birthMonth={aboutContent.birthMonth}
+              countryCode={aboutContent.countryCode}
+              className="w-40 shrink-0 sm:w-48 lg:w-full"
+            />
             <CvLink href={aboutContent.cvHref} />
           </div>
 
@@ -72,24 +79,14 @@ export default async function AboutPage() {
                 key={key}
                 className="text-muted-fg py-4 text-base/6 text-pretty sm:text-sm/6"
               >
-                {t(key)}
+                {t.rich(key, {
+                  b: (chunks) => (
+                    <strong className="text-fg font-medium">{chunks}</strong>
+                  ),
+                })}
               </li>
             ))}
           </ul>
-        </section>
-
-        <section aria-labelledby="about-contact-heading" className="mt-16">
-          <Heading id="about-contact-heading" level={2}>
-            {t("aboutContact")}
-          </Heading>
-          <Text className="mt-4 max-w-prose text-base/7">
-            <Link
-              href={`mailto:${aboutContent.email}`}
-              className="text-primary-subtle-fg"
-            >
-              {t("aboutEmailMe")}
-            </Link>
-          </Text>
         </section>
       </SiteContainer>
     </SiteShell>

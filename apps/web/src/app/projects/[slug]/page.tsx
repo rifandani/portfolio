@@ -10,16 +10,19 @@ import { SiteShell } from "@/core/components/site-shell";
 import { Heading } from "@/core/components/ui/heading";
 import { ENV } from "@/core/constants/env";
 import { createMetadata, JsonLd } from "@/core/utils/seo";
+import { PreviewMorph } from "@/portfolio/components/preview-morph";
 import { portfolioIdentity } from "@/portfolio/constants/portfolio";
 import { PageActions } from "@/post/components/page-actions.client";
 import { PostDocument } from "@/post/components/post-document";
 import { PostOutline } from "@/post/components/post-outline.client";
 import { ShareActions } from "@/post/components/share-actions.client";
 import { outlineOf, POST_TITLE_ID } from "@/post/utils/post-outline";
+import { ProjectLinkButtons } from "@/project/components/project-link-buttons.client";
 import { ProjectMeta } from "@/project/components/project-meta";
 import { ProjectPager } from "@/project/components/project-pager";
 import { getProject, getProjects } from "@/project/services/projects";
 import { adjacentProjects } from "@/project/utils/project-collection";
+import { projectLinksOf } from "@/project/utils/project-links";
 import { projectMarkdownPath, projectPath } from "@/project/utils/project-path";
 
 /** Every Slug is known at build time; any other Slug is a 404. */
@@ -50,7 +53,9 @@ export const generateMetadata = async ({
 
 /**
  * The Project Detail. It has the form of the Post Detail, but the Meta line
- * shows the tags of the Project, not a publish date and a reading time.
+ * shows the tags of the Project, not a publish date and a reading time. The
+ * Project Links show as buttons under the description, so a visitor can open
+ * the Project at once.
  */
 export default async function ProjectDetailPage({
   params,
@@ -61,12 +66,14 @@ export default async function ProjectDetailPage({
   ]);
   const { previous, next } = adjacentProjects(getProjects(), project.slug);
   const url = new URL(projectPath(project.slug), ENV.NEXT_PUBLIC_APP_URL).href;
+  const links = projectLinksOf(project);
   const creativeWork: CreativeWork = {
     "@type": "CreativeWork",
     name: project.title,
     description: project.description,
     keywords: project.tags.join(", "),
     url,
+    ...(links.length > 0 && { sameAs: links.map((link) => link.href) }),
     author: { "@type": "Person", name: portfolioIdentity.fullName },
   };
   const breadcrumbList: BreadcrumbList = {
@@ -111,15 +118,20 @@ export default async function ProjectDetailPage({
             <p className="text-muted-fg mt-4 text-lg/8 text-pretty">
               {project.description}
             </p>
-            <Image
-              src={project.previewSrc}
-              alt={project.previewAlt}
-              width={1200}
-              height={630}
-              className="border-border mt-8 aspect-1200/630 w-full rounded-lg border object-cover"
-              priority
-              unoptimized
-            />
+            {links.length > 0 && (
+              <ProjectLinkButtons links={links} className="mt-6" />
+            )}
+            <PreviewMorph kind="project" slug={project.slug}>
+              <Image
+                src={project.previewSrc}
+                alt={project.previewAlt}
+                width={1200}
+                height={630}
+                className="border-border mt-8 aspect-1200/630 w-full rounded-lg border object-cover"
+                priority
+                unoptimized
+              />
+            </PreviewMorph>
           </header>
           <div className="mt-10 lg:grid lg:grid-cols-[minmax(0,1fr)_13rem] lg:gap-16">
             {outline.length > 0 && (

@@ -7,6 +7,10 @@
 ## 🎯 Todo
 
 - put hackathon 2023 as projects
+- project detail should have demo url, and github url
+- add tech stack in about page
+- improve on "what i bring" section in about page, should be in general terms, impact based perspective
+- add filter or search in posts using URL search params
 
 ## Testing
 

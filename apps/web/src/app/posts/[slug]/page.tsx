@@ -10,6 +10,7 @@ import { SiteShell } from "@/core/components/site-shell";
 import { Heading } from "@/core/components/ui/heading";
 import { ENV } from "@/core/constants/env";
 import { createMetadata, JsonLd } from "@/core/utils/seo";
+import { PreviewMorph } from "@/portfolio/components/preview-morph";
 import { portfolioIdentity } from "@/portfolio/constants/portfolio";
 import { PageActions } from "@/post/components/page-actions.client";
 import { PostDocument } from "@/post/components/post-document";
@@ -105,15 +106,17 @@ export default async function PostDetailPage({
             <p className="text-muted-fg mt-4 text-lg/8 text-pretty">
               {post.summary}
             </p>
-            <Image
-              src={post.ogImageSrc}
-              alt={post.ogImageAlt}
-              width={1200}
-              height={630}
-              className="border-border mt-8 aspect-1200/630 w-full rounded-lg border object-cover"
-              priority
-              unoptimized
-            />
+            <PreviewMorph kind="post" slug={post.slug}>
+              <Image
+                src={post.ogImageSrc}
+                alt={post.ogImageAlt}
+                width={1200}
+                height={630}
+                className="border-border mt-8 aspect-1200/630 w-full rounded-lg border object-cover"
+                priority
+                unoptimized
+              />
+            </PreviewMorph>
           </header>
           <div className="mt-10 lg:grid lg:grid-cols-[minmax(0,1fr)_13rem] lg:gap-16">
             {outline.length > 0 && (

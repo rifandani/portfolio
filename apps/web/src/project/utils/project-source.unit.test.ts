@@ -70,6 +70,40 @@ describe("parseProjectSource", () => {
     );
   });
 
+  it("reads the demo URL and the GitHub URL when the frontmatter gives them", () => {
+    const text = FRONTMATTER.replace(
+      "order: 1",
+      "order: 1\ndemoUrl: https://signal-kit.example.com\ngithubUrl: https://github.com/rifandani/signal-kit"
+    );
+
+    const project = parseProjectSource(source(`${text}\n\nShort text.\n`));
+
+    expect(project.demoUrl).toBe("https://signal-kit.example.com");
+    expect(project.githubUrl).toBe("https://github.com/rifandani/signal-kit");
+  });
+
+  it("rejects a GitHub URL on a different host", () => {
+    const text = FRONTMATTER.replace(
+      "order: 1",
+      "order: 1\ngithubUrl: https://gitlab.com/rifandani/signal-kit"
+    );
+
+    expect(() => parseProjectSource(source(text))).toThrow(
+      /signal-kit\.md[\s\S]*githubUrl/u
+    );
+  });
+
+  it("rejects a demo URL that is not HTTPS", () => {
+    const text = FRONTMATTER.replace(
+      "order: 1",
+      "order: 1\ndemoUrl: http://signal-kit.example.com"
+    );
+
+    expect(() => parseProjectSource(source(text))).toThrow(
+      /signal-kit\.md[\s\S]*demoUrl/u
+    );
+  });
+
   it("rejects a Project Source without tags", () => {
     const text = FRONTMATTER.replace(
       "tags: [React Aria, Tailwind]",

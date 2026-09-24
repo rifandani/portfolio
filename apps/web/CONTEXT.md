@@ -104,7 +104,9 @@ Web app.
 
 **Project Order**: The `order` number of a Project in its Project Source. A lower number comes first in every Project list and in the Project Pager. Two Projects cannot have the same number. _Avoid_: rank, priority, weight, date
 
-**Project Detail**: The Public Site page that shows one full Project at its Slug (`/projects/{slug}`). It has the parts of a Post Detail: Page Actions, Share Actions, an outline, and a pager. _Avoid_: project page, case study page
+**Project Detail**: The Public Site page that shows one full Project at its Slug (`/projects/{slug}`). It has the parts of a Post Detail: Page Actions, Share Actions, an outline, and a pager. It also has the Project Links. _Avoid_: project page, case study page
+
+**Project Links**: The links of a Project Detail to the Project itself: its live demo (`demoUrl`) and its GitHub repository (`githubUrl`). Each is optional in the Project Source, and each opens in a new tab. They show as buttons under the description. _Avoid_: CTA, external links, repo link, live link
 
 **Project Markdown**: The Markdown text a reader copies from a Project Detail: the title as a heading, the description, and the Project Source text without its metadata. Its address is the Project Detail address plus `.md`. _Avoid_: raw markdown, page markdown
 

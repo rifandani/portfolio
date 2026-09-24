@@ -57,10 +57,23 @@ export const aboutContent = {
     "aboutParagraph3",
     "aboutParagraph4",
   ],
-  skillKeys: ["aboutSkill1", "aboutSkill2", "aboutSkill3", "aboutSkill4"],
+  skillKeys: [
+    "aboutSkill5",
+    "aboutSkill1",
+    "aboutSkill2",
+    "aboutSkill3",
+    "aboutSkill4",
+  ],
   email: "tri.rifandani@gmail.com",
-  /** [Synthetic] Replace with a real photo. The frame is 4:5, so crop to it. */
+  /**
+   * [Synthetic] Replace with a real photo. The ID badge frames it close to
+   * 5:6 and anchors it at the top, so crop to 4:5 with the face high.
+   */
   portraitSrc: "/placeholders/portrait.svg",
+  /** Year and month of birth, as `YYYY-MM`. It prints in the reader's Locale. */
+  birthMonth: "1998-05",
+  /** ISO 3166-1 alpha-3, printed in the ID badge's machine-readable zone. */
+  countryCode: "IDN",
   /** [Synthetic] Replace with the real CV. It opens in a new tab. */
   cvHref: "/placeholders/cv.pdf",
 } as const;

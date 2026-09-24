@@ -6,6 +6,7 @@ tags: [Bun, CLI, TypeScript]
 order: 2
 previewSrc: /placeholders/project-og-2.svg
 previewAlt: Synthetic preview artwork for Portless Desk
+githubUrl: https://github.com/rifandani/portfolio
 ---
 
 This is a synthetic placeholder Project. It shows how a Project Detail renders until a real write-up replaces it.

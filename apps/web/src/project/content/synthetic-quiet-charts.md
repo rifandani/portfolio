@@ -6,6 +6,8 @@ tags: [Recharts, SVG, Design tokens]
 order: 4
 previewSrc: /placeholders/project-og-4.svg
 previewAlt: Synthetic preview artwork for Quiet Charts
+demoUrl: https://quiet-charts.example.com
+githubUrl: https://github.com/rifandani/portfolio
 ---
 
 This is a synthetic placeholder Project. It shows how a Project Detail renders until a real write-up replaces it.

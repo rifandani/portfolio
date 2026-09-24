@@ -124,11 +124,9 @@ const logChromeError = (error: Error, info: ErrorInfo) => {
 
 const LocalizedErrorScreen = ({
   locale,
-  digest,
   retry,
 }: {
   locale: I18NLocale;
-  digest?: string;
   retry: () => void;
 }) => {
   const messages = use(loadMessages(locale));
@@ -136,16 +134,9 @@ const LocalizedErrorScreen = ({
     <NextIntlClientProvider locale={locale} messages={messages}>
       <ChromeBoundary
         onError={logChromeError}
-        fallback={
-          <ErrorScreen
-            digest={digest}
-            status="500"
-            retry={retry}
-            withChrome={false}
-          />
-        }
+        fallback={<ErrorScreen retry={retry} withChrome={false} />}
       >
-        <ErrorScreen digest={digest} status="500" retry={retry} />
+        <ErrorScreen retry={retry} />
       </ChromeBoundary>
     </NextIntlClientProvider>
   );
@@ -213,11 +204,7 @@ export default function GlobalError({
           enableColorScheme
         >
           <Suspense>
-            <LocalizedErrorScreen
-              locale={locale}
-              digest={error.digest}
-              retry={retry}
-            />
+            <LocalizedErrorScreen locale={locale} retry={retry} />
           </Suspense>
         </NextThemesProvider>
       </body>

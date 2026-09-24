@@ -5,6 +5,7 @@ import {
   cardMediaClass,
 } from "@/portfolio/components/card-shell";
 import { LitCard } from "@/portfolio/components/lit-card.client";
+import { PreviewMorph } from "@/portfolio/components/preview-morph";
 import { PostMeta } from "@/post/components/post-meta";
 import type { Post } from "@/post/utils/post-source";
 import { postPath } from "@/post/utils/slug";
@@ -15,17 +16,19 @@ import { postPath } from "@/post/utils/slug";
 export const PostCard = ({ post }: { post: Post }) => (
   <LitCard href={postPath(post.slug)}>
     <div className={cardBodyClass}>
-      <div className={cardMediaClass}>
-        <Image
-          src={post.ogImageSrc}
-          alt={post.ogImageAlt}
-          width={160}
-          height={84}
-          className="size-full object-cover"
-          data-lit-print
-          unoptimized
-        />
-      </div>
+      <PreviewMorph kind="post" slug={post.slug}>
+        <div className={cardMediaClass}>
+          <Image
+            src={post.ogImageSrc}
+            alt={post.ogImageAlt}
+            width={160}
+            height={84}
+            className="size-full object-cover"
+            data-lit-print
+            unoptimized
+          />
+        </div>
+      </PreviewMorph>
       <div className="min-w-0 flex-1">
         <h3 className="text-fg font-display text-base/6 font-semibold text-pretty">
           {post.title}

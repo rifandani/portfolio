@@ -1,3 +1,5 @@
+import type { Locator } from "@playwright/test";
+
 import { expect, test } from "./_base";
 
 const SLUG = "synthetic-signal-kit";
@@ -111,6 +113,46 @@ test("hands the Project Markdown URL to each Assistant", async ({ page }) => {
   );
   const claude = new URL((await items.nth(1).getAttribute("href")) ?? "");
   expect(claude.searchParams.get("q")).toContain(`/projects/${SLUG}.md`);
+});
+
+/** The demo first, then GitHub; each opens a new tab. */
+const expectSignalKitLinks = async (links: Locator) => {
+  await expect(links).toHaveCount(2);
+  await expect(links.nth(0)).toHaveAttribute(
+    "href",
+    "https://signal-kit.example.com"
+  );
+  await expect(links.nth(1)).toHaveAttribute(
+    "href",
+    "https://github.com/rifandani/portfolio"
+  );
+  await expect(links.nth(0)).toHaveAttribute("target", "_blank");
+  await expect(links.nth(1)).toHaveAttribute("rel", "noopener noreferrer");
+};
+
+test("links the demo and the GitHub repository in a new tab", async ({
+  page,
+}) => {
+  await page.goto(`/projects/${SLUG}`);
+  const buttons = page
+    .locator("article header")
+    .getByRole("list", { name: /^(?:Project links|Tautan proyek)$/u })
+    .getByRole("link");
+
+  await expectSignalKitLinks(buttons);
+});
+
+test("shows only the GitHub link for a Project without a demo", async ({
+  page,
+}) => {
+  await page.goto("/projects/synthetic-portless-desk");
+  const buttons = page
+    .locator("article header")
+    .getByRole("list", { name: /^(?:Project links|Tautan proyek)$/u })
+    .getByRole("link");
+
+  await expect(buttons).toHaveCount(1);
+  await expect(buttons).toHaveAccessibleName(/View source|Lihat kode sumber/u);
 });
 
 test.describe("unknown Project Slug", () => {

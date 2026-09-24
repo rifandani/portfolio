@@ -42,5 +42,5 @@ export default function Error({
     });
   }, [error]);
 
-  return <ErrorScreen digest={error.digest} retry={retry} />;
+  return <ErrorScreen retry={retry} />;
 }

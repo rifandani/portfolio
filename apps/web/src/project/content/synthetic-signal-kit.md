@@ -6,6 +6,8 @@ tags: [React Aria, Tailwind, TypeScript]
 order: 1
 previewSrc: /placeholders/project-og-1.svg
 previewAlt: Synthetic preview artwork for Signal Kit
+demoUrl: https://signal-kit.example.com
+githubUrl: https://github.com/rifandani/portfolio
 ---
 
 This is a synthetic placeholder Project. It shows how a Project Detail renders until a real write-up replaces it.

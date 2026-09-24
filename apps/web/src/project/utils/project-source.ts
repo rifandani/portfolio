@@ -18,6 +18,10 @@ export interface Project {
   order: number;
   previewSrc: string;
   previewAlt: string;
+  /** Where the Project runs, when it has a live demo. */
+  demoUrl?: string;
+  /** The GitHub repository of the Project, when its source is public. */
+  githubUrl?: string;
   document: MarkdownDocument;
   /** Project Markdown: what "Copy page" copies (ADR-0004). */
   markdown: string;
@@ -31,6 +35,10 @@ const frontmatterSchema = z.object({
   order: z.int().positive(),
   previewSrc: z.string().min(1),
   previewAlt: z.string().min(1),
+  demoUrl: z.url({ protocol: /^https$/u }).optional(),
+  githubUrl: z
+    .url({ protocol: /^https$/u, hostname: /^github\.com$/u })
+    .optional(),
 });
 
 /**

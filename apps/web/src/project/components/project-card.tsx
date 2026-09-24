@@ -6,6 +6,7 @@ import {
   cardMediaClass,
 } from "@/portfolio/components/card-shell";
 import { LitCard } from "@/portfolio/components/lit-card.client";
+import { PreviewMorph } from "@/portfolio/components/preview-morph";
 import { projectPath } from "@/project/utils/project-path";
 import type { Project } from "@/project/utils/project-source";
 
@@ -16,17 +17,19 @@ import type { Project } from "@/project/utils/project-source";
 export const ProjectCard = ({ project }: { project: Project }) => (
   <LitCard href={projectPath(project.slug)}>
     <div className={cardBodyClass}>
-      <div className={cardMediaClass}>
-        <Image
-          src={project.previewSrc}
-          alt={project.previewAlt}
-          width={160}
-          height={84}
-          className="size-full object-cover"
-          data-lit-print
-          unoptimized
-        />
-      </div>
+      <PreviewMorph kind="project" slug={project.slug}>
+        <div className={cardMediaClass}>
+          <Image
+            src={project.previewSrc}
+            alt={project.previewAlt}
+            width={160}
+            height={84}
+            className="size-full object-cover"
+            data-lit-print
+            unoptimized
+          />
+        </div>
+      </PreviewMorph>
       <div className="min-w-0 flex-1">
         <h3 className="text-fg font-display text-base/6 font-semibold text-pretty">
           {project.title}

@@ -6,6 +6,8 @@ tags: [React, TanStack Form, Zod]
 order: 3
 previewSrc: /placeholders/project-og-3.svg
 previewAlt: Synthetic preview artwork for Lattice Forms
+demoUrl: https://lattice-forms.example.com
+githubUrl: https://github.com/rifandani/portfolio
 ---
 
 This is a synthetic placeholder Project. It shows how a Project Detail renders until a real write-up replaces it.

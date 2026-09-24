@@ -282,6 +282,28 @@ body::before {
   z-index: 1;
 }
 
+/**
+ * Preview morph.
+ *
+ * The preview image on a Post Card or a Project Card grows into the hero image
+ * of its detail page (see `preview-morph.tsx`). The small card snapshot is
+ * scaled up on the way, so a short blur mid-flight hides its soft pixels. The
+ * page around it swaps at once: the theme sweep rules above keep `root` still.
+ */
+::view-transition-group(.morph) {
+  animation-duration: 400ms;
+}
+
+::view-transition-image-pair(.morph) {
+  animation-name: preview-morph-blur;
+}
+
+@keyframes preview-morph-blur {
+  30% {
+    filter: blur(3px);
+  }
+}
+
 /* The overlay sits above the page: let clicks through while it plays. */
 ::view-transition {
   pointer-events: none;
@@ -532,5 +554,240 @@ body::before {
   .work-rail-trace,
   .work-rail-bead {
     display: none;
+  }
+}
+
+/**
+ * ID badge (About).
+ *
+ * The portrait printed on a card that hangs from a lanyard. Motion is written by
+ * `id-badge-motion.ts`: the card's `transform`, the swing's `transform`, and two
+ * light variables on the card — `--badge-light`, the signed sine of the turn
+ * (where the gloss sits), and `--badge-turn`, its size (how far the face has
+ * turned from the viewer). With no script both stay 0: the front, flat and lit
+ * evenly, which is also the print and no-motion state.
+ *
+ * The badge is its own size container, so the print inside it scales with the
+ * card (`cqw`) and the card reads the same as a 10rem miniature and at the full
+ * 19rem column.
+ */
+.id-badge {
+  --strap-h: 2.25rem;
+  container-type: inline-size;
+  padding-top: var(--strap-h);
+}
+
+@media (width >= 64rem) {
+  .id-badge {
+    --strap-h: 3.5rem;
+  }
+}
+
+/* The pendulum pivots at the top of the strap, out of sight above the card. */
+.id-badge-swing {
+  transform-origin: 50% calc(-1 * var(--strap-h));
+}
+
+/**
+ * The lanyard: a woven strap that fades in from above, and a flat clip that
+ * holds the card through its slot. Both are drawn after the card, so the card
+ * turns behind the clip, as it does on a real badge. The strap is graphite in
+ * both themes — in dark it lifts one step so it still reads off the canvas.
+ */
+.id-badge-strap {
+  --badge-strap: var(--fg);
+  position: absolute;
+  bottom: calc(100% - 2px);
+  left: 50%;
+  width: 11%;
+  height: calc(var(--strap-h) + 2px);
+  translate: -50% 0;
+  overflow: hidden;
+  background-color: var(--badge-strap);
+  -webkit-mask-image: linear-gradient(to bottom, transparent, #000 75%);
+  mask-image: linear-gradient(to bottom, transparent, #000 75%);
+}
+
+:is(.dark .id-badge-strap) {
+  --badge-strap: oklch(0.34 0.008 56);
+}
+
+.id-badge-strap-weave {
+  display: block;
+  font-family: var(--font-mono);
+  font-size: max(0.4375rem, 2.6cqw);
+  font-weight: 500;
+  line-height: 1;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  white-space: nowrap;
+  writing-mode: vertical-rl;
+  margin-inline: auto;
+  color: color-mix(in oklab, var(--canvas) 55%, transparent);
+}
+
+.id-badge-clip {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  width: 14%;
+  aspect-ratio: 1.5;
+  translate: -50% -45%;
+  border-radius: 3px 3px 2px 2px;
+  border: 1px solid color-mix(in oklab, var(--fg) 30%, transparent);
+  background-color: color-mix(in oklab, var(--muted-fg) 55%, var(--card));
+  pointer-events: none;
+}
+
+.id-badge-stage {
+  --badge-radius: 5.5cqw;
+  position: relative;
+  perspective: 320cqw;
+}
+
+.id-badge-card {
+  position: relative;
+  aspect-ratio: 54 / 86;
+  transform-style: preserve-3d;
+}
+
+.id-badge-card[data-moving] {
+  will-change: transform;
+}
+
+/**
+ * One face of the card: the Portrait frame's materials — Card fill, 1px
+ * Hairline, the resting edge — at an ID card's corner. Each face sits half the
+ * card's 3px thickness off the middle, and the two edges close the gap between
+ * them, so the card has a side when it turns edge-on instead of vanishing.
+ */
+.id-badge-face {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  border: 1px solid var(--border);
+  border-radius: var(--badge-radius);
+  background-color: var(--card);
+  box-shadow: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+  transform: translateZ(1.5px);
+}
+
+.id-badge-face[data-face="back"] {
+  transform: rotateY(180deg) translateZ(1.5px);
+}
+
+/**
+ * Light on the laminate. `::before` shades a face as it turns away from the
+ * viewer. `::after` is the gloss: a narrow band that crosses the face as it
+ * turns — a Helm Teal specular with a pale core, the card-light vocabulary — and
+ * that is gone when the card faces front. It shows only while the card is off
+ * square, so the resting badge carries no teal beyond its stripe.
+ */
+.id-badge-face::before,
+.id-badge-face::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  border-radius: inherit;
+  pointer-events: none;
+}
+
+.id-badge-face::before {
+  background-color: oklch(0 0 0);
+  opacity: calc(var(--badge-turn, 0) * 0.16);
+}
+
+.id-badge-face::after {
+  background-image: linear-gradient(
+    105deg,
+    transparent 38%,
+    color-mix(in oklab, var(--primary) 16%, transparent) 46%,
+    color-mix(in oklab, oklch(1 0 0) 50%, transparent) 50%,
+    color-mix(in oklab, var(--primary) 16%, transparent) 54%,
+    transparent 62%
+  );
+  background-size: 260% 100%;
+  background-position: calc(50% - var(--badge-light, 0) * 110%) 0;
+  opacity: min(1, calc(var(--badge-turn, 0) * 3));
+}
+
+.id-badge-slot {
+  position: absolute;
+  top: 4cqw;
+  left: 50%;
+  width: 18cqw;
+  height: 3.4cqw;
+  translate: -50% 0;
+  border-radius: 9999px;
+  background-color: var(--canvas);
+  box-shadow: inset 0 0 0 1px var(--border);
+}
+
+/* The one Helm Teal mark on the card: a thin stripe along the foot. */
+.id-badge-stripe {
+  position: absolute;
+  inset: auto 0 0;
+  height: 2.2cqw;
+  background-color: var(--primary);
+}
+
+.id-badge-edge {
+  position: absolute;
+  top: var(--badge-radius);
+  bottom: var(--badge-radius);
+  width: 3px;
+  background-color: color-mix(in oklab, var(--fg) 24%, var(--card));
+}
+
+.id-badge-edge[data-edge="left"] {
+  left: 0;
+  transform-origin: left center;
+  transform: translateZ(1.5px) rotateY(90deg);
+}
+
+.id-badge-edge[data-edge="right"] {
+  right: 0;
+  transform-origin: right center;
+  transform: translateZ(1.5px) rotateY(-90deg);
+}
+
+/**
+ * The hit area: one native button over the whole card. It never turns with the
+ * card, so its focus ring stays square to the page. A horizontal drag spins the
+ * card; a vertical one still scrolls the page on touch.
+ */
+.id-badge-hit {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  border-radius: var(--badge-radius);
+  cursor: grab;
+  touch-action: pan-y;
+  -webkit-tap-highlight-color: transparent;
+  outline: 2px solid transparent;
+  outline-offset: 4px;
+}
+
+.id-badge-hit:active {
+  cursor: grabbing;
+}
+
+.id-badge-hit:focus-visible {
+  outline-color: var(--ring);
+}
+
+/* Light and the stripe are decoration: a forced palette keeps the plain card. */
+@media (forced-colors: active) {
+  .id-badge-face::before,
+  .id-badge-face::after,
+  .id-badge-stripe {
+    display: none;
+  }
+
+  .id-badge-hit:focus-visible {
+    outline-color: Highlight;
   }
 }

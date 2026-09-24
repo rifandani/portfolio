@@ -11,6 +11,23 @@ test("should show the portrait beside the headline", async ({ page }) => {
   ).toBeVisible();
 });
 
+test("should flip the ID card to its back and front again", async ({
+  page,
+}) => {
+  const flip = page.getByRole("button", { name: "Flip the ID card" });
+  await expect(flip).toHaveAttribute("aria-pressed", "false");
+
+  await flip.click();
+  await expect(flip).toHaveAttribute("aria-pressed", "true");
+  await expect(page.getByText("Based in")).toBeVisible();
+
+  await flip.press("ArrowLeft");
+  await expect(flip).toHaveAttribute("aria-pressed", "false");
+  await expect(
+    page.getByRole("img", { name: "Portrait of Tri Rizeki Rifandani" })
+  ).toBeVisible();
+});
+
 test("should open the CV in a new tab", async ({ page, request }) => {
   const cv = page.getByRole("link", { name: /View CV/u });
   await expect(cv).toHaveAttribute("target", "_blank");
