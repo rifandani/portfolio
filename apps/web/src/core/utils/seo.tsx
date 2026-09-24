@@ -84,6 +84,19 @@ const buildDefaultMetadata = (parts: MetadataParts): Metadata => {
     },
     openGraph: buildOpenGraph(parts),
     twitter: buildTwitter(parts),
+    // Every page names the Post feed, so a feed reader finds it from any URL.
+    // `createMetadata` deep-merges, so a page that adds its own
+    // `alternates.types` keeps this one.
+    alternates: {
+      types: {
+        "application/rss+xml": [
+          {
+            title: `${publisher} · Posts`,
+            url: new URL("/rss.xml", appUrl).href,
+          },
+        ],
+      },
+    },
   };
 };
 

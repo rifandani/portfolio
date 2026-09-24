@@ -20,7 +20,7 @@ export const HomeProjects = async () => {
       action={
         <Link
           href="/projects"
-          className="text-primary-subtle-fg shrink-0 text-sm/6"
+          className="text-muted-fg hover:text-fg shrink-0 text-sm/6"
         >
           {t("homeAllProjects")}
         </Link>

@@ -35,6 +35,16 @@ test("serves the Post Markdown at the Post Detail URL plus .md", async ({
   );
 });
 
+test("lists each Post in the RSS feed", async ({ request }) => {
+  const response = await request.get("/rss.xml");
+
+  expect(response.status()).toBe(200);
+  expect(response.headers()["content-type"]).toBe(
+    "application/rss+xml; charset=utf-8"
+  );
+  expect(await response.text()).toContain(`/posts/${SLUG}</link>`);
+});
+
 test("hands the Post Markdown URL to each Assistant", async ({ page }) => {
   await page.goto(`/posts/${SLUG}`);
 

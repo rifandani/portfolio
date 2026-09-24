@@ -11,8 +11,31 @@ const footerMetaClass =
   "text-muted-fg font-mono text-xs/5 tracking-[0.08em] uppercase sm:text-xs/5";
 
 /**
+ * Site files keep their real, lowercase file names in mono, so they read as
+ * the files they are. The rule sweeps in like the `underline` Link variant.
+ */
+const footerFileLinkClass = twMerge(
+  "text-muted-fg hover:text-fg font-mono text-xs/5 sm:text-xs/5",
+  "bg-[linear-gradient(currentColor,currentColor)] bg-[size:0%_1px] bg-[position:0_100%] bg-no-repeat",
+  "transition-[background-size,color] duration-300 ease-out motion-reduce:transition-none",
+  "hover:bg-[size:100%_1px] focus-visible:bg-[size:100%_1px]",
+  "focus-visible:outline-ring outline-0 focus-visible:outline-2 focus-visible:outline-offset-4 forced-colors:outline-[Highlight]"
+);
+
+/**
+ * Plain anchors, not the React Aria Link: these are Route Handlers, not pages,
+ * so the browser must load them instead of the client router.
+ */
+const siteFiles = [
+  { href: "/llms.txt", type: "text/plain" },
+  { href: "/rss.xml", type: "application/rss+xml" },
+  { href: "/sitemap.xml", type: "application/xml" },
+] as const;
+
+/**
  * Public footer, set as a colophon. The name signs in the heading face so it
- * bookends the topbar wordmark; the year and the build credit count in mono.
+ * bookends the topbar wordmark; the site files, the year, and the build
+ * credit count in mono.
  */
 export const SiteFooter = async () => {
   const t = await getTranslations();
@@ -34,13 +57,29 @@ export const SiteFooter = async () => {
             {t("siteFooterRights")}
           </span>
         </Text>
-        <Text
-          className={twMerge(footerMetaClass, "inline-flex items-center gap-2")}
-        >
-          {t("siteFooterBuiltWith")}
-          <SpriteIcon className="size-3.5" id="icon-nextjs" />
-          <span className="sr-only">Next.js</span>
-        </Text>
+        <div className="flex flex-wrap items-baseline gap-x-8 gap-y-4">
+          <nav aria-label={t("siteFooterFiles")}>
+            <ul className="flex flex-wrap items-baseline gap-x-5 gap-y-1">
+              {siteFiles.map(({ href, type }) => (
+                <li key={href}>
+                  <a className={footerFileLinkClass} href={href} type={type}>
+                    {href.slice(1)}
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </nav>
+          <Text
+            className={twMerge(
+              footerMetaClass,
+              "inline-flex items-center gap-2"
+            )}
+          >
+            {t("siteFooterBuiltWith")}
+            <SpriteIcon className="size-3.5" id="icon-nextjs" />
+            <span className="sr-only">Next.js</span>
+          </Text>
+        </div>
       </SiteContainer>
     </footer>
   );
