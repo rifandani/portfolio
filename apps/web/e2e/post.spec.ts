@@ -35,6 +35,24 @@ test("serves the Post Markdown at the Post Detail URL plus .md", async ({
   );
 });
 
+test("links Posts in the breadcrumb, then marks the Post current", async ({
+  page,
+}) => {
+  await page.goto(`/posts/${SLUG}`);
+  const breadcrumb = page.getByRole("navigation", {
+    name: /^(?:Breadcrumb|Jalur halaman)$/u,
+  });
+
+  const links = breadcrumb.getByRole("link");
+  await expect(links).toHaveCount(2);
+  await expect(links.nth(0)).toHaveAttribute("href", "/posts");
+  await expect(links.nth(1)).not.toHaveAttribute("href");
+  await expect(links.nth(1)).toHaveAttribute("aria-current", "page");
+  await expect(links.nth(1)).toHaveText(
+    "[Synthetic] TypeScript lessons from real builds"
+  );
+});
+
 test("lists each Post in the RSS feed", async ({ request }) => {
   const response = await request.get("/rss.xml");
 
@@ -162,9 +180,15 @@ test.describe("unknown Slug", () => {
     const response = await page.goto("/posts/no-such-post");
 
     expect(response?.status()).toBe(404);
-    await expect(page.getByRole("link")).toHaveText(
-      /Back to Home page|Kembali ke halaman Home/u
+    const main = page.getByRole("main");
+    await expect(main.getByRole("heading", { level: 1 })).toHaveText(
+      /This page does not exist\.|Halaman ini tidak ada\./u
     );
+    await expect(main).toContainText("/posts/no-such-post");
+    await expect(
+      main.getByRole("link", { name: /Go to home page|Ke halaman beranda/u })
+    ).toHaveAttribute("href", "/");
+    await expect(main.getByRole("navigation").getByRole("link")).toHaveCount(3);
   });
 
   test("has no Post Markdown", async ({ request }) => {

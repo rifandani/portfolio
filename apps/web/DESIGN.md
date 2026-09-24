@@ -255,6 +255,8 @@ Public page rhythm: page padding `py-16` / `sm:py-24`; sections separated by `mt
 
 The home page is: identity hero (text in the left 7 of 12 columns, the Glyph Engine in the right 5 from `lg`; behind the headline below `lg`) → work experience (all roles) → projects (first three) → writing (three most recent) → footer. Each preview section carries an "All …" link to its own index at the heading baseline.
 
+The about page is: headline and biography in the left 7 of 12 columns, and the portrait with "View CV" under it in the right 4 from `lg`. The portrait column is sticky at `top-24`, so the CV link stays in view while the biography scrolls. Below `lg`, the portrait (`w-28` / `sm:w-36`) and the CV link sit in one row between the headline and the biography, so the page's one action is on the first screen. Then What I bring → Get in touch → footer.
+
 Cards use a 20px internal gutter on mobile and 24px from `sm`. Fields stack label → control at 8px, control → error at 8px. Form clusters use 24px between fieldsets.
 
 Density is compact-from-`sm`: buttons, inputs, and nav items lose 4–8px of height above the mobile floor, then keep a 44px invisible hit area via `touch-target` on square icon controls.
@@ -328,9 +330,12 @@ Refined and restrained. Confidence lives in focus treatment, not motion — the 
 
 Intents: `primary` | `secondary` | `warning` | `danger` | `success` | `outline` | `plain`. Sizes: `xs`–`lg` and `sq-*` squares.
 
+- **Breadcrumb (Post Detail):** The kit `Breadcrumbs` in a `<nav>` above the meta row (`post-breadcrumbs.tsx`): Posts › the Post, with the kit's muted chevron. The crumbs read like the Post Outline entries: Label at 14px, Muted Ink at rest, Warm Graphite on hover. Color only, never weight. The last crumb is the current page (`aria-current="page"`, not a link). It is Warm Graphite, has no hover rule, and truncates to one line, because the full title is the `h1` below it. A matching `BreadcrumbList` goes into the JSON-LD.
 - **Copy page (Post Detail):** Outline `sm`, on the meta row at the end. It copies the Post Markdown. On success, the clipboard icon and the label cross-fade to a check and "Copied!" in 180ms. The icons also scale a little. The border takes Turbine Teal at 60%. It holds 2s, then returns. The success tone marks a state, so it obeys the Status-Is-Not-Brand Rule — never amber. Both states share one grid cell, so the width never jumps. The accessible name stays "Copy page"; an `<output>` announces the copy. Reduced motion swaps at once.
 - **Page Actions menu (Post Detail):** A `ButtonGroup` joins "Copy page" to an outline square trigger with a muted chevron, at the same height. The menu opens at the bottom end. Each item has a muted monochrome icon, a `font-medium` label, and a muted description. Assistant marks take `currentColor`, never brand colors. Every item opens a new tab.
 - **Share Actions (Post Detail):** A second `ButtonGroup` of the same form, before the Page Actions, 8px apart. "Share" has a muted link icon and copies the Post Detail address with the same cross-fade to a check and "Copied!"; its `<output>` says "Link copied". The menu lists X, LinkedIn, and Threads: a muted monochrome mark and a plain label, no description, because each name is its own explanation. Network marks take `currentColor`, never brand colors, and sit in a padded viewBox so their optical size matches. Every item opens a new tab.
+- **View CV (About):** A link in outline button form (`cv-link.client.tsx`), the same quiet form as the Post Detail actions. It is not a primary fill: the portrait above it already draws the eye, so Helm Teal stays off the page. A muted document icon, the label, then an up-right arrow that says it opens in a new tab; a visually hidden suffix says the same to a screen reader. From `lg` it fills the portrait width, the label at the start and the arrow at the end.
+- **Portrait (About):** the card media frame at 4:5 — Card fill, 1px Hairline, 8px radius, `shadow-xs`, the frame owns the clip. It is not a link, so it takes no light and no drift (the same reason as The Static-Work Rule).
 
 ### Post Outline (Post Detail)
 
@@ -389,6 +394,17 @@ One silhouette, two fillings, defined once in `src/portfolio/components/card-she
 - **Default light:** centred (0.5 / 0.5), carried as the `var()` fallback rather than a declaration on the card, which would shadow the tracked value. Keyboard focus, coarse pointers, reduced motion, and a failed script all get that symmetrical lit state plus the outline ring. Reduced motion keeps the lit state and drops every movement in it; forced colors drop the light entirely.
 
 - **Post Pager (Post Detail):** the same shell with a text-only filling, at the end of the Post, `mt-24` after the text. A mono Muted Ink direction label with an arrow ("← Previous post", "Next post →"), the Roboto semibold title, then the Post Meta. From `sm` the two cards sit side by side at equal height; the next Post takes the right column and aligns right, even when it is alone. Stacked on mobile, both align left. Previous is older and next is newer, so each arrow points the way the reader goes in time. No print, so nothing drifts — the light alone answers the pointer.
+
+### Status Screen
+
+The page a visitor gets when a route cannot answer (`src/core/components/status-screen.tsx`): the 404 (`not-found.tsx` and the Component Catalog gate, through `NotFoundScreen`) and the error (`error.tsx` for a route segment, `global-error.tsx` for the root layout, both through `ErrorScreen`). It renders through `SiteShell` (The One-Shell Rule), so the visitor keeps the topbar and is never stranded on a blank sheet.
+
+- **Composition:** left-aligned in the public column, like `/about`, with the page rhythm (`py-16` / `sm:py-24`). The title is a plain sentence at the index-title scale (1.875 / `sm` 2.25rem), not the hero: it states a fact about the page, not the person (The One-Hero Rule). A Lead paragraph names the problem and the recovery, then the actions.
+- **Line of record:** one mono Meta line under the title. For a 404 it is the status and the path that failed (`404 · /posts/x`, the status in Warm Graphite, the path in Muted Ink, `break-all` so a long path wraps). For an error it is the digest ("Reference …"), the one detail a visitor can send back, and on `global-error` the status before it (`500 · Reference …`). It is data, so it is mono; it is never an eyebrow over the title.
+- **No false status:** a segment error claims no code, because it can happen in the browser after a 200. Only `global-error` shows 500: the root layout failed, so the response is a 500.
+- **Global error:** `global-error` replaces the root layout, so it brings the layout's parts itself: `globals.css`, the shared faces (`src/core/styles/fonts.ts`), the theme provider, and the messages for the locale cookie, loaded on demand so no other page pays for them. If the chrome throws, it falls back to the same screen without the header and footer, never to a blank page.
+- **Actions:** the 404 has one primary "Go to home page". The error has a primary "Try again" (it calls `retry`) and an outline "Go to home page". Both links look like buttons through `HomeLink` (`home-link.client.tsx`).
+- **The way on:** a Title-scale `h2`, "Pages on this site", over the three public areas in the topbar's order, as Hairline rows (`divide-y border-y`, like the About skills list, no card). Each row is one link: the name in Roboto semibold, the page's own intro in Muted Ink, an arrow at the end. From `sm` the name holds a 10rem column so the hints start on one line; below `sm` the hint wraps under the name. Hover and focus sweep the Link rule under the name and step the arrow 2px right and to Warm Graphite. Reduced motion keeps the colors and drops the travel.
 
 ### Glyph Engine (signature)
 

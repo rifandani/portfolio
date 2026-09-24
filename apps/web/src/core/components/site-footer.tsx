@@ -1,7 +1,6 @@
-import { getTranslations } from "next-intl/server";
+import { useTranslations } from "next-intl";
 import { twMerge } from "tailwind-merge";
 
-import { SpriteIcon } from "@/core/components/icon-sprite";
 import { SiteContainer } from "@/core/components/site-container";
 import { Text } from "@/core/components/ui/text";
 import { portfolioIdentity } from "@/portfolio/constants/portfolio";
@@ -34,11 +33,10 @@ const siteFiles = [
 
 /**
  * Public footer, set as a colophon. The name signs in the heading face so it
- * bookends the topbar wordmark; the site files, the year, and the build
- * credit count in mono.
+ * bookends the topbar wordmark; the site files and the year count in mono.
  */
-export const SiteFooter = async () => {
-  const t = await getTranslations();
+export const SiteFooter = () => {
+  const t = useTranslations();
   return (
     <footer className="border-border mt-24 border-t">
       <SiteContainer className="flex flex-col gap-4 py-12 sm:flex-row sm:items-baseline sm:justify-between sm:gap-8">
@@ -69,16 +67,6 @@ export const SiteFooter = async () => {
               ))}
             </ul>
           </nav>
-          <Text
-            className={twMerge(
-              footerMetaClass,
-              "inline-flex items-center gap-2"
-            )}
-          >
-            {t("siteFooterBuiltWith")}
-            <SpriteIcon className="size-3.5" id="icon-nextjs" />
-            <span className="sr-only">Next.js</span>
-          </Text>
         </div>
       </SiteContainer>
     </footer>

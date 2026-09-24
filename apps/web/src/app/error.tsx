@@ -4,8 +4,7 @@ import { trace } from "@opentelemetry/api";
 import { log } from "evlog/next/client";
 import { useEffect } from "react";
 
-import { StatusScreen } from "@/core/components/status-screen";
-import { Button } from "@/core/components/ui/button";
+import { ErrorScreen } from "@/core/components/error-screen.client";
 import {
   TRACER_ROOT_ROUTE,
   TRACER_ROOT_ROUTE_ON_ERROR,
@@ -20,10 +19,10 @@ const tracer = trace.getTracer(TRACER_ROOT_ROUTE);
  */
 export default function Error({
   error,
-  reset,
+  retry,
 }: {
   error: Error & { digest?: string };
-  reset: () => void;
+  retry: () => void;
 }) {
   useEffect(() => {
     recordException({
@@ -43,23 +42,5 @@ export default function Error({
     });
   }, [error]);
 
-  return (
-    <StatusScreen
-      code="4xx"
-      title="Oops!"
-      description="Something went wrong"
-      action={
-        <Button
-          intent="primary"
-          className="flex items-center"
-          onClick={
-            // Attempt to recover by trying to re-render the segment
-            () => reset()
-          }
-        >
-          Try again
-        </Button>
-      }
-    />
-  );
+  return <ErrorScreen digest={error.digest} retry={retry} />;
 }

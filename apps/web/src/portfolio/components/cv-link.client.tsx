@@ -11,10 +11,11 @@ import { Link } from "@/core/components/ui/link";
 import { cx } from "@/core/utils/primitive";
 
 /**
- * "View CV": a link that looks like the primary button, because it is the one
- * action the About page asks of a hiring manager. It opens the PDF in a new
- * tab, so the page stays where the visitor left it. The trailing arrow says so
- * to the eye; the visually hidden suffix says so to a screen reader.
+ * "View CV": a link in the outline button form, the same quiet form as the
+ * Post Detail actions, so Helm Teal stays off the About page. It opens the PDF
+ * in a new tab, so the page stays where the visitor left it. The trailing
+ * arrow says so to the eye; the visually hidden suffix says so to a screen
+ * reader.
  */
 export const CvLink = ({
   href,
@@ -30,7 +31,7 @@ export const CvLink = ({
       target="_blank"
       rel="noopener noreferrer"
       variant="plain"
-      className={cx(buttonStyles({ intent: "primary" }), className)}
+      className={cx(buttonStyles({ intent: "outline" }), className)}
     >
       <DocumentTextIcon />
       <span className="flex-1 text-start">{t("aboutViewCv")}</span>

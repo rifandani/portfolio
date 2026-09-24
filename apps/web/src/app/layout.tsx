@@ -2,31 +2,15 @@ import type { Viewport } from "next";
 import { NextIntlClientProvider } from "next-intl";
 import { getLocale, getMessages } from "next-intl/server";
 import { ThemeProvider as NextThemesProvider } from "next-themes";
-import { IBM_Plex_Mono, Quicksand, Roboto } from "next/font/google";
 import { connection } from "next/server";
 import { NuqsAdapter } from "nuqs/adapters/next/app";
 
 import { IconSprite } from "@/core/components/icon-sprite";
 import { AppProviders } from "@/core/providers/providers.client";
+import { fontVariables } from "@/core/styles/fonts";
 import { createMetadata } from "@/core/utils/seo";
 
 import "@/core/styles/globals.css";
-
-const fontSans = Quicksand({
-  subsets: ["latin"],
-  variable: "--font-quicksand",
-});
-
-const fontDisplay = Roboto({
-  subsets: ["latin"],
-  variable: "--font-roboto",
-});
-
-const fontMono = IBM_Plex_Mono({
-  subsets: ["latin"],
-  weight: ["400", "500", "600", "700"],
-  variable: "--font-ibm-plex-mono",
-});
 
 export const metadata = createMetadata({
   title: "Layout",
@@ -64,9 +48,7 @@ const RootLayout = async ({ children }: LayoutProps<"/">) => {
         />
       </head>
 
-      <body
-        className={`${fontSans.variable} ${fontDisplay.variable} ${fontMono.variable} min-h-svh font-sans antialiased`}
-      >
+      <body className={`${fontVariables} min-h-svh font-sans antialiased`}>
         <IconSprite />
 
         <NextIntlClientProvider messages={messages}>
