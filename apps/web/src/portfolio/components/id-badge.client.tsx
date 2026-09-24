@@ -6,6 +6,7 @@ import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
 import { twMerge } from "tailwind-merge";
 
+import { IdBadgeSignature } from "@/portfolio/components/id-badge-signature";
 import { buildBarcode, buildMrzLines } from "@/portfolio/utils/id-badge";
 import { mountBadgeMotion } from "@/portfolio/utils/id-badge-motion";
 import type { BadgeMotion } from "@/portfolio/utils/id-badge-motion";
@@ -39,8 +40,9 @@ const formatBirthMonth = (yearMonth: string, locale: string) =>
  * The About page portrait, printed on an ID badge that hangs from a lanyard.
  *
  * The front carries the portrait, the name, and the role; the back carries
- * the birth month, where he is based, and his email, a barcode, and a machine-readable zone made
- * from the same facts. A
+ * the birth month, where he is based, and his email, his signature in pen ink
+ * over a microprint line, then a barcode and a machine-readable zone made from
+ * the same facts. A
  * visitor drags the card to spin it, or taps it to flip it; the one control is
  * a native button laid over the card, so keyboard and screen reader users flip
  * it the same way (Enter, Space, or the arrow keys for a direction). The face
@@ -149,7 +151,22 @@ export const IdBadge = ({
                   </div>
                 ))}
               </dl>
-              <div aria-hidden="true" className="mt-auto mb-[6cqw]">
+              <div className="mt-auto pt-[4cqw]">
+                <IdBadgeSignature
+                  label={t("aboutIdCardSignatureAlt", { name: fullName })}
+                  className="id-badge-ink relative -ml-[1.5cqw] block w-[64%]"
+                />
+                <div aria-hidden="true" className="id-badge-microline">
+                  {`${fullName} · `.repeat(4)}
+                </div>
+                <p
+                  aria-hidden="true"
+                  className="text-muted-fg mt-[1.5cqw] text-end font-mono text-[max(0.5625rem,3.4cqw)]/[1.4] tracking-[0.08em] uppercase"
+                >
+                  {t("aboutIdCardSignature")}
+                </p>
+              </div>
+              <div aria-hidden="true" className="mt-[6cqw] mb-[6cqw]">
                 <svg
                   viewBox={`0 0 ${barcode.modules} 1`}
                   preserveAspectRatio="none"

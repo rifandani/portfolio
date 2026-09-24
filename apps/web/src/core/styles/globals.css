@@ -683,7 +683,7 @@ body::before {
  * viewer. `::after` is the gloss: a narrow band that crosses the face as it
  * turns — a Helm Teal specular with a pale core, the card-light vocabulary — and
  * that is gone when the card faces front. It shows only while the card is off
- * square, so the resting badge carries no teal beyond its stripe.
+ * square, so the resting badge carries no teal beyond its stripe and the signature.
  */
 .id-badge-face::before,
 .id-badge-face::after {
@@ -726,7 +726,39 @@ body::before {
   box-shadow: inset 0 0 0 1px var(--border);
 }
 
-/* The one Helm Teal mark on the card: a thin stripe along the foot. */
+/**
+ * The holder's signature, in Helm Teal ink — the stripe's colour, so the
+ * card's two marks of hand and brand agree. Primary does not shift between
+ * themes (The Same-Signal Rule), and it reads on the light and the dark card
+ * alike. It is a little translucent, as ink on laminate is, so the microprint
+ * line shows through where the pen crosses it.
+ */
+.id-badge-ink {
+  color: var(--primary);
+  opacity: 0.94;
+}
+
+/**
+ * The signature line is microprint, as on a real ID card: the full name in
+ * capitals, repeated, at a size that reads as a rule at arm's length and as
+ * text up close. The ink sits over it — the pen crosses it about four-fifths
+ * of the way down the signature, where the tail and the lower loops dip. The
+ * caption under the line sits at its end, clear of the tail.
+ */
+.id-badge-microline {
+  margin-top: -9cqw;
+  overflow: hidden;
+  font-family: var(--font-mono);
+  font-size: 1.5cqw;
+  font-weight: 500;
+  line-height: 1;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  white-space: nowrap;
+  color: var(--muted-fg);
+}
+
+/* The front's one Helm Teal mark: a thin stripe along the foot. */
 .id-badge-stripe {
   position: absolute;
   inset: auto 0 0;

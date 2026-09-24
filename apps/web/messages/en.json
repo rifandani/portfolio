@@ -469,6 +469,8 @@
   "aboutIdCardBasedIn": "Based in",
   "aboutIdCardEmail": "Email",
   "aboutIdCardCountry": "Indonesia",
+  "aboutIdCardSignature": "Signature",
+  "aboutIdCardSignatureAlt": "Signature of {name}",
   "opensInNewTab": "(opens in a new tab)",
   "projectsPageIntro": "Things I've designed, built, and kept running, with every line open to read, fork, and improve.",
   "postsPageIntro": "What I learn while building, projects I'm working on, and occasional updates from life outside the keyboard.",
