@@ -24,7 +24,7 @@ export const PostMeta = async ({
   return (
     <p
       className={twMerge(
-        "text-muted-fg font-mono text-xs/5 sm:text-sm/6",
+        "text-muted-fg flex flex-wrap items-center gap-x-3 gap-y-1 font-mono text-xs/5 sm:text-sm/6",
         className
       )}
     >
@@ -34,7 +34,6 @@ export const PostMeta = async ({
           {formatPublished(post.publishedAt, locale)}
         </time>
       </span>
-      <span aria-hidden="true"> · </span>
       <span className="inline-flex items-center gap-1.5">
         <ClockIcon aria-hidden="true" className="size-3.5 shrink-0" />
         {t("postReadingTime", { minutes: post.readingMinutes })}
