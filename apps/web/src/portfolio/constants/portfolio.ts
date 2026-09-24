@@ -57,13 +57,14 @@ export const aboutContent = {
     "aboutParagraph3",
     "aboutParagraph4",
   ],
-  skillKeys: [
-    "aboutSkill5",
-    "aboutSkill1",
-    "aboutSkill2",
-    "aboutSkill3",
-    "aboutSkill4",
-  ],
+  /**
+   * What I bring, as a net: curiosity is the source, and the other four are
+   * what it feeds, in reading order.
+   */
+  skills: {
+    sourceKey: "aboutSkill5",
+    outputKeys: ["aboutSkill1", "aboutSkill2", "aboutSkill3", "aboutSkill4"],
+  },
   email: "tri.rifandani@gmail.com",
   /**
    * [Synthetic] Replace with a real photo. The ID badge frames it close to

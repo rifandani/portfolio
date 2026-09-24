@@ -26,18 +26,3 @@ export const cardLinkClass = twMerge(
   "card-lit block no-underline",
   "focus-visible:outline-ring outline-0 focus-visible:outline-2 focus-visible:outline-offset-2"
 );
-
-/**
- * The preview frame: fixed geometry with the border and the clip. The print
- * inside it is the only thing that moves, which is why the frame owns
- * `overflow-hidden` instead of the image owning the border.
- */
-export const cardMediaClass = twMerge(
-  "border-border aspect-[1200/630] w-28 shrink-0 self-start overflow-hidden rounded-lg border sm:w-40"
-);
-
-/**
- * Card body. Positioned so it paints above the `card-lit` wash pseudo-element,
- * which is the element's first child in paint order.
- */
-export const cardBodyClass = twMerge("relative flex gap-4 sm:gap-5");

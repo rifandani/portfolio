@@ -446,6 +446,12 @@
   "projectLinks": "Project links",
   "projectOpenDemo": "Open live demo",
   "projectViewSource": "View source",
+  "projectCardSheet": "No.",
+  "projectCardStack": "Stack",
+  "projectCardOpens": "Opens",
+  "projectCardDemo": "Live demo",
+  "projectCardSource": "Source",
+  "projectCardView": "View project",
   "aboutTitle": "About",
   "aboutDescription": "About Tri Rizeki Rifandani — background, focus, and how to get in touch.",
   "aboutHeadline": "Hi! I'm Rizki, a software engineer based in Indonesia.",
@@ -490,5 +496,6 @@
   "navBreadcrumb": "Breadcrumb",
   "navPrimary": "Primary",
   "projectsPageTitle": "Projects",
+  "postsYearCount": "{count, plural, one {# post} other {# posts}}",
   "postsPageTitle": "Posts"
 }

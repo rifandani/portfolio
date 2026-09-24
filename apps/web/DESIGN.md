@@ -251,11 +251,11 @@ Public surfaces use `SiteContainer` instead: the same `Container` capped at `lg`
 
 Every public route renders through `SiteShell` (`src/core/components/site-shell.tsx`): sticky header, `<main>`, footer. A new public surface writes its content and nothing else.
 
-Public page rhythm: page padding `py-16` / `sm:py-24`; sections separated by `mt-24`; cards within a section stacked at `gap-4`. Work experience is the exception: its rows carry their own 32px / `sm` 40px bottom spacing so the rail runs through the interval instead of jumping it, and so shell-less rows still read as separate entries. Generosity here is vertical, not horizontal — the column stays at 64rem.
+Public page rhythm: page padding `py-16` / `sm:py-24`; sections separated by `mt-24`; cards within a section stacked at `gap-4`. Work experience is the exception: its rows carry their own 32px / `sm` 40px bottom spacing so the rail runs through the interval instead of jumping it, and so shell-less rows still read as separate entries. The posts index is the other exception: it files its entries by year (see Postmark Log). Generosity here is vertical, not horizontal — the column stays at 64rem.
 
 The home page is: identity hero (text in the left 7 of 12 columns, the Glyph Engine in the right 5 from `lg`; behind the headline below `lg`) → work experience (all roles) → projects (first three) → writing (three most recent) → footer. Each preview section carries an "All …" link to its own index at the heading baseline.
 
-The about page is: headline and biography in the left 7 of 12 columns, and the ID Badge with "View CV" under it in the right 4 from `lg`. The badge column is sticky at `top-20` (the strap takes the space above the card), so the CV link stays in view while the biography scrolls. Below `lg`, the badge (`w-40` / `sm:w-48`) and the CV link sit in one row between the headline and the biography, so the page's one action is on the first screen. Then What I bring → Tech stack → Get in touch → footer.
+The about page is: headline and biography in the left 7 of 12 columns, and the ID Badge with "View CV" under it in the right 4 from `lg`. The badge column is sticky at `top-20` (the strap takes the space above the card), so the CV link stays in view while the biography scrolls. Below `lg`, the badge (`w-40` / `sm:w-48`) and the CV link sit in one row between the headline and the biography, so the page's one action is on the first screen. Then What I bring (the Skill Net) → Tech stack → Get in touch → footer.
 
 Cards use a 20px internal gutter on mobile and 24px from `sm`. Fields stack label → control at 8px, control → error at 8px. Form clusters use 24px between fieldsets.
 
@@ -353,7 +353,7 @@ The Post's sections: the title first (it stands for the text before the first he
 ### Chips
 
 - **Style:** Default Badge is a pill. Primary uses Helm Wash + Helm Ink. Outline uses Hairline, no fill.
-- **Tech tags** on project cards are a quieter relative: the `secondary` Badge in mono. They label, they do not signal.
+- **Tech tags** on project cards are not chips: they are the Stack row of the Drawing Sheet's title block, mono Warm Graphite joined by Muted Ink " · ". They label, they do not signal.
 - **State:** Group hover/focus shifts to a 20% overlay of the intent color.
 
 ### Cards / Containers
@@ -385,14 +385,27 @@ Status callout: 8px, 16px padding, 15% current-color border, `backdrop-blur-2xl`
 
 ### Content Card (signature)
 
-One silhouette, two fillings, defined once in `src/portfolio/components/card-shell.ts` and used by `ProjectCard` and `PostCard` on home and on both index pages. Every card that wears it is also a link, so the shell only ever reaches the page through `cardLinkClass`.
+One silhouette, two fillings, defined once in `src/portfolio/components/card-shell.ts` and used by `ProjectCard` (the Drawing Sheet filling, below) and `PostCard` on home and on both index pages. Every card that wears it is also a link, so the shell only ever reaches the page through `cardLinkClass`.
 
 - **Shell:** Card fill, 1px Hairline, 8px radius, `shadow-xs`, 20px / `sm` 24px padding.
-- **Media:** one wide preview image in a fixed frame that owns the 1px Hairline border and the clip (`aspect-[1200/630]`, `w-28` / `sm:w-40`, `self-start`), the same on project and post cards. The frame never moves; the print inside it does. The 48×48 soft-rect logo belongs to work rows only.
+- **Media:** one wide preview image in a fixed frame that owns the 1px Hairline border and the clip (`aspect-[1200/630]`). On post cards it is a small thumbnail at the far end of the Postmark Log entry (`w-28` / `sm:w-32`); on project cards it is the drawing of the Drawing Sheet. The frame never moves; the print inside it does. The 48×48 soft-rect logo belongs to work rows only.
 - **Type:** Roboto semibold `h3` title, Muted Ink description at body size, mono meta (date range, publish date, reading time).
 - **Interactive:** Project and post cards are one full-card link, lit by the pointer (`card-lit`, `lit-card.client.tsx`). One position, `--lit-px` / `--lit-py`, drives three layers: the `secondary` wash graded around the light instead of flat, a Helm Teal specular at ~16% under it, and the Hairline waking to Helm Teal where the light reaches the border — a 1px gradient edge through `mask-composite`, never a glow. The print drifts and scales ~1.08 inside its frame, trailing the light by 320ms and settling back in 200ms — the exit is shorter than the entrance, so nothing is left moving on a card the pointer has left.
 - **Leaving:** the light holds exactly where the pointer left it and only fades. It returns to centre after the fade has finished, when nothing is visible to move — recentring it on `pointerleave` snaps the light to the middle at full brightness.
 - **Default light:** centred (0.5 / 0.5), carried as the `var()` fallback rather than a declaration on the card, which would shadow the tracked value. Keyboard focus, coarse pointers, reduced motion, and a failed script all get that symmetrical lit state plus the outline ring. Reduced motion keeps the lit state and drops every movement in it; forced colors drop the light entirely.
+
+- **Drawing Sheet (Project filling):** a Project reads as one sheet of a drawing register (`project-card.tsx`). The list stays under ten, so each Project gets room for its artifact. From `lg` the preview (the drawing) takes 8 of 15 columns and a title block takes 7, split by a 1px Hairline; below `lg` the drawing runs the full card width and the title block sits under it behind a Hairline rule.
+  - **Registration marks:** four 1px corner ticks, 10px arms, 7px outside the frame, in Muted Ink at 55% (`.sheet-marks`). When the light reaches the sheet they close in to 4px and step to Warm Graphite in 320ms; the frame and the card never move. Reduced motion keeps the colour and drops the travel; forced colors print them in `CanvasText`.
+  - **Title block:** the sheet number first — "No." in Meta caps, then two mono digits at 1.875rem, Warm Graphite, tabular — and "/ total" in Muted Ink at the far end. The number is the Project's rank in the full list and the total counts the full list, so a Home preview of three still says how many sheets there are. It is `aria-hidden`: the list position already says it. Then the Roboto semibold title (1.125rem) and the Muted Ink description. Then a ruled `dl` (`divide-y border-y`, no box — never a card in a card): **Stack** (the tags) and **Opens** ("Live demo · Source", from the Project Links; the row is left out when a Project has none). Labels are Meta caps in a 4.5rem column; values are mono Warm Graphite. These are facts, not links: the whole sheet is the one link.
+  - **Footer:** "View project" and an arrow at the foot of the block, Muted Ink at rest; on hover and focus they step to Warm Graphite and the arrow moves 2px right, as the Status Screen rows do. `aria-hidden`, because the link already names the Project.
+
+- **Postmark Log (Post filling):** a Post reads as one entry in a writer's log (`post-card.tsx`). Posts outnumber Projects and keep coming, so the entry stays one short row and the list reads by date and length before it reads by picture. From `sm`: the Date Stamp, then the text, then the thumbnail at the far end, 8rem wide and the full height of the entry (the print crops to fit, so it ends on the same line as the ruler row). Below `sm`: the stamp and the thumbnail share the top row, like the postmark and the stamp on an envelope, and the text runs full width under them. The text comes first in the source, so the link reads title first.
+  - **Date Stamp:** a rubber date stamp, 4.5rem wide: two 1px rules 2px apart, 8px outer corner, no fill, so it is an impression on the sheet and never a card in a card (`.post-stamp`). The month in Meta caps, the day in mono at 1.875rem (Warm Graphite, tabular, the Drawing Sheet's number scale), the year in Meta. The month follows the Locale; the day and year come from the ISO date and the month formats in UTC, so no time zone moves a Post. The visual parts are `aria-hidden`; a visually hidden long date inside `<time>` says it once. The rules rest in Muted Ink at 55% and ink to Warm Graphite in 320ms when the light reaches the entry, as the registration marks do. Nothing moves.
+  - **Title and summary:** Roboto semibold title (1rem, `sm` 1.125rem), Muted Ink summary at body size.
+  - **Reading ruler:** the reading time as a ruler (`.post-ruler`), before the "N min read" Meta: a tick at zero and one per minute on a 6px pitch, every fifth tick taller, on a 1px baseline. The scale is ten minutes, and a longer Post stretches it (capped at 40), so every ruler starts at the same length and a list compares at a glance. The whole scale is faint (Muted Ink 22%), the minutes read are Muted Ink. When the light reaches the entry a Warm Graphite copy opens from zero to the minutes read, at 120ms plus 40ms a minute, so a longer read takes longer to fill; it drains in 160ms. It is measurement, not a progress bar: it never claims how far the reader has read. `aria-hidden`, because the words say the time.
+  - **Arrow:** at the end of the ruler row, Muted Ink at rest, Warm Graphite and 2px right on hover and focus, as the Drawing Sheet footer does.
+  - **Index by year:** the posts index files entries under their publish year (`postsByYear`). From `lg` the year holds a 6rem gutter column, mono 1.5rem Warm Graphite over a Meta count ("3 posts"), and stays in view at `top-24` while its entries scroll past, so a long list never loses its place in time. Below `lg` the year heads its entries on one line: the year, a 1px rule at 30% Muted Ink, the count. Years sit 48px / `sm` 64px apart. Home shows the three latest entries with no year heads, which is why the stamp carries its year.
+  - **Fallbacks:** reduced motion keeps the ink and drops the fill travel; forced colors print the stamp and the ruler in system colors with no ink layer.
 
 - **Post Pager (Post Detail):** the same shell with a text-only filling, at the end of the Post, `mt-24` after the text. A mono Muted Ink direction label with an arrow ("← Previous post", "Next post →"), the Roboto semibold title, then the Post Meta. From `sm` the two cards sit side by side at equal height; the next Post takes the right column and aligns right, even when it is alone. Stacked on mobile, both align left. Previous is older and next is newer, so each arrow points the way the reader goes in time. No print, so nothing drifts — the light alone answers the pointer.
 
@@ -405,7 +418,7 @@ The page a visitor gets when a route cannot answer (`src/core/components/status-
 - **No false status:** a segment error claims no code, because it can happen in the browser after a 200. Only `global-error` shows 500: the root layout failed, so the response is a 500.
 - **Global error:** `global-error` replaces the root layout, so it brings the layout's parts itself: `globals.css`, the shared faces (`src/core/styles/fonts.ts`), the theme provider, and the messages for the locale cookie, loaded on demand so no other page pays for them. If the chrome throws, it falls back to the same screen without the header and footer, never to a blank page.
 - **Actions:** the 404 has one primary "Go to home page". The error has a primary "Try again" (it calls `retry`) and an outline "Go to home page". Both links look like buttons through `HomeLink` (`home-link.client.tsx`).
-- **The way on:** a Title-scale `h2`, "Pages on this site", over the three public areas in the topbar's order, as Hairline rows (`divide-y border-y`, like the About skills list, no card). Each row is one link: the name in Roboto semibold, the page's own intro in Muted Ink, an arrow at the end. From `sm` the name holds a 10rem column so the hints start on one line; below `sm` the hint wraps under the name. Hover and focus sweep the Link rule under the name and step the arrow 2px right and to Warm Graphite. Reduced motion keeps the colors and drops the travel.
+- **The way on:** a Title-scale `h2`, "Pages on this site", over the three public areas in the topbar's order, as Hairline rows (`divide-y border-y`, like the Tech Stack layers, no card). Each row is one link: the name in Roboto semibold, the page's own intro in Muted Ink, an arrow at the end. From `sm` the name holds a 10rem column so the hints start on one line; below `sm` the hint wraps under the name. Hover and focus sweep the Link rule under the name and step the arrow 2px right and to Warm Graphite. Reduced motion keeps the colors and drops the travel.
 
 ### Glyph Engine (signature)
 
@@ -420,7 +433,7 @@ The home hero's one authored motion (`src/portfolio/utils/glyph-engine.ts`, moun
 - **Placement:** from `lg`, the right 5 of 12 hero columns, square. Below `lg`, it sits behind the headline at 20% (30% in dark), radially masked so it fades before the summary.
 - **Discipline:** `aria-hidden` and no pointer events. It pauses off screen and in background tabs, and the clock only advances while it runs, so resuming never jumps. Reduced motion prints one still, mid-melt frame and redraws only on resize or a theme change. Without script or a 2D context, the box stays empty.
 
-**The One-Moment Rule.** The Glyph Engine is the only ambient motion on the site. A second one splits the attention it exists to hold. Other motion stays a response to the reader (card light, rail scrub, ID Badge spin, theme transition).
+**The One-Moment Rule.** The Glyph Engine is the only ambient motion on the site. A second one splits the attention it exists to hold. Other motion stays a response to the reader (card light, reading ruler fill, rail scrub, skill net light, ID Badge spin, theme transition).
 
 ### ID Badge (signature, About)
 
@@ -439,11 +452,24 @@ The About portrait, printed on an ID card that hangs from a lanyard (`src/portfo
 - **Access:** one native button lies over the card ("Flip the ID card", `aria-pressed` while the back shows). Enter and Space flip; the arrow keys flip in that direction. The face turned away is `inert`, so a screen reader reads only the face in view. The focus ring is a 2px Helm Teal outline 4px off the card, square to the page. A Meta hint under the card says "Drag to spin".
 - **Fallbacks:** no script shows the front, still. Reduced motion keeps direct drag (the card follows the hand) but drops travel: release, a tap, and a key land on the face at once, with no lean, swing, or arrival. Forced colors drop the light and the stripe.
 
+### Skill Net (About)
+
+What I bring, drawn as a schematic (`src/portfolio/components/skill-net.tsx`, keys in `aboutContent.skills` in `portfolio.ts`, rules under `.skill-net` in `globals.css`). Curiosity is the source, and the other four are what it feeds. The drawing tells the reader what the order alone did not, and it acts out the biography's start on an Arduino board.
+
+- **Source:** "Curiosity that compounds." A via — a 14px graphite pad with a drilled centre — then the name in Roboto 600 at 1.125rem / `sm` 1.25rem over Lead copy in Muted Ink.
+- **Outputs:** the other four, each a 10px square pad (2px corners, 45% Muted Ink border, Canvas fill), the name in Roboto 600 at 1rem, then Body copy in Muted Ink. Square pads are the schematic's mark; circles belong to the work rail.
+- **Standing (below `lg`):** a trunk runs down the left gutter from the via, and a 1px branch runs right to each pad. The copy indents to 2.75rem, so the four read as branches off the source (1.75rem).
+- **Lying (from `lg`):** the trunk drops to a bus under the source, and the bus drops 2rem to four columns. The pad sits over each name.
+- **Traces:** 1px, Muted Ink mixed 30% into the canvas (42% in dark), opaque, so crossings do not print a darker pixel. A 5px junction dot marks each T; the last item is a corner and has no dot. Each item draws its own runs, as the work rail does, so nothing is measured.
+- **Lit path (fine pointer):** an item lights the traces from the via to its pad, and then the pad fills. The via lights the whole net, because curiosity feeds all four. Each run fills in the direction current travels, 70ms per step, so the light runs down the net. Leaving drains it in 160ms. The light is Warm Graphite, not Helm Teal: the page's teal stays on the ID Badge. The item gets no wash and no pointer cursor (The Static-Work Rule). It is CSS only (`:has()`), so it needs no script.
+- **Fallbacks:** touch and no hover get the plain net. Reduced motion keeps the lit path and drops the travel. Forced colors draw the net in `CanvasText` with no light.
+- **Semantics:** a `p` for the source and a `ul` for the four. The pads and dots are `aria-hidden`; the lines are pseudo-elements.
+
 ### Tech Stack (About)
 
 The tools, drawn as a cross-section (`src/portfolio/components/tech-stack.tsx`, data in `techStack` in `portfolio.ts`, rules under `.tech-spine` in `globals.css`). It follows What I bring. It acts out the biography's line "one language took me all the way from the button to the database".
 
-- **Layers:** Interface, Styling, Server, Data, Platform, then Testing and AI tools, from the button down, as Hairline rows (`divide-y border-y`, like What I bring, no card). The layer name is Meta spaced caps in a 7rem column from `sm`; below `sm` it sits over its tools.
+- **Layers:** Interface, Styling, Server, Data, Platform, then Testing and AI tools, from the button down, as Hairline rows (`divide-y border-y`, no card). The layer name is Meta spaced caps in a 7rem column from `sm`; below `sm` it sits over its tools.
 - **Tools:** a 36px tile in the card material (Paper, 1px Hairline, `shadow-xs`, 8px) holding the mark at 18px in Warm Graphite, then the name in mono, Warm Graphite. The names are tech tags, so they are mono (The Three-Face Rule). Marks are monochrome from `react-icons/si` and take `currentColor`, never brand colors; Playwright, which that set does not ship, is `#icon-playwright` in the sprite.
 - **Spine:** TypeScript is not a layer. It is one strap beside all the layers, full height, in the lanyard's graphite (Warm Graphite in light, `oklch(0.34 0.008 56)` in dark), 3.5rem / `sm` 4.5rem wide, 8px corners. From the top: the mark, the name set vertically in Roboto 600, then the name repeated as a faint mono weave that fades out, and the "Language" label in Meta caps at the foot. Forced colors keep the strap as a border and drop the weave.
 - **Static:** nothing here is a link, so nothing answers the pointer (The Static-Work Rule). No Helm Teal: the page's teal stays on the ID Badge.
@@ -464,7 +490,7 @@ Work experience reads as a chronology, so its rows hang off a vertical rail in t
 
 ### Named Rules
 
-**The Rail-Is-Chronology Rule.** The rail belongs to work experience, which is the one home section ordered by time. Projects and writing are ranked, not dated — they stay a plain stack.
+**The Rail-Is-Chronology Rule.** The rail belongs to work experience, which is the one home section ordered by time. Projects are ranked, not dated — they stay a plain stack. Writing is dated, but a Post already carries its date on its stamp and its year on the index, so it takes no rail either: the rail is for a career, not a publication log.
 
 **The One-Card Rule.** Project and post cards share one silhouette and differ only in filling. A surface that needs a third card shape needs a different surface — and a row that is neither ranked nor navigable, like a work entry, needs no card at all.
 

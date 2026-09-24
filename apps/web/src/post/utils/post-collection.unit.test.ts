@@ -1,6 +1,6 @@
 import { describe, expect, it } from "vitest";
 
-import { adjacentPosts, collectPosts } from "./post-collection";
+import { adjacentPosts, collectPosts, postsByYear } from "./post-collection";
 
 const file = (path: string, slug: string, publishedAt: string) => ({
   path,
@@ -68,5 +68,30 @@ describe("adjacentPosts", () => {
 
   it("has no neighbours for an unknown Slug", () => {
     expect(adjacentPosts(posts, "missing")).toEqual({});
+  });
+});
+
+describe("postsByYear", () => {
+  it("files Posts under their publish year, newest year first, in order", () => {
+    const posts = [
+      { slug: "may", publishedAt: "2024-05-12" },
+      { slug: "march", publishedAt: "2024-03-03" },
+      { slug: "november", publishedAt: "2023-11-07" },
+    ];
+
+    expect(postsByYear(posts)).toEqual([
+      { year: "2024", posts: [posts[0], posts[1]] },
+      { year: "2023", posts: [posts[2]] },
+    ]);
+  });
+
+  it("keeps a Post published on 1 January in its own year", () => {
+    expect(postsByYear([{ publishedAt: "2025-01-01" }])).toEqual([
+      { year: "2025", posts: [{ publishedAt: "2025-01-01" }] },
+    ]);
+  });
+
+  it("has no years when there are no Posts", () => {
+    expect(postsByYear([])).toEqual([]);
   });
 });

@@ -446,6 +446,12 @@
   "projectLinks": "Tautan proyek",
   "projectOpenDemo": "Buka demo langsung",
   "projectViewSource": "Lihat kode sumber",
+  "projectCardSheet": "No.",
+  "projectCardStack": "Stack",
+  "projectCardOpens": "Buka",
+  "projectCardDemo": "Demo langsung",
+  "projectCardSource": "Kode sumber",
+  "projectCardView": "Lihat proyek",
   "aboutTitle": "Tentang",
   "aboutDescription": "Tentang Tri Rizeki Rifandani — latar belakang, fokus, dan cara menghubungi.",
   "aboutHeadline": "Halo! Saya Rizki, software engineer dari Indonesia.",
@@ -490,5 +496,6 @@
   "navBreadcrumb": "Jalur halaman",
   "navPrimary": "Utama",
   "projectsPageTitle": "Proyek",
+  "postsYearCount": "{count} tulisan",
   "postsPageTitle": "Tulisan"
 }

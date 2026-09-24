@@ -15,20 +15,25 @@ export const metadata = createMetadata({
 
 export default async function ProjectsPage() {
   const t = await getTranslations();
+  const projects = getProjects();
   return (
     <SiteShell>
       <SiteContainer className="py-16 sm:py-24">
         <Heading level={1} className="text-3xl/10 sm:text-4xl/12">
           {t("projectsPageTitle")}
         </Heading>
-        <Text className="mt-4 max-w-prose text-base/7 text-pretty">
+        <Text className="mt-4 text-base/7 text-pretty">
           {t("projectsPageIntro")}
         </Text>
 
         <ul className="mt-10 flex flex-col gap-4">
-          {getProjects().map((project) => (
+          {projects.map((project, index) => (
             <li key={project.slug}>
-              <ProjectCard project={project} />
+              <ProjectCard
+                project={project}
+                index={index + 1}
+                total={projects.length}
+              />
             </li>
           ))}
         </ul>

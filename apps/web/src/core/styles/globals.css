@@ -464,6 +464,209 @@ body::before {
 }
 
 /**
+ * Registration marks on a Drawing Sheet (`project-card.tsx`).
+ *
+ * Four 1px corner ticks, drawn as eight background strokes on one span, sit
+ * just outside the preview frame the way crop marks sit outside a print. They
+ * are the drawing's edge, so they take the rail's Muted Ink, not Hairline,
+ * which disappears as a bare line on the dark canvas.
+ *
+ * When the light reaches the sheet the marks close in on the frame and step to
+ * Warm Graphite — the print registers. The frame and the card never move;
+ * only the marks travel, and only 3px.
+ */
+.sheet-marks {
+  --mark: color-mix(in oklab, var(--muted-fg) 55%, transparent);
+  --arm: 0.625rem;
+  position: absolute;
+  inset: -0.4375rem;
+  pointer-events: none;
+  background:
+    linear-gradient(var(--mark) 0 0) left top / var(--arm) 1px,
+    linear-gradient(var(--mark) 0 0) left top / 1px var(--arm),
+    linear-gradient(var(--mark) 0 0) right top / var(--arm) 1px,
+    linear-gradient(var(--mark) 0 0) right top / 1px var(--arm),
+    linear-gradient(var(--mark) 0 0) left bottom / var(--arm) 1px,
+    linear-gradient(var(--mark) 0 0) left bottom / 1px var(--arm),
+    linear-gradient(var(--mark) 0 0) right bottom / var(--arm) 1px,
+    linear-gradient(var(--mark) 0 0) right bottom / 1px var(--arm);
+  background-repeat: no-repeat;
+  transition:
+    inset 200ms cubic-bezier(0.16, 1, 0.3, 1),
+    --mark 200ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.card-lit:hover .sheet-marks,
+.card-lit:focus-visible .sheet-marks {
+  --mark: var(--fg);
+  inset: -0.25rem;
+  transition-duration: 320ms;
+}
+
+@property --mark {
+  syntax: "<color>";
+  inherits: true;
+  initial-value: transparent;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .sheet-marks {
+    transition: none;
+  }
+
+  .card-lit:hover .sheet-marks,
+  .card-lit:focus-visible .sheet-marks {
+    inset: -0.4375rem;
+  }
+}
+
+@media (forced-colors: active) {
+  .sheet-marks {
+    --mark: CanvasText;
+  }
+}
+
+/**
+ * Date Stamp on a Postmark Log entry (`post-card.tsx`).
+ *
+ * A rubber date stamp: two 1px rules 2px apart, no fill, so it reads as an
+ * impression on the sheet and not as a card inside the card. At rest the rules
+ * take the rail's Muted Ink; when the light reaches the entry they ink to Warm
+ * Graphite, the way the Drawing Sheet's marks register. Nothing moves.
+ */
+.post-stamp {
+  --stamp-ink: color-mix(in oklab, var(--muted-fg) 55%, transparent);
+  position: relative;
+  display: block;
+  width: 4.5rem;
+  border: 1px solid var(--stamp-ink);
+  border-radius: var(--radius-lg);
+  padding: 0.5rem 0.25rem;
+  transition: --stamp-ink 200ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.post-stamp::before {
+  content: "";
+  position: absolute;
+  inset: 2px;
+  border: 1px solid var(--stamp-ink);
+  border-radius: calc(var(--radius-lg) - 2px);
+  pointer-events: none;
+}
+
+.post-stamp time {
+  display: grid;
+  justify-items: center;
+}
+
+.card-lit:hover .post-stamp,
+.card-lit:focus-visible .post-stamp {
+  --stamp-ink: var(--fg);
+  transition-duration: 320ms;
+}
+
+@property --stamp-ink {
+  syntax: "<color>";
+  inherits: true;
+  initial-value: transparent;
+}
+
+/**
+ * Reading ruler on a Postmark Log entry.
+ *
+ * The reading time as a ruler: a tick at zero and one per minute, every fifth
+ * one taller, on a 1px baseline. The scale is ten minutes, and a longer Post
+ * stretches it, so every ruler starts at the same length and a list of entries
+ * compares at a glance. `--minutes` and `--scale` are set on the element.
+ *
+ * Three copies of the same ticks: the whole scale faint on the element, the
+ * minutes read in Muted Ink (`::before`), and an ink copy in Warm Graphite
+ * (`::after`) clipped to nothing. When the light reaches the entry the ink
+ * opens from zero to the minutes read, at about 40ms a minute, so a longer
+ * read takes longer to fill. It drains in 160ms, shorter than the fill, so
+ * nothing is left moving on an entry the pointer has left.
+ */
+.post-ruler {
+  --tick: 0.375rem;
+  --read: calc(100% - var(--minutes, 1) * var(--tick) - 1px);
+  --ticks:
+    linear-gradient(currentColor 0 0) left bottom / 100% 1px no-repeat,
+    repeating-linear-gradient(
+        to right,
+        currentColor 0 1px,
+        transparent 1px var(--tick)
+      )
+      left bottom / 100% 0.4375rem no-repeat,
+    repeating-linear-gradient(
+        to right,
+        currentColor 0 1px,
+        transparent 1px calc(var(--tick) * 5)
+      )
+      left bottom / 100% 0.75rem no-repeat;
+  position: relative;
+  display: block;
+  flex-shrink: 0;
+  width: calc(var(--scale, 10) * var(--tick) + 1px);
+  height: 0.75rem;
+  color: color-mix(in oklab, var(--muted-fg) 22%, transparent);
+  background: var(--ticks);
+}
+
+.post-ruler::before,
+.post-ruler::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: var(--ticks);
+}
+
+.post-ruler::before {
+  color: var(--muted-fg);
+  clip-path: inset(0 var(--read) 0 0);
+}
+
+.post-ruler::after {
+  color: var(--fg);
+  clip-path: inset(0 100% 0 0);
+  transition: clip-path 160ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.card-lit:hover .post-ruler::after,
+.card-lit:focus-visible .post-ruler::after {
+  clip-path: inset(0 var(--read) 0 0);
+  transition-duration: calc(120ms + var(--minutes, 1) * 40ms);
+  transition-timing-function: cubic-bezier(0.33, 1, 0.68, 1);
+}
+
+/* Reduced motion keeps the ink on the stamp and the ruler and drops the travel. */
+@media (prefers-reduced-motion: reduce) {
+  .post-stamp,
+  .post-ruler::after,
+  .card-lit:hover .post-ruler::after,
+  .card-lit:focus-visible .post-ruler::after {
+    transition: none;
+  }
+}
+
+@media (forced-colors: active) {
+  .post-stamp {
+    --stamp-ink: CanvasText;
+  }
+
+  .post-ruler {
+    color: GrayText;
+  }
+
+  .post-ruler::before {
+    color: CanvasText;
+  }
+
+  .post-ruler::after {
+    display: none;
+  }
+}
+
+/**
  * Rail scrub.
  *
  * Work rows are not links, so the pointer never washes or lights a row. It
@@ -821,6 +1024,288 @@ body::before {
 
   .id-badge-hit:focus-visible {
     outline-color: Highlight;
+  }
+}
+
+/*
+ * Skill net (About): What I bring as a schematic. Curiosity is the source pad,
+ * a via in graphite; one trunk runs from it to the four items it feeds. Below
+ * `lg` the trunk runs down the left gutter and branches right to each item.
+ * From `lg` it drops to a bus, and the bus drops to four columns.
+ *
+ * Each item draws its own traces, as the work rail does: `::before` is the
+ * vertical run through it, `::after` the horizontal one. So the net starts and
+ * ends on a pad whatever height the copy takes, and needs no measuring. The
+ * last item is a corner, so it has no junction dot.
+ *
+ * Traces ride on Muted Ink mixed into the canvas, not on Hairline, for the
+ * rail's reason (Hairline drops out on the dark canvas), and they are opaque,
+ * so two runs that cross do not print a darker pixel.
+ *
+ * Lit path (fine pointer): an item lights the traces from the source to its
+ * own pad, and the source lights the whole net, because curiosity feeds all
+ * four. Each trace fills in the direction current travels, one step after the
+ * trace before it (`--i` is the item's index), so the light runs down the net
+ * instead of switching on at once. Leaving drains every trace together. The
+ * light is Warm Graphite, not Helm Teal: the page's teal stays on the ID Badge.
+ */
+.skill-net {
+  --net-x: 7px;
+  --net-drop: 2rem;
+  --net-gap: 2rem;
+  --net-step: 70ms;
+  --net-fade: 160ms;
+  --net-line: color-mix(in oklab, var(--muted-fg) 30%, var(--canvas));
+  --net-dot: color-mix(in oklab, var(--muted-fg) 60%, var(--canvas));
+  --net-lit: var(--fg);
+}
+
+/* The dark canvas swallows a faint line, so the net steps up a notch there. */
+:is(.dark .skill-net) {
+  --net-line: color-mix(in oklab, var(--muted-fg) 42%, var(--canvas));
+  --net-dot: color-mix(in oklab, var(--muted-fg) 72%, var(--canvas));
+}
+
+.skill-net-source {
+  --net-mid: 14px;
+  position: relative;
+  padding-bottom: 2rem;
+  padding-left: 1.75rem;
+}
+
+.skill-net-output {
+  --net-mid: 12px;
+  --net-pad-x: 1.75rem;
+  position: relative;
+  padding-left: 2.75rem;
+}
+
+.skill-net-output:not(:last-child) {
+  padding-bottom: 2rem;
+}
+
+.skill-net-source::after,
+.skill-net-output::before,
+.skill-net-output::after {
+  content: "";
+  position: absolute;
+  background-color: var(--net-line);
+  background-image: linear-gradient(var(--net-lit), var(--net-lit));
+  background-repeat: no-repeat;
+  background-size: 100% 0;
+  transition: background-size var(--net-fade) cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.skill-net-source::after,
+.skill-net-output::before {
+  left: var(--net-x);
+  width: 1px;
+  translate: -50% 0;
+}
+
+.skill-net-source::after {
+  top: var(--net-mid);
+  bottom: 0;
+}
+
+.skill-net-output::before {
+  top: 0;
+  bottom: 0;
+}
+
+.skill-net-output:last-child::before {
+  bottom: auto;
+  height: calc(var(--net-mid) + 0.5px);
+}
+
+.skill-net-output::after {
+  top: var(--net-mid);
+  left: var(--net-x);
+  width: calc(var(--net-pad-x) - var(--net-x));
+  height: 1px;
+  translate: 0 -50%;
+  background-size: 0 100%;
+}
+
+.skill-net-pad,
+.skill-net-joint {
+  position: absolute;
+  z-index: 1;
+  translate: -50% -50%;
+  transition:
+    background-color var(--net-fade) ease-out,
+    border-color var(--net-fade) ease-out;
+}
+
+.skill-net-pad {
+  top: var(--net-pad-y, var(--net-mid));
+  left: var(--net-pad-x, var(--net-x));
+  width: 10px;
+  height: 10px;
+  border: 1px solid color-mix(in oklab, var(--muted-fg) 45%, transparent);
+  border-radius: 2px;
+  background-color: var(--canvas);
+}
+
+/* The source is a via: a graphite pad with a drilled centre. */
+.skill-net-source .skill-net-pad {
+  width: 14px;
+  height: 14px;
+  border: 0;
+  border-radius: 3px;
+  background: radial-gradient(circle, var(--canvas) 2px, var(--fg) 2.5px);
+}
+
+.skill-net-joint {
+  top: var(--net-joint-y, var(--net-mid));
+  left: var(--net-x);
+  width: 5px;
+  height: 5px;
+  border-radius: 9999px;
+  background-color: var(--net-dot);
+}
+
+.skill-net-output:last-child .skill-net-joint {
+  display: none;
+}
+
+@media (width >= 64rem) {
+  .skill-net-source {
+    padding-bottom: 1.5rem;
+  }
+
+  .skill-net-outputs {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    column-gap: var(--net-gap);
+  }
+
+  .skill-net-output,
+  .skill-net-output:not(:last-child) {
+    --net-pad-x: var(--net-x);
+    --net-pad-y: calc(var(--net-drop) + 5px);
+    --net-joint-y: 0px;
+    padding: calc(var(--net-drop) + 1.25rem) 0 0;
+  }
+
+  .skill-net-output::before,
+  .skill-net-output:last-child::before {
+    bottom: auto;
+    height: var(--net-drop);
+  }
+
+  .skill-net-output::after {
+    top: 0;
+    width: calc(100% + var(--net-gap));
+  }
+
+  .skill-net-output:last-child::after {
+    display: none;
+  }
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .skill-net:has(.skill-net-source:hover, .skill-net-output:hover)
+    .skill-net-source::after {
+    background-size: 100% 100%;
+    transition: background-size var(--net-step) linear;
+  }
+}
+
+/* Standing net: the lit path runs down the trunk, then out along a branch. */
+@media (hover: hover) and (pointer: fine) and (width < 64rem) {
+  .skill-net-output:has(~ .skill-net-output:hover)::before,
+  .skill-net:has(.skill-net-source:hover) .skill-net-output::before {
+    background-size: 100% 100%;
+    transition: background-size var(--net-step) linear
+      calc((var(--i) + 1) * var(--net-step));
+  }
+
+  .skill-net-output:hover::before {
+    background-size: 100% calc(var(--net-mid) + 0.5px);
+    transition: background-size var(--net-step) linear
+      calc((var(--i) + 1) * var(--net-step));
+  }
+
+  .skill-net-output:hover::after,
+  .skill-net:has(.skill-net-source:hover) .skill-net-output::after {
+    background-size: 100% 100%;
+    transition: background-size var(--net-step) linear
+      calc((var(--i) + 2) * var(--net-step));
+  }
+
+  .skill-net-output:has(~ .skill-net-output:hover) .skill-net-joint,
+  .skill-net-output:hover .skill-net-joint,
+  .skill-net:has(.skill-net-source:hover) .skill-net-joint {
+    background-color: var(--net-lit);
+    transition-delay: calc((var(--i) + 2) * var(--net-step));
+  }
+
+  .skill-net-output:hover .skill-net-pad,
+  .skill-net:has(.skill-net-source:hover) .skill-net-output .skill-net-pad {
+    border-color: var(--net-lit);
+    background-color: var(--net-lit);
+    transition-delay: calc((var(--i) + 3) * var(--net-step));
+  }
+}
+
+/* Lying net: the lit path runs along the bus, then down a drop. */
+@media (hover: hover) and (pointer: fine) and (width >= 64rem) {
+  .skill-net-output:has(~ .skill-net-output:hover)::after,
+  .skill-net:has(.skill-net-source:hover) .skill-net-output::after {
+    background-size: 100% 100%;
+    transition: background-size var(--net-step) linear
+      calc((var(--i) + 1) * var(--net-step));
+  }
+
+  .skill-net-output:hover::before,
+  .skill-net:has(.skill-net-source:hover) .skill-net-output::before {
+    background-size: 100% 100%;
+    transition: background-size var(--net-step) linear
+      calc((var(--i) + 1) * var(--net-step));
+  }
+
+  .skill-net-output:has(~ .skill-net-output:hover) .skill-net-joint,
+  .skill-net-output:hover .skill-net-joint,
+  .skill-net:has(.skill-net-source:hover) .skill-net-joint {
+    background-color: var(--net-lit);
+    transition-delay: calc((var(--i) + 1) * var(--net-step));
+  }
+
+  .skill-net-output:hover .skill-net-pad,
+  .skill-net:has(.skill-net-source:hover) .skill-net-output .skill-net-pad {
+    border-color: var(--net-lit);
+    background-color: var(--net-lit);
+    transition-delay: calc((var(--i) + 2) * var(--net-step));
+  }
+}
+
+/* Reduced motion keeps the lit path and drops the travel. */
+@media (prefers-reduced-motion: reduce) {
+  .skill-net {
+    --net-step: 0ms;
+    --net-fade: 0ms;
+  }
+}
+
+/* A forced palette keeps the net as plain lines and pads, with no light. */
+@media (forced-colors: active) {
+  .skill-net-source::after,
+  .skill-net-output::before,
+  .skill-net-output::after,
+  .skill-net-joint {
+    forced-color-adjust: none;
+    background: CanvasText;
+  }
+
+  .skill-net-pad {
+    forced-color-adjust: none;
+    border-color: CanvasText;
+    background: Canvas;
+  }
+
+  .skill-net-source .skill-net-pad {
+    background: CanvasText;
   }
 }
 

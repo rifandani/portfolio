@@ -47,3 +47,31 @@ export const adjacentPosts = <TPost extends Pick<Post, "slug">>(
   }
   return { previous: posts[index + 1], next: posts[index - 1] };
 };
+
+/** The Posts of one publish year, as the posts index files them. */
+export interface PostYear<TPost> {
+  /** Four digits, read from the ISO date, so no time zone can move a Post. */
+  year: string;
+  posts: TPost[];
+}
+
+/**
+ * File Posts under their publish year. `posts` is the `collectPosts` order
+ * (most recent first), so the years come out newest first and each year keeps
+ * that order inside it.
+ */
+export const postsByYear = <TPost extends Pick<Post, "publishedAt">>(
+  posts: readonly TPost[]
+): PostYear<TPost>[] => {
+  const years: PostYear<TPost>[] = [];
+  for (const post of posts) {
+    const year = post.publishedAt.slice(0, 4);
+    const last = years.at(-1);
+    if (last?.year === year) {
+      last.posts.push(post);
+    } else {
+      years.push({ year, posts: [post] });
+    }
+  }
+  return years;
+};
