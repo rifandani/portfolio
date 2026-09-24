@@ -1,6 +1,10 @@
 "use client";
 
-import { ChevronDownIcon, DocumentTextIcon } from "@heroicons/react/24/outline";
+import {
+  ChevronDownIcon,
+  ClipboardIcon,
+  DocumentTextIcon,
+} from "@heroicons/react/24/outline";
 import { useTranslations } from "next-intl";
 
 import { ASSISTANT_ICON_IDS, SpriteIcon } from "@/core/components/icon-sprite";
@@ -13,7 +17,7 @@ import {
   MenuItem,
   MenuLabel,
 } from "@/core/components/ui/menu";
-import { CopyPageButton } from "@/post/components/copy-page-button.client";
+import { CopyButton } from "@/post/components/copy-button.client";
 import {
   assistantHandoffUrl,
   assistantName,
@@ -40,7 +44,12 @@ export const PageActions = ({
 
   return (
     <ButtonGroup>
-      <CopyPageButton markdown={markdown} />
+      <CopyButton
+        value={markdown}
+        icon={ClipboardIcon}
+        label={t("postCopyPage")}
+        copiedLabel={t("postCopied")}
+      />
       <Menu>
         <Button
           intent="outline"

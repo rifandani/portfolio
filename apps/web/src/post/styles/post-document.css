@@ -24,6 +24,14 @@
   scroll-margin-top: 5rem;
 }
 
+/*
+ * A Post Outline click focuses the heading it glides to, so the next Tab
+ * starts there. The heading is not a control, so it draws no focus ring.
+ */
+.post-document :is(h2, h3, h4)[tabindex="-1"]:focus {
+  outline: none;
+}
+
 .post-document h2 {
   margin-top: 2.5rem;
   font-size: 1.25rem;

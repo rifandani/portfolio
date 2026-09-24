@@ -330,6 +330,19 @@ Intents: `primary` | `secondary` | `warning` | `danger` | `success` | `outline` 
 
 - **Copy page (Post Detail):** Outline `sm`, on the meta row at the end. It copies the Post Markdown. On success, the clipboard icon and the label cross-fade to a check and "Copied!" in 180ms. The icons also scale a little. The border takes Turbine Teal at 60%. It holds 2s, then returns. The success tone marks a state, so it obeys the Status-Is-Not-Brand Rule — never amber. Both states share one grid cell, so the width never jumps. The accessible name stays "Copy page"; an `<output>` announces the copy. Reduced motion swaps at once.
 - **Page Actions menu (Post Detail):** A `ButtonGroup` joins "Copy page" to an outline square trigger with a muted chevron, at the same height. The menu opens at the bottom end. Each item has a muted monochrome icon, a `font-medium` label, and a muted description. Assistant marks take `currentColor`, never brand colors. Every item opens a new tab.
+- **Share Actions (Post Detail):** A second `ButtonGroup` of the same form, before the Page Actions, 8px apart. "Share" has a muted link icon and copies the Post Detail address with the same cross-fade to a check and "Copied!"; its `<output>` says "Link copied". The menu lists X, LinkedIn, and Threads: a muted monochrome mark and a plain label, no description, because each name is its own explanation. Network marks take `currentColor`, never brand colors, and sit in a padded viewBox so their optical size matches. Every item opens a new tab.
+
+### Post Outline (Post Detail)
+
+The Post's sections: the title first (it stands for the text before the first heading), then each `h2`, and each `h3` indented 12px (`post-outline.client.tsx`). It shows only when the Post Document has at least one section.
+
+- **Placement:** from `lg`, a 13rem right column beside the Post Document, 64px gap, inside the 64rem column (The One-Column Rule holds). It is sticky at `top-24` and ends with the article, so it never covers the Post Pager. Below `lg`, it folds into a native `<details>` between the header and the Post Document: Hairline rules above and below, no card, a 44px summary with the kit's plus/minus indicator.
+- **Label:** "On this page" in the footer's Meta spaced caps. It names the nav; it is not an eyebrow over a heading.
+- **Entries:** Label size at 14px (16px in the mobile disclosure), Muted Ink at rest, Warm Graphite on hover and on the current section (`aria-current="location"`). Color only, never weight, so an entry never re-wraps when it becomes current.
+- **Rail and trace:** a 1px rail at 30% Muted Ink, the Work Rail line. A 1px Helm Teal trace fills it from the top to the bottom of the current entry, from 45% to full, so its length is how far the reader has come. It moves in 360ms on an ease-out quart. The trace is 1px because a side border over 1px on a list item is refused.
+- **Current section:** the last heading whose top passed 128px from the viewport top (below the 80px heading scroll margin, so a jumped-to section is current at once). At the page end the last section is current. A picked entry stays current until the reader scrolls on their own again (wheel, touch, or key).
+- **Jump:** a plain click glides to the section (`scrollIntoView` smooth, so the heading keeps its 80px scroll margin). It still does what the native jump does: it pushes the hash and moves focus to the heading, which draws no ring because it is not a control. Modified clicks (new tab, new window) keep the native link.
+- **Fallbacks:** plain `#id` links and native `<details>`, so the outline works with no script; the trace draws only after it is measured. Reduced motion drops the travel and the glide (the click jumps); forced colors drop the trace and underline the current entry.
 
 ### Chips
 
@@ -374,6 +387,8 @@ One silhouette, two fillings, defined once in `src/portfolio/components/card-she
 - **Interactive:** Project and post cards are one full-card link, lit by the pointer (`card-lit`, `lit-card.client.tsx`). One position, `--lit-px` / `--lit-py`, drives three layers: the `secondary` wash graded around the light instead of flat, a Helm Teal specular at ~16% under it, and the Hairline waking to Helm Teal where the light reaches the border — a 1px gradient edge through `mask-composite`, never a glow. The print drifts and scales ~1.08 inside its frame, trailing the light by 320ms and settling back in 200ms — the exit is shorter than the entrance, so nothing is left moving on a card the pointer has left.
 - **Leaving:** the light holds exactly where the pointer left it and only fades. It returns to centre after the fade has finished, when nothing is visible to move — recentring it on `pointerleave` snaps the light to the middle at full brightness.
 - **Default light:** centred (0.5 / 0.5), carried as the `var()` fallback rather than a declaration on the card, which would shadow the tracked value. Keyboard focus, coarse pointers, reduced motion, and a failed script all get that symmetrical lit state plus the outline ring. Reduced motion keeps the lit state and drops every movement in it; forced colors drop the light entirely.
+
+- **Post Pager (Post Detail):** the same shell with a text-only filling, at the end of the Post, `mt-24` after the text. A mono Muted Ink direction label with an arrow ("← Previous post", "Next post →"), the Roboto semibold title, then the Post Meta. From `sm` the two cards sit side by side at equal height; the next Post takes the right column and aligns right, even when it is alone. Stacked on mobile, both align left. Previous is older and next is newer, so each arrow points the way the reader goes in time. No print, so nothing drifts — the light alone answers the pointer.
 
 ### Glyph Engine (signature)
 

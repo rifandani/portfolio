@@ -72,6 +72,14 @@ Web app.
 
 **Page Actions**: The "Copy page" button and the menu next to it at the top of a Post Detail. Each action gives the Post Markdown to the reader or to an Assistant. _Avoid_: share menu, toolbar, options, split button
 
+**Share Actions**: The "Share" button and the menu next to it at the top of a Post Detail, beside the Page Actions. "Share" copies the address of the Post Detail; each menu item opens a Share Intent. They give the address, not the Post Markdown. _Avoid_: share menu, social buttons, share bar
+
+**Social Network**: An outside social product that a reader can share a Post Detail to (X, LinkedIn, Threads). _Avoid_: platform, social media, channel
+
+**Share Intent**: Opening the compose page of a Social Network with the address of one Post Detail, and its title where the Social Network takes text. The reader posts it; the site never does. _Avoid_: share link, tweet button, deep link
+
+**Post Outline**: The list of a Post's sections on its Post Detail: the title, then each `h2` and `h3` heading of the Post Document. It marks the section the reader is in, and each entry goes to its section. _Avoid_: TOC, table of contents, on this page, sidebar, scroll-spy
+
 **Assistant**: An outside AI chat product that a reader can send a Post to (Claude, ChatGPT, T3 Chat, Cursor). _Avoid_: AI, LLM, chatbot, provider, model
 
 **Assistant Handoff**: Opening an Assistant with a prompt that points it at the address of one Post's Post Markdown, so the reader can ask questions about that Post. The prompt carries the address, not the text. _Avoid_: share to AI, ask AI, LLM link, deep link
@@ -79,6 +87,8 @@ Web app.
 **Slug**: The URL-friendly name of one Post. It is made from the title one time and then it does not change. _Avoid_: permalink, handle, post id, path
 
 **Post Detail**: The Public Site page that shows one full Post at its Slug. _Avoid_: article page, post page, blog detail
+
+**Post Pager**: The two links at the end of a Post Detail to the Posts beside it in publish order. The previous Post is the one published just before; the next Post is the one published just after. The oldest Post has no previous Post, and the most recent has no next Post. _Avoid_: pagination, prev/next, siblings, related posts
 
 **Code Block**: A fenced block of code in a Post, in one named language or in none. Its colors come from the page theme, so it has one form in all themes. _Avoid_: snippet, code sample, fence, pre
 

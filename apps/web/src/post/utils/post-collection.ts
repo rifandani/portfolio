@@ -23,3 +23,27 @@ export const collectPosts = (files: readonly PostSourceFile[]): Post[] => {
     (a, b) => Date.parse(b.publishedAt) - Date.parse(a.publishedAt)
   );
 };
+
+/** The Posts beside one Post in publish order, as the Post Pager shows them. */
+export interface AdjacentPosts<TPost> {
+  /** Published just before. */
+  previous?: TPost;
+  /** Published just after. */
+  next?: TPost;
+}
+
+/**
+ * The Posts beside one Post in publish order, for the Post Pager. `posts` is
+ * the `collectPosts` order (most recent first), so the previous Post — the one
+ * published just before — comes after it, and the next Post comes before it.
+ */
+export const adjacentPosts = <TPost extends Pick<Post, "slug">>(
+  posts: readonly TPost[],
+  slug: string
+): AdjacentPosts<TPost> => {
+  const index = posts.findIndex((post) => post.slug === slug);
+  if (index === -1) {
+    return {};
+  }
+  return { previous: posts[index + 1], next: posts[index - 1] };
+};

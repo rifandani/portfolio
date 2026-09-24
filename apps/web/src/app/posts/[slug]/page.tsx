@@ -7,14 +7,18 @@ import { SiteContainer } from "@/core/components/site-container";
 import { SiteShell } from "@/core/components/site-shell";
 import { Heading } from "@/core/components/ui/heading";
 import { Link } from "@/core/components/ui/link";
-import { Text } from "@/core/components/ui/text";
 import { ENV } from "@/core/constants/env";
 import { createMetadata, JsonLd } from "@/core/utils/seo";
 import { portfolioIdentity } from "@/portfolio/constants/portfolio";
 import { PageActions } from "@/post/components/page-actions.client";
 import { PostDocument } from "@/post/components/post-document";
 import { PostMeta } from "@/post/components/post-meta";
+import { PostOutline } from "@/post/components/post-outline.client";
+import { PostPager } from "@/post/components/post-pager";
+import { ShareActions } from "@/post/components/share-actions.client";
 import { getPost, getPosts } from "@/post/services/posts";
+import { adjacentPosts } from "@/post/utils/post-collection";
+import { outlineOf, POST_TITLE_ID } from "@/post/utils/post-outline";
 import { postMarkdownPath, postPath } from "@/post/utils/slug";
 
 /** Every Slug is known at build time; any other Slug is a 404. */
@@ -48,14 +52,17 @@ export default async function PostDetailPage({
   params,
 }: PageProps<"/posts/[slug]">) {
   const [t, post] = await Promise.all([getTranslations(), findPost(params)]);
+  const { previous, next } = adjacentPosts(getPosts(), post.slug);
+  const url = new URL(postPath(post.slug), ENV.NEXT_PUBLIC_APP_URL).href;
   const blogPosting: BlogPosting = {
     "@type": "BlogPosting",
     headline: post.title,
     description: post.summary,
     datePublished: post.publishedAt,
-    url: new URL(postPath(post.slug), ENV.NEXT_PUBLIC_APP_URL).href,
+    url,
     author: { "@type": "Person", name: portfolioIdentity.fullName },
   };
+  const outline = outlineOf(post.document);
   return (
     <SiteShell>
       <JsonLd graphs={[blogPosting]} />
@@ -65,24 +72,38 @@ export default async function PostDetailPage({
             {t("homeAllPosts")}
           </Link>
           <header className="mt-6">
-            <Heading level={1} className="text-3xl/10 sm:text-4xl/12">
+            <Heading
+              level={1}
+              id={POST_TITLE_ID}
+              className="scroll-mt-20 text-3xl/10 outline-none sm:text-4xl/12"
+            >
               {post.title}
             </Heading>
-            <Text className="mt-4 max-w-prose text-base/7 text-pretty">
-              {post.summary}
-            </Text>
             <div className="mt-4 flex flex-wrap items-center justify-between gap-x-6 gap-y-3">
               <PostMeta post={post} />
-              <PageActions
-                markdown={post.markdown}
-                markdownUrl={markdownUrlOf(post.slug)}
-              />
+              <div className="flex flex-wrap items-center gap-2">
+                <ShareActions url={url} title={post.title} />
+                <PageActions
+                  markdown={post.markdown}
+                  markdownUrl={markdownUrlOf(post.slug)}
+                />
+              </div>
             </div>
           </header>
-          <div className="mt-10">
+          <div className="mt-10 lg:grid lg:grid-cols-[minmax(0,1fr)_13rem] lg:gap-16">
+            {outline.length > 0 && (
+              <PostOutline
+                entries={[
+                  { id: POST_TITLE_ID, text: post.title, level: 2 },
+                  ...outline,
+                ]}
+                className="mb-10 lg:order-last lg:mb-0"
+              />
+            )}
             <PostDocument document={post.document} />
           </div>
         </article>
+        <PostPager previous={previous} next={next} className="mt-24" />
       </SiteContainer>
     </SiteShell>
   );

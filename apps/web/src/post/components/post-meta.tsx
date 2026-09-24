@@ -1,3 +1,4 @@
+import { CalendarDaysIcon, ClockIcon } from "@heroicons/react/24/outline";
 import { getLocale, getTranslations } from "next-intl/server";
 import { twMerge } from "tailwind-merge";
 
@@ -27,11 +28,17 @@ export const PostMeta = async ({
         className
       )}
     >
-      <time dateTime={post.publishedAt}>
-        {formatPublished(post.publishedAt, locale)}
-      </time>
+      <span className="inline-flex items-center gap-1.5">
+        <CalendarDaysIcon aria-hidden="true" className="size-3.5 shrink-0" />
+        <time dateTime={post.publishedAt}>
+          {formatPublished(post.publishedAt, locale)}
+        </time>
+      </span>
       <span aria-hidden="true"> · </span>
-      <span>{t("postReadingTime", { minutes: post.readingMinutes })}</span>
+      <span className="inline-flex items-center gap-1.5">
+        <ClockIcon aria-hidden="true" className="size-3.5 shrink-0" />
+        {t("postReadingTime", { minutes: post.readingMinutes })}
+      </span>
     </p>
   );
 };

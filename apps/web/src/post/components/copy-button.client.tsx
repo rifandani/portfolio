@@ -1,7 +1,7 @@
 "use client";
 
-import { CheckIcon, ClipboardIcon } from "@heroicons/react/24/outline";
-import { useTranslations } from "next-intl";
+import { CheckIcon } from "@heroicons/react/24/outline";
+import type { ComponentType, SVGProps } from "react";
 import { twJoin, twMerge } from "tailwind-merge";
 
 import { Button } from "@/core/components/ui/button";
@@ -22,12 +22,24 @@ const labelFade = (isShown: boolean) =>
   twJoin(FADE, isShown ? "opacity-100" : "opacity-0");
 
 /**
- * Copies the Post Markdown. The copied state is a status, so it takes the
- * success tone, not a brand color. The name stays "Copy page"; the status
- * region tells a screen reader that the copy happened.
+ * The left button of the Page Actions and the Share Actions: it copies `value`
+ * and shows `copiedLabel` for a short time. The copied state is a status, so it
+ * takes the success tone, not a brand color. The accessible name stays `label`;
+ * the status region reads `status` to a screen reader when the copy happens.
  */
-export const CopyPageButton = ({ markdown }: { markdown: string }) => {
-  const t = useTranslations();
+export const CopyButton = ({
+  value,
+  icon: Icon,
+  label,
+  copiedLabel,
+  status = copiedLabel,
+}: {
+  value: string;
+  icon: ComponentType<SVGProps<SVGSVGElement>>;
+  label: string;
+  copiedLabel: string;
+  status?: string;
+}) => {
   const { copied, copy } = useClipboard();
 
   return (
@@ -40,25 +52,23 @@ export const CopyPageButton = ({ markdown }: { markdown: string }) => {
           copied && "border-success/60"
         )}
         onPress={() => {
-          void copy(markdown);
+          void copy(value);
         }}
       >
         <span aria-hidden="true" className={STACK}>
-          <ClipboardIcon
-            className={twJoin(ICON, "text-muted-fg", iconFade(!copied))}
-          />
+          <Icon className={twJoin(ICON, "text-muted-fg", iconFade(!copied))} />
           <CheckIcon
             className={twJoin(ICON, "text-success-subtle-fg", iconFade(copied))}
           />
         </span>
         <span className={STACK}>
-          <span className={labelFade(!copied)}>{t("postCopyPage")}</span>
+          <span className={labelFade(!copied)}>{label}</span>
           <span aria-hidden="true" className={labelFade(copied)}>
-            {t("postCopied")}
+            {copiedLabel}
           </span>
         </span>
       </Button>
-      <output className="sr-only">{copied ? t("postCopied") : ""}</output>
+      <output className="sr-only">{copied ? status : ""}</output>
     </>
   );
 };

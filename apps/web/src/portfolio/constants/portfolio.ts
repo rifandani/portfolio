@@ -56,6 +56,10 @@ export const aboutContent = {
   ],
   skillKeys: ["aboutSkill1", "aboutSkill2", "aboutSkill3", "aboutSkill4"],
   email: "tri.rifandani@gmail.com",
+  /** [Synthetic] Replace with a real photo. The frame is 4:5, so crop to it. */
+  portraitSrc: "/placeholders/portrait.svg",
+  /** [Synthetic] Replace with the real CV. It opens in a new tab. */
+  cvHref: "/placeholders/cv.pdf",
 } as const;
 
 export interface ExperienceEntry {

@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef } from "react";
+import { twMerge } from "tailwind-merge";
 
 import { Link } from "@/core/components/ui/link";
 import { cardLinkClass } from "@/portfolio/components/card-shell";
@@ -21,9 +22,11 @@ import { cardLinkClass } from "@/portfolio/components/card-shell";
  */
 export const LitCard = ({
   href,
+  className,
   children,
 }: {
   href: string;
+  className?: string;
   children: React.ReactNode;
 }) => {
   const ref = useRef<HTMLDivElement>(null);
@@ -111,7 +114,11 @@ export const LitCard = ({
 
   return (
     <div ref={ref}>
-      <Link href={href} variant="plain" className={cardLinkClass}>
+      <Link
+        href={href}
+        variant="plain"
+        className={twMerge(cardLinkClass, className)}
+      >
         {children}
       </Link>
     </div>
