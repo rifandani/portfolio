@@ -1,7 +1,7 @@
 "use client";
 
-import { ChevronDownIcon, LinkIcon } from "@heroicons/react/24/outline";
 import { useTranslations } from "next-intl";
+import { HiOutlineChevronDown, HiOutlineLink } from "react-icons/hi2";
 
 import { NETWORK_ICON_IDS, SpriteIcon } from "@/core/components/icon-sprite";
 import { Button } from "@/core/components/ui/button";
@@ -40,7 +40,7 @@ export const ShareActions = ({
     <ButtonGroup>
       <CopyButton
         value={url}
-        icon={LinkIcon}
+        icon={HiOutlineLink}
         label={t("postShare")}
         copiedLabel={t("postCopied")}
         status={t("postLinkCopied")}
@@ -52,7 +52,11 @@ export const ShareActions = ({
           className="size-9 sm:size-8"
           aria-label={t("postMoreShareOptions")}
         >
-          <ChevronDownIcon className="text-muted-fg" />
+          <HiOutlineChevronDown
+            aria-hidden="true"
+            data-slot="icon"
+            className="text-muted-fg"
+          />
         </Button>
         <MenuContent placement="bottom end" className="min-w-48">
           {networks.map((network) => {

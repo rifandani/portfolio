@@ -1,11 +1,11 @@
 "use client";
 
-import {
-  ChevronDownIcon,
-  ClipboardIcon,
-  DocumentTextIcon,
-} from "@heroicons/react/24/outline";
 import { useTranslations } from "next-intl";
+import {
+  HiOutlineChevronDown,
+  HiOutlineClipboard,
+  HiOutlineDocumentText,
+} from "react-icons/hi2";
 
 import { ASSISTANT_ICON_IDS, SpriteIcon } from "@/core/components/icon-sprite";
 import { Button } from "@/core/components/ui/button";
@@ -46,7 +46,7 @@ export const PageActions = ({
     <ButtonGroup>
       <CopyButton
         value={markdown}
-        icon={ClipboardIcon}
+        icon={HiOutlineClipboard}
         label={t("postCopyPage")}
         copiedLabel={t("postCopied")}
       />
@@ -57,7 +57,11 @@ export const PageActions = ({
           className="size-9 sm:size-8"
           aria-label={t("postMoreActions")}
         >
-          <ChevronDownIcon className="text-muted-fg" />
+          <HiOutlineChevronDown
+            aria-hidden="true"
+            data-slot="icon"
+            className="text-muted-fg"
+          />
         </Button>
         <MenuContent placement="bottom end" className="min-w-64">
           <MenuItem
@@ -65,7 +69,7 @@ export const PageActions = ({
             textValue={t("postViewMarkdown")}
             {...EXTERNAL}
           >
-            <DocumentTextIcon />
+            <HiOutlineDocumentText aria-hidden="true" data-slot="icon" />
             <MenuLabel className="font-medium">
               {t("postViewMarkdown")}
             </MenuLabel>

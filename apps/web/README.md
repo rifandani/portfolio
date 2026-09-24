@@ -9,8 +9,9 @@
 - update website logo
 - use real CV
 - put hackathon 2023 as projects
-- add tech stack in about page
-- add filter or search in posts using URL search params
+- og cards
+- add real contents in both projects and posts
+- add filter or search in posts using URL search params after we have some real contents
 
 ## Testing
 

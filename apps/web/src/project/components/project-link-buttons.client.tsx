@@ -1,8 +1,8 @@
 "use client";
 
-import { ArrowUpRightIcon, WindowIcon } from "@heroicons/react/24/outline";
 import { useTranslations } from "next-intl";
 import type { ReactNode } from "react";
+import { HiOutlineArrowUpRight, HiOutlineWindow } from "react-icons/hi2";
 import { twMerge } from "tailwind-merge";
 
 import { SpriteIcon } from "@/core/components/icon-sprite";
@@ -11,7 +11,7 @@ import { Link } from "@/core/components/ui/link";
 import type { ProjectLink } from "@/project/utils/project-links";
 
 const icons = {
-  demo: <WindowIcon />,
+  demo: <HiOutlineWindow aria-hidden="true" data-slot="icon" />,
   github: <SpriteIcon id="icon-github" />,
 } satisfies Record<ProjectLink["kind"], ReactNode>;
 
@@ -62,7 +62,11 @@ export const ProjectLinkButtons = ({
             {icons[link.kind]}
             <span className="flex-1 text-start">{t(labelKeys[link.kind])}</span>
             <span className="sr-only">{t("opensInNewTab")}</span>
-            <ArrowUpRightIcon className="transition-[translate] duration-300 ease-out group-hover:translate-x-0.5 group-hover:-translate-y-0.5 motion-reduce:transition-none" />
+            <HiOutlineArrowUpRight
+              aria-hidden="true"
+              data-slot="icon"
+              className="transition-[translate] duration-300 ease-out group-hover:translate-x-0.5 group-hover:-translate-y-0.5 motion-reduce:transition-none"
+            />
           </Link>
         </li>
       ))}

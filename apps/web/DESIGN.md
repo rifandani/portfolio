@@ -255,7 +255,7 @@ Public page rhythm: page padding `py-16` / `sm:py-24`; sections separated by `mt
 
 The home page is: identity hero (text in the left 7 of 12 columns, the Glyph Engine in the right 5 from `lg`; behind the headline below `lg`) → work experience (all roles) → projects (first three) → writing (three most recent) → footer. Each preview section carries an "All …" link to its own index at the heading baseline.
 
-The about page is: headline and biography in the left 7 of 12 columns, and the ID Badge with "View CV" under it in the right 4 from `lg`. The badge column is sticky at `top-20` (the strap takes the space above the card), so the CV link stays in view while the biography scrolls. Below `lg`, the badge (`w-40` / `sm:w-48`) and the CV link sit in one row between the headline and the biography, so the page's one action is on the first screen. Then What I bring → Get in touch → footer.
+The about page is: headline and biography in the left 7 of 12 columns, and the ID Badge with "View CV" under it in the right 4 from `lg`. The badge column is sticky at `top-20` (the strap takes the space above the card), so the CV link stays in view while the biography scrolls. Below `lg`, the badge (`w-40` / `sm:w-48`) and the CV link sit in one row between the headline and the biography, so the page's one action is on the first screen. Then What I bring → Tech stack → Get in touch → footer.
 
 Cards use a 20px internal gutter on mobile and 24px from `sm`. Fields stack label → control at 8px, control → error at 8px. Form clusters use 24px between fieldsets.
 
@@ -438,6 +438,16 @@ The About portrait, printed on an ID card that hangs from a lanyard (`src/portfo
 - **Arrival:** one turn, 450ms after load, so the visitor sees that the card turns. It is skipped if the visitor reached the card first, and under reduced motion. After that the badge moves only when the visitor moves it; the loop stops when every spring has settled, so it is not ambient motion (The One-Moment Rule holds).
 - **Access:** one native button lies over the card ("Flip the ID card", `aria-pressed` while the back shows). Enter and Space flip; the arrow keys flip in that direction. The face turned away is `inert`, so a screen reader reads only the face in view. The focus ring is a 2px Helm Teal outline 4px off the card, square to the page. A Meta hint under the card says "Drag to spin".
 - **Fallbacks:** no script shows the front, still. Reduced motion keeps direct drag (the card follows the hand) but drops travel: release, a tap, and a key land on the face at once, with no lean, swing, or arrival. Forced colors drop the light and the stripe.
+
+### Tech Stack (About)
+
+The tools, drawn as a cross-section (`src/portfolio/components/tech-stack.tsx`, data in `techStack` in `portfolio.ts`, rules under `.tech-spine` in `globals.css`). It follows What I bring. It acts out the biography's line "one language took me all the way from the button to the database".
+
+- **Layers:** Interface, Styling, Server, Data, Platform, then Testing and AI tools, from the button down, as Hairline rows (`divide-y border-y`, like What I bring, no card). The layer name is Meta spaced caps in a 7rem column from `sm`; below `sm` it sits over its tools.
+- **Tools:** a 36px tile in the card material (Paper, 1px Hairline, `shadow-xs`, 8px) holding the mark at 18px in Warm Graphite, then the name in mono, Warm Graphite. The names are tech tags, so they are mono (The Three-Face Rule). Marks are monochrome from `react-icons/si` and take `currentColor`, never brand colors; Playwright, which that set does not ship, is `#icon-playwright` in the sprite.
+- **Spine:** TypeScript is not a layer. It is one strap beside all the layers, full height, in the lanyard's graphite (Warm Graphite in light, `oklch(0.34 0.008 56)` in dark), 3.5rem / `sm` 4.5rem wide, 8px corners. From the top: the mark, the name set vertically in Roboto 600, then the name repeated as a faint mono weave that fades out, and the "Language" label in Meta caps at the foot. Forced colors keep the strap as a border and drop the weave.
+- **Static:** nothing here is a link, so nothing answers the pointer (The Static-Work Rule). No Helm Teal: the page's teal stays on the ID Badge.
+- **Semantics:** two `dl`s: the spine (Language → TypeScript) and the layers (layer → a list of tools). The weave is `aria-hidden`.
 
 ### Work Rail (signature)
 

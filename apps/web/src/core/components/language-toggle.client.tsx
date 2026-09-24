@@ -1,9 +1,9 @@
 "use client";
 // fallow-ignore-file security-client-server-leak -- a `use server` import is an RPC boundary: the bundler emits a server reference, never the action's code or its env reads
 
-import { GlobeAltIcon } from "@heroicons/react/24/outline";
 import { useLocale, useTranslations } from "next-intl";
 import { useTransition } from "react";
+import { HiOutlineGlobeAlt } from "react-icons/hi2";
 import type { Selection } from "react-stately";
 import { toast } from "sonner";
 
@@ -19,7 +19,11 @@ export const LanguageToggle = () => {
   return (
     <Menu>
       <Button intent="outline" data-slot="menu-trigger">
-        <GlobeAltIcon className="size-6" />
+        <HiOutlineGlobeAlt
+          aria-hidden="true"
+          data-slot="icon"
+          className="size-6"
+        />
         {/* The label is chrome, not information: it drops below `sm` so the
             public topbar fits one row at 390px. */}
         <span className="hidden sm:inline">

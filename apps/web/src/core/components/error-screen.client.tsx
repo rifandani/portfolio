@@ -1,7 +1,7 @@
 "use client";
 
-import { ArrowPathIcon } from "@heroicons/react/24/outline";
 import { useTranslations } from "next-intl";
+import { HiOutlineArrowPath } from "react-icons/hi2";
 
 import { HomeLink } from "@/core/components/home-link.client";
 import { StatusScreen } from "@/core/components/status-screen";
@@ -32,7 +32,7 @@ export const ErrorScreen = ({
                 () => retry()
               }
             >
-              <ArrowPathIcon />
+              <HiOutlineArrowPath aria-hidden="true" data-slot="icon" />
               {t("statusTryAgain")}
             </Button>
             <HomeLink intent="outline" />

@@ -1,6 +1,6 @@
 'use client'
 
-import { ChevronUpDownIcon } from '@heroicons/react/20/solid'
+import { HiMiniChevronUpDown } from 'react-icons/hi2'
 import { twMerge } from 'tailwind-merge'
 import { fieldStyles } from '@/core/components/ui/field'
 
@@ -39,7 +39,7 @@ export function NativeSelectContent({ className, isInvalid, ...props }: NativeSe
         )}
         {...props}
       />
-      <ChevronUpDownIcon className="pointer-events-none absolute top-1/2 right-3 size-5 -translate-y-1/2 text-muted-fg sm:right-2.5 sm:size-4" />
+      <HiMiniChevronUpDown aria-hidden="true" data-slot="icon" className="pointer-events-none absolute top-1/2 right-3 size-5 -translate-y-1/2 text-muted-fg sm:right-2.5 sm:size-4" />
     </div>
   )
 }

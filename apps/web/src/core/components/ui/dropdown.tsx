@@ -1,6 +1,6 @@
 'use client'
 
-import { CheckIcon } from '@heroicons/react/20/solid'
+import { HiMiniCheck } from 'react-icons/hi2'
 import { Collection } from 'react-aria-components/Collection'
 import { composeRenderProps } from 'react-aria-components/composeRenderProps'
 import { Header } from 'react-aria-components/Header'
@@ -118,7 +118,7 @@ const DropdownItem = ({ className, children, intent, ...props }: DropdownItemPro
         <>
           {typeof children === 'string' ? <DropdownLabel>{children}</DropdownLabel> : children}
           {isSelected && (
-            <CheckIcon
+            <HiMiniCheck aria-hidden="true"
               className="pointer-events-none absolute end-3 top-1/2 size-4 shrink-0 -translate-y-1/2 sm:end-2.5"
               data-slot="check-indicator"
             />

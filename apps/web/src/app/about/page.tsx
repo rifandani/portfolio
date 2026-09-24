@@ -8,6 +8,7 @@ import { Text } from "@/core/components/ui/text";
 import { createMetadata } from "@/core/utils/seo";
 import { CvLink } from "@/portfolio/components/cv-link.client";
 import { IdBadge } from "@/portfolio/components/id-badge.client";
+import { TechStack } from "@/portfolio/components/tech-stack";
 import {
   aboutContent,
   experienceEntries,
@@ -88,6 +89,8 @@ export default async function AboutPage() {
             ))}
           </ul>
         </section>
+
+        <TechStack />
       </SiteContainer>
     </SiteShell>
   );

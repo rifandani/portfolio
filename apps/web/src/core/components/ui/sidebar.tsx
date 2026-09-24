@@ -1,6 +1,6 @@
 'use client'
 
-import { ChevronDownIcon } from '@heroicons/react/20/solid'
+import { HiMiniChevronDown } from 'react-icons/hi2'
 import { createContext, use, useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import { type ButtonProps, Button as ButtonPrimitive } from 'react-aria-components/Button'
 import { composeRenderProps } from 'react-aria-components/composeRenderProps'
@@ -612,7 +612,7 @@ const SidebarDisclosureTrigger = ({ className, ref, ...props }: SidebarDisclosur
           <>
             {typeof props.children === 'function' ? props.children(values) : props.children}
             {state !== 'collapsed' && (
-              <ChevronDownIcon
+              <HiMiniChevronDown aria-hidden="true"
                 data-slot="chevron"
                 className="z-10 ms-auto size-3.5 transition-transform duration-200 group-aria-expanded/sidebar-disclosure-trigger:rotate-180"
               />

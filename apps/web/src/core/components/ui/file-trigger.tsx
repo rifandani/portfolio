@@ -1,6 +1,6 @@
 'use client'
 
-import { CameraIcon, FolderIcon, PaperClipIcon } from '@heroicons/react/24/outline'
+import { HiOutlineCamera, HiOutlineFolder, HiOutlinePaperClip } from 'react-icons/hi2'
 import {
   FileTrigger as FileTriggerPrimitive,
   type FileTriggerProps as FileTriggerPrimitiveProps,
@@ -36,11 +36,11 @@ export function FileTrigger({
       >
         {!props.isPending ? (
           props.defaultCamera ? (
-            <CameraIcon />
+            <HiOutlineCamera aria-hidden="true" data-slot="icon" />
           ) : props.acceptDirectory ? (
-            <FolderIcon />
+            <HiOutlineFolder aria-hidden="true" data-slot="icon" />
           ) : (
-            <PaperClipIcon />
+            <HiOutlinePaperClip aria-hidden="true" data-slot="icon" />
           )
         ) : (
           <Loader />

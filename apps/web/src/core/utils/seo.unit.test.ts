@@ -134,7 +134,7 @@ describe("createWebSite", () => {
       url: "https://web.test",
       title: "Site",
       description: "Desc",
-      name: "@workspace/web",
+      name: "Portfolio",
       inLanguage: ["en-US", "id-ID"],
     });
     expect(String(site["@id"])).toContain("https://web.test#");
@@ -152,7 +152,7 @@ describe("createWebPage", () => {
       "@type": "WebPage",
       url: "https://web.test/about",
       title: "About",
-      name: "@workspace/web",
+      name: "Portfolio",
     });
     expect(String(page["@id"])).toContain("https://web.test/about#");
   });

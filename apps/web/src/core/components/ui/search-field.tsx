@@ -1,6 +1,6 @@
 'use client'
 
-import { MagnifyingGlassIcon, XMarkIcon } from '@heroicons/react/20/solid'
+import { HiMiniMagnifyingGlass, HiMiniXMark } from 'react-icons/hi2'
 import { Button } from 'react-aria-components/Button'
 import type { InputProps } from 'react-aria-components/Input'
 import {
@@ -26,7 +26,7 @@ export function SearchField({ className, ...props }: SearchFieldProps) {
 export function SearchInput(props: InputProps) {
   return (
     <InputGroup className="[--input-gutter-end:--spacing(8)]">
-      <MagnifyingGlassIcon className="in-disabled:opacity-50" />
+      <HiMiniMagnifyingGlass aria-hidden="true" data-slot="icon" className="in-disabled:opacity-50" />
       <Input {...props} />
       <Button
         className={twJoin(
@@ -34,7 +34,7 @@ export function SearchInput(props: InputProps) {
           'px-3 py-2 sm:px-2.5 sm:py-1.5 sm:text-sm/5'
         )}
       >
-        <XMarkIcon className="size-5 sm:size-4" />
+        <HiMiniXMark aria-hidden="true" data-slot="icon" className="size-5 sm:size-4" />
       </Button>
     </InputGroup>
   )

@@ -1,7 +1,7 @@
-import { ArrowRightIcon } from "@heroicons/react/24/outline";
 import type { Route } from "next";
 import { useTranslations } from "next-intl";
 import type { ReactNode } from "react";
+import { HiOutlineArrowRight } from "react-icons/hi2";
 import { twMerge } from "tailwind-merge";
 
 import { SiteContainer } from "@/core/components/site-container";
@@ -114,7 +114,8 @@ export const StatusScreen = ({
                 <span className="text-muted-fg col-start-1 row-start-2 text-base/6 text-pretty sm:col-start-2 sm:row-start-1 sm:text-sm/6">
                   {t(hintKey)}
                 </span>
-                <ArrowRightIcon
+                <HiOutlineArrowRight
+                  data-slot="icon"
                   aria-hidden="true"
                   className="text-muted-fg group-hover:text-fg col-start-2 row-span-2 row-start-1 size-4 self-center transition-[translate,color] duration-300 ease-out group-hover:translate-x-0.5 motion-reduce:transition-none sm:col-start-3 sm:row-span-1"
                 />

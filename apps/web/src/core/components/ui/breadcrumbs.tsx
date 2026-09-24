@@ -1,6 +1,6 @@
 'use client'
 
-import { ChevronRightIcon } from '@heroicons/react/20/solid'
+import { HiMiniChevronRight } from 'react-icons/hi2'
 import { createContext, use } from 'react'
 import type { BreadcrumbProps, BreadcrumbsProps } from 'react-aria-components/Breadcrumbs'
 import { Breadcrumb, Breadcrumbs as BreadcrumbsPrimitive } from 'react-aria-components/Breadcrumbs'
@@ -66,7 +66,7 @@ const Separator = ({
 }) => {
   return (
     <span className="*:shrink-0 *:text-muted-fg *:data-[slot=icon]:size-3.5">
-      {separator === 'chevron' && <ChevronRightIcon />}
+      {separator === 'chevron' && <HiMiniChevronRight aria-hidden="true" data-slot="icon" />}
       {separator === 'slash' && <span className="text-muted-fg">/</span>}
     </span>
   )

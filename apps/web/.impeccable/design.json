@@ -1,67 +1,67 @@
 {
   "schemaVersion": 2,
-  "generatedAt": "2026-09-05T05:41:02.000Z",
+  "generatedAt": "2026-09-24T14:04:04.000Z",
   "title": "Design System: @workspace/web",
   "extensions": {
     "colorMeta": {
-      "helm-blue": {
+      "helm-teal": {
         "role": "primary",
-        "displayName": "Helm Blue",
-        "canonical": "oklch(0.546 0.245 262.881)",
+        "displayName": "Helm Teal",
+        "canonical": "oklch(0.6 0.118 184.704)",
         "tonalRamp": [
-          "oklch(0.28 0.16 264)",
-          "oklch(0.38 0.20 264)",
-          "oklch(0.488 0.243 264.376)",
-          "oklch(0.546 0.245 262.881)",
-          "oklch(0.623 0.214 259.815)",
-          "oklch(0.707 0.165 254.624)",
-          "oklch(0.809 0.105 251.813)",
-          "oklch(0.882 0.059 254.128)"
+          "oklch(0.150 0.069 184.704)",
+          "oklch(0.264 0.082 184.704)",
+          "oklch(0.379 0.094 184.704)",
+          "oklch(0.493 0.106 184.704)",
+          "oklch(0.607 0.117 184.704)",
+          "oklch(0.721 0.105 184.704)",
+          "oklch(0.836 0.093 184.704)",
+          "oklch(0.950 0.080 184.704)"
         ]
       },
-      "helm-blue-fg": {
+      "helm-teal-fg": {
         "role": "primary",
         "displayName": "On-Primary",
         "canonical": "oklch(1 0 0)",
         "tonalRamp": [
-          "oklch(0.15 0 0)",
-          "oklch(0.25 0 0)",
-          "oklch(0.40 0 0)",
-          "oklch(0.55 0 0)",
-          "oklch(0.70 0 0)",
-          "oklch(0.82 0 0)",
-          "oklch(0.92 0 0)",
-          "oklch(1 0 0)"
+          "oklch(0.150 0.000 0)",
+          "oklch(0.264 0.000 0)",
+          "oklch(0.379 0.000 0)",
+          "oklch(0.493 0.000 0)",
+          "oklch(0.607 0.000 0)",
+          "oklch(0.721 0.000 0)",
+          "oklch(0.836 0.000 0)",
+          "oklch(0.950 0.000 0)"
         ]
       },
-      "helm-blue-subtle": {
+      "helm-teal-subtle": {
         "role": "primary",
         "displayName": "Helm Wash",
-        "canonical": "oklch(0.623 0.214 259.815 / 0.15)",
+        "canonical": "oklch(0.704 0.14 182.503 / 0.15)",
         "tonalRamp": [
-          "oklch(0.28 0.16 264 / 0.15)",
-          "oklch(0.38 0.20 264 / 0.15)",
-          "oklch(0.488 0.243 264.376 / 0.15)",
-          "oklch(0.546 0.245 262.881 / 0.15)",
-          "oklch(0.623 0.214 259.815 / 0.15)",
-          "oklch(0.707 0.165 254.624 / 0.15)",
-          "oklch(0.809 0.105 251.813 / 0.15)",
-          "oklch(0.882 0.059 254.128 / 0.15)"
+          "oklch(0.150 0.082 182.503)",
+          "oklch(0.264 0.097 182.503)",
+          "oklch(0.379 0.112 182.503)",
+          "oklch(0.493 0.126 182.503)",
+          "oklch(0.607 0.139 182.503)",
+          "oklch(0.721 0.124 182.503)",
+          "oklch(0.836 0.110 182.503)",
+          "oklch(0.950 0.095 182.503)"
         ]
       },
-      "helm-blue-subtle-fg": {
+      "helm-teal-subtle-fg": {
         "role": "primary",
         "displayName": "Helm Ink",
-        "canonical": "oklch(0.488 0.243 264.376)",
+        "canonical": "oklch(0.511 0.096 186.391)",
         "tonalRamp": [
-          "oklch(0.28 0.16 264)",
-          "oklch(0.38 0.20 264)",
-          "oklch(0.488 0.243 264.376)",
-          "oklch(0.546 0.245 262.881)",
-          "oklch(0.623 0.214 259.815)",
-          "oklch(0.707 0.165 254.624)",
-          "oklch(0.809 0.105 251.813)",
-          "oklch(0.882 0.059 254.128)"
+          "oklch(0.150 0.056 186.391)",
+          "oklch(0.264 0.066 186.391)",
+          "oklch(0.379 0.077 186.391)",
+          "oklch(0.493 0.087 186.391)",
+          "oklch(0.607 0.095 186.391)",
+          "oklch(0.721 0.085 186.391)",
+          "oklch(0.836 0.075 186.391)",
+          "oklch(0.950 0.065 186.391)"
         ]
       },
       "paper": {
@@ -69,89 +69,104 @@
         "displayName": "Paper",
         "canonical": "oklch(1 0 0)",
         "tonalRamp": [
-          "oklch(0.181 0.005 285.823)",
-          "oklch(0.21 0.006 285.885)",
-          "oklch(0.32 0.013 285.805)",
-          "oklch(0.55 0.01 286)",
-          "oklch(0.85 0.006 286)",
-          "oklch(0.92 0.004 286.32)",
-          "oklch(0.967 0.001 286.375)",
-          "oklch(1 0 0)"
+          "oklch(0.150 0.000 0)",
+          "oklch(0.264 0.000 0)",
+          "oklch(0.379 0.000 0)",
+          "oklch(0.493 0.000 0)",
+          "oklch(0.607 0.000 0)",
+          "oklch(0.721 0.000 0)",
+          "oklch(0.836 0.000 0)",
+          "oklch(0.950 0.000 0)"
         ]
       },
-      "cool-graphite": {
+      "sand-canvas": {
         "role": "neutral",
-        "displayName": "Cool Graphite",
-        "canonical": "oklch(0.21 0.006 285.885)",
+        "displayName": "Sand Canvas",
+        "canonical": "oklch(0.99 0.0035 85)",
         "tonalRamp": [
-          "oklch(0.141 0.005 285.823)",
-          "oklch(0.181 0.005 285.823)",
-          "oklch(0.21 0.006 285.885)",
-          "oklch(0.32 0.013 285.805)",
-          "oklch(0.552 0.016 285.938)",
-          "oklch(0.705 0.015 286.067)",
-          "oklch(0.85 0.008 286)",
-          "oklch(0.985 0 0)"
+          "oklch(0.150 0.002 85)",
+          "oklch(0.264 0.002 85)",
+          "oklch(0.379 0.003 85)",
+          "oklch(0.493 0.003 85)",
+          "oklch(0.607 0.003 85)",
+          "oklch(0.721 0.003 85)",
+          "oklch(0.836 0.003 85)",
+          "oklch(0.950 0.002 85)"
         ]
       },
-      "violet-paper": {
+      "warm-graphite": {
         "role": "neutral",
-        "displayName": "Violet Paper",
-        "canonical": "oklch(0.967 0.001 286.375)",
+        "displayName": "Warm Graphite",
+        "canonical": "oklch(0.216 0.006 56.043)",
         "tonalRamp": [
-          "oklch(0.21 0.006 285.885)",
-          "oklch(0.244 0.006 286.033)",
-          "oklch(0.32 0.013 285.805)",
-          "oklch(0.55 0.01 286)",
-          "oklch(0.85 0.006 286)",
-          "oklch(0.92 0.004 286.32)",
-          "oklch(0.967 0.001 286.375)",
-          "oklch(0.995 0 0)"
+          "oklch(0.150 0.004 56.043)",
+          "oklch(0.264 0.004 56.043)",
+          "oklch(0.379 0.005 56.043)",
+          "oklch(0.493 0.005 56.043)",
+          "oklch(0.607 0.006 56.043)",
+          "oklch(0.721 0.005 56.043)",
+          "oklch(0.836 0.005 56.043)",
+          "oklch(0.950 0.004 56.043)"
+        ]
+      },
+      "stone-well": {
+        "role": "neutral",
+        "displayName": "Stone Well",
+        "canonical": "oklch(0.97 0.001 106.424)",
+        "tonalRamp": [
+          "oklch(0.150 0.001 106.424)",
+          "oklch(0.264 0.001 106.424)",
+          "oklch(0.379 0.001 106.424)",
+          "oklch(0.493 0.001 106.424)",
+          "oklch(0.607 0.001 106.424)",
+          "oklch(0.721 0.001 106.424)",
+          "oklch(0.836 0.001 106.424)",
+          "oklch(0.950 0.001 106.424)"
         ]
       },
       "muted-ink": {
         "role": "neutral",
         "displayName": "Muted Ink",
-        "canonical": "oklch(0.552 0.016 285.938)",
+        "canonical": "oklch(0.538 0.013 58.071)",
         "tonalRamp": [
-          "oklch(0.21 0.006 285.885)",
-          "oklch(0.32 0.013 285.805)",
-          "oklch(0.45 0.014 286)",
-          "oklch(0.552 0.016 285.938)",
-          "oklch(0.705 0.015 286.067)",
-          "oklch(0.80 0.01 286)",
-          "oklch(0.90 0.006 286)",
-          "oklch(0.967 0.001 286.375)"
+          "oklch(0.150 0.008 58.071)",
+          "oklch(0.264 0.009 58.071)",
+          "oklch(0.379 0.010 58.071)",
+          "oklch(0.493 0.012 58.071)",
+          "oklch(0.607 0.013 58.071)",
+          "oklch(0.721 0.012 58.071)",
+          "oklch(0.836 0.010 58.071)",
+          "oklch(0.950 0.009 58.071)"
         ]
       },
       "fog": {
         "role": "secondary",
         "displayName": "Fog",
-        "canonical": "oklch(0.92 0.004 286.32)",
+        "canonical": "oklch(0.923 0.003 48.717)",
         "tonalRamp": [
-          "oklch(0.181 0.005 285.823)",
-          "oklch(0.244 0.006 286.033)",
-          "oklch(0.274 0.006 286.033)",
-          "oklch(0.45 0.01 286)",
-          "oklch(0.70 0.008 286)",
-          "oklch(0.85 0.006 286)",
-          "oklch(0.92 0.004 286.32)",
-          "oklch(0.967 0.001 286.375)"
+          "oklch(0.150 0.002 48.717)",
+          "oklch(0.264 0.002 48.717)",
+          "oklch(0.379 0.002 48.717)",
+          "oklch(0.493 0.003 48.717)",
+          "oklch(0.607 0.003 48.717)",
+          "oklch(0.721 0.003 48.717)",
+          "oklch(0.836 0.002 48.717)",
+          "oklch(0.950 0.002 48.717)"
         ]
       },
       "fog-fg": {
         "role": "secondary",
         "displayName": "Fog Ink",
-        "canonical": "oklch(0.141 0.005 285.823)",
+        "canonical": "oklch(0.147 0.004 49.25)",
         "tonalRamp": [
-          "oklch(0.141 0.005 285.823)",
-          "oklch(0.21 0.006 285.885)",
-          "oklch(0.32 0.013 285.805)",
-          "oklch(0.45 0.014 286)",
-          "oklch(0.552 0.016 285.938)",
-          "oklch(0.70 0.01 286)",
-          "oklch(0.85 0.006 286)",
-          "oklch(0.985 0 0)"
+          "oklch(0.150 0.002 49.25)",
+          "oklch(0.264 0.003 49.25)",
+          "oklch(0.379 0.003 49.25)",
+          "oklch(0.493 0.004 49.25)",
+          "oklch(0.607 0.004 49.25)",
+          "oklch(0.721 0.004 49.25)",
+          "oklch(0.836 0.003 49.25)",
+          "oklch(0.950 0.003 49.25)"
         ]
       },
       "overlay": {
@@ -159,355 +174,394 @@
         "displayName": "Overlay",
         "canonical": "oklch(1 0 0)",
         "tonalRamp": [
-          "oklch(0.181 0.005 285.823)",
-          "oklch(0.21 0.006 285.885)",
-          "oklch(0.32 0.013 285.805)",
-          "oklch(0.55 0.01 286)",
-          "oklch(0.85 0.006 286)",
-          "oklch(0.92 0.004 286.32)",
-          "oklch(0.967 0.001 286.375)",
-          "oklch(1 0 0)"
+          "oklch(0.150 0.000 0)",
+          "oklch(0.264 0.000 0)",
+          "oklch(0.379 0.000 0)",
+          "oklch(0.493 0.000 0)",
+          "oklch(0.607 0.000 0)",
+          "oklch(0.721 0.000 0)",
+          "oklch(0.836 0.000 0)",
+          "oklch(0.950 0.000 0)"
         ]
       },
       "overlay-fg": {
         "role": "neutral",
         "displayName": "Overlay Ink",
-        "canonical": "oklch(0.141 0.005 285.823)",
+        "canonical": "oklch(0.147 0.004 49.25)",
         "tonalRamp": [
-          "oklch(0.141 0.005 285.823)",
-          "oklch(0.21 0.006 285.885)",
-          "oklch(0.32 0.013 285.805)",
-          "oklch(0.45 0.014 286)",
-          "oklch(0.552 0.016 285.938)",
-          "oklch(0.70 0.01 286)",
-          "oklch(0.85 0.006 286)",
-          "oklch(0.985 0 0)"
+          "oklch(0.150 0.002 49.25)",
+          "oklch(0.264 0.003 49.25)",
+          "oklch(0.379 0.003 49.25)",
+          "oklch(0.493 0.004 49.25)",
+          "oklch(0.607 0.004 49.25)",
+          "oklch(0.721 0.004 49.25)",
+          "oklch(0.836 0.003 49.25)",
+          "oklch(0.950 0.003 49.25)"
         ]
       },
       "hairline": {
         "role": "neutral",
         "displayName": "Hairline",
-        "canonical": "oklch(0.911 0.006 286.286)",
+        "canonical": "oklch(0.909 0.005 56.366)",
         "tonalRamp": [
-          "oklch(0.27 0.013 285.805)",
-          "oklch(0.32 0.013 285.805)",
-          "oklch(0.45 0.01 286)",
-          "oklch(0.70 0.008 286)",
-          "oklch(0.85 0.006 286)",
-          "oklch(0.901 0.006 286.286)",
-          "oklch(0.911 0.006 286.286)",
-          "oklch(0.967 0.001 286.375)"
+          "oklch(0.150 0.003 56.366)",
+          "oklch(0.264 0.003 56.366)",
+          "oklch(0.379 0.004 56.366)",
+          "oklch(0.493 0.005 56.366)",
+          "oklch(0.607 0.005 56.366)",
+          "oklch(0.721 0.004 56.366)",
+          "oklch(0.836 0.004 56.366)",
+          "oklch(0.950 0.003 56.366)"
         ]
       },
       "input-stroke": {
         "role": "neutral",
         "displayName": "Input Stroke",
-        "canonical": "oklch(0.871 0.006 286.286)",
+        "canonical": "oklch(0.869 0.005 56.366)",
         "tonalRamp": [
-          "oklch(0.27 0.013 285.805)",
-          "oklch(0.32 0.013 285.805)",
-          "oklch(0.45 0.01 286)",
-          "oklch(0.70 0.008 286)",
-          "oklch(0.85 0.006 286)",
-          "oklch(0.871 0.006 286.286)",
-          "oklch(0.911 0.006 286.286)",
-          "oklch(0.967 0.001 286.375)"
+          "oklch(0.150 0.003 56.366)",
+          "oklch(0.264 0.003 56.366)",
+          "oklch(0.379 0.004 56.366)",
+          "oklch(0.493 0.005 56.366)",
+          "oklch(0.607 0.005 56.366)",
+          "oklch(0.721 0.004 56.366)",
+          "oklch(0.836 0.004 56.366)",
+          "oklch(0.950 0.003 56.366)"
         ]
       },
       "navbar": {
         "role": "neutral",
         "displayName": "Navbar",
-        "canonical": "oklch(0.995 0 0)",
+        "canonical": "oklch(0.995 0.001 106.423)",
         "tonalRamp": [
-          "oklch(0.19 0.006 285.885)",
-          "oklch(0.21 0.006 285.885)",
-          "oklch(0.32 0.013 285.805)",
-          "oklch(0.55 0.01 286)",
-          "oklch(0.85 0.006 286)",
-          "oklch(0.92 0.004 286.32)",
-          "oklch(0.985 0 0)",
-          "oklch(0.995 0 0)"
+          "oklch(0.150 0.001 106.423)",
+          "oklch(0.264 0.001 106.423)",
+          "oklch(0.379 0.001 106.423)",
+          "oklch(0.493 0.001 106.423)",
+          "oklch(0.607 0.001 106.423)",
+          "oklch(0.721 0.001 106.423)",
+          "oklch(0.836 0.001 106.423)",
+          "oklch(0.950 0.001 106.423)"
         ]
       },
       "sidebar": {
         "role": "neutral",
         "displayName": "Sidebar",
-        "canonical": "oklch(0.985 0 0)",
+        "canonical": "oklch(0.985 0.001 106.423)",
         "tonalRamp": [
-          "oklch(0.181 0.005 285.823)",
-          "oklch(0.21 0.006 285.885)",
-          "oklch(0.32 0.013 285.805)",
-          "oklch(0.55 0.01 286)",
-          "oklch(0.85 0.006 286)",
-          "oklch(0.92 0.004 286.32)",
-          "oklch(0.967 0.001 286.375)",
-          "oklch(0.985 0 0)"
+          "oklch(0.150 0.001 106.423)",
+          "oklch(0.264 0.001 106.423)",
+          "oklch(0.379 0.001 106.423)",
+          "oklch(0.493 0.001 106.423)",
+          "oklch(0.607 0.001 106.423)",
+          "oklch(0.721 0.001 106.423)",
+          "oklch(0.836 0.001 106.423)",
+          "oklch(0.950 0.001 106.423)"
         ]
       },
       "turbine-teal": {
-        "role": "tertiary",
+        "role": "status",
         "displayName": "Turbine Teal",
         "canonical": "oklch(0.596 0.145 163.225)",
         "tonalRamp": [
-          "oklch(0.28 0.10 163)",
-          "oklch(0.40 0.12 164)",
-          "oklch(0.508 0.118 165.612)",
-          "oklch(0.596 0.145 163.225)",
-          "oklch(0.696 0.17 162.48)",
-          "oklch(0.765 0.177 163.223)",
-          "oklch(0.85 0.10 163)",
-          "oklch(0.93 0.05 163)"
+          "oklch(0.150 0.085 163.225)",
+          "oklch(0.264 0.100 163.225)",
+          "oklch(0.379 0.116 163.225)",
+          "oklch(0.493 0.131 163.225)",
+          "oklch(0.607 0.144 163.225)",
+          "oklch(0.721 0.129 163.225)",
+          "oklch(0.836 0.114 163.225)",
+          "oklch(0.950 0.098 163.225)"
         ]
       },
       "turbine-teal-fg": {
-        "role": "tertiary",
-        "displayName": "On-Teal",
+        "role": "status",
+        "displayName": "On-Success",
         "canonical": "oklch(1 0 0)",
         "tonalRamp": [
-          "oklch(0.15 0 0)",
-          "oklch(0.25 0 0)",
-          "oklch(0.40 0 0)",
-          "oklch(0.55 0 0)",
-          "oklch(0.70 0 0)",
-          "oklch(0.82 0 0)",
-          "oklch(0.92 0 0)",
-          "oklch(1 0 0)"
+          "oklch(0.150 0.000 0)",
+          "oklch(0.264 0.000 0)",
+          "oklch(0.379 0.000 0)",
+          "oklch(0.493 0.000 0)",
+          "oklch(0.607 0.000 0)",
+          "oklch(0.721 0.000 0)",
+          "oklch(0.836 0.000 0)",
+          "oklch(0.950 0.000 0)"
         ]
       },
       "turbine-teal-subtle": {
-        "role": "tertiary",
-        "displayName": "Teal Wash",
+        "role": "status",
+        "displayName": "Turbine Wash",
         "canonical": "oklch(0.696 0.17 162.48 / 0.15)",
         "tonalRamp": [
-          "oklch(0.28 0.10 163 / 0.15)",
-          "oklch(0.40 0.12 164 / 0.15)",
-          "oklch(0.508 0.118 165.612 / 0.15)",
-          "oklch(0.596 0.145 163.225 / 0.15)",
-          "oklch(0.696 0.17 162.48 / 0.15)",
-          "oklch(0.765 0.177 163.223 / 0.15)",
-          "oklch(0.85 0.10 163 / 0.15)",
-          "oklch(0.93 0.05 163 / 0.15)"
+          "oklch(0.150 0.100 162.48)",
+          "oklch(0.264 0.118 162.48)",
+          "oklch(0.379 0.135 162.48)",
+          "oklch(0.493 0.153 162.48)",
+          "oklch(0.607 0.169 162.48)",
+          "oklch(0.721 0.151 162.48)",
+          "oklch(0.836 0.133 162.48)",
+          "oklch(0.950 0.115 162.48)"
         ]
       },
       "turbine-teal-subtle-fg": {
-        "role": "tertiary",
-        "displayName": "Teal Ink",
+        "role": "status",
+        "displayName": "Turbine Ink",
         "canonical": "oklch(0.508 0.118 165.612)",
         "tonalRamp": [
-          "oklch(0.28 0.10 163)",
-          "oklch(0.40 0.12 164)",
-          "oklch(0.508 0.118 165.612)",
-          "oklch(0.596 0.145 163.225)",
-          "oklch(0.696 0.17 162.48)",
-          "oklch(0.765 0.177 163.223)",
-          "oklch(0.85 0.10 163)",
-          "oklch(0.93 0.05 163)"
+          "oklch(0.150 0.069 165.612)",
+          "oklch(0.264 0.082 165.612)",
+          "oklch(0.379 0.094 165.612)",
+          "oklch(0.493 0.106 165.612)",
+          "oklch(0.607 0.117 165.612)",
+          "oklch(0.721 0.105 165.612)",
+          "oklch(0.836 0.093 165.612)",
+          "oklch(0.950 0.080 165.612)"
         ]
       },
       "alarm-vermillion": {
-        "role": "tertiary",
+        "role": "status",
         "displayName": "Alarm Vermillion",
         "canonical": "oklch(0.577 0.245 27.325)",
         "tonalRamp": [
-          "oklch(0.32 0.16 27)",
-          "oklch(0.42 0.20 27)",
-          "oklch(0.505 0.213 27.518)",
-          "oklch(0.577 0.245 27.325)",
-          "oklch(0.637 0.237 25.331)",
-          "oklch(0.704 0.191 22.216)",
-          "oklch(0.85 0.10 22)",
-          "oklch(0.971 0.013 17.38)"
+          "oklch(0.150 0.144 27.325)",
+          "oklch(0.264 0.170 27.325)",
+          "oklch(0.379 0.195 27.325)",
+          "oklch(0.493 0.221 27.325)",
+          "oklch(0.607 0.243 27.325)",
+          "oklch(0.721 0.218 27.325)",
+          "oklch(0.836 0.192 27.325)",
+          "oklch(0.950 0.166 27.325)"
         ]
       },
       "alarm-vermillion-fg": {
-        "role": "tertiary",
-        "displayName": "On-Vermillion",
+        "role": "status",
+        "displayName": "On-Danger",
         "canonical": "oklch(0.971 0.013 17.38)",
         "tonalRamp": [
-          "oklch(0.32 0.16 27)",
-          "oklch(0.42 0.20 27)",
-          "oklch(0.505 0.213 27.518)",
-          "oklch(0.577 0.245 27.325)",
-          "oklch(0.70 0.12 22)",
-          "oklch(0.85 0.06 20)",
-          "oklch(0.93 0.03 18)",
-          "oklch(0.971 0.013 17.38)"
+          "oklch(0.150 0.008 17.38)",
+          "oklch(0.264 0.009 17.38)",
+          "oklch(0.379 0.010 17.38)",
+          "oklch(0.493 0.012 17.38)",
+          "oklch(0.607 0.013 17.38)",
+          "oklch(0.721 0.012 17.38)",
+          "oklch(0.836 0.010 17.38)",
+          "oklch(0.950 0.009 17.38)"
         ]
       },
       "alarm-vermillion-subtle": {
-        "role": "tertiary",
-        "displayName": "Vermillion Wash",
+        "role": "status",
+        "displayName": "Alarm Wash",
         "canonical": "oklch(0.637 0.237 25.331 / 0.15)",
         "tonalRamp": [
-          "oklch(0.32 0.16 27 / 0.15)",
-          "oklch(0.42 0.20 27 / 0.15)",
-          "oklch(0.505 0.213 27.518 / 0.15)",
-          "oklch(0.577 0.245 27.325 / 0.15)",
-          "oklch(0.637 0.237 25.331 / 0.15)",
-          "oklch(0.704 0.191 22.216 / 0.15)",
-          "oklch(0.85 0.10 22 / 0.15)",
-          "oklch(0.971 0.013 17.38 / 0.15)"
+          "oklch(0.150 0.139 25.331)",
+          "oklch(0.264 0.164 25.331)",
+          "oklch(0.379 0.189 25.331)",
+          "oklch(0.493 0.214 25.331)",
+          "oklch(0.607 0.235 25.331)",
+          "oklch(0.721 0.211 25.331)",
+          "oklch(0.836 0.186 25.331)",
+          "oklch(0.950 0.161 25.331)"
         ]
       },
       "alarm-vermillion-subtle-fg": {
-        "role": "tertiary",
-        "displayName": "Vermillion Ink",
+        "role": "status",
+        "displayName": "Alarm Ink",
         "canonical": "oklch(0.505 0.213 27.518)",
         "tonalRamp": [
-          "oklch(0.32 0.16 27)",
-          "oklch(0.42 0.20 27)",
-          "oklch(0.505 0.213 27.518)",
-          "oklch(0.577 0.245 27.325)",
-          "oklch(0.637 0.237 25.331)",
-          "oklch(0.704 0.191 22.216)",
-          "oklch(0.85 0.10 22)",
-          "oklch(0.971 0.013 17.38)"
+          "oklch(0.150 0.125 27.518)",
+          "oklch(0.264 0.147 27.518)",
+          "oklch(0.379 0.170 27.518)",
+          "oklch(0.493 0.192 27.518)",
+          "oklch(0.607 0.212 27.518)",
+          "oklch(0.721 0.189 27.518)",
+          "oklch(0.836 0.167 27.518)",
+          "oklch(0.950 0.145 27.518)"
         ]
       },
       "amber-signal": {
-        "role": "tertiary",
+        "role": "status",
         "displayName": "Amber Signal",
         "canonical": "oklch(0.828 0.189 84.429)",
         "tonalRamp": [
-          "oklch(0.279 0.077 45.635)",
-          "oklch(0.40 0.12 55)",
-          "oklch(0.555 0.163 48.998)",
-          "oklch(0.68 0.17 70)",
-          "oklch(0.828 0.189 84.429)",
-          "oklch(0.88 0.14 85)",
-          "oklch(0.93 0.08 85)",
-          "oklch(0.97 0.04 85)"
+          "oklch(0.150 0.111 84.429)",
+          "oklch(0.264 0.131 84.429)",
+          "oklch(0.379 0.151 84.429)",
+          "oklch(0.493 0.170 84.429)",
+          "oklch(0.607 0.188 84.429)",
+          "oklch(0.721 0.168 84.429)",
+          "oklch(0.836 0.148 84.429)",
+          "oklch(0.950 0.128 84.429)"
         ]
       },
       "amber-signal-fg": {
-        "role": "tertiary",
-        "displayName": "On-Amber",
+        "role": "status",
+        "displayName": "On-Warning",
         "canonical": "oklch(0.279 0.077 45.635)",
         "tonalRamp": [
-          "oklch(0.279 0.077 45.635)",
-          "oklch(0.40 0.12 55)",
-          "oklch(0.555 0.163 48.998)",
-          "oklch(0.68 0.17 70)",
-          "oklch(0.828 0.189 84.429)",
-          "oklch(0.88 0.14 85)",
-          "oklch(0.93 0.08 85)",
-          "oklch(0.97 0.04 85)"
+          "oklch(0.150 0.045 45.635)",
+          "oklch(0.264 0.053 45.635)",
+          "oklch(0.379 0.061 45.635)",
+          "oklch(0.493 0.069 45.635)",
+          "oklch(0.607 0.076 45.635)",
+          "oklch(0.721 0.068 45.635)",
+          "oklch(0.836 0.060 45.635)",
+          "oklch(0.950 0.052 45.635)"
         ]
       },
       "amber-signal-subtle": {
-        "role": "tertiary",
+        "role": "status",
         "displayName": "Amber Wash",
         "canonical": "oklch(0.828 0.189 84.429 / 0.2)",
         "tonalRamp": [
-          "oklch(0.279 0.077 45.635 / 0.2)",
-          "oklch(0.40 0.12 55 / 0.2)",
-          "oklch(0.555 0.163 48.998 / 0.2)",
-          "oklch(0.68 0.17 70 / 0.2)",
-          "oklch(0.828 0.189 84.429 / 0.2)",
-          "oklch(0.88 0.14 85 / 0.2)",
-          "oklch(0.93 0.08 85 / 0.2)",
-          "oklch(0.97 0.04 85 / 0.2)"
+          "oklch(0.150 0.111 84.429)",
+          "oklch(0.264 0.131 84.429)",
+          "oklch(0.379 0.151 84.429)",
+          "oklch(0.493 0.170 84.429)",
+          "oklch(0.607 0.188 84.429)",
+          "oklch(0.721 0.168 84.429)",
+          "oklch(0.836 0.148 84.429)",
+          "oklch(0.950 0.128 84.429)"
         ]
       },
       "amber-signal-subtle-fg": {
-        "role": "tertiary",
+        "role": "status",
         "displayName": "Amber Ink",
         "canonical": "oklch(0.555 0.163 48.998)",
         "tonalRamp": [
-          "oklch(0.279 0.077 45.635)",
-          "oklch(0.40 0.12 55)",
-          "oklch(0.555 0.163 48.998)",
-          "oklch(0.68 0.17 70)",
-          "oklch(0.828 0.189 84.429)",
-          "oklch(0.88 0.14 85)",
-          "oklch(0.93 0.08 85)",
-          "oklch(0.97 0.04 85)"
+          "oklch(0.150 0.096 48.998)",
+          "oklch(0.264 0.113 48.998)",
+          "oklch(0.379 0.130 48.998)",
+          "oklch(0.493 0.147 48.998)",
+          "oklch(0.607 0.162 48.998)",
+          "oklch(0.721 0.145 48.998)",
+          "oklch(0.836 0.128 48.998)",
+          "oklch(0.950 0.111 48.998)"
         ]
       },
       "info-subtle": {
-        "role": "tertiary",
+        "role": "status",
         "displayName": "Info Wash",
         "canonical": "oklch(0.685 0.169 237.323 / 0.15)",
         "tonalRamp": [
-          "oklch(0.35 0.12 237 / 0.15)",
-          "oklch(0.5 0.134 242.749 / 0.15)",
-          "oklch(0.60 0.15 240 / 0.15)",
-          "oklch(0.685 0.169 237.323 / 0.15)",
-          "oklch(0.75 0.14 235 / 0.15)",
-          "oklch(0.828 0.111 230.318 / 0.15)",
-          "oklch(0.90 0.06 230 / 0.15)",
-          "oklch(0.96 0.03 230 / 0.15)"
+          "oklch(0.150 0.099 237.323)",
+          "oklch(0.264 0.117 237.323)",
+          "oklch(0.379 0.135 237.323)",
+          "oklch(0.493 0.152 237.323)",
+          "oklch(0.607 0.168 237.323)",
+          "oklch(0.721 0.150 237.323)",
+          "oklch(0.836 0.132 237.323)",
+          "oklch(0.950 0.115 237.323)"
         ]
       },
       "info-subtle-fg": {
-        "role": "tertiary",
+        "role": "status",
         "displayName": "Info Ink",
         "canonical": "oklch(0.5 0.134 242.749)",
         "tonalRamp": [
-          "oklch(0.35 0.12 237)",
-          "oklch(0.5 0.134 242.749)",
-          "oklch(0.60 0.15 240)",
-          "oklch(0.685 0.169 237.323)",
-          "oklch(0.75 0.14 235)",
-          "oklch(0.828 0.111 230.318)",
-          "oklch(0.90 0.06 230)",
-          "oklch(0.96 0.03 230)"
+          "oklch(0.150 0.079 242.749)",
+          "oklch(0.264 0.093 242.749)",
+          "oklch(0.379 0.107 242.749)",
+          "oklch(0.493 0.121 242.749)",
+          "oklch(0.607 0.133 242.749)",
+          "oklch(0.721 0.119 242.749)",
+          "oklch(0.836 0.105 242.749)",
+          "oklch(0.950 0.091 242.749)"
         ]
       }
     },
     "typographyMeta": {
+      "hero": {
+        "displayName": "Hero",
+        "purpose": "The one-sentence role statement on home and the first-person headline on /about. Once per surface, at the top."
+      },
       "display": {
         "displayName": "Display",
-        "purpose": "Kit Heading 1 at 1.5rem from sm. Home identity H1 may step to 1.5–1.875rem. Not marketing heroes."
+        "purpose": "Heading level 1 at rest: kit page titles and index-page titles."
       },
       "headline": {
         "displayName": "Headline",
-        "purpose": "Heading 2 channel section titles (Work experience, Projects, Blog)."
+        "purpose": "Heading level 2: home and About section titles."
       },
       "title": {
         "displayName": "Title",
-        "purpose": "Card titles, Heading 4, compact chrome. Channel row titles use semibold body size."
+        "purpose": "Card titles, heading level 4, compact chrome."
       },
       "body": {
         "displayName": "Body",
-        "purpose": "Default copy, field text, channel descriptions. 16px mobile, 14px from sm."
+        "purpose": "Default copy and card descriptions. 16px on mobile, 14px from sm; lead paragraphs hold 16px/1.75."
       },
       "label": {
         "displayName": "Label",
-        "purpose": "Buttons, field labels, nav items. Medium weight."
+        "purpose": "Buttons, field labels, nav items. Badges drop to 0.75rem."
       },
       "mono": {
-        "displayName": "Mono",
-        "purpose": "Code chips, channel date/meta, and the one home welcome (text-lg / sm:text-xl). Geist Mono with ss02 + zero."
+        "displayName": "Meta",
+        "purpose": "Dates, reading time, tech tags, code, and the spaced-caps labels (0.08em, uppercase)."
       }
     },
     "shadows": [
       {
         "name": "resting-edge",
         "value": "0 1px 2px 0 rgb(0 0 0 / 0.05)",
-        "purpose": "Cards, float navbar, float sidebar. Edge read, not float."
+        "purpose": "Content cards, kit cards, tool tiles, float navbar and sidebar. The edge reads; the surface does not float."
       },
       {
         "name": "overlay-lift",
         "value": "0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1)",
-        "purpose": "Sheets, command menu, and other structural overlays."
+        "purpose": "Popovers, modals, sheets, command menu: the only structural lift."
       },
       {
         "name": "overlay-drop",
         "value": "drop-shadow(0 9px 7px rgb(0 0 0 / 0.1))",
-        "purpose": "Popovers and modals, stacked with overlay-lift or resting-edge."
+        "purpose": "Stacked under overlay-lift on floating overlays, with a muted ring."
       }
     ],
     "motion": [
       {
-        "name": "duration-standard",
-        "value": "200ms",
-        "purpose": "Badge overlay, switch thumb, default state transitions."
+        "name": "ease-out-expo",
+        "value": "cubic-bezier(0.16, 1, 0.3, 1)",
+        "purpose": "Card light fade, rail bead return, arrow nudges: responses that settle fast."
+      },
+      {
+        "name": "ease-out-cubic",
+        "value": "cubic-bezier(0.33, 1, 0.68, 1)",
+        "purpose": "Work Rail scrub travel, slow enough that the bead visibly passes each node."
       },
       {
         "name": "ease-standard",
         "value": "cubic-bezier(0.4, 0, 0.2, 1)",
-        "purpose": "Default easing. Switch uses ease-in-out; do not add translateY."
+        "purpose": "Default state transitions in the kit (badge overlay, switch)."
+      },
+      {
+        "name": "duration-copy",
+        "value": "180ms",
+        "purpose": "Copy / Share cross-fade to the check and 'Copied!'."
+      },
+      {
+        "name": "duration-standard",
+        "value": "200ms",
+        "purpose": "Default state change; card print settle-back."
+      },
+      {
+        "name": "duration-print-drift",
+        "value": "320ms",
+        "purpose": "Card print trailing the pointer light."
+      },
+      {
+        "name": "duration-outline-trace",
+        "value": "360ms",
+        "purpose": "Post Outline trace moving to the current section (ease-out quart)."
+      },
+      {
+        "name": "duration-rail-scrub",
+        "value": "560ms",
+        "purpose": "Work Rail bead travel out; 260ms back home."
+      },
+      {
+        "name": "glyph-engine-cycle",
+        "value": "12s",
+        "purpose": "The Glyph Engine's craft → obsession → craft loop: the site's one ambient motion."
       }
     ],
     "breakpoints": [
@@ -530,6 +584,10 @@
       {
         "name": "2xl",
         "value": "1536px"
+      },
+      {
+        "name": "public-column",
+        "value": "64rem"
       }
     ]
   },
@@ -538,105 +596,104 @@
       "name": "Primary Button",
       "kind": "button",
       "refersTo": "button-primary",
-      "description": "Default action. Helm Blue fill, no hover-lift, focus ring is the craft.",
-      "html": "<button class=\"ds-btn-primary\" type=\"button\">Sign in</button>",
-      "css": ".ds-btn-primary{--btn-border:color-mix(in oklab,var(--fg) 15%,transparent);--btn-bg:var(--primary);--btn-fg:var(--primary-fg);--btn-overlay:color-mix(in oklab,var(--primary-fg) 10%,var(--primary) 90%);--btn-ring:color-mix(in oklab,var(--primary) 20%,transparent);display:inline-flex;align-items:center;justify-content:center;min-height:2.25rem;padding:0.375rem 0.75rem;border:1px solid var(--btn-border);border-radius:0.5rem;background:var(--btn-bg);color:var(--btn-fg);font-family:Geist,ui-sans-serif,system-ui,sans-serif;font-size:0.875rem;font-weight:500;line-height:1.5;cursor:pointer;transition:background 200ms}.ds-btn-primary:hover{background:var(--btn-overlay)}.ds-btn-primary:focus-visible{outline:2px solid var(--btn-bg);outline-offset:2px;box-shadow:0 0 0 3px var(--bg),0 0 0 5px var(--btn-ring)}.ds-btn-primary:disabled{opacity:0.5;cursor:default}"
-    },
-    {
-      "name": "Secondary Button",
-      "kind": "button",
-      "refersTo": "button-secondary",
-      "description": "Quiet chrome action. Fog fill, muted icons.",
-      "html": "<button class=\"ds-btn-secondary\" type=\"button\">Cancel</button>",
-      "css": ".ds-btn-secondary{--btn-border:color-mix(in oklab,var(--fg) 15%,transparent);--btn-bg:var(--secondary);--btn-fg:var(--secondary-fg);--btn-overlay:color-mix(in oklab,var(--secondary-fg) 10%,var(--secondary) 90%);--btn-ring:color-mix(in oklab,var(--muted-fg) 20%,transparent);display:inline-flex;align-items:center;justify-content:center;min-height:2.25rem;padding:0.375rem 0.75rem;border:1px solid var(--btn-border);border-radius:0.5rem;background:var(--btn-bg);color:var(--btn-fg);font-family:Geist,ui-sans-serif,system-ui,sans-serif;font-size:0.875rem;font-weight:500;line-height:1.5;cursor:pointer;transition:background 200ms}.ds-btn-secondary:hover{background:var(--btn-overlay)}.ds-btn-secondary:focus-visible{outline:2px solid var(--secondary-fg);outline-offset:2px;box-shadow:0 0 0 3px var(--bg),0 0 0 5px var(--btn-ring)}"
+      "description": "The one Helm Teal fill on a page: the action a visitor came for (Project Links, Try again).",
+      "html": "<button class=\"ds-btn-primary\">View demo <svg width=\"16\" height=\"16\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.5\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><path d=\"M7 17 17 7M8 7h9v9\"/></svg></button>",
+      "css": ".ds-btn-primary { display: inline-flex; align-items: center; gap: 8px; height: 36px; padding: 6px 12px; border-radius: var(--radius, 0.5rem); font-family: var(--font-sans, Quicksand, ui-sans-serif, system-ui, sans-serif); font-size: 0.875rem; font-weight: 500; line-height: 1.5; cursor: pointer; transition: background-color 200ms cubic-bezier(0.4, 0, 0.2, 1), border-color 200ms cubic-bezier(0.4, 0, 0.2, 1); background: var(--primary); color: var(--primary-fg); border: 1px solid color-mix(in oklab, var(--fg) 15%, transparent); } .ds-btn-primary:hover { background: color-mix(in oklab, var(--primary-fg) 10%, var(--primary) 90%); } .ds-btn-primary:focus-visible { outline: 2px solid var(--ring); outline-offset: 3px; box-shadow: 0 0 0 2px color-mix(in oklab, var(--ring) 20%, transparent); } .ds-btn-primary svg { transition: translate 200ms cubic-bezier(0.16, 1, 0.3, 1); } .ds-btn-primary:hover svg { translate: 2px -2px; }"
     },
     {
       "name": "Outline Button",
       "kind": "button",
       "refersTo": "button-outline",
-      "description": "Transparent fill, Hairline border, Fog hover wash.",
-      "html": "<button class=\"ds-btn-outline\" type=\"button\">Register</button>",
-      "css": ".ds-btn-outline{display:inline-flex;align-items:center;justify-content:center;min-height:2.25rem;padding:0.375rem 0.75rem;border:1px solid var(--border);border-radius:0.5rem;background:transparent;color:var(--fg);font-family:Geist,ui-sans-serif,system-ui,sans-serif;font-size:0.875rem;font-weight:500;line-height:1.5;cursor:pointer;transition:background 200ms}.ds-btn-outline:hover{background:var(--secondary)}.ds-btn-outline:focus-visible{outline:2px solid var(--ring);outline-offset:2px;box-shadow:0 0 0 3px var(--bg),0 0 0 5px color-mix(in oklab,var(--ring) 20%,transparent)}"
+      "description": "The quiet action: View CV, Copy page, Share, a second Project link.",
+      "html": "<a class=\"ds-btn-outline\" href=\"#\"><span class=\"ds-btn-outline-icon\"><svg width=\"16\" height=\"16\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.5\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><path d=\"M19.5 14.25v-2.63a3.38 3.38 0 0 0-3.38-3.37h-1.5A1.13 1.13 0 0 1 13.5 7.13v-1.5A3.38 3.38 0 0 0 10.13 2.25H8.25m0 12.75h7.5m-7.5 3H12M10.5 2.25H5.63c-.62 0-1.13.5-1.13 1.13v17.25c0 .62.5 1.12 1.13 1.12h12.75c.62 0 1.12-.5 1.12-1.12V11.25a9 9 0 0 0-9-9Z\"/></svg></span>View CV <svg width=\"16\" height=\"16\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.5\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><path d=\"M7 17 17 7M8 7h9v9\"/></svg></a>",
+      "css": ".ds-btn-outline { display: inline-flex; align-items: center; gap: 8px; height: 36px; padding: 6px 12px; border-radius: var(--radius, 0.5rem); font-family: var(--font-sans, Quicksand, ui-sans-serif, system-ui, sans-serif); font-size: 0.875rem; font-weight: 500; line-height: 1.5; cursor: pointer; transition: background-color 200ms cubic-bezier(0.4, 0, 0.2, 1), border-color 200ms cubic-bezier(0.4, 0, 0.2, 1); background: transparent; color: var(--fg); border: 1px solid var(--border); text-decoration: none; } .ds-btn-outline-icon { display: inline-flex; color: var(--muted-fg); } .ds-btn-outline:hover { background: var(--secondary); } .ds-btn-outline:focus-visible { outline: 2px solid var(--ring); outline-offset: 3px; box-shadow: 0 0 0 2px color-mix(in oklab, var(--ring) 20%, transparent); }"
+    },
+    {
+      "name": "Secondary Button",
+      "kind": "button",
+      "refersTo": "button-secondary",
+      "description": "Fog fill for quiet chrome actions in the kit.",
+      "html": "<button class=\"ds-btn-secondary\">Cancel</button>",
+      "css": ".ds-btn-secondary { display: inline-flex; align-items: center; gap: 8px; height: 36px; padding: 6px 12px; border-radius: var(--radius, 0.5rem); font-family: var(--font-sans, Quicksand, ui-sans-serif, system-ui, sans-serif); font-size: 0.875rem; font-weight: 500; line-height: 1.5; cursor: pointer; transition: background-color 200ms cubic-bezier(0.4, 0, 0.2, 1), border-color 200ms cubic-bezier(0.4, 0, 0.2, 1); background: var(--secondary); color: var(--secondary-fg); border: 1px solid transparent; } .ds-btn-secondary:hover { background: color-mix(in oklab, var(--fg) 6%, var(--secondary)); } .ds-btn-secondary:focus-visible { outline: 2px solid var(--ring); outline-offset: 3px; box-shadow: 0 0 0 2px color-mix(in oklab, var(--ring) 20%, transparent); }"
     },
     {
       "name": "Text Field",
       "kind": "input",
       "refersTo": "input",
-      "description": "Transparent fill, Input Stroke, 3px Helm ring on focus.",
-      "html": "<label class=\"ds-field\"><span class=\"ds-field-label\">Email</span><input class=\"ds-input\" type=\"email\" placeholder=\"vaandani@email.com\"></label>",
-      "css": ".ds-field{display:flex;flex-direction:column;gap:0.5rem;font-family:Geist,ui-sans-serif,system-ui,sans-serif}.ds-field-label{font-size:0.875rem;font-weight:500;line-height:1.5;color:var(--fg)}.ds-input{width:100%;appearance:none;border:1px solid var(--input);border-radius:0.5rem;background:transparent;color:var(--fg);padding:0.375rem 0.75rem;font-size:0.875rem;line-height:1.5;outline:none;transition:border-color 200ms,box-shadow 200ms}.ds-input::placeholder{color:var(--muted-fg)}.ds-input:hover{border-color:color-mix(in oklab,var(--muted-fg) 30%,transparent)}.ds-input:focus{border-color:color-mix(in oklab,var(--ring) 70%,transparent);box-shadow:0 0 0 3px color-mix(in oklab,var(--ring) 20%,transparent)}.ds-input:user-invalid{border-color:color-mix(in oklab,var(--danger-subtle-fg) 70%,transparent)}.ds-input:disabled{background:var(--muted);opacity:0.5}"
+      "description": "Transparent field on Input Stroke; focus is a Helm Teal ring, never a glow.",
+      "html": "<label class=\"ds-field\"><span class=\"ds-field-label\">Email</span><input class=\"ds-input\" type=\"email\" placeholder=\"you@example.com\" /></label>",
+      "css": ".ds-field { display: grid; gap: 8px; font-family: var(--font-sans, Quicksand, ui-sans-serif, system-ui, sans-serif); } .ds-field-label { font-size: 0.875rem; font-weight: 500; color: var(--fg); } .ds-input { height: 36px; padding: 6px 12px; border-radius: var(--radius, 0.5rem); border: 1px solid var(--input); background: transparent; color: var(--fg); font: inherit; font-size: 0.875rem; outline: none; transition: border-color 200ms, box-shadow 200ms; } .ds-input::placeholder { color: var(--muted-fg); } .ds-input:hover { border-color: color-mix(in oklab, var(--muted-fg) 30%, transparent); } .ds-input:focus-visible { border-color: color-mix(in oklab, var(--ring) 70%, transparent); box-shadow: 0 0 0 3px color-mix(in oklab, var(--ring) 20%, transparent); }"
     },
     {
-      "name": "Card",
-      "kind": "card",
-      "refersTo": "card",
-      "description": "Paper surface, Hairline, resting-edge shadow, 24px gutter.",
-      "html": "<article class=\"ds-card\"><header class=\"ds-card-header\"><h3 class=\"ds-card-title\">Session</h3><p class=\"ds-card-desc\">Signed in as the demo user.</p></header><div class=\"ds-card-body\">Wiring stays visible. Demo screens stay thin.</div></article>",
-      "css": ".ds-card{display:flex;flex-direction:column;gap:1.5rem;padding:1.5rem 0;border:1px solid var(--border);border-radius:0.5rem;background:var(--card);color:var(--card-fg);box-shadow:0 1px 2px 0 rgb(0 0 0 / 0.05);font-family:Geist,ui-sans-serif,system-ui,sans-serif}.ds-card-header,.ds-card-body{padding:0 1.5rem}.ds-card-title{margin:0;font-size:1rem;font-weight:600;line-height:1.5;color:var(--fg)}.ds-card-desc{margin:0.25rem 0 0;font-size:0.875rem;line-height:1.5;color:var(--muted-fg)}.ds-card-body{font-size:0.875rem;line-height:1.5;color:var(--muted-fg)}"
-    },
-    {
-      "name": "Primary Badge",
+      "name": "Tech Tag",
       "kind": "chip",
       "refersTo": "badge-primary",
-      "description": "Default pill chip. Helm Wash, not a solid primary fill.",
-      "html": "<span class=\"ds-badge\">Session</span>",
-      "css": ".ds-badge{display:inline-flex;align-items:center;gap:0.375rem;height:1.25rem;padding:0 7px;border:1px solid transparent;border-radius:9999px;background:var(--primary-subtle);color:var(--primary-subtle-fg);font-family:Geist,ui-sans-serif,system-ui,sans-serif;font-size:0.75rem;font-weight:500;line-height:1.25;transition:background 200ms}.ds-badge:hover,.ds-badge:focus-visible{background:color-mix(in oklab,var(--primary) 20%,transparent)}.ds-badge:focus-visible{outline:2px solid var(--ring);outline-offset:2px}"
+      "description": "The quieter Badge relative on project cards: secondary fill, mono. It labels; it does not signal.",
+      "html": "<span class=\"ds-tag\">Next.js</span><span class=\"ds-tag\">Effect</span>",
+      "css": ".ds-tag { display: inline-flex; align-items: center; height: 20px; padding: 0 7px; margin-right: 6px; border-radius: 9999px; background: var(--secondary); color: var(--secondary-fg); font-family: var(--font-mono, 'IBM Plex Mono', ui-monospace, SFMono-Regular, Menlo, monospace); font-size: 0.75rem; line-height: 1.25; }"
     },
     {
-      "name": "Site Header",
-      "kind": "nav",
-      "refersTo": "button-plain",
-      "description": "Public topbar: Projects + Blog left, toggles right. No name in chrome.",
-      "html": "<header class=\"ds-site-header\"><nav class=\"ds-site-nav\" aria-label=\"Primary\"><a class=\"ds-site-nav-link\" href=\"#\">Projects</a><a class=\"ds-site-nav-link\" href=\"#\">Blog</a></nav><div class=\"ds-site-toggles\"><button class=\"ds-site-toggle\" type=\"button\">Theme</button><button class=\"ds-site-toggle\" type=\"button\">EN</button></div></header>",
-      "css": ".ds-site-header{display:flex;align-items:center;justify-content:space-between;gap:1rem;height:3.5rem;padding:0 1rem;border-bottom:1px solid var(--border);background:color-mix(in oklab,var(--navbar) 90%,transparent);backdrop-filter:blur(12px);font-family:Geist,ui-sans-serif,system-ui,sans-serif}.ds-site-nav{display:flex;align-items:center;gap:0.25rem}.ds-site-nav-link{display:inline-flex;align-items:center;padding:0.375rem 0.625rem;border-radius:0.5rem;color:var(--fg);font-size:0.875rem;font-weight:500;line-height:1.5;text-decoration:none;transition:background 200ms}.ds-site-nav-link:hover{background:var(--secondary)}.ds-site-nav-link:focus-visible{outline:2px solid var(--ring);outline-offset:2px}.ds-site-toggles{display:flex;align-items:center;gap:0.5rem}.ds-site-toggle{display:inline-flex;align-items:center;justify-content:center;min-height:2rem;padding:0.25rem 0.5rem;border-radius:0.5rem;border:1px solid var(--border);background:transparent;color:var(--muted-fg);font-family:inherit;font-size:0.75rem;font-weight:500;cursor:pointer}.ds-site-toggle:hover{background:var(--secondary)}.ds-site-toggle:focus-visible{outline:2px solid var(--ring);outline-offset:2px}"
+      "name": "Content Card",
+      "kind": "card",
+      "refersTo": "card",
+      "description": "One silhouette for project and post cards: a full-card link, lit by the pointer, never lifted.",
+      "html": "<a class=\"ds-card\" href=\"#\"><span class=\"ds-card-media\"></span><span class=\"ds-card-body\"><span class=\"ds-card-title\">Project title</span><span class=\"ds-card-desc\">One line on what the project does.</span><span class=\"ds-card-meta\">2025 – Now</span></span></a>",
+      "css": ".ds-card { position: relative; display: flex; gap: 20px; padding: 24px; border-radius: var(--radius, 0.5rem); border: 1px solid var(--border); background: var(--card); color: var(--card-fg); box-shadow: 0 1px 2px 0 rgb(0 0 0 / 0.05); text-decoration: none; overflow: hidden; transition: background-color 200ms cubic-bezier(0.16, 1, 0.3, 1), border-color 200ms; } .ds-card:hover { background: radial-gradient(120% 120% at 50% 50%, color-mix(in oklab, var(--primary) 8%, var(--secondary)), var(--card) 70%); border-color: color-mix(in oklab, var(--primary) 45%, var(--border)); } .ds-card:focus-visible { outline: 2px solid var(--ring); outline-offset: 2px; } .ds-card-media { flex: none; width: 160px; aspect-ratio: 1200 / 630; border: 1px solid var(--border); border-radius: var(--radius, 0.5rem); background: var(--muted); } .ds-card-body { display: grid; gap: 4px; align-content: start; } .ds-card-title { font-family: var(--font-display, Roboto, ui-sans-serif, system-ui, sans-serif); font-weight: 600; font-size: 1rem; line-height: 1.5; } .ds-card-desc { font-family: var(--font-sans, Quicksand, ui-sans-serif, system-ui, sans-serif); font-size: 0.875rem; line-height: 1.5; color: var(--muted-fg); } .ds-card-meta { font-family: var(--font-mono, 'IBM Plex Mono', ui-monospace, SFMono-Regular, Menlo, monospace); font-size: 0.75rem; color: var(--muted-fg); }"
     },
     {
-      "name": "Navbar Item",
+      "name": "Public Site Header",
       "kind": "nav",
-      "refersTo": "button-plain",
-      "description": "Medium 14px kit item. Hover Fog. Current is Cool Graphite, not a primary wash.",
-      "html": "<nav class=\"ds-nav\"><a class=\"ds-nav-item\" href=\"#\">Home</a><a class=\"ds-nav-item ds-nav-item-current\" href=\"#\" aria-current=\"page\">Login</a></nav>",
-      "css": ".ds-nav{display:flex;align-items:center;gap:0.625rem;font-family:Geist,ui-sans-serif,system-ui,sans-serif}.ds-nav-item{display:inline-flex;align-items:center;padding:0.5rem 0.625rem;border-radius:0.5rem;color:var(--muted-fg);font-size:0.875rem;font-weight:500;line-height:1.25;text-decoration:none;transition:background 200ms,color 200ms}.ds-nav-item:hover{background:var(--secondary);color:var(--secondary-fg)}.ds-nav-item:focus-visible{outline:none;box-shadow:inset 0 0 0 1px var(--ring),0 0 0 2px color-mix(in oklab,var(--ring) 20%,transparent)}.ds-nav-item-current{color:var(--fg)}"
+      "refersTo": "navbar",
+      "description": "Sticky 56px topbar: the wordmark in the heading face, then About / Projects / Blog as plain links. One row at every width.",
+      "html": "<nav class=\"ds-header\"><a class=\"ds-wordmark\" href=\"#\">Rizki</a><span class=\"ds-nav\"><a class=\"ds-nav-item\" aria-current=\"page\" href=\"#\">About</a><a class=\"ds-nav-item\" href=\"#\">Projects</a><a class=\"ds-nav-item\" href=\"#\">Blog</a></span></nav>",
+      "css": ".ds-header { display: flex; align-items: center; justify-content: space-between; height: 56px; padding: 0 16px; background: color-mix(in oklab, var(--navbar) 90%, transparent); backdrop-filter: blur(12px); border-bottom: 1px solid var(--border); } .ds-wordmark { font-family: var(--font-display, Roboto, ui-sans-serif, system-ui, sans-serif); font-weight: 600; letter-spacing: -0.025em; color: var(--fg); text-decoration: none; } .ds-nav { display: flex; gap: 4px; } .ds-nav-item { padding: 6px 10px; border-radius: var(--radius, 0.5rem); font-family: var(--font-sans, Quicksand, ui-sans-serif, system-ui, sans-serif); font-size: 0.875rem; font-weight: 500; color: var(--muted-fg); text-decoration: none; transition: background-color 200ms, color 200ms; } .ds-nav-item:hover { background: var(--secondary); color: var(--fg); } .ds-nav-item[aria-current] { color: var(--fg); text-decoration: underline; text-underline-offset: 6px; } .ds-nav-item:focus-visible { outline: 2px solid var(--ring); outline-offset: 2px; }"
     },
     {
       "name": "Note",
       "kind": "custom",
       "refersTo": "note",
-      "description": "In-flow status callout. Subtle wash, 15% current-color border, circular indicator.",
-      "html": "<div class=\"ds-note ds-note-danger\" role=\"status\"><span class=\"ds-note-indicator\" aria-hidden=\"true\"><svg width=\"16\" height=\"16\" viewBox=\"0 0 24 24\" fill=\"currentColor\"><path d=\"M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20zm1 14h-2v-2h2v2zm0-4h-2V6h2v6z\"/></svg></span><p class=\"ds-note-body\">Invalid credentials. Check username and password.</p></div>",
-      "css": ".ds-note{display:grid;grid-template-columns:auto 1fr;align-items:center;gap:0.75rem;width:100%;padding:1rem;border:1px solid color-mix(in oklab,currentColor 15%,transparent);border-radius:0.5rem;font-family:Geist,ui-sans-serif,system-ui,sans-serif;font-size:0.875rem;line-height:1.5;backdrop-filter:blur(40px)}.ds-note-danger{background:var(--danger-subtle);color:var(--danger-subtle-fg)}.ds-note-indicator{display:grid;place-content:center;width:2rem;height:2rem;border:2px solid color-mix(in oklab,currentColor 40%,transparent);border-radius:9999px}.ds-note-body{margin:0}"
+      "description": "In-flow status callout: 8px, 16px padding, 15% current-color border, 32px circular indicator.",
+      "html": "<div class=\"ds-note\" role=\"note\"><span class=\"ds-note-dot\" aria-hidden=\"true\">i</span><p>Replace the synthetic portrait before this page goes public.</p></div>",
+      "css": ".ds-note { display: flex; gap: 12px; align-items: flex-start; padding: 16px; border-radius: var(--radius, 0.5rem); background: var(--info-subtle); color: var(--info-subtle-fg); border: 1px solid color-mix(in oklab, currentColor 15%, transparent); font-family: var(--font-sans, Quicksand, ui-sans-serif, system-ui, sans-serif); font-size: 0.875rem; line-height: 1.5; } .ds-note p { margin: 6px 0 0; } .ds-note-dot { flex: none; display: grid; place-items: center; width: 32px; height: 32px; border-radius: 9999px; background: color-mix(in oklab, currentColor 15%, transparent); font-family: var(--font-mono, 'IBM Plex Mono', ui-monospace, SFMono-Regular, Menlo, monospace); font-weight: 600; }"
     },
     {
-      "name": "Signal Channel Row",
+      "name": "Work Rail Row",
       "kind": "custom",
-      "refersTo": "card",
-      "description": "Hairline-divided peer channel row. Soft-rect media, no card chrome.",
-      "html": "<ul class=\"ds-channel\"><li><a class=\"ds-channel-row\" href=\"#\"><span class=\"ds-channel-logo\" aria-hidden=\"true\"></span><span class=\"ds-channel-copy\"><span class=\"ds-channel-title\">Signal Kit</span><span class=\"ds-channel-desc\">Accessible component patterns for portfolio shells.</span></span></a></li><li><a class=\"ds-channel-row\" href=\"#\"><span class=\"ds-channel-logo\" aria-hidden=\"true\"></span><span class=\"ds-channel-copy\"><span class=\"ds-channel-title\">Portless Desk</span><span class=\"ds-channel-desc\">Local-first tooling notes and workflow experiments.</span></span></a></li></ul>",
-      "css": ".ds-channel{list-style:none;margin:0;padding:0;border-top:1px solid var(--border);border-bottom:1px solid var(--border);font-family:Geist,ui-sans-serif,system-ui,sans-serif}.ds-channel>li+li{border-top:1px solid var(--border)}.ds-channel-row{display:flex;gap:1rem;padding:1.25rem 0;color:var(--fg);text-decoration:none;outline:0;transition:background 200ms}.ds-channel-row:hover,.ds-channel-row:focus-visible{background:color-mix(in oklab,var(--secondary) 60%,transparent)}.ds-channel-row:focus-visible{outline:2px solid var(--ring);outline-offset:2px}.ds-channel-logo{flex:0 0 3rem;width:3rem;height:3rem;border:1px solid var(--border);border-radius:0.5rem;background:var(--muted)}.ds-channel-copy{display:flex;min-width:0;flex-direction:column;gap:0.25rem}.ds-channel-title{font-size:0.875rem;font-weight:600;line-height:1.5;color:var(--fg)}.ds-channel-desc{font-size:0.875rem;line-height:1.5;color:var(--muted-fg)}"
+      "refersTo": "work-rail",
+      "description": "A dated role hanging off the chronology rail. No card shell; the one Helm Teal node marks the current role.",
+      "html": "<div class=\"ds-rail\"><div class=\"ds-rail-row\"><span class=\"ds-rail-node ds-rail-node-current\"></span><span class=\"ds-rail-logo\"></span><div><div class=\"ds-rail-title\">Current role</div><div class=\"ds-rail-meta\">Company · 2023 – Now</div></div></div><div class=\"ds-rail-row\"><span class=\"ds-rail-node\"></span><span class=\"ds-rail-logo\"></span><div><div class=\"ds-rail-title\">Earlier role</div><div class=\"ds-rail-meta\">Company · 2020 – 2023</div></div></div></div>",
+      "css": ".ds-rail { position: relative; padding-left: 26px; } .ds-rail::before { content: ''; position: absolute; left: 4.5px; top: 12px; bottom: 12px; width: 1px; background: color-mix(in oklab, var(--muted-fg) 30%, transparent); } .ds-rail-row { position: relative; display: flex; gap: 16px; padding-bottom: 32px; } .ds-rail-node { position: absolute; left: -26px; top: 7px; width: 10px; height: 10px; border-radius: 9999px; background: var(--canvas); border: 1px solid color-mix(in oklab, var(--muted-fg) 45%, transparent); } .ds-rail-node-current { background: var(--primary); border-color: var(--primary); box-shadow: 0 0 0 2px color-mix(in oklab, var(--primary) 20%, transparent); } .ds-rail-logo { flex: none; width: 48px; height: 48px; border-radius: var(--radius, 0.5rem); border: 1px solid var(--border); background: var(--card); } .ds-rail-title { font-family: var(--font-display, Roboto, ui-sans-serif, system-ui, sans-serif); font-weight: 600; font-size: 1rem; line-height: 1.5; color: var(--fg); } .ds-rail-meta { font-family: var(--font-mono, 'IBM Plex Mono', ui-monospace, SFMono-Regular, Menlo, monospace); font-size: 0.75rem; color: var(--muted-fg); transition: color 200ms; } .ds-rail-row:hover .ds-rail-meta { color: var(--fg); }"
+    },
+    {
+      "name": "Tech Stack",
+      "kind": "custom",
+      "refersTo": "tech-stack",
+      "description": "The About cross-section: layers as Hairline rows, TypeScript as a graphite strap beside all of them. Static: no hover.",
+      "html": "<div class=\"ds-stack\"><div class=\"ds-spine\"><svg width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"currentColor\" aria-hidden=\"true\"><path d=\"M1.125 0C.502 0 0 .502 0 1.125v21.75C0 23.498.502 24 1.125 24h21.75c.623 0 1.125-.502 1.125-1.125V1.125C24 .502 23.498 0 22.875 0zm17.363 9.75c.612 0 1.154.037 1.627.111a6.38 6.38 0 0 1 1.306.34v2.458a3.95 3.95 0 0 0-.643-.361 5.093 5.093 0 0 0-.717-.26 5.453 5.453 0 0 0-1.426-.2c-.3 0-.573.028-.819.086a2.1 2.1 0 0 0-.623.242c-.17.104-.3.229-.393.374a.888.888 0 0 0-.14.49c0 .196.053.373.156.529.104.156.252.304.443.444s.423.276.696.41c.273.135.582.274.926.416.47.197.892.407 1.266.628.374.222.695.473.963.753.268.279.472.598.614.957.142.359.214.776.214 1.253 0 .657-.125 1.21-.373 1.656a3.033 3.033 0 0 1-1.012 1.085 4.38 4.38 0 0 1-1.487.596c-.566.12-1.163.18-1.79.18a9.916 9.916 0 0 1-1.84-.164 5.544 5.544 0 0 1-1.512-.493v-2.63a5.033 5.033 0 0 0 3.237 1.2c.333 0 .624-.03.872-.09.249-.06.456-.144.623-.25.166-.108.29-.234.373-.38a1.023 1.023 0 0 0-.074-1.089 2.12 2.12 0 0 0-.537-.5 5.597 5.597 0 0 0-.807-.444 27.72 27.72 0 0 0-1.007-.436c-.918-.383-1.602-.852-2.053-1.405-.45-.553-.676-1.222-.676-2.005 0-.614.123-1.141.369-1.582.246-.441.58-.804 1.004-1.089a4.494 4.494 0 0 1 1.47-.629 7.536 7.536 0 0 1 1.77-.201zm-15.113.188h9.563v2.166H9.506v9.646H6.789v-9.646H3.375z\"/></svg><span class=\"ds-spine-name\">TypeScript</span><span class=\"ds-spine-weave\" aria-hidden=\"true\">TypeScript · TypeScript · TypeScript · TypeScript ·</span><span class=\"ds-spine-label\">Language</span></div><dl class=\"ds-layers\"><div class=\"ds-layer\"><dt>Interface</dt><dd><span class=\"ds-tool\"><span class=\"ds-tile\"><svg width=\"18\" height=\"18\" viewBox=\"0 0 24 24\" fill=\"currentColor\" aria-hidden=\"true\"><path d=\"M18.665 21.978C16.758 23.255 14.465 24 12 24 5.377 24 0 18.623 0 12S5.377 0 12 0s12 5.377 12 12c0 3.583-1.574 6.801-4.067 9.001L9.219 7.2H7.2v9.596h1.615V9.251l9.85 12.727Zm-3.332-8.533 1.6 2.061V7.2h-1.6v6.245Z\"/></svg></span>Next.js</span></dd></div><div class=\"ds-layer\"><dt>Server</dt><dd><span class=\"ds-tool\"><span class=\"ds-tile\"><svg width=\"18\" height=\"18\" viewBox=\"0 0 24 24\" fill=\"currentColor\" aria-hidden=\"true\"><path d=\"M12.445.002a45.529 45.529 0 0 0-5.252 8.146 8.595 8.595 0 0 1-.555-.53 27.796 27.796 0 0 0-1.205-1.542 8.762 8.762 0 0 0-1.251 2.12 20.743 20.743 0 0 0-1.448 5.88 8.867 8.867 0 0 0 .338 3.468c1.312 3.48 3.794 5.593 7.445 6.337 3.055.438 5.755-.333 8.097-2.312 2.677-2.59 3.359-5.634 2.047-9.132a33.287 33.287 0 0 0-2.988-5.59A91.34 91.34 0 0 0 12.615.053a.216.216 0 0 0-.17-.051Zm-.336 3.906a50.93 50.93 0 0 1 4.794 6.552c.448.767.817 1.57 1.108 2.41.606 2.386-.044 4.354-1.951 5.904-1.845 1.298-3.87 1.683-6.072 1.156-2.376-.737-3.75-2.335-4.121-4.794a5.107 5.107 0 0 1 .242-2.266c.358-.908.79-1.774 1.3-2.601l1.446-2.121a397.33 397.33 0 0 0 3.254-4.24Z\"/></svg></span>Hono</span></dd></div></dl></div>",
+      "css": ".ds-stack { display: grid; grid-template-columns: 4.5rem minmax(0, 1fr); gap: 0 24px; } .ds-spine { display: flex; flex-direction: column; align-items: center; gap: 12px; padding: 20px 8px 12px; border-radius: var(--radius, 0.5rem); background: var(--fg); color: var(--bg); min-height: 220px; } .ds-spine-name { font-family: var(--font-display, Roboto, ui-sans-serif, system-ui, sans-serif); font-weight: 600; font-size: 1.25rem; line-height: 1; letter-spacing: -0.025em; writing-mode: vertical-rl; } .ds-spine-weave { flex: 1; min-height: 0; overflow: hidden; writing-mode: vertical-rl; white-space: nowrap; font-family: var(--font-mono, 'IBM Plex Mono', ui-monospace, SFMono-Regular, Menlo, monospace); font-size: 0.625rem; letter-spacing: 0.2em; text-transform: uppercase; color: color-mix(in oklab, currentColor 40%, transparent); mask-image: linear-gradient(to bottom, #000 40%, transparent); } .ds-spine-label { writing-mode: vertical-rl; font-family: var(--font-mono, 'IBM Plex Mono', ui-monospace, SFMono-Regular, Menlo, monospace); font-size: 0.75rem; letter-spacing: 0.08em; text-transform: uppercase; color: color-mix(in oklab, currentColor 72%, transparent); } .ds-layers { margin: 0; border-block: 1px solid var(--border); } .ds-layer { display: grid; grid-template-columns: 7rem minmax(0, 1fr); align-items: center; gap: 24px; padding: 20px 0; } .ds-layer + .ds-layer { border-top: 1px solid var(--border); } .ds-layer dt { font-family: var(--font-mono, 'IBM Plex Mono', ui-monospace, SFMono-Regular, Menlo, monospace); font-size: 0.75rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted-fg); } .ds-layer dd { margin: 0; } .ds-tool { display: inline-flex; align-items: center; gap: 10px; font-family: var(--font-mono, 'IBM Plex Mono', ui-monospace, SFMono-Regular, Menlo, monospace); font-size: 0.875rem; color: var(--fg); } .ds-tile { display: grid; place-items: center; width: 36px; height: 36px; border-radius: var(--radius, 0.5rem); border: 1px solid var(--border); background: var(--bg); box-shadow: 0 1px 2px 0 rgb(0 0 0 / 0.05); }"
     }
   ],
   "narrative": {
-    "northStar": "The Engine Room",
-    "overview": "This is the visual system for Tri Rizeki Rifandani’s public portfolio app, built on an Operate-mode Intent UI kit. The machinery is App Router, React Aria, PWA, SEO, and observability — not a showroom starter brand. The kit is cool, operational, and restrained: Geist with one saturated helm signal, surfaces that rest flat and lift only when they float.\n\nAccessibility is product truth, not a coat of paint. React Aria focus rings, 44px touch targets, and forced-colors fallbacks are part of the craft. The public home is a Signal board: identity first (name, mono welcome, summary), then peer channel lists for experience, projects, and blogs. The Component Catalog at `/master-design` remains the kit proof surface.\n\nVisual rejections confirmed by the incumbent kit: marketing-landing spectacle, neon accents, skeuomorphism, decorative illustration, hover-lift theater, name-in-chrome, and leftover “bulletproof Next template” branding.",
+    "northStar": "Plain Speech",
+    "overview": "This is the visual system for Tri Rizeki Rifandani's public portfolio app. The public surfaces do one job: say who this person is, then let a visitor scan the work. The layout is conventional on purpose — a wordmark topbar, a hero that states the role in one sentence, then stacked bordered cards for work, projects, and writing. Nothing asks the reader to learn a novel structure before they can read.\n\nThe machinery underneath is App Router, React Aria, PWA, SEO, and observability. Accessibility is product truth, not a coat of paint: React Aria focus rings, 44px touch targets, and forced-colors fallbacks are part of the craft. The Component Catalog at `/master-design` remains the kit proof surface and keeps the denser app-chrome density.\n\nVisual rejections: marketing-landing spectacle, neon accents, skeuomorphism, decorative illustration, hover-lift theater, and leftover \"bulletproof Next template\" branding. The one sanctioned exception is the Glyph Engine in the home hero (see Components): it is made from the system's own mono face and tokens, it acts out the headline, and it is not illustration.",
     "keyCharacteristics": [
-      "One accent (Helm Blue). Status colors are machinery lights, not brand.",
-      "Geist + Geist Mono. No display serif, no second sans. (`@theme` still lists Inter as leftover kit copy — do not load it; `layout.tsx` loads Geist via `next/font`.)",
+      "One accent (Helm Teal). Status colors are machinery lights, not brand.",
+      "Roboto for headings, Quicksand for body, IBM Plex Mono for meta. Three faces, three jobs, no fourth.",
       "Soft-rect 8px default. Pills only for badges, toggles, and circular icon buttons.",
-      "Hybrid depth: tone + hairline at rest; shadow only on overlays.",
+      "Hybrid depth: tone + hairline at rest; shadow only on overlays. Cards never lift.",
       "Light and dark as equal citizens. Primary chroma does not shift.",
-      "16px body on mobile, 14px from `sm` up. Kit page titles stay in the 1.25–1.5rem band; home identity H1 may step to 1.5–1.875rem.",
-      "One Geist Mono welcome line on the public home is the console tell — not a second body face.",
-      "Signal board home: stacked hairline channel lists; topbar carries Projects / Blog + toggles, never the name."
+      "16px body on mobile, 14px from `sm` up — except hero and lead paragraphs, which hold 16px/1.75 at every width.",
+      "One card silhouette, shared by projects and posts, on home and on both index pages. Work rows are the one public row without it: they hang off the work rail instead."
     ],
     "rules": [
       {
         "name": "The One Voice Rule",
-        "body": "Helm Blue occupies ≤10% of any given screen. Its rarity is the point. Never wash a whole view in primary.",
+        "body": "Helm Teal occupies ≤10% of any given screen. Its rarity is the point. Never wash a whole view in primary.",
         "section": "colors"
       },
       {
         "name": "The Same-Signal Rule",
-        "body": "Helm Blue does not change chroma between light and dark. Only surfaces invert.",
+        "body": "Helm Teal does not change chroma between light and dark. Only surfaces invert.",
         "section": "colors"
       },
       {
@@ -645,65 +702,101 @@
         "section": "colors"
       },
       {
-        "name": "The No-Hero Type Rule",
-        "body": "There is no 3–4rem display scale in this system. If a screen needs spectacle type, the screen is in the wrong mode.",
+        "name": "The Three-Face Rule",
+        "body": "Roboto heads, Quicksand reads, IBM Plex Mono counts. A face outside its job is a bug, and a fourth family does not exist.",
         "section": "typography"
       },
       {
-        "name": "The Two-Size Body Rule",
-        "body": "Body is 16px on mobile and 14px from sm. Do not mix a third body size in the same view.",
+        "name": "The One-Hero Rule",
+        "body": "The display-scale hero appears once per surface, at the top, and never below the fold. It states a fact about the person; it is not a section title that got promoted.",
         "section": "typography"
       },
       {
-        "name": "The One-Line Console Rule",
-        "body": "Geist Mono as display-size type is allowed once: the public home welcome. Do not set paragraphs or forms in mono.",
+        "name": "The Lead-Holds Rule",
+        "body": "Body copy steps 16px → 14px at `sm`, except lead paragraphs, which hold 16px/1.75 at every width. Do not mix a third body size in one view.",
         "section": "typography"
       },
       {
-        "name": "The Signal Board Rule",
-        "body": "Home content after identity is peer channel lists with Hairline dividers. Do not restyle channels as marketing card grids, hero collages, or inset media panels.",
+        "name": "The One-Column Rule",
+        "body": "Public surfaces cap at 64rem and read top to bottom. Widening the column strands a card's meta from its title and leaves the hero beside empty canvas.",
         "section": "layout"
       },
       {
-        "name": "The No-Name-In-Chrome Rule",
-        "body": "The person’s name lives in the identity thesis block, never in the topbar.",
+        "name": "The One-Shell Rule",
+        "body": "Public routes render through `SiteShell`. A page that assembles its own header or footer will drift from the others.",
+        "section": "layout"
+      },
+      {
+        "name": "The Preview-Then-Index Rule",
+        "body": "A home section that has an index shows at most three entries and links to it. Home introduces; the index enumerates. Work experience has no index route, so it is the one section that lists in full — if it ever grows one, it takes the three-entry cap with it.",
         "section": "layout"
       },
       {
         "name": "The Flat-By-Default Rule",
-        "body": "Surfaces are flat at rest. Shadows appear only as a response to floating (overlay).",
+        "body": "Surfaces are flat at rest. Shadows appear only as a response to floating (overlay). A card hover washes its background and may light it; it never lifts, scales, or grows a shadow. The sheet stays on the canvas — what moves is the light on it and the print inside its frame.",
         "section": "elevation"
       },
       {
         "name": "The Ring-Over-Glow Rule",
-        "body": "Focus and hover never use colored drop-shadows. Use a 2–3px ring at 20% Helm Blue (or the intent color).",
+        "body": "Focus and hover never use colored drop-shadows. Use a 2–3px ring at 20% Helm Teal (or the intent color).",
         "section": "elevation"
       },
       {
+        "name": "The Canvas-Only Rule",
+        "body": "Grain belongs to the canvas. Cards, chrome, and overlays stay smooth, so the texture reads as the surface content rests on and never as noise inside the content.",
+        "section": "texture"
+      },
+      {
+        "name": "The Mean-Luminance Rule",
+        "body": "The grain moves the canvas it sits on: it darkens the light canvas by about 2% on average and lightens the dark canvas by about the same, so both `--canvas` values are set away from the tone they render as (light `#f9f8f7`, dark `#151312`). Two checks re-open whenever `--grain-opacity` moves — text on the canvas against the composited value, and card-against-canvas separation, which in dark mode collapses if the grain lightens the canvas up to the card.",
+        "section": "texture"
+      },
+      {
         "name": "The Soft-Rect Rule",
-        "body": "8px is the default corner. Pills are for badges, toggles, and circular icon buttons only.",
+        "body": "8px is the default corner. Pills are for badges, tech tags, toggles, and circular icon buttons only.",
         "section": "shapes"
+      },
+      {
+        "name": "The One-Moment Rule",
+        "body": "The Glyph Engine is the only ambient motion on the site. A second one splits the attention it exists to hold. Other motion stays a response to the reader (card light, rail scrub, ID Badge spin, theme transition).",
+        "section": "components"
+      },
+      {
+        "name": "The Rail-Is-Chronology Rule",
+        "body": "The rail belongs to work experience, which is the one home section ordered by time. Projects and writing are ranked, not dated — they stay a plain stack.",
+        "section": "components"
+      },
+      {
+        "name": "The One-Card Rule",
+        "body": "Project and post cards share one silhouette and differ only in filling. A surface that needs a third card shape needs a different surface — and a row that is neither ranked nor navigable, like a work entry, needs no card at all.",
+        "section": "components"
+      },
+      {
+        "name": "The Static-Work Rule",
+        "body": "A work entry is not a link. Do not give it hover affordances it cannot honor: no row wash, no card light, no pointer cursor. The pointer reads the rail (the scrub), never the row.",
+        "section": "components"
       }
     ],
     "dos": [
-      "Do keep Helm Blue rare (The One Voice Rule) and identical across themes (The Same-Signal Rule).",
+      "Do keep Helm Teal rare (The One Voice Rule) and identical across themes (The Same-Signal Rule).",
       "Do use React Aria focus rings (2px + 20% wash, Paper offset on buttons) as a visible craft detail.",
-      "Do default to 8px soft-rects, 24px card gutters, and `shadow-xs` + Hairline on resting surfaces.",
-      "Do step type down at `sm` (16px → 14px body) and keep a 44px hit area on square icon controls.",
-      "Do put status only in Note, Badge, validation, and meter/progress — never as a decorative wash.",
-      "Do structure public home as a Signal board: identity thesis, then hairline channel lists (The Signal Board Rule).",
-      "Do keep the person’s name in the identity block and out of the topbar (The No-Name-In-Chrome Rule)."
+      "Do default to 8px soft-rects and `shadow-xs` + Hairline on resting surfaces.",
+      "Do head in Roboto, read in Quicksand, count in IBM Plex Mono (The Three-Face Rule).",
+      "Do render every public route through `SiteShell` (The One-Shell Rule).",
+      "Do preview at most three entries on home for any section that has an index, and link to it (The Preview-Then-Index Rule).",
+      "Do put public copy in `messages/en.json` and `messages/id.json`; leave names, titles, and prose content in `core/constants/portfolio.ts`.",
+      "Do put status only in Note, Badge, validation, and meter/progress — never as a decorative wash."
     ],
     "donts": [
-      "Don't introduce a second brand hue, a display serif, or a 3rem+ hero type scale.",
-      "Don't lift cards or buttons on hover (`translateY`, colored drop-shadows, skeuomorphic bevels).",
+      "Don't introduce a second brand hue or a fourth font family.",
+      "Don't lift cards or buttons on hover (`translateY`, card scale, colored drop-shadows, skeuomorphic bevels). Lighting a card and drifting its print inside a fixed frame are not lift — the card's own box never moves.",
       "Don't introduce `shadow-2xl` on app chrome.",
-      "Don't paint marketing-landing spectacle, neon, or illustration into kit chrome.",
-      "Don't put the name, logo, or brand mark in public topbar chrome.",
-      "Don't restyle home channels as card grids, hero media, or inset collages.",
+      "Don't paint marketing-landing spectacle, neon, or illustration into chrome.",
+      "Don't widen public surfaces past 64rem.",
+      "Don't repeat the display-scale hero below the first screen.",
+      "Don't hardcode public-facing English in a component.",
       "Don't brand the UI as a generic Next.js template.",
-      "Don't fabricate end-user brand claims, testimonials, or a WCAG certification level.",
-      "Don't load Inter alongside Geist. One sans."
+      "Don't fabricate end-user brand claims, testimonials, or a WCAG certification level."
     ]
   }
 }

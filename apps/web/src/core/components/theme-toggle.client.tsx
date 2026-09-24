@@ -1,10 +1,10 @@
 "use client";
 
-import { MoonIcon, SunIcon } from "@heroicons/react/24/outline";
 import { useTranslations } from "next-intl";
 import { useTheme } from "next-themes";
 import { useRef } from "react";
 import { flushSync } from "react-dom";
+import { HiOutlineMoon, HiOutlineSun } from "react-icons/hi2";
 
 import { Button } from "@/core/components/ui/button";
 
@@ -102,8 +102,16 @@ export const ThemeToggle = () => {
       aria-label={t("toggleTheme")}
       onPress={onPress}
     >
-      <SunIcon className="size-6 dark:hidden" />
-      <MoonIcon className="hidden size-6 dark:block" />
+      <HiOutlineSun
+        aria-hidden="true"
+        data-slot="icon"
+        className="size-6 dark:hidden"
+      />
+      <HiOutlineMoon
+        aria-hidden="true"
+        data-slot="icon"
+        className="hidden size-6 dark:block"
+      />
     </Button>
   );
 };

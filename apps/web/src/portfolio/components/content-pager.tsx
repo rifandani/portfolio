@@ -1,5 +1,5 @@
-import { ArrowLeftIcon, ArrowRightIcon } from "@heroicons/react/24/outline";
 import type { ReactNode } from "react";
+import { HiOutlineArrowLeft, HiOutlineArrowRight } from "react-icons/hi2";
 import { twMerge } from "tailwind-merge";
 
 import { LitCard } from "@/portfolio/components/lit-card.client";
@@ -26,7 +26,7 @@ const PagerCard = ({
   side: PagerSide;
   isNext?: boolean;
 }) => {
-  const Arrow = isNext ? ArrowRightIcon : ArrowLeftIcon;
+  const Arrow = isNext ? HiOutlineArrowRight : HiOutlineArrowLeft;
   return (
     <LitCard href={side.href} className="h-full">
       <div

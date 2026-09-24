@@ -1,10 +1,7 @@
 "use client";
 
-import {
-  ArrowUpRightIcon,
-  DocumentTextIcon,
-} from "@heroicons/react/24/outline";
 import { useTranslations } from "next-intl";
+import { HiOutlineArrowUpRight, HiOutlineDocumentText } from "react-icons/hi2";
 
 import { buttonStyles } from "@/core/components/ui/button";
 import { Link } from "@/core/components/ui/link";
@@ -33,10 +30,10 @@ export const CvLink = ({
       variant="plain"
       className={cx(buttonStyles({ intent: "outline" }), className)}
     >
-      <DocumentTextIcon />
+      <HiOutlineDocumentText aria-hidden="true" data-slot="icon" />
       <span className="flex-1 text-start">{t("aboutViewCv")}</span>
       <span className="sr-only">{t("opensInNewTab")}</span>
-      <ArrowUpRightIcon />
+      <HiOutlineArrowUpRight aria-hidden="true" data-slot="icon" />
     </Link>
   );
 };

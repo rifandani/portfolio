@@ -823,3 +823,59 @@ body::before {
     outline-color: Highlight;
   }
 }
+
+/*
+ * Tech Stack spine (About): TypeScript as one strap beside the layers, the
+ * lanyard's material — graphite in both themes, one step lifted in dark. The
+ * name reads in full; below it the name repeats as a weave that fades out
+ * before the label, so the strap reads as running through every layer.
+ */
+.tech-spine {
+  --tech-spine: var(--fg);
+  background-color: var(--tech-spine);
+  color: var(--bg);
+}
+
+:is(.dark .tech-spine) {
+  --tech-spine: oklch(0.34 0.008 56);
+  color: var(--fg);
+}
+
+.tech-spine-weave {
+  flex: 1;
+  min-height: 0;
+  overflow: hidden;
+  font-family: var(--font-mono);
+  font-size: 0.625rem;
+  font-weight: 500;
+  line-height: 1;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  white-space: nowrap;
+  writing-mode: vertical-rl;
+  color: color-mix(in oklab, currentColor 40%, transparent);
+  -webkit-mask-image: linear-gradient(to bottom, #000 40%, transparent);
+  mask-image: linear-gradient(to bottom, #000 40%, transparent);
+}
+
+.tech-spine-label {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  font-weight: 500;
+  line-height: 1;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  writing-mode: vertical-rl;
+  color: color-mix(in oklab, currentColor 72%, transparent);
+}
+
+/* A forced palette drops the fill, so the strap keeps its edge as a border. */
+@media (forced-colors: active) {
+  .tech-spine {
+    border: 1px solid CanvasText;
+  }
+
+  .tech-spine-weave {
+    display: none;
+  }
+}

@@ -17,7 +17,7 @@ describe("parseOgRequest", () => {
   it("uses defaults", () => {
     expect(parseOgRequest(mockReq("https://web.test/api/og"))).toEqual({
       isLight: false,
-      title: "@workspace/web",
+      title: "Portfolio",
       logo: "next",
     });
   });

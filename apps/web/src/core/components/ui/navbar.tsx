@@ -1,6 +1,6 @@
 'use client'
 
-import { Bars2Icon } from '@heroicons/react/20/solid'
+import { HiMiniBars2 } from 'react-icons/hi2'
 import { LayoutGroup, motion } from 'motion/react'
 import { createContext, use, useCallback, useId, useMemo, useState } from 'react'
 import { twJoin, twMerge } from 'tailwind-merge'
@@ -321,7 +321,7 @@ const NavbarTrigger = ({ className, onPress, ref, ...props }: NavbarTriggerProps
       }}
       {...props}
     >
-      <Bars2Icon />
+      <HiMiniBars2 aria-hidden="true" data-slot="icon" />
       <span className="sr-only">Toggle Navbar</span>
     </Button>
   )

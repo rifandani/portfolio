@@ -1,7 +1,7 @@
 "use client";
 
-import { CheckIcon } from "@heroicons/react/24/outline";
 import type { ComponentType, SVGProps } from "react";
+import { HiOutlineCheck } from "react-icons/hi2";
 import { twJoin, twMerge } from "tailwind-merge";
 
 import { Button } from "@/core/components/ui/button";
@@ -57,7 +57,9 @@ export const CopyButton = ({
       >
         <span aria-hidden="true" className={STACK}>
           <Icon className={twJoin(ICON, "text-muted-fg", iconFade(!copied))} />
-          <CheckIcon
+          <HiOutlineCheck
+            aria-hidden="true"
+            data-slot="icon"
             className={twJoin(ICON, "text-success-subtle-fg", iconFade(copied))}
           />
         </span>

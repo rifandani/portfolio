@@ -1,6 +1,6 @@
 'use client'
 
-import { XMarkIcon } from '@heroicons/react/24/solid'
+import { HiXMark } from 'react-icons/hi2'
 import { Button as PrimitiveButton } from 'react-aria-components/Button'
 import { Dialog as PrimitiveDialog } from 'react-aria-components/Dialog'
 import { Heading, type HeadingProps } from 'react-aria-components/Heading'
@@ -128,7 +128,7 @@ const DialogCloseIcon = ({ className, ...props }: CloseButtonIndicatorProps) => 
         className
       )}
     >
-      <XMarkIcon className="size-4" />
+      <HiXMark aria-hidden="true" data-slot="icon" className="size-4" />
     </PrimitiveButton>
   ) : null
 }

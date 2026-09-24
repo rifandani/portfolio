@@ -29,8 +29,8 @@ const manifest = (): MetadataRoute.Manifest => ({
       type: "image/png",
     },
   ],
-  name: "@workspace/web",
-  short_name: "@workspace/web",
+  name: "Portfolio",
+  short_name: "Portfolio",
   start_url: "/", // Or your preferred landing page
   theme_color: "#155DFC", // Your brand's theme color,
 });

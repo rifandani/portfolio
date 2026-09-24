@@ -1,6 +1,6 @@
 'use client'
 
-import { ChevronDownIcon, ChevronRightIcon } from '@heroicons/react/20/solid'
+import { HiMiniChevronDown, HiMiniChevronRight } from 'react-icons/hi2'
 import { createContext, use } from 'react'
 import { Button } from 'react-aria-components/Button'
 import { composeRenderProps } from 'react-aria-components/composeRenderProps'
@@ -322,7 +322,7 @@ const TableColumn = ({ isResizable = false, className, ...props }: TableColumnPr
                 values.isHovered ? 'bg-secondary-fg/10' : ''
               )}
             >
-              <ChevronDownIcon
+              <HiMiniChevronDown aria-hidden="true" data-slot="icon"
                 className={values.sortDirection === 'ascending' ? 'rotate-180' : ''}
               />
             </span>
@@ -514,7 +514,7 @@ const TableCell = ({ className, ref, ...props }: TableCellProps) => {
                   'mr-2 grid size-[1.15rem] flex-none shrink-0 place-content-center rounded text-fg hover:bg-secondary'
                 )}
               >
-                <ChevronRightIcon
+                <HiMiniChevronRight aria-hidden="true" data-slot="icon"
                   className={twJoin(
                     'size-4 transition-transform duration-200',
                     isExpanded && 'rotate-90'

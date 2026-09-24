@@ -1,6 +1,6 @@
 'use client'
 
-import { ChevronRightIcon } from '@heroicons/react/20/solid'
+import { HiMiniChevronRight } from 'react-icons/hi2'
 import { Button } from 'react-aria-components/Button'
 import type {
   TreeItemContentProps,
@@ -110,7 +110,7 @@ const TreeIndicator = ({
         values.isExpanded && 'text-fg'
       )}
     >
-      <ChevronRightIcon
+      <HiMiniChevronRight aria-hidden="true"
         data-slot="chevron"
         className={twJoin(
           'size-5 transition-transform duration-200 ease-in-out sm:size-4',

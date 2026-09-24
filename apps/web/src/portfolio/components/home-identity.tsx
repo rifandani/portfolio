@@ -1,6 +1,6 @@
-import { EnvelopeIcon } from "@heroicons/react/24/outline";
 import { getTranslations } from "next-intl/server";
 import type { ReactNode } from "react";
+import { HiOutlineEnvelope } from "react-icons/hi2";
 
 import { SpriteIcon } from "@/core/components/icon-sprite";
 import { Heading } from "@/core/components/ui/heading";
@@ -18,7 +18,9 @@ import type { SocialLink } from "@/portfolio/constants/portfolio";
 const socialIcons = {
   github: <SpriteIcon className="size-4" id="icon-github" />,
   linkedin: <SpriteIcon className="size-4" id="icon-linkedin" />,
-  email: <EnvelopeIcon className="size-4" />,
+  email: (
+    <HiOutlineEnvelope aria-hidden="true" data-slot="icon" className="size-4" />
+  ),
 } satisfies Record<SocialLink["id"], ReactNode>;
 
 export const HomeIdentity = async () => {

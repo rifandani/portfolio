@@ -78,6 +78,122 @@ export const aboutContent = {
   cvHref: "/placeholders/cv.pdf",
 } as const;
 
+/** Closed set — each id also names the mark the About tech stack renders for it. */
+export type TechId =
+  | "typescript"
+  | "react"
+  | "nextjs"
+  | "expo"
+  | "tanstack"
+  | "shadcn"
+  | "tailwindcss"
+  | "sass"
+  | "hono"
+  | "effect"
+  | "prisma"
+  | "drizzle"
+  | "postgresql"
+  | "cloudflare"
+  | "vercel"
+  | "docker"
+  | "opentelemetry"
+  | "vitest"
+  | "playwright"
+  | "claude-code"
+  | "cursor";
+
+export interface Tech {
+  id: TechId;
+  /** The tool's own name. It is not translated. */
+  name: string;
+}
+
+export interface TechLayer {
+  id: string;
+  labelKey: Extract<keyof Messages, `aboutStack${string}`>;
+  tools: Tech[];
+}
+
+/**
+ * The About tech stack as a cross-section, from the button down to the
+ * platform, then the tools that check and write it. TypeScript is not a
+ * layer: it is the spine that every layer attaches to, as in the biography
+ * ("one language took me all the way from the button to the database").
+ */
+export const techStack = {
+  spine: {
+    labelKey: "aboutStackLanguage",
+    tool: { id: "typescript", name: "TypeScript" },
+  },
+  layers: [
+    {
+      id: "interface",
+      labelKey: "aboutStackInterface",
+      tools: [
+        { id: "react", name: "React" },
+        { id: "nextjs", name: "Next.js" },
+        { id: "expo", name: "Expo" },
+        { id: "tanstack", name: "TanStack" },
+        { id: "shadcn", name: "shadcn/ui" },
+      ],
+    },
+    {
+      id: "styling",
+      labelKey: "aboutStackStyling",
+      tools: [
+        { id: "tailwindcss", name: "Tailwind CSS" },
+        { id: "sass", name: "Sass" },
+      ],
+    },
+    {
+      id: "server",
+      labelKey: "aboutStackServer",
+      tools: [
+        { id: "hono", name: "Hono" },
+        { id: "effect", name: "Effect" },
+      ],
+    },
+    {
+      id: "data",
+      labelKey: "aboutStackData",
+      tools: [
+        { id: "prisma", name: "Prisma" },
+        { id: "drizzle", name: "Drizzle" },
+        { id: "postgresql", name: "PostgreSQL" },
+      ],
+    },
+    {
+      id: "platform",
+      labelKey: "aboutStackPlatform",
+      tools: [
+        { id: "cloudflare", name: "Cloudflare" },
+        { id: "vercel", name: "Vercel" },
+        { id: "docker", name: "Docker" },
+        { id: "opentelemetry", name: "OpenTelemetry" },
+      ],
+    },
+    {
+      id: "testing",
+      labelKey: "aboutStackTesting",
+      tools: [
+        { id: "vitest", name: "Vitest" },
+        { id: "playwright", name: "Playwright" },
+      ],
+    },
+    {
+      id: "ai",
+      labelKey: "aboutStackAi",
+      tools: [
+        { id: "claude-code", name: "Claude Code" },
+        { id: "cursor", name: "Cursor" },
+      ],
+    },
+  ],
+} as const satisfies {
+  spine: { labelKey: TechLayer["labelKey"]; tool: Tech };
+  layers: TechLayer[];
+};
+
 /** A Translation Key for work experience copy in `messages/*.json`. */
 type ExperienceKey = Extract<keyof Messages, `experience${string}`>;
 

@@ -1,5 +1,5 @@
-import { TagIcon } from "@heroicons/react/24/outline";
 import { getTranslations } from "next-intl/server";
+import { HiOutlineTag } from "react-icons/hi2";
 import { twMerge } from "tailwind-merge";
 
 import type { Project } from "@/project/utils/project-source";
@@ -24,7 +24,8 @@ export const ProjectMeta = async ({
         className
       )}
     >
-      <TagIcon
+      <HiOutlineTag
+        data-slot="icon"
         aria-hidden="true"
         className="mr-1.5 inline size-3.5 shrink-0 align-[-0.125em]"
       />

@@ -1,9 +1,9 @@
 "use client";
 
-import { ArrowsRightLeftIcon } from "@heroicons/react/24/outline";
 import { useLocale, useTranslations } from "next-intl";
 import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
+import { HiOutlineArrowsRightLeft } from "react-icons/hi2";
 import { twMerge } from "tailwind-merge";
 
 import { IdBadgeSignature } from "@/portfolio/components/id-badge-signature";
@@ -230,7 +230,11 @@ export const IdBadge = ({
         aria-hidden="true"
         className="text-muted-fg mt-5 flex items-center justify-center gap-1.5 font-mono text-xs/5"
       >
-        <ArrowsRightLeftIcon className="size-3.5 shrink-0" />
+        <HiOutlineArrowsRightLeft
+          aria-hidden="true"
+          data-slot="icon"
+          className="size-3.5 shrink-0"
+        />
         {t("aboutIdCardHint")}
       </p>
     </div>
