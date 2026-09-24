@@ -1,4 +1,5 @@
 import { postMarkdownPath } from "@/post/utils/slug";
+import { projectMarkdownPath } from "@/project/utils/project-path";
 
 /** One entry of an llms.txt file list: a link and an optional note. */
 interface LlmsTxtLink {
@@ -19,7 +20,7 @@ export interface LlmsTxtInput {
   summary: string;
   pages: readonly LlmsTxtLink[];
   posts: readonly { slug: string; title: string; summary: string }[];
-  projects: readonly { title: string; description: string; href: string }[];
+  projects: readonly { slug: string; title: string; description: string }[];
   /** Secondary links an agent can skip when it needs a shorter context. */
   optional: readonly LlmsTxtLink[];
 }
@@ -45,7 +46,8 @@ const section = (
 /**
  * The site's `/llms.txt`, in the format of https://llmstxt.org: an H1, a
  * blockquote summary, prose, and H2 file lists, with `Optional` last. Post
- * links go to the Post Markdown, because an agent reads it better than HTML.
+ * and Project links go to their Markdown, because an agent reads it better
+ * than HTML.
  */
 export const buildLlmsTxt = ({
   baseUrl,
@@ -65,7 +67,7 @@ export const buildLlmsTxt = ({
     [
       `Base URL: ${origin}`,
       "",
-      "Every Post has a Markdown version: add `.md` to its URL (`/posts/<slug>` → `/posts/<slug>.md`). The Post links below go to the Markdown version.",
+      "Every Post and Project has a Markdown version: add `.md` to its URL (`/posts/<slug>` → `/posts/<slug>.md`, `/projects/<slug>` → `/projects/<slug>.md`). The Post and Project links below go to the Markdown version.",
     ].join("\n"),
     ...section(baseUrl, "Pages", pages),
     ...section(
@@ -82,7 +84,7 @@ export const buildLlmsTxt = ({
       "Projects",
       projects.map((project) => ({
         name: project.title,
-        href: project.href,
+        href: projectMarkdownPath(project.slug),
         note: project.description,
       }))
     ),

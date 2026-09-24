@@ -21,9 +21,9 @@ const input: LlmsTxtInput = {
   ],
   projects: [
     {
+      slug: "signal-kit",
       title: "Signal Kit",
       description: "Accessible components.",
-      href: "https://github.com/jane/signal-kit",
     },
   ],
   optional: [{ name: "Sitemap", href: "/sitemap.xml" }],
@@ -41,7 +41,7 @@ describe("buildLlmsTxt", () => {
         "",
         "Base URL: https://example.com",
         "",
-        "Every Post has a Markdown version: add `.md` to its URL (`/posts/<slug>` → `/posts/<slug>.md`). The Post links below go to the Markdown version.",
+        "Every Post and Project has a Markdown version: add `.md` to its URL (`/posts/<slug>` → `/posts/<slug>.md`, `/projects/<slug>` → `/projects/<slug>.md`). The Post and Project links below go to the Markdown version.",
         "",
         "## Pages",
         "",
@@ -54,7 +54,7 @@ describe("buildLlmsTxt", () => {
         "",
         "## Projects",
         "",
-        "- [Signal Kit](https://github.com/jane/signal-kit): Accessible components.",
+        "- [Signal Kit](https://example.com/projects/signal-kit.md): Accessible components.",
         "",
         "## Optional",
         "",
@@ -67,10 +67,12 @@ describe("buildLlmsTxt", () => {
   it("escapes brackets in link text", () => {
     const text = buildLlmsTxt({
       ...input,
-      projects: [{ title: "[Synthetic] Kit", description: "x", href: "/k" }],
+      projects: [{ slug: "kit", title: "[Synthetic] Kit", description: "x" }],
     });
 
-    expect(text).toContain("- [\\[Synthetic\\] Kit](https://example.com/k): x");
+    expect(text).toContain(
+      "- [\\[Synthetic\\] Kit](https://example.com/projects/kit.md): x"
+    );
   });
 
   it("leaves out a section that has no links", () => {

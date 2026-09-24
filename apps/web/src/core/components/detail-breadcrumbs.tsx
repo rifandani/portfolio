@@ -10,15 +10,23 @@ import { Breadcrumbs, BreadcrumbsItem } from "@/core/components/ui/breadcrumbs";
  */
 const crumbClass = "text-muted-fg shrink-0 text-sm/6 [&_a:hover]:text-fg";
 
+/** The index each detail page belongs to, and the Translation Key of its name. */
+const PARENTS = {
+  "/posts": "siteNavPosts",
+  "/projects": "siteNavProjects",
+} as const;
+
 /**
- * The trail above a Post Detail: Posts › the Post. The last crumb is
- * the current page (`aria-current="page"`, not a link). It truncates to one
- * line, because the full title is the `h1` right below it.
+ * The trail above a Post Detail or a Project Detail: the index › the entry.
+ * The last crumb is the current page (`aria-current="page"`, not a link). It
+ * truncates to one line, because the full title is the `h1` right below it.
  */
-export const PostBreadcrumbs = async ({
+export const DetailBreadcrumbs = async ({
+  parent,
   title,
   className,
 }: {
+  parent: keyof typeof PARENTS;
   title: string;
   className?: string;
 }) => {
@@ -28,8 +36,8 @@ export const PostBreadcrumbs = async ({
     <nav aria-label={label} className={twMerge("flex", className)}>
       {/* React Aria labels the list too, in English unless told otherwise. */}
       <Breadcrumbs aria-label={label} className="min-w-0">
-        <BreadcrumbsItem href="/posts" className={crumbClass}>
-          {t("siteNavPosts")}
+        <BreadcrumbsItem href={parent} className={crumbClass}>
+          {t(PARENTS[parent])}
         </BreadcrumbsItem>
         <BreadcrumbsItem
           className={twMerge(

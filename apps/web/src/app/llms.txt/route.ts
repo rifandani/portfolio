@@ -4,13 +4,13 @@ import {
   socialLinks,
 } from "@/portfolio/constants/portfolio";
 import { getPosts } from "@/post/services/posts";
-import { projectEntries } from "@/project/constants/projects";
+import { getProjects } from "@/project/services/projects";
 
 // llms.txt has one language, like a Post, so it reads the English Message Catalog directly.
 import messages from "../../../messages/en.json";
 import { buildLlmsTxt } from "./llms-txt";
 
-/** Post Sources and constants are known at build time, so prerender it. */
+/** Post Sources and Project Sources are known at build time, so prerender it. */
 // fallow-ignore-next-line unused-export -- Next.js reads it from a route handler to prerender it
 export const dynamic = "force-static";
 
@@ -40,12 +40,12 @@ export const GET = () =>
         { name: messages.postsPageTitle, href: "/posts", note: "All posts" },
       ],
       posts: getPosts(),
-      projects: projectEntries,
+      projects: getProjects(),
       optional: [
         {
           name: "Markdown sitemap",
           href: "/sitemap.md",
-          note: "Every public page and Post, as Markdown",
+          note: "Every public page, Post, and Project, as Markdown",
         },
         {
           name: "XML sitemap",

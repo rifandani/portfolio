@@ -14,14 +14,21 @@ const input = {
       title: "[Synthetic] Clarity over complexity",
     },
   ],
+  projects: [
+    {
+      slug: "signal-kit",
+      description: "Accessible component patterns.",
+      title: "[Synthetic] Signal Kit",
+    },
+  ],
 };
 
 describe("sitemapMarkdown", () => {
-  it("lists discovery files, pages, and Posts with their Post Markdown", () => {
+  it("lists discovery files, pages, Posts, and Projects with their Markdown", () => {
     expect(sitemapMarkdown(input)).toMatchInlineSnapshot(`
       "# Portfolio sitemap
 
-      Every public page of this site. Each post is also available as plain Markdown: add \`.md\` to its URL.
+      Every public page of this site. Each post and project is also available as plain Markdown: add \`.md\` to its URL.
 
       ## Discovery
 
@@ -39,6 +46,10 @@ describe("sitemapMarkdown", () => {
       ## Posts
 
       - [\\[Synthetic\\] Clarity over complexity](https://web.portfolio.localhost/posts/clarity-over-complexity) — Why restrained UI systems help. (2024-05-12) · [Markdown](https://web.portfolio.localhost/posts/clarity-over-complexity.md)
+
+      ## Projects
+
+      - [\\[Synthetic\\] Signal Kit](https://web.portfolio.localhost/projects/signal-kit) — Accessible component patterns. · [Markdown](https://web.portfolio.localhost/projects/signal-kit.md)
       "
     `);
   });
@@ -46,6 +57,12 @@ describe("sitemapMarkdown", () => {
   it("says so when there are no Posts", () => {
     expect(sitemapMarkdown({ ...input, posts: [] })).toContain(
       "## Posts\n\nNo posts yet.\n"
+    );
+  });
+
+  it("says so when there are no Projects", () => {
+    expect(sitemapMarkdown({ ...input, projects: [] })).toContain(
+      "## Projects\n\nNo projects yet.\n"
     );
   });
 });

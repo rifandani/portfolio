@@ -1,22 +1,20 @@
 import type {
   BlockNode,
-  CodeBlockNode,
   InlineNode,
   MarkdownDocument,
-  ParseOptions,
 } from "@tanstack/markdown";
-import { parseMarkdown } from "@tanstack/markdown/parser";
-import { parse as parseYaml } from "yaml";
 import { z } from "zod";
 
-import { codeBlockProblems, readableCode } from "@/post/utils/highlighter";
-import { toSlug } from "@/post/utils/slug";
+import { readableCode } from "@/post/utils/highlighter";
+import {
+  markdownExportOf,
+  parseMarkdownSource,
+  slugSchema,
+} from "@/post/utils/markdown-source";
+import type { MarkdownSourceFile } from "@/post/utils/markdown-source";
 
 /** One Post Source file as read from disk. */
-export interface PostSourceFile {
-  path: string;
-  text: string;
-}
+export type PostSourceFile = MarkdownSourceFile;
 
 export interface Post {
   slug: string;
@@ -32,24 +30,10 @@ export interface Post {
   markdown: string;
 }
 
-/**
- * Only the built-in syntax profile, with the library's safe defaults: raw HTML
- * stays escaped text and the default URL policy drops script URLs (ADR-0004).
- */
-const PARSE_OPTIONS = {
-  frontmatter: true,
-  headingIds: true,
-} as const satisfies ParseOptions;
-
 const WORDS_PER_MINUTE = 200;
 
 const frontmatterSchema = z.object({
-  slug: z
-    .string()
-    .min(1)
-    .refine((slug) => toSlug(slug) === slug, {
-      message: "must be lowercase words joined by single hyphens (ADR-0005)",
-    }),
+  slug: slugSchema,
   title: z.string().min(1),
   summary: z.string().min(1),
   publishedAt: z.iso.date(),
@@ -111,53 +95,6 @@ const blockText = (node: BlockNode): string[] => {
   }
 };
 
-/** Every Code Block in a block node, nested ones too. */
-const codeBlocksOf = (node: BlockNode): CodeBlockNode[] => {
-  switch (node.type) {
-    case "code": {
-      return [node];
-    }
-    case "list":
-    case "footnotes": {
-      return node.items.flatMap((item) => item.children.flatMap(codeBlocksOf));
-    }
-    case "blockquote":
-    case "callout":
-    case "component": {
-      return node.children.flatMap(codeBlocksOf);
-    }
-    default: {
-      return [];
-    }
-  }
-};
-
-/**
- * The Post Source text after its frontmatter. It follows the frontmatter rule
- * of the pinned `parseMarkdown` (ADR-0004): it drops a BOM, makes all line
- * ends LF, and cuts at the first `---` line after a `---` first line.
- */
-const bodyOf = (text: string) => {
-  const lines = text
-    .replace(/^\uFEFF/u, "")
-    .replaceAll(/\r\n?/gu, "\n")
-    .split("\n");
-  const end = lines[0] === "---" ? lines.indexOf("---", 1) : -1;
-  return lines
-    .slice(end + 1)
-    .join("\n")
-    .replace(/^(?:[ \t]*\n)+/u, "");
-};
-
-/**
- * Post Markdown is an export, not a view: the Post Source text as written,
- * not made again from the Post Document (ADR-0004).
- */
-const postMarkdownOf = (
-  text: string,
-  { title, summary }: Pick<Post, "title" | "summary">
-) => `# ${title}\n\n${summary}\n\n${bodyOf(text)}`;
-
 const readingMinutesOf = (document: MarkdownDocument) => {
   const text = document.children.flatMap(blockText);
   const words = text.join(" ").split(/\s+/u).filter(Boolean).length;
@@ -169,29 +106,17 @@ const readingMinutesOf = (document: MarkdownDocument) => {
  * frontmatter is missing or invalid or a Code Block cannot render as written,
  * so a bad Post Source stops the build.
  */
-export const parsePostSource = ({ path, text }: PostSourceFile): Post => {
-  const document = parseMarkdown(text, PARSE_OPTIONS);
-  const result = frontmatterSchema.safeParse(
-    parseYaml(document.frontmatter ?? "") ?? {}
+export const parsePostSource = (file: PostSourceFile): Post => {
+  const { data, document, body } = parseMarkdownSource(
+    file,
+    frontmatterSchema,
+    "Post Source"
   );
-  if (!result.success) {
-    throw new Error(
-      `Invalid Post Source ${path}:\n${z.prettifyError(result.error)}`
-    );
-  }
-  const problems: string[] = [];
-  for (const block of document.children.flatMap(codeBlocksOf)) {
-    problems.push(...codeBlockProblems(block));
-  }
-  if (problems.length > 0) {
-    throw new Error(
-      `Invalid Code Block in Post Source ${path}:\n${problems.map((problem) => `- ${problem}`).join("\n")}`
-    );
-  }
   return {
-    ...result.data,
+    ...data,
     readingMinutes: readingMinutesOf(document),
     document,
-    markdown: postMarkdownOf(text, result.data),
+    // Post Markdown: an export, not a view (ADR-0004).
+    markdown: markdownExportOf(data.title, data.summary, body),
   };
 };

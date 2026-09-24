@@ -1,11 +1,14 @@
 import type { Post } from "@/post/utils/post-source";
 import { postMarkdownPath, postPath } from "@/post/utils/slug";
+import { projectMarkdownPath, projectPath } from "@/project/utils/project-path";
+import type { Project } from "@/project/utils/project-source";
 
 interface SitemapMarkdownInput {
   appTitle: string;
   appUrl: string;
   pageRoutes: readonly string[];
   posts: readonly Pick<Post, "slug" | "title" | "summary" | "publishedAt">[];
+  projects: readonly Pick<Project, "slug" | "title" | "description">[];
 }
 
 /** Link text ends at the first `]`, so a title like "[Synthetic] …" must escape it. */
@@ -25,14 +28,15 @@ const pageName = (route: string) =>
         .join(" / ");
 
 /**
- * The sitemap as Markdown, for readers and Assistants: each public page and
- * each Post, with a link to the Post Markdown of each Post.
+ * The sitemap as Markdown, for readers and Assistants: each public page, each
+ * Post, and each Project, with a link to the Markdown of each Post and Project.
  */
 export const sitemapMarkdown = ({
   appTitle,
   appUrl,
   pageRoutes,
   posts,
+  projects,
 }: SitemapMarkdownInput) => {
   const url = (route: string) => new URL(route, appUrl).href;
   const postLines =
@@ -42,10 +46,17 @@ export const sitemapMarkdown = ({
             `- [${escapeLinkText(post.title)}](${url(postPath(post.slug))}) — ${post.summary} (${post.publishedAt}) · [Markdown](${url(postMarkdownPath(post.slug))})`
         )
       : ["No posts yet."];
+  const projectLines =
+    projects.length > 0
+      ? projects.map(
+          (project) =>
+            `- [${escapeLinkText(project.title)}](${url(projectPath(project.slug))}) — ${project.description} · [Markdown](${url(projectMarkdownPath(project.slug))})`
+        )
+      : ["No projects yet."];
   return [
     `# ${appTitle} sitemap`,
     "",
-    "Every public page of this site. Each post is also available as plain Markdown: add `.md` to its URL.",
+    "Every public page of this site. Each post and project is also available as plain Markdown: add `.md` to its URL.",
     "",
     "## Discovery",
     "",
@@ -61,6 +72,10 @@ export const sitemapMarkdown = ({
     "## Posts",
     "",
     ...postLines,
+    "",
+    "## Projects",
+    "",
+    ...projectLines,
     "",
   ].join("\n");
 };

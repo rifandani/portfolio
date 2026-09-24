@@ -54,7 +54,7 @@ Web app.
 
 **Work Card**: A Content Card for one role in the work history. Static — a role has no destination. _Avoid_: experience item, job card, channel row
 
-**Project Card**: A Content Card for one project. The whole card is one link. _Avoid_: portfolio item, showcase tile
+**Project Card**: A Content Card for one Project. The whole card is one link, to its Project Detail. _Avoid_: portfolio item, showcase tile
 
 **Post Card**: A Content Card for one piece of writing. Carries the wide OG image the other two do not. _Avoid_: article card, blog row, entry
 
@@ -84,7 +84,7 @@ Web app.
 
 **Assistant Handoff**: Opening an Assistant with a prompt that points it at the address of one Post's Post Markdown, so the reader can ask questions about that Post. The prompt carries the address, not the text. _Avoid_: share to AI, ask AI, LLM link, deep link
 
-**Slug**: The URL-friendly name of one Post. It is made from the title one time and then it does not change. _Avoid_: permalink, handle, post id, path
+**Slug**: The URL-friendly name of one Post or one Project. It is made from the title one time and then it does not change. _Avoid_: permalink, handle, post id, path
 
 **Post Detail**: The Public Site page that shows one full Post at its Slug. _Avoid_: article page, post page, blog detail
 
@@ -93,3 +93,19 @@ Web app.
 **Code Block**: A fenced block of code in a Post, in one named language or in none. Its colors come from the page theme, so it has one form in all themes. _Avoid_: snippet, code sample, fence, pre
 
 **Code Annotation**: A mark in a Code Block that points the reader at a part of the code: some lines (highlighted, inserted, deleted, focused, error, warning), or each match of one exact term. _Avoid_: decoration, highlight, callout
+
+### Projects
+
+**Project**: One piece of work on the Public Site. Like a Post, it has one language, and all Locales show the same text. _Avoid_: portfolio item, work, repo, case study
+
+**Project Source**: The written file of one Project — its metadata and its Markdown text, in `src/project/content`. It follows the Post Source rules (ADR-0004, ADR-0005). _Avoid_: md file, content file, project entry
+
+**Tags**: The technologies of one Project, in the order its Project Source gives them. On a Project Detail they take the place of the publish date and the reading time of a Post. _Avoid_: stack, labels, badges, keywords
+
+**Project Order**: The `order` number of a Project in its Project Source. A lower number comes first in every Project list and in the Project Pager. Two Projects cannot have the same number. _Avoid_: rank, priority, weight, date
+
+**Project Detail**: The Public Site page that shows one full Project at its Slug (`/projects/{slug}`). It has the parts of a Post Detail: Page Actions, Share Actions, an outline, and a pager. _Avoid_: project page, case study page
+
+**Project Markdown**: The Markdown text a reader copies from a Project Detail: the title as a heading, the description, and the Project Source text without its metadata. Its address is the Project Detail address plus `.md`. _Avoid_: raw markdown, page markdown
+
+**Project Pager**: The two links at the end of a Project Detail to the Projects beside it in Project Order. The first Project has no previous Project, and the last has no next Project. _Avoid_: pagination, prev/next, related projects

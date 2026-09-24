@@ -6,7 +6,7 @@ import { Heading } from "@/core/components/ui/heading";
 import { Text } from "@/core/components/ui/text";
 import { createMetadata } from "@/core/utils/seo";
 import { ProjectCard } from "@/project/components/project-card";
-import { projectEntries } from "@/project/constants/projects";
+import { getProjects } from "@/project/services/projects";
 
 export const metadata = createMetadata({
   title: "Projects",
@@ -26,9 +26,9 @@ export default async function ProjectsPage() {
         </Text>
 
         <ul className="mt-10 flex flex-col gap-4">
-          {projectEntries.map((entry) => (
-            <li key={entry.id}>
-              <ProjectCard entry={entry} />
+          {getProjects().map((project) => (
+            <li key={project.slug}>
+              <ProjectCard project={project} />
             </li>
           ))}
         </ul>

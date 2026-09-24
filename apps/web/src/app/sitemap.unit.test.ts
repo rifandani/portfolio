@@ -16,8 +16,12 @@ vi.mock("@/post/services/posts", () => ({
   ],
 }));
 
+vi.mock("@/project/services/projects", () => ({
+  getProjects: () => [{ slug: "signal-kit" }],
+}));
+
 describe("sitemap", () => {
-  it("maps page routes and each Post Detail to absolute URLs", () => {
+  it("maps page routes, each Post Detail, and each Project Detail to absolute URLs", () => {
     expect(sitemap()).toEqual([
       { url: "https://web.portfolio.localhost/" },
       { url: "https://web.portfolio.localhost/about" },
@@ -25,6 +29,7 @@ describe("sitemap", () => {
         lastModified: "2024-05-12",
         url: "https://web.portfolio.localhost/posts/clarity-over-complexity",
       },
+      { url: "https://web.portfolio.localhost/projects/signal-kit" },
     ]);
   });
 });

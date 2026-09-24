@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { getTranslations } from "next-intl/server";
 import Image from "next/image";
 import { notFound } from "next/navigation";
-import type { BlogPosting, BreadcrumbList } from "schema-dts";
+import type { BreadcrumbList, CreativeWork } from "schema-dts";
 
 import { DetailBreadcrumbs } from "@/core/components/detail-breadcrumbs";
 import { SiteContainer } from "@/core/components/site-container";
@@ -13,53 +13,59 @@ import { createMetadata, JsonLd } from "@/core/utils/seo";
 import { portfolioIdentity } from "@/portfolio/constants/portfolio";
 import { PageActions } from "@/post/components/page-actions.client";
 import { PostDocument } from "@/post/components/post-document";
-import { PostMeta } from "@/post/components/post-meta";
 import { PostOutline } from "@/post/components/post-outline.client";
-import { PostPager } from "@/post/components/post-pager";
 import { ShareActions } from "@/post/components/share-actions.client";
-import { getPost, getPosts } from "@/post/services/posts";
-import { adjacentPosts } from "@/post/utils/post-collection";
 import { outlineOf, POST_TITLE_ID } from "@/post/utils/post-outline";
-import { postMarkdownPath, postPath } from "@/post/utils/slug";
+import { ProjectMeta } from "@/project/components/project-meta";
+import { ProjectPager } from "@/project/components/project-pager";
+import { getProject, getProjects } from "@/project/services/projects";
+import { adjacentProjects } from "@/project/utils/project-collection";
+import { projectMarkdownPath, projectPath } from "@/project/utils/project-path";
 
 /** Every Slug is known at build time; any other Slug is a 404. */
 export const dynamicParams = false;
 
 export const generateStaticParams = () =>
-  getPosts().map((post) => ({ slug: post.slug }));
+  getProjects().map((project) => ({ slug: project.slug }));
 
 /** Absolute, because an Assistant fetches it from outside the site. */
 const markdownUrlOf = (slug: string) =>
-  new URL(postMarkdownPath(slug), ENV.NEXT_PUBLIC_APP_URL).href;
+  new URL(projectMarkdownPath(slug), ENV.NEXT_PUBLIC_APP_URL).href;
 
-const findPost = async (params: PageProps<"/posts/[slug]">["params"]) => {
+const findProject = async (params: PageProps<"/projects/[slug]">["params"]) => {
   const { slug } = await params;
-  return getPost(slug) ?? notFound();
+  return getProject(slug) ?? notFound();
 };
 
 export const generateMetadata = async ({
   params,
-}: PageProps<"/posts/[slug]">): Promise<Metadata> => {
-  const post = await findPost(params);
+}: PageProps<"/projects/[slug]">): Promise<Metadata> => {
+  const project = await findProject(params);
   return createMetadata({
-    title: post.title,
-    description: post.summary,
-    openGraph: { type: "article", publishedTime: post.publishedAt },
-    alternates: { types: { "text/markdown": markdownUrlOf(post.slug) } },
+    title: project.title,
+    description: project.description,
+    alternates: { types: { "text/markdown": markdownUrlOf(project.slug) } },
   });
 };
 
-export default async function PostDetailPage({
+/**
+ * The Project Detail. It has the form of the Post Detail, but the Meta line
+ * shows the tags of the Project, not a publish date and a reading time.
+ */
+export default async function ProjectDetailPage({
   params,
-}: PageProps<"/posts/[slug]">) {
-  const [t, post] = await Promise.all([getTranslations(), findPost(params)]);
-  const { previous, next } = adjacentPosts(getPosts(), post.slug);
-  const url = new URL(postPath(post.slug), ENV.NEXT_PUBLIC_APP_URL).href;
-  const blogPosting: BlogPosting = {
-    "@type": "BlogPosting",
-    headline: post.title,
-    description: post.summary,
-    datePublished: post.publishedAt,
+}: PageProps<"/projects/[slug]">) {
+  const [t, project] = await Promise.all([
+    getTranslations(),
+    findProject(params),
+  ]);
+  const { previous, next } = adjacentProjects(getProjects(), project.slug);
+  const url = new URL(projectPath(project.slug), ENV.NEXT_PUBLIC_APP_URL).href;
+  const creativeWork: CreativeWork = {
+    "@type": "CreativeWork",
+    name: project.title,
+    description: project.description,
+    keywords: project.tags.join(", "),
     url,
     author: { "@type": "Person", name: portfolioIdentity.fullName },
   };
@@ -67,31 +73,31 @@ export default async function PostDetailPage({
     "@type": "BreadcrumbList",
     itemListElement: [
       {
-        name: t("siteNavPosts"),
-        item: new URL("/posts", ENV.NEXT_PUBLIC_APP_URL).href,
+        name: t("siteNavProjects"),
+        item: new URL("/projects", ENV.NEXT_PUBLIC_APP_URL).href,
       },
-      { name: post.title, item: url },
+      { name: project.title, item: url },
     ].map((crumb, index) => ({
       "@type": "ListItem",
       position: index + 1,
       ...crumb,
     })),
   };
-  const outline = outlineOf(post.document);
+  const outline = outlineOf(project.document);
   return (
     <SiteShell>
-      <JsonLd graphs={[blogPosting, breadcrumbList]} />
+      <JsonLd graphs={[creativeWork, breadcrumbList]} />
       <SiteContainer className="py-16 sm:py-24">
         <article>
-          <DetailBreadcrumbs parent="/posts" title={post.title} />
+          <DetailBreadcrumbs parent="/projects" title={project.title} />
           <header className="mt-6">
             <div className="flex flex-wrap items-center justify-between gap-x-6 gap-y-3">
-              <PostMeta post={post} />
+              <ProjectMeta project={project} />
               <div className="flex flex-wrap items-center gap-2">
-                <ShareActions url={url} title={post.title} />
+                <ShareActions url={url} title={project.title} />
                 <PageActions
-                  markdown={post.markdown}
-                  markdownUrl={markdownUrlOf(post.slug)}
+                  markdown={project.markdown}
+                  markdownUrl={markdownUrlOf(project.slug)}
                 />
               </div>
             </div>
@@ -100,14 +106,14 @@ export default async function PostDetailPage({
               id={POST_TITLE_ID}
               className="mt-6 scroll-mt-20 text-3xl/10 outline-none sm:text-4xl/12"
             >
-              {post.title}
+              {project.title}
             </Heading>
             <p className="text-muted-fg mt-4 text-lg/8 text-pretty">
-              {post.summary}
+              {project.description}
             </p>
             <Image
-              src={post.ogImageSrc}
-              alt={post.ogImageAlt}
+              src={project.previewSrc}
+              alt={project.previewAlt}
               width={1200}
               height={630}
               className="border-border mt-8 aspect-1200/630 w-full rounded-lg border object-cover"
@@ -119,16 +125,16 @@ export default async function PostDetailPage({
             {outline.length > 0 && (
               <PostOutline
                 entries={[
-                  { id: POST_TITLE_ID, text: post.title, level: 2 },
+                  { id: POST_TITLE_ID, text: project.title, level: 2 },
                   ...outline,
                 ]}
                 className="mb-10 lg:order-last lg:mb-0"
               />
             )}
-            <PostDocument document={post.document} />
+            <PostDocument document={project.document} />
           </div>
         </article>
-        <PostPager previous={previous} next={next} className="mt-24" />
+        <ProjectPager previous={previous} next={next} className="mt-24" />
       </SiteContainer>
     </SiteShell>
   );
