@@ -121,6 +121,17 @@ describe("parsePostSource", () => {
     expect(post.readingMinutes).toBe(2);
   });
 
+  it("counts the words in a callout", () => {
+    const padding = Array.from({ length: 199 }, () => "word").join(" ");
+
+    const post = parsePostSource(
+      source(`${FRONTMATTER}\n\n${padding}\n\n> [!NOTE]\n> callout\n`)
+    );
+
+    // 200 words plus the callout word: a missed callout shows as 1 minute.
+    expect(post.readingMinutes).toBe(2);
+  });
+
   it("does not count diff notes in code as words", () => {
     const prose = Array.from({ length: 199 }, () => "word").join(" ");
 

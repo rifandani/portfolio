@@ -1,6 +1,10 @@
 import { describe, expect, it } from "vitest";
 
-import { assistantHandoffUrl, assistants } from "./assistant-handoff";
+import {
+  assistantHandoffUrl,
+  assistantName,
+  assistants,
+} from "./assistant-handoff";
 
 const PROMPT =
   "Read https://example.com/posts/clarity.md, I want to ask questions about it.";
@@ -36,5 +40,16 @@ describe("assistantHandoffUrl", () => {
     expect(parts(assistantHandoffUrl("claude", prompt)).params).toEqual({
       q: prompt,
     });
+  });
+});
+
+describe("assistantName", () => {
+  it("names each Assistant for the menu, in menu order", () => {
+    expect(assistants.map(assistantName)).toEqual([
+      "Claude",
+      "ChatGPT",
+      "T3 Chat",
+      "Cursor",
+    ]);
   });
 });

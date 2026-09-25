@@ -103,13 +103,13 @@ export type TechId =
   | "claude-code"
   | "cursor";
 
-export interface Tech {
+interface Tech {
   id: TechId;
   /** The tool's own name. It is not translated. */
   name: string;
 }
 
-export interface TechLayer {
+interface TechLayer {
   id: string;
   labelKey: Extract<keyof Messages, `aboutStack${string}`>;
   tools: Tech[];

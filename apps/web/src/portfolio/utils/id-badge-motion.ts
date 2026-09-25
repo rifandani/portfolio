@@ -216,18 +216,34 @@ export const mountBadgeMotion = (
     };
   };
 
+  /** A fine pointer at rest on the card leans it a little toward itself. */
+  const onHover = (event: PointerEvent) => {
+    if (event.pointerType !== "mouse" || reducedMotion) {
+      return;
+    }
+    const rect = stage.getBoundingClientRect();
+    const px = (event.clientX - rect.left) / rect.width - 0.5;
+    const py = (event.clientY - rect.top) / rect.height - 0.5;
+    lean.target = px * 16;
+    tilt.target = py * -10;
+    wake();
+  };
+
+  /** Blend the drag's angular speed, and return its linear speed in px/s. */
+  const trackDrag = (current: Drag, event: PointerEvent) => {
+    const dt = Math.max(event.timeStamp - current.lastTime, 1) / 1000;
+    const angular = (spin.x - current.lastAngle) / dt;
+    const linear = (event.clientX - current.lastX) / dt;
+    current.velocity = current.velocity * 0.4 + angular * 0.6;
+    current.lastAngle = spin.x;
+    current.lastX = event.clientX;
+    current.lastTime = event.timeStamp;
+    return linear;
+  };
+
   const onPointerMove = (event: PointerEvent) => {
     if (!drag) {
-      // A fine pointer at rest on the card leans it a little toward itself.
-      if (event.pointerType !== "mouse" || reducedMotion) {
-        return;
-      }
-      const rect = stage.getBoundingClientRect();
-      const px = (event.clientX - rect.left) / rect.width - 0.5;
-      const py = (event.clientY - rect.top) / rect.height - 0.5;
-      lean.target = px * 16;
-      tilt.target = py * -10;
-      wake();
+      onHover(event);
       return;
     }
     if (event.pointerId !== drag.pointerId) {
@@ -250,24 +266,18 @@ export const mountBadgeMotion = (
     spin.x = drag.startAngle + dx * drag.degreesPerPx;
     spin.target = spin.x;
     lean.target = 0;
-    tilt.target = reducedMotion ? 0 : clamp(dy * -0.12, -14, 14);
-
-    const dt = Math.max(event.timeStamp - drag.lastTime, 1) / 1000;
-    const angular = (spin.x - drag.lastAngle) / dt;
-    const linear = (event.clientX - drag.lastX) / dt;
-    drag.velocity = drag.velocity * 0.4 + angular * 0.6;
-    drag.lastAngle = spin.x;
-    drag.lastX = event.clientX;
-    drag.lastTime = event.timeStamp;
-
-    // The card trails the hand: a fast drag right swings the bottom left.
-    swingSpring.target = reducedMotion ? 0 : clamp(linear * -0.004, -7, 7);
+    const linear = trackDrag(drag, event);
 
     if (reducedMotion) {
+      tilt.target = 0;
+      swingSpring.target = 0;
       render();
-    } else {
-      wake();
+      return;
     }
+    tilt.target = clamp(dy * -0.12, -14, 14);
+    // The card trails the hand: a fast drag right swings the bottom left.
+    swingSpring.target = clamp(linear * -0.004, -7, 7);
+    wake();
   };
 
   const release = (event: PointerEvent) => {

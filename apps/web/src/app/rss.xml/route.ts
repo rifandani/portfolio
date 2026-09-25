@@ -7,7 +7,6 @@ import messages from "../../../messages/en.json";
 import { buildRssFeed } from "./rss-feed";
 
 /** Post Sources are known at build time, so prerender it. */
-// fallow-ignore-next-line unused-export -- Next.js reads it from a route handler to prerender it
 export const dynamic = "force-static";
 
 export const GET = () =>

@@ -2,7 +2,7 @@ import fs from "node:fs";
 import os from "node:os";
 import path from "node:path";
 
-import { afterEach, describe, expect, it } from "vitest";
+import { afterEach, describe, expect, it, vi } from "vitest";
 
 import { collectPageRoutes } from "./page-routes";
 
@@ -54,5 +54,30 @@ describe("collectPageRoutes", () => {
     fs.writeFileSync(path.join(tmp, "page.ts"), "");
 
     expect(collectPageRoutes(tmp)).toEqual(["/"]);
+  });
+});
+
+describe("pageRoutes", () => {
+  let tmp: string;
+
+  afterEach(() => {
+    vi.restoreAllMocks();
+    vi.resetModules();
+    fs.rmSync(tmp, { force: true, recursive: true });
+  });
+
+  it("reads `src/app` under the working directory and sorts the routes", async () => {
+    tmp = fs.mkdtempSync(path.join(os.tmpdir(), "page-routes-"));
+    const app = path.join(tmp, "src", "app");
+    for (const dir of ["", "posts", "about"]) {
+      fs.mkdirSync(path.join(app, dir), { recursive: true });
+      fs.writeFileSync(path.join(app, dir, "page.tsx"), "");
+    }
+    vi.spyOn(process, "cwd").mockReturnValue(tmp);
+    vi.resetModules();
+
+    const { pageRoutes } = await import("./page-routes");
+
+    expect(pageRoutes()).toEqual(["/", "/about", "/posts"]);
   });
 });

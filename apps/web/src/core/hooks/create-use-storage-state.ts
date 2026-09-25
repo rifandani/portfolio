@@ -76,7 +76,9 @@ const readStoredValue = <T>(
  * @param getStorage Function that returns the storage object to use (localStorage or sessionStorage)
  * @returns A hook that manages state with the specified storage
  */
-const createUseStorageState = (getStorage: () => Storage | undefined) => {
+export const createUseStorageState = (
+  getStorage: () => Storage | undefined
+) => {
   /**
    * Custom hook for managing state that persists in browser storage
    * @param key Storage key to store/retrieve the value

@@ -7,7 +7,7 @@ import { useLayoutEffect, useRef } from "react";
  * render-pure: readers in effects, event handlers and timers still observe the
  * value committed for the current render.
  */
-const useLatest = <T>(value: T) => {
+export const useLatest = <T>(value: T) => {
   const ref = useRef(value);
   useLayoutEffect(() => {
     ref.current = value;

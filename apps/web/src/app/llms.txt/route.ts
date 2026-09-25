@@ -11,7 +11,6 @@ import messages from "../../../messages/en.json";
 import { buildLlmsTxt } from "./llms-txt";
 
 /** Post Sources and Project Sources are known at build time, so prerender it. */
-// fallow-ignore-next-line unused-export -- Next.js reads it from a route handler to prerender it
 export const dynamic = "force-static";
 
 export const GET = () =>

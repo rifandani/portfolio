@@ -1,6 +1,6 @@
 import { describe, expect, it } from "vitest";
 
-import { networks, shareIntentUrl } from "./share-intent";
+import { networkName, networks, shareIntentUrl } from "./share-intent";
 
 const POST = {
   url: "https://example.com/posts/clarity",
@@ -42,5 +42,11 @@ describe("shareIntentUrl", () => {
       text: title,
       url: POST.url,
     });
+  });
+});
+
+describe("networkName", () => {
+  it("names each Network for the menu, in menu order", () => {
+    expect(networks.map(networkName)).toEqual(["X", "LinkedIn", "Threads"]);
   });
 });

@@ -36,6 +36,7 @@ export const buildMrzLines = ({
   countryCode: string;
 }): [string, string] => {
   const words = fullName.trim().split(/\s+/u);
+  /* v8 ignore next -- @preserve split always yields at least one word, so `at(-1)` is never undefined */
   const surname = words.at(-1) ?? "";
   const givenNames = words.slice(0, -1).join(" ");
   const name = [toMrzField(surname), toMrzField(givenNames)]
@@ -76,6 +77,7 @@ export const buildBarcode = (value: string): Barcode => {
   ];
   let x = 4;
   for (const char of value) {
+    /* v8 ignore next -- @preserve a string iterator yields non-empty characters, so `codePointAt(0)` is never undefined */
     const code = char.codePointAt(0) ?? 0;
     for (let bit = 6; bit >= 0; bit -= 1) {
       const width = bitAt(code, (bit + 3) % 7) === 1 ? 2 : 1;

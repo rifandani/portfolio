@@ -277,6 +277,89 @@ const lensWeight = (lens: Lens, vx: number, vy: number) => {
   return weight;
 };
 
+/** Everything one frame's rays share: the grid, the scene, and the lights in object space. */
+interface Trace {
+  grid: Grid;
+  scene: Scene;
+  lens: Lens;
+  lensLive: boolean;
+  /** Reused per ray, so the lens allocates nothing per cell. */
+  local: Scene;
+  toObject: (x: number, y: number, z: number) => Vec3;
+  direction: Vec3;
+  light: Vec3;
+  fill: Vec3;
+  half: Vec3;
+}
+
+/**
+ * Flip toward the other nature: g + w(1 − 2g) is continuous through the
+ * transition, where the two natures meet at 0.5.
+ */
+const flipScene = (local: Scene, scene: Scene, weight: number) => {
+  local.morph = scene.morph + weight * (1 - 2 * scene.morph);
+  local.melt = Math.max(scene.melt, weight);
+  local.churn = Math.max(0, weight * (1 - 2 * scene.morph));
+  return local;
+};
+
+/** Brightness 0–1 and the specular term for a surface normal. */
+const shade = (normal: Vec3, { light, fill, half }: Trace) => {
+  const diffuse = Math.max(0, dot(normal, light));
+  const bounce = Math.max(0, dot(normal, fill));
+  const specular = Math.max(0, dot(normal, half)) ** 40;
+  const lit = clamp(
+    0.12 + diffuse * 0.72 + bounce * 0.22 + specular * 0.4,
+    0,
+    1
+  );
+  return { lit, specular };
+};
+
+/**
+ * Whether a lit cell prints Helm Teal. Inside the lens only the rim is teal: a
+ * smooth pocket turned to the key light would otherwise flood with specular
+ * peaks.
+ */
+const isSignal = (
+  { lens, lensLive }: Trace,
+  vx: number,
+  vy: number,
+  specular: number,
+  weight: number
+) => {
+  const head = lensLive ? headWeight(lens, vx, vy) : 0;
+  const rim = head > RIM_LOW && head < RIM_HIGH;
+  const peak = specular > 0.72 && weight < 0.05;
+  return peak || rim;
+};
+
+/** Raymarch one cell at view position (vx, vy) into `levels` / `signal`. */
+const traceCell = (trace: Trace, index: number, vx: number, vy: number) => {
+  const { grid, scene, lens, lensLive, toObject, direction } = trace;
+  const r2 = vx * vx + vy * vy;
+  if (r2 > BOUND * BOUND) {
+    return;
+  }
+  const depth = Math.sqrt(BOUND * BOUND - r2);
+  const origin = toObject(vx, vy, -depth);
+  const weight = lensLive ? lensWeight(lens, vx, vy) : 0;
+  const ray = weight > 0.001 ? flipScene(trace.local, scene, weight) : scene;
+  const t = march(origin, direction, depth * 2, ray);
+  if (t < 0) {
+    return;
+  }
+  const normal = surfaceNormal(
+    origin[0] + direction[0] * t,
+    origin[1] + direction[1] * t,
+    origin[2] + direction[2] * t,
+    ray
+  );
+  const { lit, specular } = shade(normal, trace);
+  grid.levels[index] = 1 + Math.min(RAMP_TOP - 1, Math.floor(lit * RAMP_TOP));
+  grid.signal[index] = isSignal(trace, vx, vy, specular, weight) ? 1 : 0;
+};
+
 /** Raymarch every cell of the grid into `levels` / `signal`. */
 const traceGrid = (
   grid: Grid,
@@ -286,60 +369,31 @@ const traceGrid = (
   pitch: number
 ) => {
   const toObject = viewToObject(yaw, pitch);
-  const direction = toObject(0, 0, 1);
-  const light = toObject(...LIGHT);
-  const fill = toObject(...FILL);
-  const half = toObject(...HALF);
+  const trace: Trace = {
+    direction: toObject(0, 0, 1),
+    fill: toObject(...FILL),
+    grid,
+    half: toObject(...HALF),
+    lens,
+    lensLive: lens.strength > 0.001 || lens.trail.length > 0,
+    light: toObject(...LIGHT),
+    local: { ...scene },
+    scene,
+    toObject,
+  };
   const scale = Math.min(grid.width, grid.height) * ZOOM;
-  const lensLive = lens.strength > 0.001 || lens.trail.length > 0;
-  /** Reused per ray, so the lens allocates nothing per cell. */
-  const local: Scene = { ...scene };
 
   grid.levels.fill(0);
   grid.signal.fill(0);
   for (let row = 0; row < grid.rows; row += 1) {
     for (let col = 0; col < grid.cols; col += 1) {
       const centre = cellCentre(grid, col, row);
-      const vx = (centre.x - grid.width / 2) / scale;
-      const vy = -(centre.y - grid.height / 2) / scale;
-      const r2 = vx * vx + vy * vy;
-      if (r2 <= BOUND * BOUND) {
-        const depth = Math.sqrt(BOUND * BOUND - r2);
-        const origin = toObject(vx, vy, -depth);
-        // Flip toward the other nature: g + w(1 − 2g) is continuous through
-        // the transition, where the two natures meet at 0.5.
-        const weight = lensLive ? lensWeight(lens, vx, vy) : 0;
-        local.morph = scene.morph + weight * (1 - 2 * scene.morph);
-        local.melt = Math.max(scene.melt, weight);
-        local.churn = Math.max(0, weight * (1 - 2 * scene.morph));
-        const ray = weight > 0.001 ? local : scene;
-        const t = march(origin, direction, depth * 2, ray);
-        if (t >= 0) {
-          const normal = surfaceNormal(
-            origin[0] + direction[0] * t,
-            origin[1] + direction[1] * t,
-            origin[2] + direction[2] * t,
-            ray
-          );
-          const diffuse = Math.max(0, dot(normal, light));
-          const bounce = Math.max(0, dot(normal, fill));
-          const specular = Math.max(0, dot(normal, half)) ** 40;
-          const lit = clamp(
-            0.12 + diffuse * 0.72 + bounce * 0.22 + specular * 0.4,
-            0,
-            1
-          );
-          const index = row * grid.cols + col;
-          grid.levels[index] =
-            1 + Math.min(RAMP_TOP - 1, Math.floor(lit * RAMP_TOP));
-          const head = lensLive ? headWeight(lens, vx, vy) : 0;
-          const rim = head > RIM_LOW && head < RIM_HIGH;
-          // Inside the lens only the rim is teal: a smooth pocket turned to
-          // the key light would otherwise flood with specular peaks.
-          const peak = specular > 0.72 && weight < 0.05;
-          grid.signal[index] = peak || rim ? 1 : 0;
-        }
-      }
+      traceCell(
+        trace,
+        row * grid.cols + col,
+        (centre.x - grid.width / 2) / scale,
+        -(centre.y - grid.height / 2) / scale
+      );
     }
   }
 };
@@ -374,22 +428,33 @@ type Ink = keyof Palette;
  * inside the bound flicker through random quiet glyphs before settling — the
  * solid compiles out of noise.
  */
+const scrambleGlyph = (
+  grid: Grid,
+  index: number,
+  scramble: number,
+  frame: number
+) => {
+  const col = index % grid.cols;
+  const row = (index - col) / grid.cols;
+  const reach = BOUND * Math.min(grid.width, grid.height) * ZOOM;
+  const dx = (col - grid.cols / 2) * grid.cellW;
+  const dy = (row - grid.rows / 2) * grid.cellH;
+  if (Math.hypot(dx, dy) < reach && noise(index, frame) < scramble * 0.55) {
+    return RAMP[1 + Math.floor(noise(frame, index) * RAMP_TOP)] ?? ".";
+  }
+  return null;
+};
+
 const inkFor = (
   grid: Grid,
   index: number,
   scramble: number,
   frame: number
 ): [Ink, string] | null => {
-  if (scramble > 0) {
-    const col = index % grid.cols;
-    const row = (index - col) / grid.cols;
-    const reach = BOUND * Math.min(grid.width, grid.height) * ZOOM;
-    const dx = (col - grid.cols / 2) * grid.cellW;
-    const dy = (row - grid.rows / 2) * grid.cellH;
-    if (Math.hypot(dx, dy) < reach && noise(index, frame) < scramble * 0.55) {
-      const glyph = RAMP[1 + Math.floor(noise(frame, index) * RAMP_TOP)];
-      return ["quiet", glyph ?? "."];
-    }
+  const noisy =
+    scramble > 0 ? scrambleGlyph(grid, index, scramble, frame) : null;
+  if (noisy !== null) {
+    return ["quiet", noisy];
   }
   const level = grid.levels[index] ?? 0;
   if (level === 0) {

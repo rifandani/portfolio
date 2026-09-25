@@ -64,6 +64,7 @@ export default defineConfig({
         // Logic Seam shells — logic lives in tested siblings (ADR-0001).
         "apps/web/src/core/utils/evlog.ts",
         "apps/web/src/post/services/posts.ts",
+        "apps/web/src/project/services/projects.ts",
         "apps/web/src/proxy.ts",
       ],
     },
