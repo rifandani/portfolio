@@ -16,7 +16,7 @@ import {
   portfolioIdentity,
 } from "@/portfolio/constants/portfolio";
 
-/** The job title from the CV, not the synthetic identity role. */
+/** The job title from the CV */
 const currentRole =
   experienceEntries.find((entry) => entry.isCurrent)?.role ??
   portfolioIdentity.role;

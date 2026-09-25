@@ -143,7 +143,7 @@ export const createWebSite = (props: {
     "@id": `${props.url}#${uid(16)}`,
     "@type": "WebSite",
     inLanguage: ["en-US", "id-ID"],
-    name: "Portfolio",
+    name: "Tri Rizeki Rifandani",
   };
   return assign(defaultWebSite, props);
 };
@@ -156,7 +156,7 @@ export const createWebPage = (props: {
     "@id": `${props.url}#${uid(16)}`,
     "@type": "WebPage",
     inLanguage: ["en-US", "id-ID"],
-    name: "Portfolio",
+    name: "Tri Rizeki Rifandani",
   };
   return assign(defaultWebPage, props);
 };

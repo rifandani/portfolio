@@ -24,7 +24,9 @@ import type { CodeHighlighter } from "@tanstack/markdown";
  * `parsePostSource` stops the build when a Code Block names a language that is
  * not registered here.
  */
-const highlighter = createHighlighter({ languages: [css, json, shell, ts, tsx] });
+const highlighter = createHighlighter({
+  languages: [css, json, shell, ts, tsx],
+});
 
 const REGISTERED_LANGUAGES = new Set(highlighter.listLanguages());
 

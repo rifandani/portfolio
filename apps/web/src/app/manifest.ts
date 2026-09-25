@@ -29,8 +29,8 @@ const manifest = (): MetadataRoute.Manifest => ({
       type: "image/png",
     },
   ],
-  name: "Portfolio",
-  short_name: "Portfolio",
+  name: "Tri Rizeki Rifandani",
+  short_name: "Tri Rizeki Rifandani",
   start_url: "/", // Or your preferred landing page
   theme_color: "#155DFC", // Your brand's theme color,
 });

@@ -113,10 +113,10 @@ describe("createMetadata", () => {
     const metadata = createMetadata({
       title: "About",
       description: "About page",
-      category: "Portfolio",
+      category: "Tri Rizeki Rifandani",
     });
 
-    expect(metadata.category).toBe("Portfolio");
+    expect(metadata.category).toBe("Tri Rizeki Rifandani");
   });
 });
 
@@ -134,7 +134,7 @@ describe("createWebSite", () => {
       url: "https://web.test",
       title: "Site",
       description: "Desc",
-      name: "Portfolio",
+      name: "Tri Rizeki Rifandani",
       inLanguage: ["en-US", "id-ID"],
     });
     expect(String(site["@id"])).toContain("https://web.test#");
@@ -152,7 +152,7 @@ describe("createWebPage", () => {
       "@type": "WebPage",
       url: "https://web.test/about",
       title: "About",
-      name: "Portfolio",
+      name: "Tri Rizeki Rifandani",
     });
     expect(String(page["@id"])).toContain("https://web.test/about#");
   });

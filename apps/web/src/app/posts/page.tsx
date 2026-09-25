@@ -11,7 +11,7 @@ import { postsByYear } from "@/post/utils/post-collection";
 
 export const metadata = createMetadata({
   title: "Posts",
-  description: "Writing by Tri Rizeki Rifandani (synthetic placeholders).",
+  description: "Writings and thoughts by Tri Rizeki Rifandani",
 });
 
 /**

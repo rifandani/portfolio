@@ -24,7 +24,7 @@ export const FieldShowcase = () => {
           <FieldGroup>
             <TextField>
               <Label>{t("name")}</Label>
-              <Input defaultValue="Ava Thompson" />
+              <Input defaultValue={t("catalogShowcaseSampleName")} />
               <Description>{t("catalogShowcaseShownOnProfile")}</Description>
             </TextField>
           </FieldGroup>

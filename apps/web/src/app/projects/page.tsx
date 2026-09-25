@@ -10,7 +10,7 @@ import { getProjects } from "@/project/services/projects";
 
 export const metadata = createMetadata({
   title: "Projects",
-  description: "Projects by Tri Rizeki Rifandani (synthetic placeholders).",
+  description: "Projects by Tri Rizeki Rifandani",
 });
 
 export default async function ProjectsPage() {

@@ -3,7 +3,7 @@ import { describe, expect, it } from "vitest";
 import { sitemapMarkdown } from "./sitemap-markdown";
 
 const input = {
-  appTitle: "Portfolio",
+  appTitle: "Tri Rizeki Rifandani",
   appUrl: "https://web.portfolio.localhost",
   pageRoutes: ["/", "/about", "/docs/getting-started"],
   posts: [
@@ -26,7 +26,7 @@ const input = {
 describe("sitemapMarkdown", () => {
   it("lists discovery files, pages, Posts, and Projects with their Markdown", () => {
     expect(sitemapMarkdown(input)).toMatchInlineSnapshot(`
-      "# Portfolio sitemap
+      "# Tri Rizeki Rifandani sitemap
 
       Every public page of this site. Each post and project is also available as plain Markdown: add \`.md\` to its URL.
 
