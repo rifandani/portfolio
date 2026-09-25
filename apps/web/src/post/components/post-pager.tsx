@@ -17,10 +17,10 @@ const sideOf = (
   label: string
 ): PagerSide | undefined =>
   post && {
-  href: postPath(post.slug),
-  title: post.title,
-  label,
-  meta: <PostMeta post={post} className="mt-1" />,
+    href: postPath(post.slug),
+    title: post.title,
+    label,
+    meta: <PostMeta post={post} className="mt-1" />,
   };
 
 /**

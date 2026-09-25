@@ -21,6 +21,26 @@ const isAtPageEnd = () =>
   window.innerHeight + window.scrollY >=
   document.documentElement.scrollHeight - 2;
 
+/** The last heading's id when the page end is reached and it is in view. */
+const lastSectionAtPageEnd = (headings: HTMLElement[]) => {
+  const last = headings.at(-1);
+  const isInView =
+    last && last.getBoundingClientRect().top < window.innerHeight;
+  return isInView && isAtPageEnd() ? last.id : undefined;
+};
+
+/** The last heading above the activation line, else the first section. */
+const lastPassedSection = (ids: string[], headings: HTMLElement[]) => {
+  let [current] = ids;
+  for (const heading of headings) {
+    if (heading.getBoundingClientRect().top > ACTIVATION_LINE) {
+      break;
+    }
+    current = heading.id;
+  }
+  return current;
+};
+
 /**
  * The last section whose heading passed the activation line. At the page end
  * the last section is current, because a short last section can never reach
@@ -30,22 +50,7 @@ const currentSectionOf = (ids: string[]) => {
   const headings = ids.flatMap(
     (id) => document.querySelector<HTMLElement>(`#${CSS.escape(id)}`) ?? []
   );
-  const last = headings.at(-1);
-  if (
-    last &&
-    isAtPageEnd() &&
-    last.getBoundingClientRect().top < window.innerHeight
-  ) {
-    return last.id;
-  }
-  let [current] = ids;
-  for (const heading of headings) {
-    if (heading.getBoundingClientRect().top > ACTIVATION_LINE) {
-      break;
-    }
-    current = heading.id;
-  }
-  return current;
+  return lastSectionAtPageEnd(headings) ?? lastPassedSection(ids, headings);
 };
 
 /**
@@ -134,9 +139,10 @@ const labelClass =
   "text-muted-fg font-mono text-xs/5 tracking-[0.08em] uppercase";
 
 /** A click that follows the link in this tab. Modified clicks keep their own meaning. */
+const MODIFIER_KEYS = ["metaKey", "ctrlKey", "shiftKey", "altKey"] as const;
+
 const isPlainClick = (event: React.MouseEvent) =>
-  event.button === 0 &&
-  !(event.metaKey || event.ctrlKey || event.shiftKey || event.altKey);
+  event.button === 0 && !MODIFIER_KEYS.some((key) => event[key]);
 
 /**
  * Glides to a section instead of the native jump, then does what the jump

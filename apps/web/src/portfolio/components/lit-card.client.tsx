@@ -6,6 +6,16 @@ import { twMerge } from "tailwind-merge";
 import { Link } from "@/core/components/ui/link";
 import { cardLinkClass } from "@/portfolio/components/card-shell";
 
+/** Reads a CSS time such as `280ms` or `.28s` as ms, falling back to 280. */
+const fadeMsOf = (raw: string) => {
+  const time = /^(?<value>[\d.]+)(?<unit>ms|s)$/u.exec(raw)?.groups;
+  if (!time) {
+    return 280;
+  }
+  const msPerUnit = time.unit === "s" ? 1000 : 1;
+  return Number(time.value) * msPerUnit;
+};
+
 /**
  * A content card lit by the pointer.
  *

@@ -3,6 +3,14 @@
 import { useEffect, useRef } from "react";
 import type { ReactNode } from "react";
 
+/** The rail row a non-touch pointer is over, if any. */
+const railRowOf = (event: PointerEvent) => {
+  if (event.pointerType === "touch" || !(event.target instanceof Element)) {
+    return null;
+  }
+  return event.target.closest("[data-rail-row]");
+};
+
 /**
  * The work rail's list, read by the pointer.
  *

@@ -14,10 +14,10 @@ const sideOf = (
   label: string
 ): PagerSide | undefined =>
   project && {
-  href: projectPath(project.slug),
-  title: project.title,
-  label,
-  meta: <ProjectMeta project={project} className="mt-1" />,
+    href: projectPath(project.slug),
+    title: project.title,
+    label,
+    meta: <ProjectMeta project={project} className="mt-1" />,
   };
 
 /**

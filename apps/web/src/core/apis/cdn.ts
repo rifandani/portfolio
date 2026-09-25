@@ -1,9 +1,6 @@
 import type { KyResponse, Options } from "ky";
 import ky from "ky";
 
-export interface GetCdnFileRequestSchema {
-  url: string;
-}
 export interface GetCdnFileSuccessSchema {
   response: KyResponse;
   blob: Blob;
