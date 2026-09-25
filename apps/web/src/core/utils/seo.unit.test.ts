@@ -30,9 +30,9 @@ describe("createMetadata", () => {
       title: "Home | Test App",
       description: "Welcome",
       applicationName: "Test App",
-      publisher: "Rizeki Rifandani",
-      authors: { name: "Rizeki Rifandani", url: "https://web.com" },
-      creator: "Rizeki Rifandani",
+      publisher: "Tri Rizeki Rifandani",
+      authors: { name: "Tri Rizeki Rifandani", url: "https://web.com" },
+      creator: "Tri Rizeki Rifandani",
       category: "Personal Blog or Website",
       icons: "/favicon.ico",
       generator: "Next.js",
@@ -63,7 +63,7 @@ describe("createMetadata", () => {
       },
       twitter: {
         card: "summary_large_image",
-        creator: "Rizeki Rifandani",
+        creator: "Tri Rizeki Rifandani",
         creatorId: "@tri_rizeki",
         description: "Welcome",
         images: ["/api/og?title=Home"],
@@ -113,10 +113,10 @@ describe("createMetadata", () => {
     const metadata = createMetadata({
       title: "About",
       description: "About page",
-      category: "Portfolio",
+      category: "Tri Rizeki Rifandani",
     });
 
-    expect(metadata.category).toBe("Portfolio");
+    expect(metadata.category).toBe("Tri Rizeki Rifandani");
   });
 });
 
@@ -134,7 +134,7 @@ describe("createWebSite", () => {
       url: "https://web.test",
       title: "Site",
       description: "Desc",
-      name: "@workspace/web",
+      name: "Tri Rizeki Rifandani",
       inLanguage: ["en-US", "id-ID"],
     });
     expect(String(site["@id"])).toContain("https://web.test#");
@@ -152,7 +152,7 @@ describe("createWebPage", () => {
       "@type": "WebPage",
       url: "https://web.test/about",
       title: "About",
-      name: "@workspace/web",
+      name: "Tri Rizeki Rifandani",
     });
     expect(String(page["@id"])).toContain("https://web.test/about#");
   });

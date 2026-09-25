@@ -27,6 +27,22 @@ const config: NextConfig = {
   images: {
     formats: ["image/avif", "image/webp"],
   },
+  /**
+   * Pages render per request (the root layout calls `connection()`), so the
+   * Post and Project stores read their sources from disk at runtime. The
+   * tracer cannot see a directory read, so name the files. See ADR-0004 (web).
+   */
+  outputFileTracingIncludes: {
+    "/**": ["./src/post/content/*.md", "./src/project/content/*.md"],
+  },
+  rewrites: () =>
+    Promise.resolve([
+      { source: "/posts/:slug.md", destination: "/posts/:slug/markdown" },
+      {
+        source: "/projects/:slug.md",
+        destination: "/projects/:slug/markdown",
+      },
+    ]),
   experimental: {
     testProxy: true, // for e2e testing server side
   },

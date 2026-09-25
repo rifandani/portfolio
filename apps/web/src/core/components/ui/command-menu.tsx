@@ -1,6 +1,6 @@
 'use client'
 
-import { MagnifyingGlassIcon } from '@heroicons/react/20/solid'
+import { HiMiniMagnifyingGlass } from 'react-icons/hi2'
 import { createContext, use, useEffect } from 'react'
 import { Autocomplete, type AutocompleteProps, useFilter } from 'react-aria-components/Autocomplete'
 import { Button } from 'react-aria-components/Button'
@@ -141,7 +141,7 @@ const CommandMenuSearch = ({ className, placeholder, ...props }: CommandMenuSear
       {isPending ? (
         <Loader className="size-4.5" variant="spin" />
       ) : (
-        <MagnifyingGlassIcon
+        <HiMiniMagnifyingGlass aria-hidden="true"
           data-slot="command-menu-search-icon"
           className="size-5 shrink-0 text-muted-fg"
         />

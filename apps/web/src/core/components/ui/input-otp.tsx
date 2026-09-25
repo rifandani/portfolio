@@ -1,6 +1,6 @@
 'use client'
 
-import { MinusIcon } from '@heroicons/react/20/solid'
+import { HiMiniMinus } from 'react-icons/hi2'
 import { OTPInput, OTPInputContext } from 'input-otp'
 import { use } from 'react'
 import { twMerge } from 'tailwind-merge'
@@ -77,7 +77,7 @@ export function InputOTPSlot({
 export function InputOTPSeparator({ ...props }: React.ComponentProps<'div'>) {
   return (
     <div data-slot="input-otp-separator" {...props}>
-      <MinusIcon className="size-4" />
+      <HiMiniMinus aria-hidden="true" data-slot="icon" className="size-4" />
     </div>
   )
 }

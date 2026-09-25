@@ -1,5 +1,5 @@
-import { ArrowRightIcon } from "@heroicons/react/16/solid";
 import { useTranslations } from "next-intl";
+import { HiMiniArrowRight } from "react-icons/hi2";
 
 import { Button } from "@/core/components/ui/button";
 import { Variant, VariantGrid } from "@/master-design/components/variant";
@@ -41,7 +41,7 @@ export const ButtonShowcase = () => {
         <Variant label="with icon">
           <Button>
             {t("continue")}
-            <ArrowRightIcon />
+            <HiMiniArrowRight aria-hidden="true" data-slot="icon" />
           </Button>
         </Variant>
         <Variant label="isCircle">

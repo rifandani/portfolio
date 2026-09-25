@@ -34,7 +34,7 @@ export const DialogShowcase = () => {
             <ModalBody className="space-y-4">
               <TextField>
                 <Label>{t("name")}</Label>
-                <Input defaultValue="Ava Thompson" />
+                <Input defaultValue={t("catalogShowcaseSampleName")} />
                 <Description>
                   {t("catalogShowcaseShownPublicProfile")}
                 </Description>

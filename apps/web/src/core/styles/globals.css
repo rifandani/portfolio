@@ -1,19 +1,20 @@
 @import "tailwindcss";
 @import "tw-animate-css";
 @plugin "tailwindcss-react-aria-components";
-
-@variant dark (&:is(.dark *));
+@custom-variant dark (&:is(.dark *));
 
 @theme inline {
   --font-sans:
-    "Inter", ui-sans-serif, system-ui, sans-serif, "Apple Color Emoji",
-    "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
-  --font-mono:
-    "Geist Mono", "ui-monospace", "SFMono-Regular", "Menlo", "Monaco",
-    "Consolas", '"Liberation Mono"', '"Courier New"', "monospace";
+    var(--font-quicksand), ui-sans-serif, system-ui, sans-serif,
+    "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
 
-  --font-sans--font-feature-settings: "cv02", "cv03", "cv04", "cv11";
-  --font-mono--font-feature-settings: "ss02", "zero";
+  --font-display:
+    var(--font-roboto), ui-sans-serif, system-ui, sans-serif,
+    "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+
+  --font-mono:
+    var(--font-ibm-plex-mono), ui-monospace, SFMono-Regular, Menlo, Monaco,
+    Consolas, "Liberation Mono", "Courier New", monospace;
 
   --color-border: var(--border);
   --color-input: var(--input);
@@ -22,6 +23,7 @@
 
   --color-bg: var(--bg);
   --color-fg: var(--fg);
+  --color-canvas: var(--canvas);
 
   --color-card: var(--card);
   --color-card-fg: var(--card-fg);
@@ -52,6 +54,8 @@
   --color-warning-subtle: var(--warning-subtle);
   --color-warning-subtle-fg: var(--warning-subtle-fg);
 
+  --color-info: var(--info);
+  --color-info-fg: var(--info-fg);
   --color-info-subtle: var(--info-subtle);
   --color-info-subtle-fg: var(--info-subtle-fg);
 
@@ -78,258 +82,1285 @@
   --color-chart-3: var(--chart-3);
   --color-chart-4: var(--chart-4);
   --color-chart-5: var(--chart-5);
+
+  --radius-sm: calc(var(--radius) * 0.6);
+  --radius-md: calc(var(--radius) * 0.8);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) * 1.4);
+  --radius-2xl: calc(var(--radius) * 1.8);
+  --radius-3xl: calc(var(--radius) * 2.2);
+  --radius-4xl: calc(var(--radius) * 2.6);
 }
 
 :root {
   --bg: oklch(1 0 0);
-  --fg: oklch(0.21 0.006 285.885);
-
+  --canvas: oklch(0.99 0.0035 85);
+  --grain: oklch(0 0 0);
+  --grain-opacity: 0.0475;
+  --fg: oklch(0.216 0.006 56.043);
   --card: oklch(1 0 0);
-  --card-fg: oklch(0.21 0.006 285.885);
-
-  --primary: oklch(0.546 0.245 262.881);
+  --card-fg: oklch(0.216 0.006 56.043);
+  --primary: oklch(0.6 0.118 184.704);
   --primary-fg: oklch(1 0 0);
-
-  --primary-subtle: oklch(0.623 0.214 259.815 / 0.15);
-  --primary-subtle-fg: oklch(0.488 0.243 264.376);
-
-  --secondary: oklch(0.92 0.004 286.32);
-  --secondary-fg: oklch(0.141 0.005 285.823);
-
+  --primary-subtle: oklch(0.704 0.14 182.503 / 0.15);
+  --primary-subtle-fg: oklch(0.511 0.096 186.391);
+  --secondary: oklch(0.923 0.003 48.717);
+  --secondary-fg: oklch(0.147 0.004 49.25);
   --overlay: oklch(1 0 0);
-  --overlay-fg: oklch(0.141 0.005 285.823);
-
-  --accent: oklch(0.92 0.004 286.32);
-  --accent-fg: oklch(0.141 0.005 285.823);
-
-  --muted: oklch(0.967 0.001 286.375);
-  --muted-fg: oklch(0.552 0.016 285.938);
-
+  --overlay-fg: oklch(0.147 0.004 49.25);
+  --accent: oklch(0.923 0.003 48.717);
+  --accent-fg: oklch(0.147 0.004 49.25);
+  --accent-subtle: oklch(0.444 0.011 73.639 / 0.1);
+  --accent-subtle-fg: oklch(0.374 0.01 67.558);
+  --muted: oklch(0.97 0.001 106.424);
+  --muted-fg: oklch(0.538 0.013 58.071);
   --success: oklch(0.596 0.145 163.225);
   --success-fg: oklch(1 0 0);
-
   --success-subtle: oklch(0.696 0.17 162.48 / 0.15);
   --success-subtle-fg: oklch(0.508 0.118 165.612);
-
+  --info: oklch(0.685 0.169 237.323);
+  --info-fg: oklch(1 0 0);
   --info-subtle: oklch(0.685 0.169 237.323 / 0.15);
   --info-subtle-fg: oklch(0.5 0.134 242.749);
-
   --warning: oklch(0.828 0.189 84.429);
   --warning-fg: oklch(0.279 0.077 45.635);
-
   --warning-subtle: oklch(0.828 0.189 84.429 / 0.2);
   --warning-subtle-fg: oklch(0.555 0.163 48.998);
-
   --danger: oklch(0.577 0.245 27.325);
-  --danger-fg: oklch(0.971 0.013 17.38);
-
+  --danger-fg: oklch(1 0 0);
   --danger-subtle: oklch(0.637 0.237 25.331 / 0.15);
   --danger-subtle-fg: oklch(0.505 0.213 27.518);
+  --border: oklch(0.909 0.005 56.366);
+  --input: oklch(0.869 0.005 56.366);
+  --ring: oklch(0.6 0.118 184.704);
+  --navbar: oklch(0.995 0.001 106.423);
+  --navbar-fg: oklch(0.147 0.004 49.25);
+  --sidebar: oklch(0.985 0.001 106.423);
+  --sidebar-fg: oklch(0.147 0.004 49.25);
+  --sidebar-primary: oklch(0.704 0.14 182.503 / 0.15);
+  --sidebar-primary-fg: oklch(0.511 0.096 186.391);
+  --sidebar-accent: oklch(0.923 0.003 48.717);
+  --sidebar-accent-fg: oklch(0.147 0.004 49.25);
+  --sidebar-border: oklch(0.899 0.005 56.366);
+  --sidebar-ring: oklch(0.6 0.118 184.704);
+  --chart-1: oklch(0.6 0.118 184.704);
+  --chart-2: oklch(0.704 0.14 182.503);
+  --chart-3: oklch(0.777 0.152 181.912);
+  --chart-4: oklch(0.855 0.138 181.071);
+  --chart-5: oklch(0.91 0.096 180.426);
 
-  --border: oklch(0.911 0.006 286.286);
-  --input: oklch(0.871 0.006 286.286);
-  --ring: oklch(0.546 0.245 262.881);
-
-  --navbar: oklch(0.995 0 0);
-  --navbar-fg: oklch(0.141 0.005 285.823);
-
-  --sidebar: oklch(0.985 0 0);
-  --sidebar-fg: oklch(0.141 0.005 285.823);
-  --sidebar-primary: oklch(0.546 0.245 262.881);
-  --sidebar-primary-fg: oklch(1 0 0);
-  --sidebar-accent: oklch(0.92 0.004 286.32);
-  --sidebar-accent-fg: oklch(0.141 0.005 285.823);
-  --sidebar-border: oklch(0.901 0.006 286.286);
-  --sidebar-ring: oklch(0.546 0.245 262.881);
-
-  --chart-1: oklch(0.546 0.245 262.881);
-  --chart-2: oklch(0.623 0.214 259.815);
-  --chart-3: oklch(0.707 0.165 254.624);
-  --chart-4: oklch(0.809 0.105 251.813);
-  --chart-5: oklch(0.882 0.059 254.128);
+  --radius: 0.5rem;
 }
 
 .dark {
-  --bg: oklch(0.181 0.005 285.823);
-  --fg: oklch(0.985 0 0);
-
-  --card: oklch(0.181 0.005 285.823);
-  --card-fg: oklch(0.985 0 0);
-
-  --primary: oklch(0.546 0.245 262.881);
+  --bg: oklch(0.147 0.004 49.25);
+  --canvas: oklch(0.135 0.005 60);
+  --grain: oklch(1 0 0);
+  --grain-opacity: 0.07;
+  --fg: oklch(0.985 0.001 106.423);
+  --card: oklch(0.216 0.006 56.043);
+  --card-fg: oklch(0.985 0.001 106.423);
+  --primary: oklch(0.6 0.118 184.704);
   --primary-fg: oklch(1 0 0);
-
-  --primary-subtle: oklch(0.623 0.214 259.815 / 0.1);
-  --primary-subtle-fg: oklch(0.707 0.165 254.624);
-
-  --secondary: oklch(0.244 0.006 286.033);
-  --secondary-fg: oklch(0.985 0 0);
-
-  --overlay: oklch(0.21 0.006 285.885);
-  --overlay-fg: oklch(0.985 0 0);
-
-  --accent: oklch(0.274 0.006 286.033);
-  --accent-fg: oklch(0.985 0 0);
-
-  --muted: oklch(0.21 0.006 285.885);
-  --muted-fg: oklch(0.705 0.015 286.067);
-
+  --primary-subtle: oklch(0.704 0.14 182.503 / 0.1);
+  --primary-subtle-fg: oklch(0.855 0.138 181.071);
+  --secondary: oklch(0.238 0.007 34.298);
+  --secondary-fg: oklch(0.985 0.001 106.423);
+  --overlay: oklch(0.216 0.006 56.043);
+  --overlay-fg: oklch(0.985 0.001 106.423);
+  --accent: oklch(0.268 0.007 34.298);
+  --accent-fg: oklch(0.985 0.001 106.423);
+  --accent-subtle: oklch(0.444 0.011 73.639 / 0.1);
+  --accent-subtle-fg: oklch(0.709 0.01 56.259);
+  --muted: oklch(0.216 0.006 56.043);
+  --muted-fg: oklch(0.709 0.01 56.259);
   --success: oklch(0.596 0.145 163.225);
   --success-fg: oklch(1 0 0);
-
   --success-subtle: oklch(0.696 0.17 162.48 / 0.1);
   --success-subtle-fg: oklch(0.765 0.177 163.223);
-
+  --info: oklch(0.685 0.169 237.323);
+  --info-fg: oklch(1 0 0);
   --info-subtle: oklch(0.685 0.169 237.323 / 0.1);
   --info-subtle-fg: oklch(0.828 0.111 230.318);
-
   --warning: oklch(0.828 0.189 84.429);
   --warning-fg: oklch(0.279 0.077 45.635);
-
   --warning-subtle: oklch(0.828 0.189 84.429 / 0.1);
   --warning-subtle-fg: oklch(0.828 0.189 84.429);
-
   --danger: oklch(0.577 0.245 27.325);
-  --danger-fg: oklch(0.971 0.013 17.38);
-
+  --danger-fg: oklch(1 0 0);
   --danger-subtle: oklch(0.637 0.237 25.331 / 0.1);
   --danger-subtle-fg: oklch(0.704 0.191 22.216);
-
-  --border: oklch(0.27 0.013 285.805);
-  --input: oklch(0.32 0.013 285.805);
-  --ring: oklch(0.546 0.245 262.881);
-
-  --navbar: oklch(0.19 0.006 285.885);
-  --navbar-fg: oklch(0.985 0 0);
-
-  --sidebar: oklch(0.21 0.006 285.885);
-  --sidebar-fg: oklch(0.985 0 0);
-  --sidebar-primary: oklch(0.546 0.245 262.881);
-  --sidebar-primary-fg: oklch(1 0 0);
-  --sidebar-accent: oklch(0.274 0.006 286.033);
-  --sidebar-accent-fg: oklch(0.985 0 0);
-  --sidebar-border: oklch(0.274 0.006 286.033);
-  --sidebar-ring: oklch(0.546 0.245 262.881);
-
-  --chart-1: oklch(0.488 0.243 264.376);
-  --chart-2: oklch(0.623 0.214 259.815);
-  --chart-3: oklch(0.707 0.165 254.624);
-  --chart-4: oklch(0.809 0.105 251.813);
-  --chart-5: oklch(0.882 0.059 254.128);
+  --border: oklch(0.274 0.01 67.558);
+  --input: oklch(0.314 0.01 67.558);
+  --ring: oklch(0.6 0.118 184.704);
+  --navbar: oklch(0.196 0.006 56.043);
+  --navbar-fg: oklch(0.985 0.001 106.423);
+  --sidebar: oklch(0.186 0.006 56.043);
+  --sidebar-fg: oklch(0.985 0.001 106.423);
+  --sidebar-primary: oklch(0.704 0.14 182.503 / 0.1);
+  --sidebar-primary-fg: oklch(0.855 0.138 181.071);
+  --sidebar-accent: oklch(0.268 0.007 34.298);
+  --sidebar-accent-fg: oklch(0.985 0.001 106.423);
+  --sidebar-border: oklch(0.268 0.007 34.298);
+  --sidebar-ring: oklch(0.6 0.118 184.704);
+  --chart-1: oklch(0.511 0.096 186.391);
+  --chart-2: oklch(0.704 0.14 182.503);
+  --chart-3: oklch(0.777 0.152 181.912);
+  --chart-4: oklch(0.855 0.138 181.071);
+  --chart-5: oklch(0.91 0.096 180.426);
 }
 
-@utility touch-target {
+/**
+ * Paper canvas.
+ *
+ * The canvas is painted on `html` rather than `body` so the grain layer can sit
+ * at `z-index: -1` on `body` — above the paint, below every route's content.
+ * Cards keep `--card` (pure white in light), so they read as sheets resting on
+ * the canvas instead of dissolving into it.
+ */
+html {
+  background-color: var(--canvas);
+}
+
+/**
+ * Fine paper grain.
+ *
+ * One fixed, non-scrolling layer masked by a tiled fractal-noise SVG, tinted by
+ * `--grain` so the speckle darkens light paper and lightens dark paper from the
+ * same tile. `fractalNoise` over four octaves clumps the speckle, which reads as
+ * paper tooth rather than digital dither. The tile is drawn at its display size
+ * (180px), so one noise cell lands on roughly one CSS pixel at every viewport.
+ *
+ * It is a background surface, so it stays behind content, takes no pointer
+ * events, and is announced to nobody.
+ */
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background-color: var(--grain);
+  opacity: var(--grain-opacity);
+  --grain-tile: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='g' color-interpolation-filters='sRGB'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix type='matrix' values='0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0 0 0 0'/%3E%3CfeComponentTransfer%3E%3CfeFuncA type='linear' slope='2.2' intercept='-0.6'/%3E%3C/feComponentTransfer%3E%3C/filter%3E%3Crect width='180' height='180' filter='url(%23g)'/%3E%3C/svg%3E");
+  -webkit-mask-image: var(--grain-tile);
+  mask-image: var(--grain-tile);
+  -webkit-mask-size: 180px 180px;
+  mask-size: 180px 180px;
+  -webkit-mask-repeat: repeat;
+  mask-repeat: repeat;
+}
+
+/* Texture is decoration: it must not survive into a forced palette or onto paper. */
+@media (forced-colors: active), print {
+  body::before {
+    display: none;
+  }
+}
+
+/**
+ * Theme sweep.
+ *
+ * The theme toggle drives the View Transitions API by hand (see
+ * `theme-toggle.client.tsx`) and animates a circular `clip-path` on the new
+ * root snapshot. The browser's default for `root` is a crossfade of both
+ * snapshots, which would wash the sweep out, so both animations are dropped and
+ * the old page is simply held still underneath while the new one is revealed
+ * over it.
+ */
+::view-transition-old(root),
+::view-transition-new(root) {
+  animation: none;
+  mix-blend-mode: normal;
+}
+
+::view-transition-old(root) {
+  z-index: 0;
+}
+
+::view-transition-new(root) {
+  z-index: 1;
+}
+
+/**
+ * Preview morph.
+ *
+ * The preview image on a Post Card or a Project Card grows into the hero image
+ * of its detail page (see `preview-morph.tsx`). The small card snapshot is
+ * scaled up on the way, so a short blur mid-flight hides its soft pixels. The
+ * page around it swaps at once: the theme sweep rules above keep `root` still.
+ */
+::view-transition-group(.morph) {
+  animation-duration: 400ms;
+}
+
+::view-transition-image-pair(.morph) {
+  animation-name: preview-morph-blur;
+}
+
+@keyframes preview-morph-blur {
+  30% {
+    filter: blur(3px);
+  }
+}
+
+/* The overlay sits above the page: let clicks through while it plays. */
+::view-transition {
+  pointer-events: none;
+}
+
+/**
+ * Motion is decoration here — the toggle already skips the transition under
+ * reduced motion, but this also covers any transition started elsewhere.
+ */
+@media (prefers-reduced-motion: reduce) {
+  ::view-transition-group(*),
+  ::view-transition-old(*),
+  ::view-transition-new(*) {
+    animation-duration: 0s !important;
+    animation-delay: 0s !important;
+  }
+}
+
+/**
+ * Raking light on a content card.
+ *
+ * A card is a sheet of paper resting on the grained canvas, so the pointer is
+ * treated as a light held over the sheet rather than as a reason to lift it —
+ * Flat-By-Default holds, and nothing translates, scales, or grows a shadow.
+ * Three layers read one position, `--lit-px` / `--lit-py`, the pointer in
+ * normalised card space, written by `lit-card.client.tsx`:
+ *
+ * - `::before` grades the `secondary` hover wash so it is brightest under the
+ *   light and falls away, instead of washing the whole card flat. A small
+ *   Helm Teal specular sits inside it — a few percent over a ninth of the card,
+ *   which keeps the One Voice Rule intact.
+ * - `::after` wakes the hairline to Helm Teal only where the light reaches it.
+ *   It is painted as a 1px gradient border through `mask-composite`, so it is
+ *   an edge and not a glow (Ring-Over-Glow).
+ * - `[data-lit-print]` drifts the preview inside its fixed frame, so the print
+ *   moves toward the light and the card does not move at all.
+ *
+ * The default light sits at the centre, as the fallback in every `var()` rather
+ * than as a declaration here — declaring it on the card would shadow the value
+ * the tracker sets on the wrapper and inherits down. That centred default is
+ * what keyboard focus, coarse pointers, reduced motion, and a failed script all
+ * get: a symmetrical lit card that still reads as the hover state.
+ */
+.card-lit {
+  /**
+   * Shared by the fade below and by `lit-card.client.tsx`, which waits out this
+   * long before returning the light to centre. The light must not move while it
+   * is still on screen, so the two cannot drift apart.
+   */
+  --lit-fade: 280ms;
   position: relative;
-  &::before {
-    content: "";
-    position: absolute;
-    display: block;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    width: 100%;
-    height: 100%;
-    min-height: 44px;
-    min-width: 44px;
-    z-index: 9999;
+}
+
+.card-lit::before,
+.card-lit::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity var(--lit-fade) cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.card-lit::before {
+  /**
+   * In light, `--secondary` (Fog) is darker than the card, so the wash reads on
+   * its own. In dark it sits barely off `--card`, so the light is pulled a step
+   * toward `--fg` there — in both themes the pool moves away from the sheet.
+   */
+  --lit-wash: var(--secondary);
+  background-image:
+    radial-gradient(
+      8rem 6rem at calc(var(--lit-px, 0.5) * 100%)
+        calc(var(--lit-py, 0.5) * 100%),
+      color-mix(in oklab, var(--primary) 16%, transparent),
+      color-mix(in oklab, var(--primary) 0%, transparent) 72%
+    ),
+    radial-gradient(
+      22rem 15rem at calc(var(--lit-px, 0.5) * 100%)
+        calc(var(--lit-py, 0.5) * 100%),
+      var(--lit-wash),
+      color-mix(in oklab, var(--lit-wash) 0%, transparent) 74%
+    );
+}
+
+:is(.dark .card-lit)::before {
+  --lit-wash: color-mix(in oklab, var(--fg) 9%, var(--secondary));
+}
+
+.card-lit::after {
+  padding: 1px;
+  background-image: radial-gradient(
+    15rem 11rem at calc(var(--lit-px, 0.5) * 100%)
+      calc(var(--lit-py, 0.5) * 100%),
+    var(--primary),
+    color-mix(in oklab, var(--primary) 65%, transparent) 34%,
+    color-mix(in oklab, var(--primary) 0%, transparent) 80%
+  );
+  -webkit-mask-image: linear-gradient(#000 0 0), linear-gradient(#000 0 0);
+  -webkit-mask-clip: content-box, border-box;
+  -webkit-mask-composite: xor;
+  mask-image: linear-gradient(#000 0 0), linear-gradient(#000 0 0);
+  mask-clip: content-box, border-box;
+  mask-composite: exclude;
+}
+
+.card-lit:hover::before,
+.card-lit:hover::after,
+.card-lit:focus-visible::before,
+.card-lit:focus-visible::after {
+  opacity: 1;
+}
+
+/**
+ * The print follows the light with a little weight: the transition runs on
+ * every pointer move, so the drift trails the cursor instead of snapping to it.
+ *
+ * The duration here is the exit, and it is shorter than the entrance below so
+ * the print has settled before the light has finished fading — nothing is left
+ * moving on a card the pointer has already left.
+ */
+.card-lit [data-lit-print] {
+  transition:
+    scale 200ms cubic-bezier(0.16, 1, 0.3, 1),
+    translate 200ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.card-lit:hover [data-lit-print],
+.card-lit:focus-visible [data-lit-print] {
+  transition-duration: 320ms;
+  scale: 1.08;
+  translate: calc((var(--lit-px, 0.5) - 0.5) * -12px)
+    calc((var(--lit-py, 0.5) - 0.5) * -9px);
+}
+
+/* Reduced motion keeps the lit state and drops every movement in it. */
+@media (prefers-reduced-motion: reduce) {
+  .card-lit::before,
+  .card-lit::after,
+  .card-lit [data-lit-print] {
+    transition: none;
+  }
+
+  .card-lit:hover [data-lit-print],
+  .card-lit:focus-visible [data-lit-print] {
+    scale: 1;
+    translate: none;
   }
 }
 
-@layer base {
-  *,
-  ::after,
-  ::before,
-  ::backdrop,
-  ::file-selector-button {
-    border-color: var(--border, currentColor);
+/* Light is decoration: a forced palette draws its own hover and focus. */
+@media (forced-colors: active) {
+  .card-lit::before,
+  .card-lit::after {
+    display: none;
   }
 }
 
-@layer base {
-  * {
-    text-rendering: optimizeLegibility;
-    /*
-     * Scrollbar
-     */
-    scrollbar-width: thin;
-    scrollbar-color: var(--border) transparent;
-  }
-
-  body {
-    background-color: var(--bg);
-    color: var(--fg);
-  }
-
-  ::-webkit-scrollbar {
-    width: 4px;
-  }
-
-  ::-webkit-scrollbar-track {
-    background: transparent;
-  }
-
-  ::-webkit-scrollbar-thumb {
-    background: var(--border);
-    border-radius: 4px;
-  }
+/**
+ * Registration marks on a Drawing Sheet (`project-card.tsx`).
+ *
+ * Four 1px corner ticks, drawn as eight background strokes on one span, sit
+ * just outside the preview frame the way crop marks sit outside a print. They
+ * are the drawing's edge, so they take the rail's Muted Ink, not Hairline,
+ * which disappears as a bare line on the dark canvas.
+ *
+ * When the light reaches the sheet the marks close in on the frame and step to
+ * Warm Graphite — the print registers. The frame and the card never move;
+ * only the marks travel, and only 3px.
+ */
+.sheet-marks {
+  --mark: color-mix(in oklab, var(--muted-fg) 55%, transparent);
+  --arm: 0.625rem;
+  position: absolute;
+  inset: -0.4375rem;
+  pointer-events: none;
+  background:
+    linear-gradient(var(--mark) 0 0) left top / var(--arm) 1px,
+    linear-gradient(var(--mark) 0 0) left top / 1px var(--arm),
+    linear-gradient(var(--mark) 0 0) right top / var(--arm) 1px,
+    linear-gradient(var(--mark) 0 0) right top / 1px var(--arm),
+    linear-gradient(var(--mark) 0 0) left bottom / var(--arm) 1px,
+    linear-gradient(var(--mark) 0 0) left bottom / 1px var(--arm),
+    linear-gradient(var(--mark) 0 0) right bottom / var(--arm) 1px,
+    linear-gradient(var(--mark) 0 0) right bottom / 1px var(--arm);
+  background-repeat: no-repeat;
+  transition:
+    inset 200ms cubic-bezier(0.16, 1, 0.3, 1),
+    --mark 200ms cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-.react-aria-DropIndicator[data-drop-target] {
-  outline: 1px solid var(--primary);
-  transform: translateZ(0);
+.card-lit:hover .sheet-marks,
+.card-lit:focus-visible .sheet-marks {
+  --mark: var(--fg);
+  inset: -0.25rem;
+  transition-duration: 320ms;
 }
 
-/* Recharts overrides (avoid Tailwind arbitrary variants with attr quotes in Next 16 + Tailwind v4) */
-[data-chart] .recharts-cartesian-axis-tick text {
-  fill: var(--muted-fg);
+@property --mark {
+  syntax: "<color>";
+  inherits: true;
+  initial-value: transparent;
 }
-[data-chart] .recharts-cartesian-grid line[stroke="\23 ccc"] {
-  stroke: var(--border);
-}
-@supports (color: color-mix(in lab, red, red)) {
-  [data-chart] .recharts-cartesian-grid line[stroke="\23 ccc"] {
-    stroke: color-mix(in oklab, var(--border) 80%, transparent);
+
+@media (prefers-reduced-motion: reduce) {
+  .sheet-marks {
+    transition: none;
+  }
+
+  .card-lit:hover .sheet-marks,
+  .card-lit:focus-visible .sheet-marks {
+    inset: -0.4375rem;
   }
 }
-[data-chart] .recharts-curve.recharts-tooltip-cursor {
-  stroke: var(--border);
+
+@media (forced-colors: active) {
+  .sheet-marks {
+    --mark: CanvasText;
+  }
 }
-[data-chart] .recharts-rectangle.recharts-tooltip-cursor {
-  fill: var(--muted);
+
+/**
+ * Date Stamp on a Postmark Log entry (`post-card.tsx`).
+ *
+ * A rubber date stamp: two 1px rules 2px apart, no fill, so it reads as an
+ * impression on the sheet and not as a card inside the card. At rest the rules
+ * take the rail's Muted Ink; when the light reaches the entry they ink to Warm
+ * Graphite, the way the Drawing Sheet's marks register. Nothing moves.
+ */
+.post-stamp {
+  --stamp-ink: color-mix(in oklab, var(--muted-fg) 55%, transparent);
+  position: relative;
+  display: block;
+  width: 4.5rem;
+  border: 1px solid var(--stamp-ink);
+  border-radius: var(--radius-lg);
+  padding: 0.5rem 0.25rem;
+  transition: --stamp-ink 200ms cubic-bezier(0.16, 1, 0.3, 1);
 }
-[data-chart] .recharts-layer {
-  outline: none;
+
+.post-stamp::before {
+  content: "";
+  position: absolute;
+  inset: 2px;
+  border: 1px solid var(--stamp-ink);
+  border-radius: calc(var(--radius-lg) - 2px);
+  pointer-events: none;
 }
-[data-chart] .recharts-polar-grid [stroke="\23 ccc"] {
-  stroke: var(--border);
+
+.post-stamp time {
+  display: grid;
+  justify-items: center;
 }
-[data-chart] .recharts-radial-bar-background-sector {
-  fill: var(--muted);
+
+.card-lit:hover .post-stamp,
+.card-lit:focus-visible .post-stamp {
+  --stamp-ink: var(--fg);
+  transition-duration: 320ms;
 }
-[data-chart] .recharts-reference-line [stroke="\23 ccc"] {
-  stroke: var(--border);
+
+@property --stamp-ink {
+  syntax: "<color>";
+  inherits: true;
+  initial-value: transparent;
 }
-[data-chart] .recharts-sector[stroke="\23 fff"] {
-  stroke: transparent;
+
+/**
+ * Reading ruler on a Postmark Log entry.
+ *
+ * The reading time as a ruler: a tick at zero and one per minute, every fifth
+ * one taller, on a 1px baseline. The scale is ten minutes, and a longer Post
+ * stretches it, so every ruler starts at the same length and a list of entries
+ * compares at a glance. `--minutes` and `--scale` are set on the element.
+ *
+ * Three copies of the same ticks: the whole scale faint on the element, the
+ * minutes read in Muted Ink (`::before`), and an ink copy in Warm Graphite
+ * (`::after`) clipped to nothing. When the light reaches the entry the ink
+ * opens from zero to the minutes read, at about 40ms a minute, so a longer
+ * read takes longer to fill. It drains in 160ms, shorter than the fill, so
+ * nothing is left moving on an entry the pointer has left.
+ */
+.post-ruler {
+  --tick: 0.375rem;
+  --read: calc(100% - var(--minutes, 1) * var(--tick) - 1px);
+  --ticks:
+    linear-gradient(currentColor 0 0) left bottom / 100% 1px no-repeat,
+    repeating-linear-gradient(
+        to right,
+        currentColor 0 1px,
+        transparent 1px var(--tick)
+      )
+      left bottom / 100% 0.4375rem no-repeat,
+    repeating-linear-gradient(
+        to right,
+        currentColor 0 1px,
+        transparent 1px calc(var(--tick) * 5)
+      )
+      left bottom / 100% 0.75rem no-repeat;
+  position: relative;
+  display: block;
+  flex-shrink: 0;
+  width: calc(var(--scale, 10) * var(--tick) + 1px);
+  height: 0.75rem;
+  color: color-mix(in oklab, var(--muted-fg) 22%, transparent);
+  background: var(--ticks);
 }
-[data-chart] .recharts-sector {
-  outline: none;
+
+.post-ruler::before,
+.post-ruler::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: var(--ticks);
 }
-[data-chart] .recharts-surface {
-  outline: none;
+
+.post-ruler::before {
+  color: var(--muted-fg);
+  clip-path: inset(0 var(--read) 0 0);
 }
-[data-chart]
-  .recharts-surface
-  .recharts-text.recharts-cartesian-axis-tick-value
-  > * {
-  fill: var(--muted-fg);
+
+.post-ruler::after {
+  color: var(--fg);
+  clip-path: inset(0 100% 0 0);
+  transition: clip-path 160ms cubic-bezier(0.16, 1, 0.3, 1);
 }
-[data-chart] .recharts-dot[fill="\23 fff"] {
-  fill: var(--line-color, var(--border));
+
+.card-lit:hover .post-ruler::after,
+.card-lit:focus-visible .post-ruler::after {
+  clip-path: inset(0 var(--read) 0 0);
+  transition-duration: calc(120ms + var(--minutes, 1) * 40ms);
+  transition-timing-function: cubic-bezier(0.33, 1, 0.68, 1);
 }
-[data-chart] .recharts-active-dot > .recharts-dot {
-  stroke: color-mix(in oklab, var(--fg) 10%, transparent);
+
+/* Reduced motion keeps the ink on the stamp and the ruler and drops the travel. */
+@media (prefers-reduced-motion: reduce) {
+  .post-stamp,
+  .post-ruler::after,
+  .card-lit:hover .post-ruler::after,
+  .card-lit:focus-visible .post-ruler::after {
+    transition: none;
+  }
 }
-[data-chart] .recharts-surface g:focus {
-  outline: none;
+
+@media (forced-colors: active) {
+  .post-stamp {
+    --stamp-ink: CanvasText;
+  }
+
+  .post-ruler {
+    color: GrayText;
+  }
+
+  .post-ruler::before {
+    color: CanvasText;
+  }
+
+  .post-ruler::after {
+    display: none;
+  }
+}
+
+/**
+ * Rail scrub.
+ *
+ * Work rows are not links, so the pointer never washes or lights a row. It
+ * reads the rail instead: a bead — the current role's node, repeated — runs
+ * from the first node down to the node of the row under the pointer, and a
+ * Helm Teal trace fills the rail behind it. The lit length is the distance
+ * back in time. `work-rail-list.client.tsx` writes the geometry.
+ *
+ * `--rail-reach` is registered so the transition runs on the number itself.
+ * The bead's offset and the trace's length both read that one interpolated
+ * value, so the bead always sits exactly on the end of its trace.
+ *
+ * Travel down is 560ms on an ease-out cubic, so the bead visibly runs past
+ * the nodes between instead of arriving in the first frame — an expo curve
+ * covers half the distance in 45ms and reads as a jump. The return is 260ms
+ * and the fade waits for it, so the bead goes home to the first node before it
+ * goes out and never disappears mid-rail.
+ */
+@property --rail-reach {
+  syntax: "<number>";
+  inherits: true;
+  initial-value: 0;
+}
+
+.work-rail {
+  position: relative;
+  --rail-reach: 0;
+  transition: --rail-reach 260ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.work-rail[data-scrub="on"] {
+  transition-duration: 560ms;
+  transition-timing-function: cubic-bezier(0.33, 1, 0.68, 1);
+}
+
+.work-rail-trace,
+.work-rail-bead {
+  position: absolute;
+  top: var(--rail-from, 12px);
+  left: var(--rail-x, 5px);
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 140ms linear 240ms;
+}
+
+.work-rail[data-scrub="on"] .work-rail-trace,
+.work-rail[data-scrub="on"] .work-rail-bead {
+  opacity: 1;
+  transition-delay: 0ms;
+}
+
+/**
+ * Faint at the first node, full Helm Teal at the bead: the trace is brightest
+ * where the reader is. It is 1px wide and paints under the nodes, which sit a
+ * layer up, so it reads as the rail itself lighting and not as a second line.
+ */
+.work-rail-trace {
+  width: 1px;
+  height: calc(var(--rail-reach) * 1px);
+  margin-left: -0.5px;
+  background-image: linear-gradient(
+    to bottom,
+    color-mix(in oklab, var(--primary) 45%, transparent),
+    var(--primary)
+  );
+}
+
+.work-rail-bead {
+  z-index: 2;
+  width: 10px;
+  height: 10px;
+  margin: -5px 0 0 -5px;
+  border-radius: 9999px;
+  translate: 0 calc(var(--rail-reach) * 1px);
+}
+
+/* Reduced motion keeps the reading and drops the travel: the bead jumps. */
+@media (prefers-reduced-motion: reduce) {
+  .work-rail,
+  .work-rail-trace,
+  .work-rail-bead {
+    transition: none;
+  }
+}
+
+/* The scrub is decoration: a forced palette keeps the plain rail. */
+@media (forced-colors: active) {
+  .work-rail-trace,
+  .work-rail-bead {
+    display: none;
+  }
+}
+
+/**
+ * ID badge (About).
+ *
+ * The portrait printed on a card that hangs from a lanyard. Motion is written by
+ * `id-badge-motion.ts`: the card's `transform`, the swing's `transform`, and two
+ * light variables on the card — `--badge-light`, the signed sine of the turn
+ * (where the gloss sits), and `--badge-turn`, its size (how far the face has
+ * turned from the viewer). With no script both stay 0: the front, flat and lit
+ * evenly, which is also the print and no-motion state.
+ *
+ * The badge is its own size container, so the print inside it scales with the
+ * card (`cqw`) and the card reads the same as a 10rem miniature and at the full
+ * 19rem column.
+ */
+.id-badge {
+  --strap-h: 2.25rem;
+  container-type: inline-size;
+  padding-top: var(--strap-h);
+}
+
+@media (width >= 64rem) {
+  .id-badge {
+    --strap-h: 3.5rem;
+  }
+}
+
+/* The pendulum pivots at the top of the strap, out of sight above the card. */
+.id-badge-swing {
+  transform-origin: 50% calc(-1 * var(--strap-h));
+}
+
+/**
+ * The lanyard: a woven strap that fades in from above, and a flat clip that
+ * holds the card through its slot. Both are drawn after the card, so the card
+ * turns behind the clip, as it does on a real badge. The strap is graphite in
+ * both themes — in dark it lifts one step so it still reads off the canvas.
+ */
+.id-badge-strap {
+  --badge-strap: var(--fg);
+  position: absolute;
+  bottom: calc(100% - 2px);
+  left: 50%;
+  width: 11%;
+  height: calc(var(--strap-h) + 2px);
+  translate: -50% 0;
+  overflow: hidden;
+  background-color: var(--badge-strap);
+  -webkit-mask-image: linear-gradient(to bottom, transparent, #000 75%);
+  mask-image: linear-gradient(to bottom, transparent, #000 75%);
+}
+
+:is(.dark .id-badge-strap) {
+  --badge-strap: oklch(0.34 0.008 56);
+}
+
+.id-badge-strap-weave {
+  display: block;
+  font-family: var(--font-mono);
+  font-size: max(0.4375rem, 2.6cqw);
+  font-weight: 500;
+  line-height: 1;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  white-space: nowrap;
+  writing-mode: vertical-rl;
+  margin-inline: auto;
+  color: color-mix(in oklab, var(--canvas) 55%, transparent);
+}
+
+.id-badge-clip {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  width: 14%;
+  aspect-ratio: 1.5;
+  translate: -50% -45%;
+  border-radius: 3px 3px 2px 2px;
+  border: 1px solid color-mix(in oklab, var(--fg) 30%, transparent);
+  background-color: color-mix(in oklab, var(--muted-fg) 55%, var(--card));
+  pointer-events: none;
+}
+
+.id-badge-stage {
+  --badge-radius: 5.5cqw;
+  position: relative;
+  perspective: 320cqw;
+}
+
+.id-badge-card {
+  position: relative;
+  aspect-ratio: 54 / 86;
+  transform-style: preserve-3d;
+}
+
+.id-badge-card[data-moving] {
+  will-change: transform;
+}
+
+/**
+ * One face of the card: the Portrait frame's materials — Card fill, 1px
+ * Hairline, the resting edge — at an ID card's corner. Each face sits half the
+ * card's 3px thickness off the middle, and the two edges close the gap between
+ * them, so the card has a side when it turns edge-on instead of vanishing.
+ */
+.id-badge-face {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  border: 1px solid var(--border);
+  border-radius: var(--badge-radius);
+  background-color: var(--card);
+  box-shadow: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+  transform: translateZ(1.5px);
+}
+
+.id-badge-face[data-face="back"] {
+  transform: rotateY(180deg) translateZ(1.5px);
+}
+
+/**
+ * Light on the laminate. `::before` shades a face as it turns away from the
+ * viewer. `::after` is the gloss: a narrow band that crosses the face as it
+ * turns — a Helm Teal specular with a pale core, the card-light vocabulary — and
+ * that is gone when the card faces front. It shows only while the card is off
+ * square, so the resting badge carries no teal beyond its stripe and the signature.
+ */
+.id-badge-face::before,
+.id-badge-face::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  border-radius: inherit;
+  pointer-events: none;
+}
+
+.id-badge-face::before {
+  background-color: oklch(0 0 0);
+  opacity: calc(var(--badge-turn, 0) * 0.16);
+}
+
+.id-badge-face::after {
+  background-image: linear-gradient(
+    105deg,
+    transparent 38%,
+    color-mix(in oklab, var(--primary) 16%, transparent) 46%,
+    color-mix(in oklab, oklch(1 0 0) 50%, transparent) 50%,
+    color-mix(in oklab, var(--primary) 16%, transparent) 54%,
+    transparent 62%
+  );
+  background-size: 260% 100%;
+  background-position: calc(50% - var(--badge-light, 0) * 110%) 0;
+  opacity: min(1, calc(var(--badge-turn, 0) * 3));
+}
+
+.id-badge-slot {
+  position: absolute;
+  top: 4cqw;
+  left: 50%;
+  width: 18cqw;
+  height: 3.4cqw;
+  translate: -50% 0;
+  border-radius: 9999px;
+  background-color: var(--canvas);
+  box-shadow: inset 0 0 0 1px var(--border);
+}
+
+/**
+ * The holder's signature, in Helm Teal ink — the stripe's colour, so the
+ * card's two marks of hand and brand agree. Primary does not shift between
+ * themes (The Same-Signal Rule), and it reads on the light and the dark card
+ * alike. It is a little translucent, as ink on laminate is, so the microprint
+ * line shows through where the pen crosses it.
+ */
+.id-badge-ink {
+  color: var(--primary);
+  opacity: 0.94;
+}
+
+/**
+ * The signature line is microprint, as on a real ID card: the full name in
+ * capitals, repeated, at a size that reads as a rule at arm's length and as
+ * text up close. The ink sits over it — the pen crosses it about four-fifths
+ * of the way down the signature, where the tail and the lower loops dip. The
+ * caption under the line sits at its end, clear of the tail.
+ */
+.id-badge-microline {
+  margin-top: -9cqw;
+  overflow: hidden;
+  font-family: var(--font-mono);
+  font-size: 1.5cqw;
+  font-weight: 500;
+  line-height: 1;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  white-space: nowrap;
+  color: var(--muted-fg);
+}
+
+/* The front's one Helm Teal mark: a thin stripe along the foot. */
+.id-badge-stripe {
+  position: absolute;
+  inset: auto 0 0;
+  height: 2.2cqw;
+  background-color: var(--primary);
+}
+
+.id-badge-edge {
+  position: absolute;
+  top: var(--badge-radius);
+  bottom: var(--badge-radius);
+  width: 3px;
+  background-color: color-mix(in oklab, var(--fg) 24%, var(--card));
+}
+
+.id-badge-edge[data-edge="left"] {
+  left: 0;
+  transform-origin: left center;
+  transform: translateZ(1.5px) rotateY(90deg);
+}
+
+.id-badge-edge[data-edge="right"] {
+  right: 0;
+  transform-origin: right center;
+  transform: translateZ(1.5px) rotateY(-90deg);
+}
+
+/**
+ * The hit area: one native button over the whole card. It never turns with the
+ * card, so its focus ring stays square to the page. A horizontal drag spins the
+ * card; a vertical one still scrolls the page on touch.
+ */
+.id-badge-hit {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  border-radius: var(--badge-radius);
+  cursor: grab;
+  touch-action: pan-y;
+  -webkit-tap-highlight-color: transparent;
+  outline: 2px solid transparent;
+  outline-offset: 4px;
+}
+
+.id-badge-hit:active {
+  cursor: grabbing;
+}
+
+.id-badge-hit:focus-visible {
+  outline-color: var(--ring);
+}
+
+/* Light and the stripe are decoration: a forced palette keeps the plain card. */
+@media (forced-colors: active) {
+  .id-badge-face::before,
+  .id-badge-face::after,
+  .id-badge-stripe {
+    display: none;
+  }
+
+  .id-badge-hit:focus-visible {
+    outline-color: Highlight;
+  }
+}
+
+/*
+ * Skill net (About): What I bring as a schematic. Curiosity is the source pad,
+ * a via in graphite; one trunk runs from it to the four items it feeds. Below
+ * `lg` the trunk runs down the left gutter and branches right to each item.
+ * From `lg` it drops to a bus, and the bus drops to four columns.
+ *
+ * Each item draws its own traces, as the work rail does: `::before` is the
+ * vertical run through it, `::after` the horizontal one. So the net starts and
+ * ends on a pad whatever height the copy takes, and needs no measuring. The
+ * last item is a corner, so it has no junction dot.
+ *
+ * Traces ride on Muted Ink mixed into the canvas, not on Hairline, for the
+ * rail's reason (Hairline drops out on the dark canvas), and they are opaque,
+ * so two runs that cross do not print a darker pixel.
+ *
+ * Lit path (fine pointer): an item lights the traces from the source to its
+ * own pad, and the source lights the whole net, because curiosity feeds all
+ * four. Each trace fills in the direction current travels, one step after the
+ * trace before it (`--i` is the item's index), so the light runs down the net
+ * instead of switching on at once. Leaving drains every trace together. The
+ * light is Warm Graphite, not Helm Teal: the page's teal stays on the ID Badge.
+ */
+.skill-net {
+  --net-x: 7px;
+  --net-drop: 2rem;
+  --net-gap: 2rem;
+  --net-step: 70ms;
+  --net-fade: 160ms;
+  --net-line: color-mix(in oklab, var(--muted-fg) 30%, var(--canvas));
+  --net-dot: color-mix(in oklab, var(--muted-fg) 60%, var(--canvas));
+  --net-lit: var(--fg);
+}
+
+/* The dark canvas swallows a faint line, so the net steps up a notch there. */
+:is(.dark .skill-net) {
+  --net-line: color-mix(in oklab, var(--muted-fg) 42%, var(--canvas));
+  --net-dot: color-mix(in oklab, var(--muted-fg) 72%, var(--canvas));
+}
+
+.skill-net-source {
+  --net-mid: 14px;
+  position: relative;
+  padding-bottom: 2rem;
+  padding-left: 1.75rem;
+}
+
+.skill-net-output {
+  --net-mid: 12px;
+  --net-pad-x: 1.75rem;
+  position: relative;
+  padding-left: 2.75rem;
+}
+
+.skill-net-output:not(:last-child) {
+  padding-bottom: 2rem;
+}
+
+.skill-net-source::after,
+.skill-net-output::before,
+.skill-net-output::after {
+  content: "";
+  position: absolute;
+  background-color: var(--net-line);
+  background-image: linear-gradient(var(--net-lit), var(--net-lit));
+  background-repeat: no-repeat;
+  background-size: 100% 0;
+  transition: background-size var(--net-fade) cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.skill-net-source::after,
+.skill-net-output::before {
+  left: var(--net-x);
+  width: 1px;
+  translate: -50% 0;
+}
+
+.skill-net-source::after {
+  top: var(--net-mid);
+  bottom: 0;
+}
+
+.skill-net-output::before {
+  top: 0;
+  bottom: 0;
+}
+
+.skill-net-output:last-child::before {
+  bottom: auto;
+  height: calc(var(--net-mid) + 0.5px);
+}
+
+.skill-net-output::after {
+  top: var(--net-mid);
+  left: var(--net-x);
+  width: calc(var(--net-pad-x) - var(--net-x));
+  height: 1px;
+  translate: 0 -50%;
+  background-size: 0 100%;
+}
+
+.skill-net-pad,
+.skill-net-joint {
+  position: absolute;
+  z-index: 1;
+  translate: -50% -50%;
+  transition:
+    background-color var(--net-fade) ease-out,
+    border-color var(--net-fade) ease-out;
+}
+
+.skill-net-pad {
+  top: var(--net-pad-y, var(--net-mid));
+  left: var(--net-pad-x, var(--net-x));
+  width: 10px;
+  height: 10px;
+  border: 1px solid color-mix(in oklab, var(--muted-fg) 45%, transparent);
+  border-radius: 2px;
+  background-color: var(--canvas);
+}
+
+/* The source is a via: a graphite pad with a drilled centre. */
+.skill-net-source .skill-net-pad {
+  width: 14px;
+  height: 14px;
+  border: 0;
+  border-radius: 3px;
+  background: radial-gradient(circle, var(--canvas) 2px, var(--fg) 2.5px);
+}
+
+.skill-net-joint {
+  top: var(--net-joint-y, var(--net-mid));
+  left: var(--net-x);
+  width: 5px;
+  height: 5px;
+  border-radius: 9999px;
+  background-color: var(--net-dot);
+}
+
+.skill-net-output:last-child .skill-net-joint {
+  display: none;
+}
+
+@media (width >= 64rem) {
+  .skill-net-source {
+    padding-bottom: 1.5rem;
+  }
+
+  .skill-net-outputs {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    column-gap: var(--net-gap);
+  }
+
+  .skill-net-output,
+  .skill-net-output:not(:last-child) {
+    --net-pad-x: var(--net-x);
+    --net-pad-y: calc(var(--net-drop) + 5px);
+    --net-joint-y: 0px;
+    padding: calc(var(--net-drop) + 1.25rem) 0 0;
+  }
+
+  .skill-net-output::before,
+  .skill-net-output:last-child::before {
+    bottom: auto;
+    height: var(--net-drop);
+  }
+
+  .skill-net-output::after {
+    top: 0;
+    width: calc(100% + var(--net-gap));
+  }
+
+  .skill-net-output:last-child::after {
+    display: none;
+  }
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .skill-net:has(.skill-net-source:hover, .skill-net-output:hover)
+    .skill-net-source::after {
+    background-size: 100% 100%;
+    transition: background-size var(--net-step) linear;
+  }
+}
+
+/* Standing net: the lit path runs down the trunk, then out along a branch. */
+@media (hover: hover) and (pointer: fine) and (width < 64rem) {
+  .skill-net-output:has(~ .skill-net-output:hover)::before,
+  .skill-net:has(.skill-net-source:hover) .skill-net-output::before {
+    background-size: 100% 100%;
+    transition: background-size var(--net-step) linear
+      calc((var(--i) + 1) * var(--net-step));
+  }
+
+  .skill-net-output:hover::before {
+    background-size: 100% calc(var(--net-mid) + 0.5px);
+    transition: background-size var(--net-step) linear
+      calc((var(--i) + 1) * var(--net-step));
+  }
+
+  .skill-net-output:hover::after,
+  .skill-net:has(.skill-net-source:hover) .skill-net-output::after {
+    background-size: 100% 100%;
+    transition: background-size var(--net-step) linear
+      calc((var(--i) + 2) * var(--net-step));
+  }
+
+  .skill-net-output:has(~ .skill-net-output:hover) .skill-net-joint,
+  .skill-net-output:hover .skill-net-joint,
+  .skill-net:has(.skill-net-source:hover) .skill-net-joint {
+    background-color: var(--net-lit);
+    transition-delay: calc((var(--i) + 2) * var(--net-step));
+  }
+
+  .skill-net-output:hover .skill-net-pad,
+  .skill-net:has(.skill-net-source:hover) .skill-net-output .skill-net-pad {
+    border-color: var(--net-lit);
+    background-color: var(--net-lit);
+    transition-delay: calc((var(--i) + 3) * var(--net-step));
+  }
+}
+
+/* Lying net: the lit path runs along the bus, then down a drop. */
+@media (hover: hover) and (pointer: fine) and (width >= 64rem) {
+  .skill-net-output:has(~ .skill-net-output:hover)::after,
+  .skill-net:has(.skill-net-source:hover) .skill-net-output::after {
+    background-size: 100% 100%;
+    transition: background-size var(--net-step) linear
+      calc((var(--i) + 1) * var(--net-step));
+  }
+
+  .skill-net-output:hover::before,
+  .skill-net:has(.skill-net-source:hover) .skill-net-output::before {
+    background-size: 100% 100%;
+    transition: background-size var(--net-step) linear
+      calc((var(--i) + 1) * var(--net-step));
+  }
+
+  .skill-net-output:has(~ .skill-net-output:hover) .skill-net-joint,
+  .skill-net-output:hover .skill-net-joint,
+  .skill-net:has(.skill-net-source:hover) .skill-net-joint {
+    background-color: var(--net-lit);
+    transition-delay: calc((var(--i) + 1) * var(--net-step));
+  }
+
+  .skill-net-output:hover .skill-net-pad,
+  .skill-net:has(.skill-net-source:hover) .skill-net-output .skill-net-pad {
+    border-color: var(--net-lit);
+    background-color: var(--net-lit);
+    transition-delay: calc((var(--i) + 2) * var(--net-step));
+  }
+}
+
+/* Reduced motion keeps the lit path and drops the travel. */
+@media (prefers-reduced-motion: reduce) {
+  .skill-net {
+    --net-step: 0ms;
+    --net-fade: 0ms;
+  }
+}
+
+/* A forced palette keeps the net as plain lines and pads, with no light. */
+@media (forced-colors: active) {
+  .skill-net-source::after,
+  .skill-net-output::before,
+  .skill-net-output::after,
+  .skill-net-joint {
+    forced-color-adjust: none;
+    background: CanvasText;
+  }
+
+  .skill-net-pad {
+    forced-color-adjust: none;
+    border-color: CanvasText;
+    background: Canvas;
+  }
+
+  .skill-net-source .skill-net-pad {
+    background: CanvasText;
+  }
+}
+
+/*
+ * Tech Stack spine (About): TypeScript as one strap beside the layers, the
+ * lanyard's material — graphite in both themes, one step lifted in dark. The
+ * name reads in full; below it the name repeats as a weave that fades out
+ * before the label, so the strap reads as running through every layer.
+ */
+.tech-spine {
+  --tech-spine: var(--fg);
+  background-color: var(--tech-spine);
+  color: var(--bg);
+}
+
+:is(.dark .tech-spine) {
+  --tech-spine: oklch(0.34 0.008 56);
+  color: var(--fg);
+}
+
+.tech-spine-weave {
+  flex: 1;
+  min-height: 0;
+  overflow: hidden;
+  font-family: var(--font-mono);
+  font-size: 0.625rem;
+  font-weight: 500;
+  line-height: 1;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  white-space: nowrap;
+  writing-mode: vertical-rl;
+  color: color-mix(in oklab, currentColor 40%, transparent);
+  -webkit-mask-image: linear-gradient(to bottom, #000 40%, transparent);
+  mask-image: linear-gradient(to bottom, #000 40%, transparent);
+}
+
+.tech-spine-label {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  font-weight: 500;
+  line-height: 1;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  writing-mode: vertical-rl;
+  color: color-mix(in oklab, currentColor 72%, transparent);
+}
+
+/* A forced palette drops the fill, so the strap keeps its edge as a border. */
+@media (forced-colors: active) {
+  .tech-spine {
+    border: 1px solid CanvasText;
+  }
+
+  .tech-spine-weave {
+    display: none;
+  }
 }

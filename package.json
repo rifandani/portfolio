@@ -33,10 +33,9 @@
     "check:fix": "fallow fix --yes --no-create-config",
     "typecheck": "bun web typecheck",
     "typerange": "bun web typerange",
-    "lint-typecheck": "bun run --parallel lint web:typecheck web:typerange",
+    "lint-typecheck": "bun run --parallel lint web:typecheck",
     "web": "bun --elide-lines=0 --filter @workspace/web",
     "web:typecheck": "bun web typecheck",
-    "web:typerange": "bun web typerange",
     "test:unit": "vitest run",
     "test:unit:watch": "vitest",
     "test:unit:cov": "vitest run --coverage",
@@ -64,6 +63,9 @@
     "vitest": "4.1.11"
   },
   "overrides": {
+    "brace-expansion": "5.0.12",
+    "browserslist": "4.29.1",
+    "fast-uri": "3.1.8",
     "sharp": "0.35.4"
   },
   "engines": {

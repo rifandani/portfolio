@@ -1,21 +1,15 @@
 "use client";
 // fallow-ignore-file security-client-server-leak -- a `use server` import is an RPC boundary: the bundler emits a server reference, never the action's code or its env reads
 
-import { GlobeAltIcon } from "@heroicons/react/24/outline";
 import { useLocale, useTranslations } from "next-intl";
 import { useTransition } from "react";
+import { HiOutlineGlobeAlt } from "react-icons/hi2";
 import type { Selection } from "react-stately";
 import { toast } from "sonner";
 
 import { setUserLocaleAction } from "@/core/actions/i18n";
-import {
-  Button,
-  Menu,
-  MenuContent,
-  MenuHeader,
-  MenuItem,
-  MenuSection,
-} from "@/core/components/ui";
+import { Button } from "@/core/components/ui/button";
+import { Menu, MenuContent, MenuItem } from "@/core/components/ui/menu";
 import type { I18NLocale } from "@/core/constants/i18n";
 
 export const LanguageToggle = () => {
@@ -25,11 +19,20 @@ export const LanguageToggle = () => {
   return (
     <Menu>
       <Button intent="outline" data-slot="menu-trigger">
-        <GlobeAltIcon className="size-6" />
-        {locale === "en" ? "English" : "Indonesia"}
+        <HiOutlineGlobeAlt
+          aria-hidden="true"
+          data-slot="icon"
+          className="size-6"
+        />
+        {/* The label is chrome, not information: it drops below `sm` so the
+            public topbar fits one row at 390px. */}
+        <span className="hidden sm:inline">
+          {locale === "en" ? "English" : "Indonesia"}
+        </span>
       </Button>
 
       <MenuContent
+        aria-label={t("language")}
         selectionMode="single"
         selectedKeys={new Set([locale])}
         onSelectionChange={(_selection) => {
@@ -46,16 +49,12 @@ export const LanguageToggle = () => {
           });
         }}
       >
-        <MenuSection>
-          <MenuHeader separator>{t("language")}</MenuHeader>
-
-          <MenuItem id="en" isDisabled={isPending}>
-            English
-          </MenuItem>
-          <MenuItem id="id" isDisabled={isPending}>
-            Indonesia
-          </MenuItem>
-        </MenuSection>
+        <MenuItem id="en" isDisabled={isPending}>
+          English
+        </MenuItem>
+        <MenuItem id="id" isDisabled={isPending}>
+          Indonesia
+        </MenuItem>
       </MenuContent>
     </Menu>
   );

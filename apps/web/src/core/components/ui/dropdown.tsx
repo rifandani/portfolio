@@ -1,6 +1,6 @@
 'use client'
 
-import { CheckIcon } from '@heroicons/react/20/solid'
+import { HiMiniCheck } from 'react-icons/hi2'
 import { Collection } from 'react-aria-components/Collection'
 import { composeRenderProps } from 'react-aria-components/composeRenderProps'
 import { Header } from 'react-aria-components/Header'
@@ -8,7 +8,7 @@ import type { ListBoxItemProps, ListBoxSectionProps } from 'react-aria-component
 import { ListBoxItem as ListBoxItemPrimitive, ListBoxSection } from 'react-aria-components/ListBox'
 import { Separator, type SeparatorProps } from 'react-aria-components/Separator'
 import { Text, type TextProps } from 'react-aria-components/Text'
-import { twJoin, twMerge } from 'tailwind-merge'
+import { twMerge } from 'tailwind-merge'
 import { tv } from 'tailwind-variants'
 import { Keyboard } from './keyboard'
 
@@ -51,12 +51,12 @@ const dropdownItemStyles = tv({
     '*:data-[slot=avatar]:*:me-(--me-icon) *:data-[slot=avatar]:me-(--me-icon) has-[[slot=description]]:*:data-[slot=avatar]:row-span-2 *:data-[slot=avatar]:[--avatar-size:--spacing(5)] sm:*:data-[slot=avatar]:[--avatar-size:--spacing(4)]',
     // icon
     "[&_svg:not([class*='text-'])]:text-muted-fg *:[svg:not([data-slot='check-indicator'])]:col-start-1 *:[svg:not([data-slot='check-indicator'])]:row-start-1 *:[svg:not([data-slot='check-indicator'])]:-ms-0.5 *:[svg:not([data-slot='check-indicator'])]:me-(--me-icon) *:[svg]:shrink-0",
-    'not-has-[[slot=description]]:*:[svg]:size-5 sm:not-has-[[slot=description]]:*:[svg]:size-4',
-    "has-[[slot=description]]:[&_svg:not([class*='w-'])]:w-5 sm:has-[[slot=description]]:[&_svg:not([class*='w-'])]:w-4 has-[[slot=description]]:*:[svg]:h-lh",
+    "not-has-[[slot=description]]:*:[svg:not([data-slot='check-indicator'])]:size-5 sm:not-has-[[slot=description]]:*:[svg:not([data-slot='check-indicator'])]:size-4",
+    "has-[[slot=description]]:[&_svg:not([class*='w-']):not([data-slot='check-indicator'])]:w-5 sm:has-[[slot=description]]:[&_svg:not([class*='w-']):not([data-slot='check-indicator'])]:w-4 has-[[slot=description]]:*:[svg:not([data-slot='check-indicator'])]:h-lh",
     "[&>[slot=label]+svg:not([data-slot='check-indicator'])]:absolute [&>[slot=label]+svg:not([data-slot='check-indicator'])]:inset-e-0 [&>[slot=label]+svg:not([data-slot='check-indicator'])]:top-1",
-    "selected:[&>svg:not([data-slot='check-indicator']):has(+svg:not([data-slot='check-indicator']))]:absolute selected:[&>svg:not([data-slot='check-indicator']):has(+svg:not([data-slot='check-indicator']))]:inset-e-0 selected:[&>svg:not([data-slot='check-indicator']):has(+svg:not([data-slot='check-indicator']))]:top-1",
-    "selected:[&>svg:not([data-slot='check-indicator']):has(+[data-slot=avatar])]:absolute selected:[&>svg:not([data-slot='check-indicator']):has(+[data-slot=avatar])]:inset-e-0 selected:[&>svg:not([data-slot='check-indicator']):has(+[data-slot=avatar])]:top-1",
-    "selected:[&>[data-slot=avatar]+[slot=label]]:me-6 selected:[&>[data-slot=avatar]+svg:not([data-slot='check-indicator'])+[slot=label]]:me-6 selected:[&>svg:not([data-slot='check-indicator'])+[data-slot=avatar]+[slot=label]]:me-6 selected:[&>svg:not([data-slot='check-indicator'])+[slot=label]]:me-6",
+    // check indicator sits at the trailing edge, out of flow, so selected and
+    // unselected items keep the same leading alignment
+    'has-data-[slot=check-indicator]:pe-9 sm:has-data-[slot=check-indicator]:pe-8',
     // keyboard
     '*:data-[slot=keyboard]:inset-e-3',
     // force color adjust
@@ -116,17 +116,13 @@ const DropdownItem = ({ className, children, intent, ...props }: DropdownItemPro
     >
       {composeRenderProps(children, (children, { isSelected }) => (
         <>
+          {typeof children === 'string' ? <DropdownLabel>{children}</DropdownLabel> : children}
           {isSelected && (
-            <CheckIcon
-              className={twJoin(
-                '-ms-0.5 me-1.5 h-lh w-4 shrink-0',
-                "group-has-[svg:not([data-slot='check-indicator'])]:absolute group-has-[svg:not([data-slot='check-indicator'])]:inset-e-0.5 group-has-[svg:not([data-slot='check-indicator'])]:top-1/2 group-has-[svg:not([data-slot='check-indicator'])]:-translate-y-1/2",
-                'group-has-data-[slot=avatar]:absolute group-has-data-[slot=avatar]:inset-e-0.5 group-has-data-[slot=avatar]:top-1/2 group-has-data-[slot=avatar]:-translate-y-1/2'
-              )}
+            <HiMiniCheck aria-hidden="true"
+              className="pointer-events-none absolute end-3 top-1/2 size-4 shrink-0 -translate-y-1/2 sm:end-2.5"
               data-slot="check-indicator"
             />
           )}
-          {typeof children === 'string' ? <DropdownLabel>{children}</DropdownLabel> : children}
         </>
       ))}
     </ListBoxItemPrimitive>
@@ -134,7 +130,14 @@ const DropdownItem = ({ className, children, intent, ...props }: DropdownItemPro
 }
 
 const DropdownLabel = ({ className, ...props }: TextProps) => (
-  <Text slot="label" className={twMerge('col-start-2 [&:has(+svg)]:pe-6', className)} {...props} />
+  <Text
+    slot="label"
+    className={twMerge(
+      "col-start-2 [&:has(+svg:not([data-slot='check-indicator']))]:pe-6",
+      className
+    )}
+    {...props}
+  />
 )
 
 const DropdownDescription = ({ className, ...props }: TextProps) => (

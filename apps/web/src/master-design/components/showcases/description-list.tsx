@@ -15,7 +15,9 @@ export const DescriptionListShowcase = () => {
       <Variant className="w-full max-w-md" label="default">
         <DescriptionList>
           <DescriptionTerm>{t("name")}</DescriptionTerm>
-          <DescriptionDetails>Ava Thompson</DescriptionDetails>
+          <DescriptionDetails>
+            {t("catalogShowcaseSampleName")}
+          </DescriptionDetails>
           <DescriptionTerm>{t("catalogShowcaseRole")}</DescriptionTerm>
           <DescriptionDetails>{t("catalogShowcaseAdmin")}</DescriptionDetails>
           <DescriptionTerm>{t("catalogShowcaseStatus")}</DescriptionTerm>

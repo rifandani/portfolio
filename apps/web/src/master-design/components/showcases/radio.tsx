@@ -19,7 +19,7 @@ export const RadioShowcase = () => {
             <Radio>{t("catalogShowcaseBanana")}</Radio>
           </RadioField>
           <RadioField value="cherry">
-            <Radio>Cherry</Radio>
+            <Radio>{t("catalogShowcaseCherry")}</Radio>
           </RadioField>
         </RadioGroup>
       </Variant>
@@ -34,7 +34,7 @@ export const RadioShowcase = () => {
             <Radio>{t("catalogShowcaseBanana")}</Radio>
           </RadioField>
           <RadioField value="cherry">
-            <Radio>Cherry</Radio>
+            <Radio>{t("catalogShowcaseCherry")}</Radio>
           </RadioField>
         </RadioGroup>
       </Variant>

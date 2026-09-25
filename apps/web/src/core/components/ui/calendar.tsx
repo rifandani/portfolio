@@ -1,6 +1,6 @@
 'use client'
 
-import { ChevronLeftIcon, ChevronRightIcon } from '@heroicons/react/24/solid'
+import { HiChevronLeft, HiChevronRight } from 'react-icons/hi2'
 import {
   Calendar as CalendarPrimitive,
   CalendarCell,
@@ -105,7 +105,7 @@ const CalendarHeader = ({ className, ...props }: React.ComponentProps<'header'>)
           intent="plain"
           slot="previous"
         >
-          {direction === 'rtl' ? <ChevronRightIcon /> : <ChevronLeftIcon />}
+          {direction === 'rtl' ? <HiChevronRight aria-hidden="true" data-slot="icon" /> : <HiChevronLeft aria-hidden="true" data-slot="icon" />}
         </Button>
         <Button
           size="sq-sm"
@@ -114,7 +114,7 @@ const CalendarHeader = ({ className, ...props }: React.ComponentProps<'header'>)
           intent="plain"
           slot="next"
         >
-          {direction === 'rtl' ? <ChevronLeftIcon /> : <ChevronRightIcon />}
+          {direction === 'rtl' ? <HiChevronLeft aria-hidden="true" data-slot="icon" /> : <HiChevronRight aria-hidden="true" data-slot="icon" />}
         </Button>
       </div>
     </header>

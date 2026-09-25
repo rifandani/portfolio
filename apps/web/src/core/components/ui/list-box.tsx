@@ -1,6 +1,6 @@
 'use client'
 
-import { CheckIcon } from '@heroicons/react/20/solid'
+import { HiMiniCheck } from 'react-icons/hi2'
 import { composeRenderProps } from 'react-aria-components/composeRenderProps'
 import type {
   ListBoxItemProps,
@@ -92,7 +92,7 @@ const ListBoxItem = <T extends object>({ children, className, ...props }: ListBo
               </svg>
             )}
             {isSelected && (
-              <CheckIcon
+              <HiMiniCheck aria-hidden="true"
                 className="-mx-0.5 me-2 mt-0.5 h-lh w-5 shrink-0 group-allows-dragging:col-start-2 sm:mt-1 sm:w-4"
                 data-slot="check-indicator"
               />

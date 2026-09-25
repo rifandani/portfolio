@@ -1,7 +1,7 @@
 import type { MetadataRoute } from "next";
 
 const manifest = (): MetadataRoute.Manifest => ({
-  background_color: "#FFFFFF", // Color for potential splash if any system tried to use it
+  background_color: "#fbfaf7", // Splash canvas — matches `--canvas` in globals.css
   description: "Bulletproof Next.js 15 Template",
   display: "browser", // Explicitly use the browser UI
   display_override: ["window-controls-overlay"],
@@ -29,8 +29,8 @@ const manifest = (): MetadataRoute.Manifest => ({
       type: "image/png",
     },
   ],
-  name: "@workspace/web",
-  short_name: "@workspace/web",
+  name: "Tri Rizeki Rifandani",
+  short_name: "Tri Rizeki Rifandani",
   start_url: "/", // Or your preferred landing page
   theme_color: "#155DFC", // Your brand's theme color,
 });

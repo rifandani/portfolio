@@ -25,7 +25,7 @@ export const parseOgRequest = (req: NextRequest) => {
     isLight: req.headers.get("Sec-CH-Prefers-Color-Scheme") === "light",
     title: searchParams.has("title")
       ? searchParams.get("title")
-      : "@workspace/web",
+      : "Tri Rizeki Rifandani",
     logo: searchParams.has("logo") ? searchParams.get("logo") : "next",
   };
 };

@@ -1,5 +1,5 @@
-import { MagnifyingGlassIcon } from "@heroicons/react/20/solid";
 import { useTranslations } from "next-intl";
+import { HiMiniMagnifyingGlass } from "react-icons/hi2";
 
 import { Label } from "@/core/components/ui/field";
 import { Input, InputGroup } from "@/core/components/ui/input";
@@ -22,7 +22,7 @@ export const InputShowcase = () => {
         <TextField className="w-64">
           <Label>{t("catalogShowcaseSearch")}</Label>
           <InputGroup>
-            <MagnifyingGlassIcon data-slot="icon" />
+            <HiMiniMagnifyingGlass aria-hidden="true" data-slot="icon" />
             <Input placeholder={t("catalogShowcaseFindSomething")} />
           </InputGroup>
         </TextField>

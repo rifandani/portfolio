@@ -2,14 +2,13 @@ import type { NextRequest } from "next/server";
 import type * as NextServer from "next/server";
 import { beforeEach, describe, expect, it, vi } from "vitest";
 
-const securityMiddleware = vi.hoisted(() =>
-  vi.fn(() => new Response("secured", { status: 200 }))
+const nosecone = vi.hoisted(() =>
+  vi.fn(() => new Headers({ "x-frame-options": "DENY" }))
 );
-const createMiddleware = vi.hoisted(() => vi.fn(() => securityMiddleware));
 
 vi.mock("@nosecone/next", () => ({
-  createMiddleware,
   defaults: { xFrameOptions: "DENY" },
+  nosecone,
 }));
 
 const nextResponseNext = vi.hoisted(() =>
@@ -55,9 +54,10 @@ describe("proxy", () => {
     ]);
   });
 
-  it("creates nosecone middleware with CSP disabled", async () => {
-    await loadSut();
-    expect(createMiddleware).toHaveBeenCalledWith(
+  it("builds nosecone headers with CSP disabled", async () => {
+    const { default: proxy } = await loadSut();
+    await proxy(mockRequest());
+    expect(nosecone).toHaveBeenCalledWith(
       expect.objectContaining({
         contentSecurityPolicy: false,
         xFrameOptions: "DENY",
@@ -65,7 +65,7 @@ describe("proxy", () => {
     );
   });
 
-  it("forwards request id and returns security middleware response", async () => {
+  it("forwards request id and sets security headers on the response", async () => {
     const { default: proxy } = await loadSut();
     const uuidSpy = vi
       .spyOn(crypto, "randomUUID")
@@ -79,9 +79,10 @@ describe("proxy", () => {
       "11111111-1111-1111-1111-111111111111"
     );
     expect(init?.request?.headers?.get("x-evlog-start")).toMatch(/^\d+$/u);
-    expect(securityMiddleware).toHaveBeenCalled();
-    expect(response).toBeInstanceOf(Response);
-    expect(await response.text()).toBe("secured");
+    expect(response.headers.get("x-request-id")).toBe(
+      "11111111-1111-1111-1111-111111111111"
+    );
+    expect(response.headers.get("x-frame-options")).toBe("DENY");
 
     uuidSpy.mockRestore();
   });

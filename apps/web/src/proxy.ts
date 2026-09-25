@@ -1,14 +1,20 @@
-import { createMiddleware, defaults } from "@nosecone/next";
+import { defaults, nosecone } from "@nosecone/next";
 import type { NextRequest } from "next/server";
 /**
  * Remove `export const config` to ensures the headers are applied to all requests
  * NOTE: should opt-out of static generation for this to work
  */
-const securityMiddleware = createMiddleware({
+const securityOptions = {
   ...defaults,
   // disabled because we depend on iconify, next-themes, etc...
   contentSecurityPolicy: false,
-});
+  /**
+   * COEP `require-corp` blocks cross-origin subresources that carry no CORP/CORS
+   * headers, which breaks local dev tooling injected from another origin.
+   * Production keeps the default.
+   */
+  crossOriginEmbedderPolicy: process.env.NODE_ENV !== "development",
+};
 
 const REQUEST_ID_HEADER = "x-request-id";
 
@@ -43,7 +49,12 @@ const proxy = async (request: NextRequest) => {
   });
   // Also set on response for downstream consumers
   response.headers.set(REQUEST_ID_HEADER, requestId);
-  return securityMiddleware();
+  // Apply the security headers to the same response, so the forwarded request
+  // headers and the request ID are kept
+  for (const [name, value] of nosecone(securityOptions)) {
+    response.headers.set(name, value);
+  }
+  return response;
 };
 export default proxy;
 export const config = {

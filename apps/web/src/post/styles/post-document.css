@@ -1,0 +1,378 @@
+/*
+ * Post Document prose. Scoped to `.post-document` so the Markdown renderer's
+ * plain elements get the site type scale without a class on each node.
+ * Faces follow DESIGN.md: Roboto headings, Quicksand body, Plex Mono code.
+ * They use the `next/font` variables: `@theme inline` in globals.css does not
+ * emit `--font-display` or `--font-mono` at runtime.
+ */
+.post-document {
+  color: var(--fg);
+  font-size: 1rem;
+  line-height: 1.75;
+  max-width: 68ch;
+}
+
+.post-document > * + * {
+  margin-top: 1.25rem;
+}
+
+.post-document :is(h2, h3, h4) {
+  position: relative;
+  font-family: var(--font-roboto), ui-sans-serif, system-ui, sans-serif;
+  font-weight: 600;
+  letter-spacing: -0.015em;
+  scroll-margin-top: 5rem;
+}
+
+/*
+ * A Post Outline click focuses the heading it glides to, so the next Tab
+ * starts there. The heading is not a control, so it draws no focus ring.
+ */
+.post-document :is(h2, h3, h4)[tabindex="-1"]:focus {
+  outline: none;
+}
+
+.post-document h2 {
+  margin-top: 2.5rem;
+  font-size: 1.25rem;
+  line-height: 2rem;
+}
+
+.post-document :is(h3, h4) {
+  margin-top: 2rem;
+  font-size: 1rem;
+  line-height: 1.5rem;
+}
+
+.post-heading-anchor {
+  margin-left: 0.5rem;
+  color: var(--muted-fg);
+  text-decoration: none;
+  opacity: 0;
+  transition: opacity 150ms ease-out;
+}
+
+.post-document :is(h2, h3, h4):hover .post-heading-anchor {
+  opacity: 1;
+}
+
+/* Prose links; heading anchors and footnote backrefs carry their own class. */
+.post-document a:not([class]) {
+  color: var(--primary-subtle-fg);
+  font-weight: 500;
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 0.2em;
+}
+
+.post-document a:focus-visible {
+  outline: 2px solid var(--ring);
+  outline-offset: 2px;
+}
+
+.post-document :is(ul, ol) {
+  padding-left: 1.5rem;
+}
+
+.post-document ul {
+  list-style: disc;
+}
+
+.post-document ol {
+  list-style: decimal;
+}
+
+.post-document li + li {
+  margin-top: 0.375rem;
+}
+
+.post-document li:has(> input[type="checkbox"]) {
+  list-style: none;
+  margin-left: -1.5rem;
+}
+
+.post-document input[type="checkbox"] {
+  accent-color: var(--primary);
+  vertical-align: middle;
+}
+
+.post-document strong {
+  font-weight: 600;
+}
+
+.post-document blockquote {
+  border-left: 2px solid var(--border);
+  padding-left: 1rem;
+  color: var(--muted-fg);
+}
+
+.post-document hr {
+  border-color: var(--border);
+}
+
+.post-document :not(pre) > code {
+  border-radius: 0.25rem;
+  background: var(--secondary);
+  padding: 0.125rem 0.375rem;
+  font-family: var(--font-ibm-plex-mono), ui-monospace, monospace;
+  font-size: 0.875em;
+}
+
+.post-document table {
+  display: block;
+  overflow-x: auto;
+  border-collapse: collapse;
+  font-size: 0.875rem;
+}
+
+.post-document :is(th, td) {
+  border-bottom: 1px solid var(--border);
+  padding: 0.5rem 1rem 0.5rem 0;
+}
+
+.post-document th {
+  font-weight: 600;
+}
+
+.post-document .footnotes {
+  margin-top: 3rem;
+  border-top: 1px solid var(--border);
+  padding-top: 1rem;
+  color: var(--muted-fg);
+  font-size: 0.875rem;
+}
+
+/*
+ * Code theme for `@tanstack/highlight` `th-*` token classes. The block sits on
+ * the site's secondary surface and body ink; syntax hues come from the GitHub
+ * Light and GitHub Dark themes the library ships.
+ */
+.post-document pre.tm-code {
+  overflow-x: auto;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  background: var(--muted);
+  padding: 1rem;
+  color: var(--fg);
+  font-family: var(--font-ibm-plex-mono), ui-monospace, monospace;
+  font-size: 0.875rem;
+  line-height: 1.6;
+}
+
+/* A fence `title` puts the block in a frame with a caption above it. */
+.post-document figure.tm-code-frame > figcaption {
+  border: 1px solid var(--border);
+  border-bottom: 0;
+  border-radius: var(--radius) var(--radius) 0 0;
+  background: var(--secondary);
+  padding: 0.375rem 1rem;
+  color: var(--muted-fg);
+  font-family: var(--font-ibm-plex-mono), ui-monospace, monospace;
+  font-size: 0.8125rem;
+}
+
+.post-document figure.tm-code-frame > pre.tm-code {
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
+}
+
+/*
+ * Line annotations. A wrapped line fills the scroll width of the block and
+ * reaches into its padding, so its tint and its left edge meet the border.
+ */
+.post-document .th-line {
+  position: relative;
+  display: inline-block;
+  box-sizing: border-box;
+  min-width: calc(100% + 2rem);
+  margin-inline: -1rem;
+  border-left: 2px solid transparent;
+  padding-inline: calc(1rem - 2px) 1rem;
+}
+
+.post-document .th-line--highlighted {
+  border-left-color: var(--primary);
+  background: var(--primary-subtle);
+}
+
+.post-document .th-line--inserted {
+  border-left-color: var(--success);
+  background: var(--success-subtle);
+}
+
+.post-document .th-line--deleted {
+  border-left-color: var(--danger);
+  background: var(--danger-subtle);
+}
+
+.post-document .th-line--error {
+  text-decoration: underline wavy var(--danger);
+  text-decoration-skip-ink: none;
+  text-underline-offset: 0.25em;
+}
+
+.post-document .th-line--warning {
+  text-decoration: underline wavy var(--warning);
+  text-decoration-skip-ink: none;
+  text-underline-offset: 0.25em;
+}
+
+.post-document pre:has(.th-line--focused) .th-line:not(.th-line--focused) {
+  opacity: 0.45;
+  transition: opacity 150ms ease-out;
+}
+
+.post-document pre:has(.th-line--focused):hover .th-line {
+  opacity: 1;
+}
+
+/* The diff sign sits in the left padding, so the code keeps its column. */
+.post-document :is(.th-line--inserted, .th-line--deleted)::after {
+  position: absolute;
+  top: 0;
+  left: 0.25rem;
+  user-select: none;
+}
+
+.post-document .th-line--inserted::after {
+  color: var(--success-subtle-fg);
+  content: "+";
+}
+
+.post-document .th-line--deleted::after {
+  color: var(--danger-subtle-fg);
+  content: "-";
+}
+
+.post-document .th-line--numbered::before {
+  display: inline-block;
+  width: 2ch;
+  margin-right: 1.5ch;
+  color: var(--th-comment);
+  content: attr(data-line);
+  text-align: right;
+  user-select: none;
+}
+
+/*
+ * A `mark` term: one exact range of characters. A range that crosses tokens
+ * is split into sibling spans, so it has no radius or outline to break.
+ */
+.post-document .th-mark {
+  background: var(--primary-subtle);
+  box-shadow: inset 0 -2px 0 var(--primary);
+}
+
+.post-document {
+  --th-attr: #0550ae;
+  --th-code-inline: #953800;
+  --th-command: #8250df;
+  --th-comment: #6e7781;
+  --th-deleted: #cf222e;
+  --th-function: #8250df;
+  --th-heading: #0550ae;
+  --th-inserted: #1a7f37;
+  --th-keyword: #cf222e;
+  --th-link: #0969da;
+  --th-literal: #0550ae;
+  --th-meta: #57606a;
+  --th-number: #0550ae;
+  --th-operator: #8250df;
+  --th-property: #0550ae;
+  --th-selector: #116329;
+  --th-string: #0a7f64;
+  --th-tag: #116329;
+  --th-type: #953800;
+  --th-variable: #953800;
+}
+
+.dark .post-document {
+  --th-attr: #79c0ff;
+  --th-code-inline: #ffa657;
+  --th-command: #d2a8ff;
+  --th-comment: #8b949e;
+  --th-deleted: #ff7b72;
+  --th-function: #d2a8ff;
+  --th-heading: #79c0ff;
+  --th-inserted: #7ee787;
+  --th-keyword: #ff7b72;
+  --th-link: #58a6ff;
+  --th-literal: #79c0ff;
+  --th-meta: #8b949e;
+  --th-number: #79c0ff;
+  --th-operator: #d2a8ff;
+  --th-property: #79c0ff;
+  --th-selector: #7ee787;
+  --th-string: #a5d6ff;
+  --th-tag: #7ee787;
+  --th-type: #ffa657;
+  --th-variable: #ffa657;
+}
+
+.th-attr {
+  color: var(--th-attr);
+}
+.th-code-inline {
+  color: var(--th-code-inline);
+}
+.th-command {
+  color: var(--th-command);
+}
+.th-comment {
+  color: var(--th-comment);
+}
+.th-deleted {
+  color: var(--th-deleted);
+}
+.th-function {
+  color: var(--th-function);
+}
+.th-heading {
+  color: var(--th-heading);
+}
+.th-inserted {
+  color: var(--th-inserted);
+}
+.th-keyword {
+  color: var(--th-keyword);
+}
+.th-link {
+  color: var(--th-link);
+}
+.th-literal {
+  color: var(--th-literal);
+}
+.th-meta {
+  color: var(--th-meta);
+}
+.th-number {
+  color: var(--th-number);
+}
+.th-operator {
+  color: var(--th-operator);
+}
+.th-property {
+  color: var(--th-property);
+}
+.th-selector {
+  color: var(--th-selector);
+}
+.th-string {
+  color: var(--th-string);
+}
+.th-tag {
+  color: var(--th-tag);
+}
+.th-type {
+  color: var(--th-type);
+}
+.th-variable {
+  color: var(--th-variable);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .post-heading-anchor,
+  .post-document .th-line {
+    transition: none;
+  }
+}

@@ -1,6 +1,6 @@
 'use client'
 
-import { XCircleIcon } from '@heroicons/react/16/solid'
+import { HiMiniXCircle } from 'react-icons/hi2'
 import { Button } from 'react-aria-components/Button'
 import type { TagGroupProps, TagListProps, TagProps } from 'react-aria-components/TagGroup'
 import {
@@ -48,7 +48,7 @@ export function Tag({ children, className, ...props }: TagProps) {
           {children}
           {allowsRemoving && (
             <Button slot="remove" className="">
-              <XCircleIcon className="-me-1 size-4" />
+              <HiMiniXCircle aria-hidden="true" data-slot="icon" className="-me-1 size-4" />
             </Button>
           )}
         </>

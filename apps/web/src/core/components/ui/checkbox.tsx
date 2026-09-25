@@ -1,6 +1,6 @@
 'use client'
 
-import { CheckIcon, MinusIcon } from '@heroicons/react/20/solid'
+import { HiMiniCheck, HiMiniMinus } from 'react-icons/hi2'
 import {
   CheckboxButton,
   type CheckboxButtonProps,
@@ -57,9 +57,9 @@ export function Checkbox({ className, ...props }: CheckboxButtonProps) {
         props.children,
         (children, { isSelected, isIndeterminate, isInvalid }) => {
           const indicator = isIndeterminate ? (
-            <MinusIcon data-slot="check-indicator" />
+            <HiMiniMinus aria-hidden="true" data-slot="check-indicator" />
           ) : isSelected ? (
-            <CheckIcon data-slot="check-indicator" />
+            <HiMiniCheck aria-hidden="true" data-slot="check-indicator" />
           ) : null
 
           return (

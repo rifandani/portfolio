@@ -1,6 +1,6 @@
 'use client'
 
-import { ChevronUpDownIcon } from '@heroicons/react/20/solid'
+import { HiMiniChevronUpDown } from 'react-icons/hi2'
 import { Button } from 'react-aria-components/Button'
 import { ListBox, type ListBoxProps } from 'react-aria-components/ListBox'
 import type { PopoverProps } from 'react-aria-components/Popover'
@@ -119,7 +119,7 @@ const SelectTrigger = ({ children, className, ...props }: SelectTriggerProps) =>
                     '*:mt-0 *:data-[slot=avatar]:[--avatar-size:--spacing(5)] sm:*:data-[slot=avatar]:[--avatar-size:--spacing(4.5)]',
                   ])}
                 />
-                <ChevronUpDownIcon
+                <HiMiniChevronUpDown aria-hidden="true"
                   data-slot="chevron"
                   className="ms-auto -me-1 size-5 shrink-0 text-muted-fg sm:size-4"
                 />

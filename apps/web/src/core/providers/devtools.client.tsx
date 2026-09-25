@@ -42,7 +42,8 @@ export const Devtools = () => {
         }}
         plugins={plugins}
       />
-      {isDev && <Agentation />}
+      {/* Ternary, not `&&`: a falsy left side renders as text rather than nothing. */}
+      {isDev ? <Agentation /> : null}
     </>
   );
 };

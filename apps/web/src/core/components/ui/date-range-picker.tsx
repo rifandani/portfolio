@@ -1,6 +1,6 @@
 'use client'
 
-import { CalendarDateRangeIcon } from '@heroicons/react/24/outline'
+import { HiOutlineCalendarDateRange } from 'react-icons/hi2'
 import type { DateDuration } from '@internationalized/date'
 import { Button } from 'react-aria-components/Button'
 import type { DateValue } from 'react-aria-components/DateField'
@@ -79,7 +79,7 @@ export function DateRangePickerTrigger({
           '*:-me-px *:-mt-0.5 *:size-5 sm:*:size-4'
         )}
       >
-        <CalendarDateRangeIcon />
+        <HiOutlineCalendarDateRange aria-hidden="true" data-slot="icon" />
       </Button>
     </InputGroup>
   )

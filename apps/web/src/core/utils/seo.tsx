@@ -7,10 +7,10 @@ import { ENV } from "@/core/constants/env";
 
 const applicationName = ENV.NEXT_PUBLIC_APP_TITLE;
 const author = {
-  name: "Rizeki Rifandani",
+  name: "Tri Rizeki Rifandani",
   url: "https://web.com",
 } satisfies Metadata["authors"];
-const publisher = "Rizeki Rifandani";
+const publisher = "Tri Rizeki Rifandani";
 const twitterHandle = "@tri_rizeki";
 const appUrl = ENV.NEXT_PUBLIC_APP_URL;
 interface MetadataParts {
@@ -84,6 +84,19 @@ const buildDefaultMetadata = (parts: MetadataParts): Metadata => {
     },
     openGraph: buildOpenGraph(parts),
     twitter: buildTwitter(parts),
+    // Every page names the Post feed, so a feed reader finds it from any URL.
+    // `createMetadata` deep-merges, so a page that adds its own
+    // `alternates.types` keeps this one.
+    alternates: {
+      types: {
+        "application/rss+xml": [
+          {
+            title: `${publisher} · Posts`,
+            url: new URL("/rss.xml", appUrl).href,
+          },
+        ],
+      },
+    },
   };
 };
 
@@ -130,7 +143,7 @@ export const createWebSite = (props: {
     "@id": `${props.url}#${uid(16)}`,
     "@type": "WebSite",
     inLanguage: ["en-US", "id-ID"],
-    name: "@workspace/web",
+    name: "Tri Rizeki Rifandani",
   };
   return assign(defaultWebSite, props);
 };
@@ -143,7 +156,7 @@ export const createWebPage = (props: {
     "@id": `${props.url}#${uid(16)}`,
     "@type": "WebPage",
     inLanguage: ["en-US", "id-ID"],
-    name: "@workspace/web",
+    name: "Tri Rizeki Rifandani",
   };
   return assign(defaultWebPage, props);
 };

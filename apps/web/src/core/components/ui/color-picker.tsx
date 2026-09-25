@@ -1,6 +1,6 @@
 'use client'
 
-import { EyeDropperIcon } from '@heroicons/react/24/solid'
+import { HiEyeDropper } from 'react-icons/hi2'
 import { parseColor } from 'react-stately'
 import { use } from 'react'
 import {
@@ -48,7 +48,7 @@ const EyeDropper = () => {
         eyeDropper?.open().then((result) => state.setColor(parseColor(result.sRGBHex)))
       }}
     >
-      <EyeDropperIcon />
+      <HiEyeDropper aria-hidden="true" data-slot="icon" />
     </Button>
   )
 }

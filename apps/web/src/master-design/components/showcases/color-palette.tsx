@@ -25,33 +25,39 @@ interface Rgba {
   a: number;
 }
 
+const channelAt = (pixel: Uint8ClampedArray, index: number) =>
+  pixel[index] ?? 0;
+
+/** Paints `color` on the context; `false` when the color is rejected. */
+const paintColor = (ctx: CanvasRenderingContext2D, color: string) => {
+  // Sentinel: if `color` is rejected, fillStyle stays on this value.
+  ctx.fillStyle = "rgba(1, 2, 3, 1)";
+  const sentinel = ctx.fillStyle;
+  ctx.fillStyle = color;
+  if (ctx.fillStyle === sentinel) {
+    return false;
+  }
+  ctx.clearRect(0, 0, 1, 1);
+  ctx.fillRect(0, 0, 1, 1);
+  return true;
+};
+
 /** Resolve any CSS color to RGBA by painting one pixel (handles oklch/oklab). */
 const cssColorToRgba = (color: string): Rgba | null => {
   const canvas = document.createElement("canvas");
   canvas.width = 1;
   canvas.height = 1;
   const ctx = canvas.getContext("2d", { willReadFrequently: true });
-  if (!ctx) {
+  if (!ctx || !paintColor(ctx, color)) {
     return null;
   }
-
-  // Sentinel: if `color` is rejected, fillStyle stays on this value.
-  ctx.fillStyle = "rgba(1, 2, 3, 1)";
-  const sentinel = ctx.fillStyle;
-  ctx.fillStyle = color;
-  if (ctx.fillStyle === sentinel) {
-    return null;
-  }
-
-  ctx.clearRect(0, 0, 1, 1);
-  ctx.fillRect(0, 0, 1, 1);
-  // 1×1 getImageData always yields RGBA; index via ?? for noUncheckedIndexedAccess.
+  // 1×1 getImageData always yields RGBA; channelAt covers noUncheckedIndexedAccess.
   const pixel = ctx.getImageData(0, 0, 1, 1).data;
   return {
-    r: pixel[0] ?? 0,
-    g: pixel[1] ?? 0,
-    b: pixel[2] ?? 0,
-    a: (pixel[3] ?? 0) / 255,
+    r: channelAt(pixel, 0),
+    g: channelAt(pixel, 1),
+    b: channelAt(pixel, 2),
+    a: channelAt(pixel, 3) / 255,
   };
 };
 

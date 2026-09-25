@@ -3,6 +3,8 @@ test-results
 playwright-test-results
 playwright-report
 playwright
+.playwright-cli/
+.playwright/
 blob-report
 playwright.cache
 coverage

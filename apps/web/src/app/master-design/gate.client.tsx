@@ -1,10 +1,8 @@
 "use client";
 
-import { useTranslations } from "next-intl";
 import { useSyncExternalStore } from "react";
 
-import { StatusScreen } from "@/core/components/status-screen";
-import { Link } from "@/core/components/ui";
+import { NotFoundScreen } from "@/core/components/not-found-screen";
 import { resolveFeatureEnabled } from "@/core/feature-flags/is-enabled";
 import { getFeatureFlagDefinition } from "@/core/feature-flags/registry";
 import { useFeatureFlagStore } from "@/core/feature-flags/store";
@@ -19,13 +17,12 @@ const getServerHydrationSnapshot = () => false;
 
 /**
  * Client gate for the Component Catalog: wait for Feature Flag rehydration,
- * then show a recoverable 404 when `componentCatalog` is off.
+ * then show the recoverable 404 screen when `componentCatalog` is off.
  *
- * Uses `StatusScreen` instead of Next.js `notFound()` — `notFound()` replaces
+ * Uses `NotFoundScreen` instead of Next.js `notFound()` — `notFound()` replaces
  * the segment and cannot recover via `router.refresh()` when the flag turns ON.
  */
 export const MasterDesignGate = () => {
-  const t = useTranslations();
   const hydrated = useSyncExternalStore(
     subscribeHydration,
     getHydrationSnapshot,
@@ -46,18 +43,7 @@ export const MasterDesignGate = () => {
   });
 
   if (!enabled) {
-    return (
-      <StatusScreen
-        code="404"
-        title={t("notFound")}
-        description={t("gone")}
-        action={
-          <Link href="/" className="flex items-center">
-            {t("backTo", { target: t("title") })}
-          </Link>
-        }
-      />
-    );
+    return <NotFoundScreen />;
   }
 
   return <MasterDesignPage />;

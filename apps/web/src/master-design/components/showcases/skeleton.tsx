@@ -1,13 +1,19 @@
+import { useTranslations } from "next-intl";
+
 import { Skeleton } from "@/core/components/ui/skeleton";
 import { Variant, VariantGrid } from "@/master-design/components/variant";
 
-const Sample = () => (
-  <div>
+const Sample = () => {
+  const t = useTranslations();
+
+  return (
     <div>
-      <p className="text-sm">Ava Thompson</p>
+      <div>
+        <p className="text-sm">{t("catalogShowcaseSampleName")}</p>
+      </div>
     </div>
-  </div>
-);
+  );
+};
 
 export const SkeletonShowcase = () => (
   <VariantGrid>

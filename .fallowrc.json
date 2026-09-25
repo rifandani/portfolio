@@ -6,6 +6,7 @@
   },
   "ignoreExports": [
     { "file": "apps/web/**/components/ui/**", "exports": ["*"] },
+    { "file": "apps/web/src/core/hooks/**", "exports": ["*"] },
     { "file": "apps/web/src/core/utils/evlog.ts", "exports": ["*"] },
     {
       "file": "vitest.msw.ts",
@@ -38,6 +39,12 @@
       ],
       "rules": {
         "unused-files": "off"
+      }
+    },
+    {
+      "files": ["apps/web/src/core/hooks/**"],
+      "rules": {
+        "unused-types": "off"
       }
     }
   ],

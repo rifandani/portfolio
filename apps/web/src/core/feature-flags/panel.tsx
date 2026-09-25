@@ -1,11 +1,11 @@
 "use client";
 
-import { ArrowPathIcon } from "@heroicons/react/16/solid";
 import { useTranslations } from "next-intl";
 import { useRouter } from "next/navigation";
 import { dash } from "radashi";
 import { useState } from "react";
 import { SwitchButton, SwitchField } from "react-aria-components/Switch";
+import { HiMiniArrowPath } from "react-icons/hi2";
 import { twJoin } from "tailwind-merge";
 
 import { Button } from "@/core/components/ui/button";
@@ -115,7 +115,7 @@ const OverrideResetButton = ({
         }, refresh);
       }}
     >
-      <ArrowPathIcon className="size-3" />
+      <HiMiniArrowPath aria-hidden="true" data-slot="icon" className="size-3" />
     </Button>
   );
 };

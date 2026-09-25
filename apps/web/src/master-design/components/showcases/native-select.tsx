@@ -18,7 +18,7 @@ export const NativeSelectShowcase = () => {
           <NativeSelectContent defaultValue="apple">
             <option value="apple">{t("catalogShowcaseApple")}</option>
             <option value="banana">{t("catalogShowcaseBanana")}</option>
-            <option value="cherry">Cherry</option>
+            <option value="cherry">{t("catalogShowcaseCherry")}</option>
           </NativeSelectContent>
         </NativeSelect>
       </Variant>

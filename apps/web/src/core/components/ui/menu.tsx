@@ -1,6 +1,6 @@
 'use client'
 
-import { CheckIcon, ChevronRightIcon } from '@heroicons/react/20/solid'
+import { HiMiniCheck, HiMiniChevronRight } from 'react-icons/hi2'
 import { Button, type ButtonProps } from 'react-aria-components/Button'
 import { Collection } from 'react-aria-components/Collection'
 import { composeRenderProps } from 'react-aria-components/composeRenderProps'
@@ -129,14 +129,17 @@ const MenuItem = ({ className, intent, children, ...props }: MenuItemProps) => {
     >
       {(values) => (
         <>
-          {values.isSelected && ['single', 'multiple'].includes(values.selectionMode) && (
-            <CheckIcon />
-          )}
-
           {typeof children === 'function' ? children(values) : children}
 
+          {values.isSelected && ['single', 'multiple'].includes(values.selectionMode) && (
+            <HiMiniCheck aria-hidden="true"
+              data-slot="check-indicator"
+              className="pointer-events-none absolute end-3 top-1/2 size-4 shrink-0 -translate-y-1/2 sm:end-2.5"
+            />
+          )}
+
           {values.hasSubmenu && (
-            <ChevronRightIcon
+            <HiMiniChevronRight aria-hidden="true"
               data-slot="chevron"
               className="absolute end-0 size-4 -translate-y-1/2"
               style={{

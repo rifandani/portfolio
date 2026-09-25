@@ -1,3 +1,5 @@
+"use client";
+
 import { EvlogProvider } from "evlog/next/client";
 
 import { SERVICE_NAME } from "@/core/constants/global";

@@ -1,50 +1,28 @@
-import fs from "node:fs";
-import path from "node:path";
-
 import type { MetadataRoute } from "next";
 
-// fallow-ignore-next-line security-sink -- both components are literals rooted at process.cwd(), not request input
-const APP_DIR = path.join(process.cwd(), "src/app");
-const url = new URL(
-  process.env.NEXT_PUBLIC_APP_URL ?? "https://web.portfolio.localhost"
-);
-const SKIP_DIRS = new Set(["api"]);
-const PAGE_FILES = new Set(["page.ts", "page.tsx"]);
+import { pageRoutes } from "@/app/page-routes";
+import { ENV } from "@/core/constants/env";
+import { getPosts } from "@/post/services/posts";
+import { postPath } from "@/post/utils/slug";
+import { getProjects } from "@/project/services/projects";
+import { projectPath } from "@/project/utils/project-path";
 
-/** Private (`_foo`) and route-group (`(foo)`) segments never reach the URL. */
-const isHiddenSegment = (name: string) =>
-  name.startsWith("_") || name.startsWith("(");
+const absoluteUrl = (route: string) =>
+  new URL(route, ENV.NEXT_PUBLIC_APP_URL).href;
 
-/** A directory contributes routes unless it is hidden or explicitly skipped. */
-const isTraversable = (entry: fs.Dirent) =>
-  entry.isDirectory() &&
-  !(isHiddenSegment(entry.name) || SKIP_DIRS.has(entry.name));
-
-/** Collect `page.ts(x)` routes under `dir`, skipping `_` / `(` segments and `api`. */
-export const collectPageRoutes = (dir: string, segment = ""): string[] => {
-  const nested: string[] = [];
-  let hasPage = false;
-  for (const entry of fs.readdirSync(dir, { withFileTypes: true })) {
-    if (isTraversable(entry)) {
-      nested.push(
-        ...collectPageRoutes(
-          // fallow-ignore-next-line security-sink -- entry.name is a readdir dirent: a single path segment, and isTraversable() gates on isDirectory() so symlinks are never followed
-          path.join(dir, entry.name),
-          `${segment}/${entry.name}`
-        )
-      );
-      continue;
-    }
-    hasPage ||= PAGE_FILES.has(entry.name);
-  }
-  return hasPage ? [segment || "/", ...nested] : nested;
-};
-
-const sitemap = (): MetadataRoute.Sitemap => {
-  const routes = collectPageRoutes(APP_DIR);
-  return routes.map((route) => ({
-    lastModified: new Date(),
-    url: new URL(route, url).href,
-  }));
-};
+/**
+ * Only a Post has a real date. A page or a Project gets no `lastModified`: the
+ * build time would change on each deploy, and crawlers learn to ignore a
+ * `lastmod` that is always new.
+ */
+const sitemap = (): MetadataRoute.Sitemap => [
+  ...pageRoutes().map((route) => ({ url: absoluteUrl(route) })),
+  ...getPosts().map((post) => ({
+    lastModified: post.publishedAt,
+    url: absoluteUrl(postPath(post.slug)),
+  })),
+  ...getProjects().map((project) => ({
+    url: absoluteUrl(projectPath(project.slug)),
+  })),
+];
 export default sitemap;

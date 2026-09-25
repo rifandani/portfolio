@@ -1,6 +1,6 @@
 'use client'
 
-import { MinusIcon, PlusIcon } from '@heroicons/react/20/solid'
+import { HiMiniMinus, HiMiniPlus } from 'react-icons/hi2'
 import { Button, type ButtonProps } from 'react-aria-components/Button'
 import type { InputProps as PrimitiveInputProps } from 'react-aria-components/Input'
 import {
@@ -57,9 +57,9 @@ const StepperButton = ({ slot, className, ...props }: StepperButtonProps) => {
       {...props}
     >
       {slot === 'increment' ? (
-        <PlusIcon data-slot="stepper-icon" />
+        <HiMiniPlus aria-hidden="true" data-slot="stepper-icon" />
       ) : (
-        <MinusIcon data-slot="stepper-icon" />
+        <HiMiniMinus aria-hidden="true" data-slot="stepper-icon" />
       )}
     </Button>
   )

@@ -1,16 +1,13 @@
 import type { MetadataRoute } from "next";
-// change production url when you know
-const url = new URL(
-  process.env.NODE_ENV === "production"
-    ? "https://web.com"
-    : "https://web.portfolio.localhost"
-);
+
+import { ENV } from "@/core/constants/env";
+
 const robots = (): MetadataRoute.Robots => ({
   rules: {
     userAgent: "*",
     allow: "/",
     // disallow: '/private-page',
   },
-  sitemap: `${url}sitemap.xml`,
+  sitemap: new URL("/sitemap.xml", ENV.NEXT_PUBLIC_APP_URL).href,
 });
 export default robots;
