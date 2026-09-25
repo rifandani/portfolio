@@ -40,7 +40,7 @@ describe("createMetadata", () => {
       formatDetection: { telephone: true },
       appleWebApp: {
         capable: true,
-        startupImage: ["/api/og?title=Home"],
+        startupImage: ["/api/og?title=Home&description=Welcome"],
         statusBarStyle: "default",
         title: "Home | Test App",
       },
@@ -50,9 +50,9 @@ describe("createMetadata", () => {
         images: [
           {
             alt: "Home | Test App",
-            height: 441,
-            url: "/api/og?title=Home",
-            width: 843,
+            height: 630,
+            url: "/api/og?title=Home&description=Welcome",
+            width: 1200,
           },
         ],
         locale: "en_US",
@@ -66,7 +66,7 @@ describe("createMetadata", () => {
         creator: "Tri Rizeki Rifandani",
         creatorId: "@tri_rizeki",
         description: "Welcome",
-        images: ["/api/og?title=Home"],
+        images: ["/api/og?title=Home&description=Welcome"],
         site: "@https://web.test",
         siteId: "@tri_rizeki",
         title: "Home | Test App",
@@ -85,11 +85,21 @@ describe("createMetadata", () => {
     expect(metadata.openGraph?.images).toEqual([
       {
         alt: "Home | Test App",
-        height: 441,
-        url: "/api/og?title=Home",
-        width: 843,
+        height: 630,
+        url: "/api/og?title=Home&description=Welcome",
+        width: 1200,
       },
     ]);
+  });
+
+  it("points a Post at its own card by slug", () => {
+    const metadata = createMetadata({
+      title: "A Post",
+      description: "A summary",
+      card: { kind: "post", slug: "a-post" },
+    });
+
+    expect(metadata.twitter?.images).toEqual(["/api/og?post=a-post"]);
   });
 
   it("overrides openGraph image when image is provided", () => {

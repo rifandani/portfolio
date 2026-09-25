@@ -1,8 +1,12 @@
+import type { Metadata } from "next";
+import { getTranslations } from "next-intl/server";
+
 import {
   HomeDirectionContract,
   HomePageContent,
 } from "@/core/components/home/home-sections";
 import { SiteShell } from "@/core/components/site-shell";
+import { ENV } from "@/core/constants/env";
 import {
   createMetadata,
   createWebPage,
@@ -14,18 +18,20 @@ const title = "Home";
 const description =
   "Personal portfolio for Tri Rizeki Rifandani — work experience, projects, and writing.";
 const ldParams = {
-  url:
-    process.env.NODE_ENV === "production"
-      ? "https://web.com"
-      : "https://web.portfolio.localhost",
+  url: ENV.NEXT_PUBLIC_APP_URL,
   title,
   description,
 };
 
-export const metadata = createMetadata({
-  title,
-  description,
-});
+/** The card leads with the hero headline: "Home" says nothing in a feed. */
+export const generateMetadata = async (): Promise<Metadata> => {
+  const t = await getTranslations();
+  return createMetadata({
+    title,
+    description,
+    card: { kind: "page", title: t("homeHeadline"), description },
+  });
+};
 
 export default function HomePage() {
   return (

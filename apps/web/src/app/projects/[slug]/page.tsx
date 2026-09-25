@@ -46,6 +46,7 @@ export const generateMetadata = async ({
   const project = await findProject(params);
   return createMetadata({
     title: project.title,
+    card: { kind: "project", slug: project.slug },
     description: project.description,
     alternates: { types: { "text/markdown": markdownUrlOf(project.slug) } },
   });

@@ -34,6 +34,11 @@ const config: NextConfig = {
    */
   outputFileTracingIncludes: {
     "/**": ["./src/post/content/*.md", "./src/project/content/*.md"],
+    // The OG route reads its faces and the Project previews from disk.
+    "/api/og": [
+      "./src/app/api/og/fonts/*.ttf",
+      "./public/**/*.{svg,png,jpg,jpeg}",
+    ],
   },
   rewrites: () =>
     Promise.resolve([

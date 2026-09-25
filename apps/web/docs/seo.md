@@ -30,7 +30,14 @@ function Page() {
 
 ## Open Graph & Twitter Images
 
-To generate OG images dynamically, hit the `GET /api/og?title=My%20Title` route.
+
+| Card | Query | Shows |
+| --- | --- | --- |
+| Page (default) | `?title=…&description=…` | The title and the description, beside the Glyph Engine still |
+| Post | `?post=<slug>` | The Date Stamp, the title, the summary, and the reading ruler |
+| Project | `?project=<slug>` | The Drawing Sheet: the preview in registration marks, the sheet number, the title, and the description |
+
+The fonts are static TTF files in `src/app/api/og/fonts/`, because Satori cannot use `next/font`.
 
 ## `sitemap.xml` and `sitemap.md`
 

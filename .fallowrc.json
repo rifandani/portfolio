@@ -77,10 +77,10 @@
     ],
     "thresholdOverrides": [
       {
-        "files": ["apps/web/src/app/api/og/route.tsx"],
-        "functions": ["LightNextSvg", "DarkNextSvg"],
+        "files": ["apps/web/src/app/api/og/og-card.tsx"],
+        "functions": ["OgFrame", "OgPostCard", "OgProjectCard"],
         "maxUnitSize": 200,
-        "reason": "Inline OG SVG markup is declarative length, not control-flow complexity"
+        "reason": "Satori layout is inline style objects: declarative length, not control-flow complexity"
       }
     ]
   },

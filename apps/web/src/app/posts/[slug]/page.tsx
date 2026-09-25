@@ -44,6 +44,7 @@ export const generateMetadata = async ({
   const post = await findPost(params);
   return createMetadata({
     title: post.title,
+    card: { kind: "post", slug: post.slug },
     description: post.summary,
     openGraph: { type: "article", publishedTime: post.publishedAt },
     alternates: { types: { "text/markdown": markdownUrlOf(post.slug) } },

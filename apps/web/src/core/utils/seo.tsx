@@ -3,6 +3,8 @@ import type { Metadata } from "next";
 import { assign, uid } from "radashi";
 import type { Graph, Thing, WebPage, WebSite } from "schema-dts";
 
+import { OG_SIZE, ogImagePath } from "@/app/api/og/og-params";
+import type { OgCard } from "@/app/api/og/og-params";
 import { ENV } from "@/core/constants/env";
 
 const applicationName = ENV.NEXT_PUBLIC_APP_TITLE;
@@ -29,9 +31,8 @@ const buildOpenGraph = ({
   images: [
     {
       alt: parsedTitle,
-      height: 441,
+      ...OG_SIZE,
       url: ogImage,
-      width: 843,
     },
   ],
   locale: "en_US",
@@ -100,18 +101,25 @@ const buildDefaultMetadata = (parts: MetadataParts): Metadata => {
   };
 };
 
+/**
+ * `card` picks the generated OG card: a Post or a Project names its slug and
+ * gets its own card, and every other page gets a page card of its title and
+ * description. `image` replaces the generated card with a fixed image.
+ */
 export const createMetadata = ({
   title,
   description,
   image,
+  card = { kind: "page", title, description },
   ...properties
 }: Omit<Metadata, "description" | "title"> & {
   title: string;
   description: string;
   image?: string;
+  card?: OgCard;
 }) => {
   const parsedTitle = `${title} | ${applicationName}`;
-  const ogImage = `/api/og?title=${encodeURIComponent(title)}`;
+  const ogImage = ogImagePath(card);
   // Merge the default metadata with any additional properties passed in
   const metadata = assign(
     buildDefaultMetadata({ description, ogImage, parsedTitle }),
