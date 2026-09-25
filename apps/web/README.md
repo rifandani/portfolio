@@ -9,7 +9,7 @@
 - update website logo, then regenerate assets
 - use real CV, and remove cv placeholders
 - use real portrait, and remove portrait placeholders
-- make sure projects and posts are seo, jsonld, og cards-friendly 
+- make sure projects and posts are seo, jsonld, og cards-friendly
 - install skills for writing that doesnt sounds like AI-generated, and use simple english
 - add filter or search in posts using URL search params after we have some real contents
 - find out about observability in vercel, should we remove opentelemetry?
@@ -19,9 +19,9 @@
 
 1. this project (also act as nextjs monorepo boilerplate)
 2. "fe-monorepo", "be-monorepo" boilerplate
-2. hackathon 2023
-3. kings and legends remake with threejs (need a lot of tokens)
-4. our own AI personal assistant
+3. hackathon 2023
+4. kings and legends remake with threejs (need a lot of tokens)
+5. our own AI personal assistant
 
 ### New post ideas
 
