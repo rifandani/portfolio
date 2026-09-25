@@ -5,7 +5,10 @@ import {
   renderTokens,
 } from "@tanstack/highlight/core";
 import { css } from "@tanstack/highlight/languages/css";
+import { json } from "@tanstack/highlight/languages/json";
+import { shell } from "@tanstack/highlight/languages/shell";
 import { ts } from "@tanstack/highlight/languages/ts";
+import { tsx } from "@tanstack/highlight/languages/tsx";
 import {
   parseCodeDiffNotation,
   parseCodeFenceMeta,
@@ -17,10 +20,11 @@ import type { CodeHighlighter } from "@tanstack/markdown";
  * server-only imports, so a Server Component and a Client Component share the
  * same synchronous highlighter and give the same markup.
  *
- * Register only the languages that Posts use. `parsePostSource` stops the
- * build when a Code Block names a language that is not registered here.
+ * Register the languages that Posts use (`shell` also covers `bash` and `sh`).
+ * `parsePostSource` stops the build when a Code Block names a language that is
+ * not registered here.
  */
-const highlighter = createHighlighter({ languages: [css, ts] });
+const highlighter = createHighlighter({ languages: [css, json, shell, ts, tsx] });
 
 const REGISTERED_LANGUAGES = new Set(highlighter.listLanguages());
 

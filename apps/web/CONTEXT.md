@@ -32,7 +32,7 @@ Web app.
 
 ### Session
 
-**Session**: What one successful login produces — the signed-in person together with the credentials that prove it. The app persists exactly one, or none. This app has no login yet; `Http` carries the seam (`HttpAuthConfig`) for the one it will get. _Avoid_: user, appUser, auth state, current user
+**Session**: What one successful login produces — the signed-in person together with the credentials that prove it. The app persists exactly one, or none. This app has no login yet; `Http` carries the seam (`HttpAuthConfig`) for the one it will get, but no composition root wires it. _Avoid_: user, appUser, auth state, current user
 
 **Access Token**: The credential sent with a request to prove the Session. Read per request by `HttpAuthConfig.getToken`, never read by a caller. _Avoid_: token, bearer, jwt, auth header
 
