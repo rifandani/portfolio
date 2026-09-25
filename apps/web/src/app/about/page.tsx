@@ -26,6 +26,7 @@ export const generateMetadata = async (): Promise<Metadata> => {
   return createMetadata({
     title: t("aboutTitle"),
     description: t("aboutDescription"),
+    path: "/about",
   });
 };
 

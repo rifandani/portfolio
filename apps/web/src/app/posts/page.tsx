@@ -4,15 +4,21 @@ import { SiteContainer } from "@/core/components/site-container";
 import { SiteShell } from "@/core/components/site-shell";
 import { Heading } from "@/core/components/ui/heading";
 import { Text } from "@/core/components/ui/text";
-import { createMetadata } from "@/core/utils/seo";
+import {
+  createMetadata,
+  createPerson,
+  createWebSite,
+  JsonLd,
+} from "@/core/utils/seo";
 import { PostCard } from "@/post/components/post-card";
 import { getPosts } from "@/post/services/posts";
 import { postsByYear } from "@/post/utils/post-collection";
+import { createBlog } from "@/post/utils/post-ld";
 
-export const metadata = createMetadata({
-  title: "Posts",
-  description: "Writings and thoughts by Tri Rizeki Rifandani",
-});
+const title = "Posts";
+const description = "Writings and thoughts by Tri Rizeki Rifandani";
+
+export const metadata = createMetadata({ title, description, path: "/posts" });
 
 /**
  * The posts index, filed by year like a logbook. From `lg` the year holds a
@@ -22,9 +28,17 @@ export const metadata = createMetadata({
  */
 export default async function PostsPage() {
   const t = await getTranslations();
-  const years = postsByYear(getPosts());
+  const allPosts = getPosts();
+  const years = postsByYear(allPosts);
   return (
     <SiteShell>
+      <JsonLd
+        graphs={[
+          createWebSite(),
+          createPerson(),
+          createBlog({ title, description, posts: allPosts }),
+        ]}
+      />
       <SiteContainer className="py-16 sm:py-24">
         <Heading level={1} className="text-3xl/10 sm:text-4xl/12">
           {t("postsPageTitle")}

@@ -9,6 +9,7 @@ export const generateMetadata = async (): Promise<Metadata> => {
   return createMetadata({
     title: t("catalogTitle"),
     description: t("catalogDescription"),
+    path: "/master-design",
     robots: {
       index: false,
       follow: false,

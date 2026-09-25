@@ -11,14 +11,14 @@ const absoluteUrl = (route: string) =>
   new URL(route, ENV.NEXT_PUBLIC_APP_URL).href;
 
 /**
- * Only a Post has a real date. A page or a Project gets no `lastModified`: the
+ * Only a Post has a real date: its last update, or its publish date. A page or a Project gets no `lastModified`: the
  * build time would change on each deploy, and crawlers learn to ignore a
  * `lastmod` that is always new.
  */
 const sitemap = (): MetadataRoute.Sitemap => [
   ...pageRoutes().map((route) => ({ url: absoluteUrl(route) })),
   ...getPosts().map((post) => ({
-    lastModified: post.publishedAt,
+    lastModified: post.updatedAt,
     url: absoluteUrl(postPath(post.slug)),
   })),
   ...getProjects().map((project) => ({

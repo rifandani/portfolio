@@ -4,13 +4,23 @@ import { SiteContainer } from "@/core/components/site-container";
 import { SiteShell } from "@/core/components/site-shell";
 import { Heading } from "@/core/components/ui/heading";
 import { Text } from "@/core/components/ui/text";
-import { createMetadata } from "@/core/utils/seo";
+import {
+  createMetadata,
+  createPerson,
+  createWebSite,
+  JsonLd,
+} from "@/core/utils/seo";
 import { ProjectCard } from "@/project/components/project-card";
 import { getProjects } from "@/project/services/projects";
+import { createProjectCollection } from "@/project/utils/project-ld";
+
+const title = "Projects";
+const description = "Projects by Tri Rizeki Rifandani";
 
 export const metadata = createMetadata({
-  title: "Projects",
-  description: "Projects by Tri Rizeki Rifandani",
+  title,
+  description,
+  path: "/projects",
 });
 
 export default async function ProjectsPage() {
@@ -18,6 +28,13 @@ export default async function ProjectsPage() {
   const projects = getProjects();
   return (
     <SiteShell>
+      <JsonLd
+        graphs={[
+          createWebSite(),
+          createPerson(),
+          createProjectCollection({ title, description, projects }),
+        ]}
+      />
       <SiteContainer className="py-16 sm:py-24">
         <Heading level={1} className="text-3xl/10 sm:text-4xl/12">
           {t("projectsPageTitle")}

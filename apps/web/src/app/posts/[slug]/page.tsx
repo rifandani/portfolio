@@ -2,16 +2,20 @@ import type { Metadata } from "next";
 import { getTranslations } from "next-intl/server";
 import Image from "next/image";
 import { notFound } from "next/navigation";
-import type { BlogPosting, BreadcrumbList } from "schema-dts";
 
 import { DetailBreadcrumbs } from "@/core/components/detail-breadcrumbs";
 import { SiteContainer } from "@/core/components/site-container";
 import { SiteShell } from "@/core/components/site-shell";
 import { Heading } from "@/core/components/ui/heading";
-import { ENV } from "@/core/constants/env";
-import { createMetadata, JsonLd } from "@/core/utils/seo";
+import {
+  absoluteUrl,
+  createBreadcrumbList,
+  createMetadata,
+  createPerson,
+  createWebSite,
+  JsonLd,
+} from "@/core/utils/seo";
 import { PreviewMorph } from "@/portfolio/components/preview-morph";
-import { portfolioIdentity } from "@/portfolio/constants/portfolio";
 import { PageActions } from "@/post/components/page-actions.client";
 import { PostDocument } from "@/post/components/post-document";
 import { PostMeta } from "@/post/components/post-meta";
@@ -20,6 +24,7 @@ import { PostPager } from "@/post/components/post-pager";
 import { ShareActions } from "@/post/components/share-actions.client";
 import { getPost, getPosts } from "@/post/services/posts";
 import { adjacentPosts } from "@/post/utils/post-collection";
+import { createBlogPosting } from "@/post/utils/post-ld";
 import { outlineOf, POST_TITLE_ID } from "@/post/utils/post-outline";
 import { postMarkdownPath, postPath } from "@/post/utils/slug";
 
@@ -30,8 +35,7 @@ export const generateStaticParams = () =>
   getPosts().map((post) => ({ slug: post.slug }));
 
 /** Absolute, because an Assistant fetches it from outside the site. */
-const markdownUrlOf = (slug: string) =>
-  new URL(postMarkdownPath(slug), ENV.NEXT_PUBLIC_APP_URL).href;
+const markdownUrlOf = (slug: string) => absoluteUrl(postMarkdownPath(slug));
 
 const findPost = async (params: PageProps<"/posts/[slug]">["params"]) => {
   const { slug } = await params;
@@ -44,9 +48,15 @@ export const generateMetadata = async ({
   const post = await findPost(params);
   return createMetadata({
     title: post.title,
+    path: postPath(post.slug),
     card: { kind: "post", slug: post.slug },
     description: post.summary,
-    openGraph: { type: "article", publishedTime: post.publishedAt },
+    openGraph: {
+      type: "article",
+      publishedTime: post.publishedAt,
+      modifiedTime: post.updatedAt,
+      authors: [absoluteUrl("/about")],
+    },
     alternates: { types: { "text/markdown": markdownUrlOf(post.slug) } },
   });
 };
@@ -56,33 +66,21 @@ export default async function PostDetailPage({
 }: PageProps<"/posts/[slug]">) {
   const [t, post] = await Promise.all([getTranslations(), findPost(params)]);
   const { previous, next } = adjacentPosts(getPosts(), post.slug);
-  const url = new URL(postPath(post.slug), ENV.NEXT_PUBLIC_APP_URL).href;
-  const blogPosting: BlogPosting = {
-    "@type": "BlogPosting",
-    headline: post.title,
-    description: post.summary,
-    datePublished: post.publishedAt,
-    url,
-    author: { "@type": "Person", name: portfolioIdentity.fullName },
-  };
-  const breadcrumbList: BreadcrumbList = {
-    "@type": "BreadcrumbList",
-    itemListElement: [
-      {
-        name: t("siteNavPosts"),
-        item: new URL("/posts", ENV.NEXT_PUBLIC_APP_URL).href,
-      },
-      { name: post.title, item: url },
-    ].map((crumb, index) => ({
-      "@type": "ListItem",
-      position: index + 1,
-      ...crumb,
-    })),
-  };
+  const url = absoluteUrl(postPath(post.slug));
   const outline = outlineOf(post.document);
   return (
     <SiteShell>
-      <JsonLd graphs={[blogPosting, breadcrumbList]} />
+      <JsonLd
+        graphs={[
+          createWebSite(),
+          createPerson(),
+          createBlogPosting(post),
+          createBreadcrumbList([
+            { name: t("siteNavPosts"), path: "/posts" },
+            { name: post.title, path: postPath(post.slug) },
+          ]),
+        ]}
+      />
       <SiteContainer className="py-16 sm:py-24">
         <article>
           <DetailBreadcrumbs parent="/posts" title={post.title} />
@@ -109,8 +107,8 @@ export default async function PostDetailPage({
             </p>
             <PreviewMorph kind="post" slug={post.slug}>
               <Image
-                src={post.ogImageSrc}
-                alt={post.ogImageAlt}
+                src={post.previewSrc}
+                alt={post.previewAlt}
                 width={1200}
                 height={630}
                 className="border-border mt-8 aspect-1200/630 w-full rounded-lg border object-cover"

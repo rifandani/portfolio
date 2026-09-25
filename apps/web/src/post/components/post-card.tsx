@@ -86,8 +86,8 @@ export const PostCard = async ({ post }: { post: Post }) => {
           <PreviewMorph kind="post" slug={post.slug}>
             <div className="border-border aspect-1200/630 w-28 overflow-hidden rounded-lg border sm:aspect-auto sm:h-full sm:w-32">
               <Image
-                src={post.ogImageSrc}
-                alt={post.ogImageAlt}
+                src={post.previewSrc}
+                alt={post.previewAlt}
                 width={128}
                 height={67}
                 className="size-full object-cover"

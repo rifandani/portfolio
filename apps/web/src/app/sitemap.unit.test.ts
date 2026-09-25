@@ -12,7 +12,11 @@ vi.mock("@/app/page-routes", () => ({
 
 vi.mock("@/post/services/posts", () => ({
   getPosts: () => [
-    { publishedAt: "2024-05-12", slug: "clarity-over-complexity" },
+    {
+      publishedAt: "2024-05-12",
+      updatedAt: "2024-06-01",
+      slug: "clarity-over-complexity",
+    },
   ],
 }));
 
@@ -26,7 +30,7 @@ describe("sitemap", () => {
       { url: "https://web.portfolio.localhost/" },
       { url: "https://web.portfolio.localhost/about" },
       {
-        lastModified: "2024-05-12",
+        lastModified: "2024-06-01",
         url: "https://web.portfolio.localhost/posts/clarity-over-complexity",
       },
       { url: "https://web.portfolio.localhost/projects/signal-kit" },

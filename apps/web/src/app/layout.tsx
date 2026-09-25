@@ -9,12 +9,15 @@ import { IconSprite } from "@/core/components/icon-sprite";
 import { AppProviders } from "@/core/providers/providers.client";
 import { fontVariables } from "@/core/styles/fonts";
 import { createMetadata } from "@/core/utils/seo";
+import { portfolioIdentity } from "@/portfolio/constants/portfolio";
 
 import "@/core/styles/globals.css";
 
+/** The fallback for a route with no metadata of its own; every page sets its own. */
 export const metadata = createMetadata({
-  title: "Layout",
-  description: "Bulletproof Next.js 15 Template",
+  title: "Portfolio",
+  description: portfolioIdentity.siteDescription,
+  path: null,
 });
 
 export const generateViewport = (): Viewport => ({

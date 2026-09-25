@@ -1,32 +1,27 @@
 # Metadata: SEO (Search Engine Optimization)
 
-Use `createMetadata` or `JsonLd` component to generate metadata for each page at runtime in server.
+Each page sets its head tags with `createMetadata` and its structured data with `JsonLd` (both in `src/core/utils/seo.tsx`).
 
-```tsx
-import { JsonLd } from '@/core/utils/seo'
+## JSON-LD
 
-export const metadata = createMetadata({
-  title,
-  description,
-})
+Every Public Site page puts the same two site nodes in its graph, with stable ids, so a crawler joins them across pages:
 
-const ldParams = {
-  url: process.env.NODE_ENV === 'production' ? PROD_APP_URL : DEV_APP_URL,
-  title,
-  description,
-}
+| Node | `@id` | Notes |
+| --- | --- | --- |
+| `WebSite` | `{APP_URL}/#website` | `publisher` is the Person |
+| `Person` | `{APP_URL}/#person` | `url` is `/about`; `sameAs` is the GitHub, LinkedIn, and X profiles |
 
-function Page() {
-  return (
-    <JsonLd
-      graphs={[
-        createWebSite(ldParams),
-        createWebPage(ldParams),
-      ]}
-    />
-  )
-}
-```
+Each page then adds its own node. The builders live in the module that owns the entity, and each one has unit tests:
+
+| Page | Node | Builder |
+| --- | --- | --- |
+| Home | `WebPage` | `createWebPage` (`core/utils/seo.tsx`) |
+| `/posts` | `Blog` with a `blogPost` entry per Post | `createBlog` (`post/utils/post-ld.ts`) |
+| Post Detail | `BlogPosting` and `BreadcrumbList` | `createBlogPosting`, `createBreadcrumbList` |
+| `/projects` | `CollectionPage` with an `ItemList` in Project Order | `createProjectCollection` (`project/utils/project-ld.ts`) |
+| Project Detail | `CreativeWork` and `BreadcrumbList` | `createProjectCreativeWork`, `createBreadcrumbList` |
+
+The `image` of a `BlogPosting` or a `CreativeWork` is its OG Card (a PNG), not its Preview Image (an SVG, which Google does not read). A Project is a `CreativeWork`, not a `SoftwareApplication`: Google wants ratings or offers for that type. Each Post and Project has one language (`CONTENT_LANGUAGE`), so `inLanguage` and `og:locale` do not change with the Locale. A Post Source can give an `updatedAt`; without it, `dateModified` is the `publishedAt`.
 
 ## Open Graph & Twitter Images
 
@@ -43,7 +38,7 @@ The fonts are static TTF files in `src/app/api/og/fonts/`, because Satori cannot
 
 Both sitemaps list the same URLs, from the same two sources:
 
-`GET /sitemap.xml` (`src/app/sitemap.ts`) is for crawlers. Only Post entries have `lastModified` (the Post's `publishedAt`). Pages have no real date, and a build-time date changes on each deploy.
+`GET /sitemap.xml` (`src/app/sitemap.ts`) is for crawlers. Only Post entries have `lastModified` (the Post's `updatedAt`, which is its `publishedAt` when the Post Source gives no `updatedAt`). Pages have no real date, and a build-time date changes on each deploy.
 
 `GET /sitemap.md` (`src/app/sitemap.md/route.ts`) is the same list as Markdown, for readers and agents. Each Post entry also links to its Post Markdown. `sitemap-markdown.ts` writes the text (unit-tested).
 
