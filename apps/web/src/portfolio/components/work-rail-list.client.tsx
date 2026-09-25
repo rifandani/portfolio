@@ -67,10 +67,7 @@ export const WorkRailList = ({
     };
 
     const over = (event: PointerEvent) => {
-      if (event.pointerType === "touch" || !(event.target instanceof Element)) {
-        return;
-      }
-      const target = event.target.closest("[data-rail-row]");
+      const target = railRowOf(event);
       if (!target || target === row) {
         return;
       }

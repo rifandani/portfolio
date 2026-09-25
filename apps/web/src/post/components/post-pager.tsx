@@ -11,12 +11,17 @@ type PagerPost = Pick<
   "slug" | "title" | "publishedAt" | "readingMinutes"
 >;
 
-const sideOf = (post: PagerPost, label: string): PagerSide => ({
+/** A pager side for an entry, or none when there is no entry. */
+const sideOf = (
+  post: PagerPost | undefined,
+  label: string
+): PagerSide | undefined =>
+  post && {
   href: postPath(post.slug),
   title: post.title,
   label,
   meta: <PostMeta post={post} className="mt-1" />,
-});
+  };
 
 /**
  * The Post Pager at the end of a Post Detail. Previous is the Post published
@@ -32,15 +37,12 @@ export const PostPager = async ({
   next?: PagerPost;
   className?: string;
 }) => {
-  if (!previous && !next) {
-    return null;
-  }
   const t = await getTranslations();
   return (
     <ContentPager
       label={t("postPager")}
-      previous={previous && sideOf(previous, t("postPrevious"))}
-      next={next && sideOf(next, t("postNext"))}
+      previous={sideOf(previous, t("postPrevious"))}
+      next={sideOf(next, t("postNext"))}
       className={className}
     />
   );

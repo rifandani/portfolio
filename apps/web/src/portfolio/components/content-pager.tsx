@@ -19,28 +19,45 @@ export interface PagerSide {
  * points the way the reader goes. From `sm` the next entry sits on the right
  * and aligns to the right; stacked, both align left.
  */
+const pagerCardLayouts = {
+  previous: {
+    Arrow: HiOutlineArrowLeft,
+    columnClass: "",
+    labelClass: "",
+    itemClass: "grid",
+  },
+  next: {
+    Arrow: HiOutlineArrowRight,
+    columnClass: "sm:items-end sm:text-right",
+    // Reversed so the arrow trails the label, pointing the way the reader goes.
+    labelClass: "flex-row-reverse",
+    itemClass: "grid sm:col-start-2",
+  },
+};
+
+type PagerDirection = keyof typeof pagerCardLayouts;
+
 const PagerCard = ({
   side,
-  isNext = false,
+  direction,
 }: {
   side: PagerSide;
-  isNext?: boolean;
+  direction: PagerDirection;
 }) => {
-  const Arrow = isNext ? HiOutlineArrowRight : HiOutlineArrowLeft;
+  const { Arrow, columnClass, labelClass } = pagerCardLayouts[direction];
   return (
     <LitCard href={side.href} className="h-full">
       <div
-        className={twMerge(
-          "relative flex flex-col items-start",
-          isNext && "sm:items-end sm:text-right"
-        )}
+        className={twMerge("relative flex flex-col items-start", columnClass)}
       >
-        <span className="text-muted-fg inline-flex items-center gap-1.5 font-mono text-xs/5 sm:text-sm/6">
-          {!isNext && (
-            <Arrow aria-hidden="true" className="size-3.5 shrink-0" />
+        <span
+          className={twMerge(
+            "text-muted-fg inline-flex items-center gap-1.5 font-mono text-xs/5 sm:text-sm/6",
+            labelClass
           )}
+        >
+          <Arrow aria-hidden="true" className="size-3.5 shrink-0" />
           {side.label}
-          {isNext && <Arrow aria-hidden="true" className="size-3.5 shrink-0" />}
         </span>
         <span className="text-fg font-display mt-2 text-base/6 font-semibold text-pretty">
           {side.title}
@@ -50,6 +67,20 @@ const PagerCard = ({
     </LitCard>
   );
 };
+
+/** One column of the pager. A missing side renders nothing. */
+const PagerItem = ({
+  side,
+  direction,
+}: {
+  side?: PagerSide;
+  direction: PagerDirection;
+}) =>
+  side ? (
+    <li className={pagerCardLayouts[direction].itemClass}>
+      <PagerCard side={side} direction={direction} />
+    </li>
+  ) : null;
 
 /**
  * The two links at the end of a detail page to the entries beside it: the
@@ -73,16 +104,8 @@ export const ContentPager = ({
   return (
     <nav aria-label={label} className={className}>
       <ul className="grid gap-4 sm:grid-cols-2">
-        {previous && (
-          <li className="grid">
-            <PagerCard side={previous} />
-          </li>
-        )}
-        {next && (
-          <li className="grid sm:col-start-2">
-            <PagerCard side={next} isNext />
-          </li>
-        )}
+        <PagerItem side={previous} direction="previous" />
+        <PagerItem side={next} direction="next" />
       </ul>
     </nav>
   );

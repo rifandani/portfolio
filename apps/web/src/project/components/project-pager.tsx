@@ -8,12 +8,17 @@ import type { Project } from "@/project/utils/project-source";
 
 type PagerProject = Pick<Project, "slug" | "title" | "tags">;
 
-const sideOf = (project: PagerProject, label: string): PagerSide => ({
+/** A pager side for an entry, or none when there is no entry. */
+const sideOf = (
+  project: PagerProject | undefined,
+  label: string
+): PagerSide | undefined =>
+  project && {
   href: projectPath(project.slug),
   title: project.title,
   label,
   meta: <ProjectMeta project={project} className="mt-1" />,
-});
+  };
 
 /**
  * The Project Pager at the end of a Project Detail. Previous is the Project
@@ -29,15 +34,12 @@ export const ProjectPager = async ({
   next?: PagerProject;
   className?: string;
 }) => {
-  if (!previous && !next) {
-    return null;
-  }
   const t = await getTranslations();
   return (
     <ContentPager
       label={t("projectPager")}
-      previous={previous && sideOf(previous, t("projectPrevious"))}
-      next={next && sideOf(next, t("projectNext"))}
+      previous={sideOf(previous, t("projectPrevious"))}
+      next={sideOf(next, t("projectNext"))}
       className={className}
     />
   );

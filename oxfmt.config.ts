@@ -9,6 +9,7 @@ export default defineConfig({
     "**/.agents",
     "**/.claude",
     "**/.cursor",
+    "**/.impeccable",
     "**/.repos",
     "**/docs",
   ],

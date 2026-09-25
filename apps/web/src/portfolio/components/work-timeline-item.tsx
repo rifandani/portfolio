@@ -3,6 +3,12 @@ import { twMerge } from "tailwind-merge";
 import { WorkCard } from "@/portfolio/components/work-card";
 import type { ExperienceEntry } from "@/portfolio/constants/portfolio";
 
+/** The node is lit for the current role and hollow for past ones. */
+const nodeToneOf = (isCurrent?: boolean) =>
+  isCurrent
+    ? "bg-primary border-primary ring-primary/20 ring-2"
+    : "bg-canvas border-muted-fg/45";
+
 /**
  * One role on the work rail: a node in the left gutter, the unchanged work
  * card beside it.
@@ -43,9 +49,7 @@ export const WorkTimelineItem = ({
         data-rail-node
         className={twMerge(
           "relative z-[1] size-2.5 shrink-0 rounded-full border",
-          entry.isCurrent
-            ? "bg-primary border-primary ring-primary/20 ring-2"
-            : "bg-canvas border-muted-fg/45"
+          nodeToneOf(entry.isCurrent)
         )}
       />
       {!isLast && <span className="bg-muted-fg/30 w-px flex-1" />}

@@ -49,12 +49,7 @@ export const LitCard = ({
       const raw = getComputedStyle(node.firstElementChild ?? node)
         .getPropertyValue("--lit-fade")
         .trim();
-      const time = /^(?<value>[\d.]+)(?<unit>ms|s)$/u.exec(raw);
-      if (!time?.groups) {
-        return 280;
-      }
-      const value = Number(time.groups.value);
-      return time.groups.unit === "ms" ? value : value * 1000;
+      return fadeMsOf(raw);
     })();
 
     let frame = 0;

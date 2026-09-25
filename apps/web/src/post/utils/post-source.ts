@@ -62,38 +62,41 @@ const inlineText = (node: InlineNode): string[] => {
   }
 };
 
-/** The text a reader reads in a block node, code included. */
-const blockText = (node: BlockNode): string[] => {
-  switch (node.type) {
-    case "heading":
-    case "paragraph": {
-      return node.children.flatMap(inlineText);
-    }
-    case "code": {
-      return [readableCode(node.value)];
-    }
-    case "html": {
-      return [node.value];
-    }
-    case "list":
-    case "footnotes": {
-      return node.items.flatMap((item) => item.children.flatMap(blockText));
-    }
-    case "table": {
-      return [node.header, ...node.rows]
-        .flat()
-        .flatMap((cell) => cell.children.flatMap(inlineText));
-    }
-    case "blockquote":
-    case "callout":
-    case "component": {
-      return node.children.flatMap(blockText);
-    }
-    default: {
-      return [];
-    }
-  }
+type BlockOf<T extends BlockNode["type"]> = Extract<BlockNode, { type: T }>;
+
+const childBlocksText = (node: { children: BlockNode[] }): string[] =>
+  node.children.flatMap(blockText);
+
+const childInlinesText = (node: { children: InlineNode[] }): string[] =>
+  node.children.flatMap(inlineText);
+
+const itemsText = (node: BlockOf<"list" | "footnotes">): string[] =>
+  node.items.flatMap(childBlocksText);
+
+/** How to read each block node type. A type not listed has no text. */
+const blockReaders: {
+  [T in BlockNode["type"]]?: (node: BlockOf<T>) => string[];
+} = {
+  heading: childInlinesText,
+  paragraph: childInlinesText,
+  code: (node) => [readableCode(node.value)],
+  html: (node) => [node.value],
+  list: itemsText,
+  footnotes: itemsText,
+  table: (node) =>
+    [node.header, ...node.rows].flat().flatMap(childInlinesText),
+  blockquote: childBlocksText,
+  callout: childBlocksText,
+  component: childBlocksText,
 };
+
+/** The text a reader reads in a block node, code included. */
+function blockText(node: BlockNode): string[] {
+  const read = blockReaders[node.type] as
+    | ((block: BlockNode) => string[])
+    | undefined;
+  return read ? read(node) : [];
+}
 
 const readingMinutesOf = (document: MarkdownDocument) => {
   const text = document.children.flatMap(blockText);
