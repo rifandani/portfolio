@@ -15,9 +15,8 @@
 
 1. this project (also act as nextjs monorepo boilerplate)
 2. "fe-monorepo", "be-monorepo" boilerplate
-3. hackathon 2023
-4. kings and legends remake with threejs (need a lot of tokens)
-5. our own AI personal assistant using mastra
+3. kings and legends remake with threejs (need a lot of tokens)
+4. our own AI personal assistant using mastra
 
 ### New post ideas
 

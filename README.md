@@ -2,15 +2,11 @@
 
 [![Ask DeepWiki](https://deepwiki.com/badge.svg)](https://deepwiki.com/rifandani/portfolio)
 
-[![Mintlify Docs]](https://rifandani-portfolio.mintlify.app)
+[![Mintlify Docs](https://img.shields.io/badge/mintlify-docs-green?logo=mintlify)](https://rifandani-portfolio.mintlify.app)
 
 ## 🎯 Todo
 
 ~
-
-## 🏁 Getting Started
-
-For new project, run `/impeccable init` then `/impeccable shape` to update PRODUCT.md and DESIGN.md. More [here](https://impeccable.style/designing/).
 
 ## 📝 Environment Variables
 

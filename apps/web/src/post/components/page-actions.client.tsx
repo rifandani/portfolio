@@ -51,12 +51,7 @@ export const PageActions = ({
         copiedLabel={t("postCopied")}
       />
       <Menu>
-        <Button
-          intent="outline"
-          size="sq-sm"
-          className="size-9 sm:size-8"
-          aria-label={t("postMoreActions")}
-        >
+        <Button intent="outline" size="sq-sm" aria-label={t("postMoreActions")}>
           <HiOutlineChevronDown
             aria-hidden="true"
             data-slot="icon"

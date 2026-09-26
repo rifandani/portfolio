@@ -1,22 +1,20 @@
-import type { Locator } from "@playwright/test";
-
 import { expect, test } from "./_base";
 import { expectLinkPreview } from "./_link-preview";
 
-const SLUG = "synthetic-signal-kit";
+const SLUG = "hanepyon-layover-planner";
 
 test("opens a Project Detail from the projects index", async ({ page }) => {
   await page.goto("/projects");
-  const card = page.getByRole("link", { name: /Lattice Forms/u });
+  const card = page.getByRole("link", { name: /Hanepyon Layover Planner/u });
 
   await card.click();
 
-  await expect(page).toHaveURL(/\/projects\/synthetic-lattice-forms$/u);
+  await expect(page).toHaveURL(/\/projects\/hanepyon-layover-planner$/u);
   await expect(page.getByRole("heading", { level: 1 })).toHaveText(
-    "[Synthetic] Lattice Forms"
+    "Hanepyon Layover Planner"
   );
   await expect(
-    page.getByRole("heading", { level: 2, name: "The approach" })
+    page.getByRole("heading", { level: 2, name: "The brief" })
   ).toBeVisible();
 });
 
@@ -30,9 +28,12 @@ test("shows the tags of the Project in place of a date and reading time", async 
 
   // Each tag after the first starts with a hidden "·" separator.
   await expect(tags.getByRole("listitem")).toHaveText([
-    /React Aria$/u,
-    /Tailwind$/u,
+    /React$/u,
     /TypeScript$/u,
+    /Framer Motion$/u,
+    /Mantine$/u,
+    /Tailwind$/u,
+    /Firebase$/u,
   ]);
   await expect(page.locator("article header time")).toHaveCount(0);
 });
@@ -59,7 +60,7 @@ test("serves the Project Markdown at the Project Detail URL plus .md", async ({
   expect(response.headers()["content-type"]).toBe(
     "text/markdown; charset=utf-8"
   );
-  expect(await response.text()).toMatch(/^# \[Synthetic\] Signal Kit\n/u);
+  expect(await response.text()).toMatch(/^# Hanepyon Layover Planner\n/u);
 });
 
 test("links Projects in the breadcrumb, then marks the Project current", async ({
@@ -74,38 +75,7 @@ test("links Projects in the breadcrumb, then marks the Project current", async (
   await expect(links).toHaveCount(2);
   await expect(links.nth(0)).toHaveAttribute("href", "/projects");
   await expect(links.nth(1)).toHaveAttribute("aria-current", "page");
-  await expect(links.nth(1)).toHaveText("[Synthetic] Signal Kit");
-});
-
-test("links the Projects before and after in the Project Pager", async ({
-  page,
-}) => {
-  await page.goto("/projects/synthetic-portless-desk");
-  const pager = page.getByRole("navigation", {
-    name: /Previous and next projects|Proyek sebelumnya dan berikutnya/u,
-  });
-
-  await expect(pager.getByRole("link")).toHaveCount(2);
-  await expect(pager.getByRole("link").first()).toHaveAttribute(
-    "href",
-    `/projects/${SLUG}`
-  );
-  await expect(pager.getByRole("link").last()).toHaveAttribute(
-    "href",
-    "/projects/synthetic-lattice-forms"
-  );
-});
-
-test("has no previous Project on the first Project", async ({ page }) => {
-  await page.goto("/projects/hanepyon-layover-planner");
-  const pager = page.getByRole("navigation", {
-    name: /Previous and next projects|Proyek sebelumnya dan berikutnya/u,
-  });
-
-  await expect(pager.getByRole("link")).toHaveCount(1);
-  await expect(pager.getByRole("link")).toContainText(
-    /Next project|Proyek berikutnya/u
-  );
+  await expect(links.nth(1)).toHaveText("Hanepyon Layover Planner");
 });
 
 test("hands the Project Markdown URL to each Assistant", async ({ page }) => {
@@ -129,22 +99,7 @@ test("hands the Project Markdown URL to each Assistant", async ({ page }) => {
   expect(claude.searchParams.get("q")).toContain(`/projects/${SLUG}.md`);
 });
 
-/** The demo first, then GitHub; each opens a new tab. */
-const expectSignalKitLinks = async (links: Locator) => {
-  await expect(links).toHaveCount(2);
-  await expect(links.nth(0)).toHaveAttribute(
-    "href",
-    "https://signal-kit.example.com"
-  );
-  await expect(links.nth(1)).toHaveAttribute(
-    "href",
-    "https://github.com/rifandani/portfolio"
-  );
-  await expect(links.nth(0)).toHaveAttribute("target", "_blank");
-  await expect(links.nth(1)).toHaveAttribute("rel", "noopener noreferrer");
-};
-
-test("links the demo and the GitHub repository in a new tab", async ({
+test("shows only the GitHub link, in a new tab, for a Project without a demo", async ({
   page,
 }) => {
   await page.goto(`/projects/${SLUG}`);
@@ -153,20 +108,14 @@ test("links the demo and the GitHub repository in a new tab", async ({
     .getByRole("list", { name: /^(?:Project links|Tautan proyek)$/u })
     .getByRole("link");
 
-  await expectSignalKitLinks(buttons);
-});
-
-test("shows only the GitHub link for a Project without a demo", async ({
-  page,
-}) => {
-  await page.goto("/projects/synthetic-portless-desk");
-  const buttons = page
-    .locator("article header")
-    .getByRole("list", { name: /^(?:Project links|Tautan proyek)$/u })
-    .getByRole("link");
-
   await expect(buttons).toHaveCount(1);
   await expect(buttons).toHaveAccessibleName(/View source|Lihat kode sumber/u);
+  await expect(buttons).toHaveAttribute(
+    "href",
+    "https://github.com/rifandani/hackathon-2023"
+  );
+  await expect(buttons).toHaveAttribute("target", "_blank");
+  await expect(buttons).toHaveAttribute("rel", "noopener noreferrer");
 });
 
 test.describe("unknown Project Slug", () => {

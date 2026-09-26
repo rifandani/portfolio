@@ -94,3 +94,8 @@ A real version needs four things:
 We did not win an award. We asked the judges for an honest review. They said that the UI and UX were appealing and that the idea was valid, but that it would be hard to build for real.
 
 They were right, and the hard part is the list above. The screens were the easy part. The data, the timing, and the partnerships with local shops are the real product. In three days, we proved the experience. The engine is the work that remains.
+
+## References
+
+- [Official link for the event](https://bitconnect.nri.co.jp/2023/)
+- [Behind-the-Scenes and Vision from the staff](https://note.nri-digital.jp/n/n2b3ae7ced0cb?hl=en)
