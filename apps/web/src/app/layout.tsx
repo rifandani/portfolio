@@ -13,8 +13,9 @@ import { createMetadata } from "@/core/utils/seo";
 import "@/core/styles/globals.css";
 
 export const metadata = createMetadata({
-  title: "Layout",
-  description: "Bulletproof Next.js 15 Template",
+  title: "Tri Rizeki Rifandani",
+  description:
+    "Personal portfolio for Tri Rizeki Rifandani — work experience, projects, and writing.",
 });
 
 export const generateViewport = (): Viewport => ({

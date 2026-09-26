@@ -2,7 +2,7 @@
   "name": "@workspace/web",
   "version": "1.1.0",
   "private": true,
-  "description": "Bulletproof Next.js 16 Template",
+  "description": "Personal portfolio for Tri Rizeki Rifandani — work experience, projects, and writing.",
   "license": "MIT",
   "author": "Tri Rizeki Rifandani",
   "type": "module",

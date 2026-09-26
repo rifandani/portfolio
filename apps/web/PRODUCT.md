@@ -59,7 +59,6 @@ Undecided / open:
 - Tests and scripts (Playwright, Vitest).
 - Home meta copy already mentions projects, writing, and contact; blog / projects / about are the confirmed product intent.
 - No customer testimonials, case studies, or benchmarks — do not invent them.
-- `package.json` description still says “Bulletproof Next.js 16 Template” — leftover, not evidence of product purpose.
 
 ## Product Principles
 
