@@ -12,7 +12,7 @@ import {
   DisclosureTrigger,
 } from "@/core/components/ui/disclosure-group";
 import { categories } from "@/master-design/constants/registry";
-import type { Category } from "@/master-design/types/types";
+import type { Category, ComponentEntry } from "@/master-design/types/types";
 
 interface CatalogNavProps {
   activeId: string | null;
@@ -40,29 +40,59 @@ const MODIFIER_KEYS = ["metaKey", "ctrlKey", "shiftKey", "altKey"] as const;
 export const isPlainClick = (event: React.MouseEvent) =>
   event.button === 0 && !MODIFIER_KEYS.some((key) => event[key]);
 
+/** Categories with only the entries that match, and no empty groups. */
+const filterCategories = (
+  query: string,
+  matches: (_entry: ComponentEntry) => boolean
+) =>
+  categories.flatMap((category) => {
+    const entries = query ? category.entries.filter(matches) : category.entries;
+    return entries.length === 0 ? [] : [{ ...category, entries }];
+  });
+
+const LINK_SIZE = {
+  compact: "py-1 text-sm/6",
+  comfortable: "py-2 text-base/6",
+} satisfies Record<NonNullable<CatalogNavProps["density"]>, string>;
+
 /** Room kept above and below the current link when the column follows it. */
 const FOLLOW_MARGIN = 48;
+
+const navLink = (rail: HTMLElement, activeId: string) =>
+  rail.querySelector<HTMLElement>(`[data-nav-id="${CSS.escape(activeId)}"]`);
+
+/** A collapsed group's links have no box. */
+const isRendered = (el: HTMLElement | null): el is HTMLElement =>
+  el !== null && el.getClientRects().length > 0;
 
 /**
  * The bottom of the current link, in px from the top of the rail. When its
  * group is collapsed the link has no box, so the trace stops at the group.
  */
 const reachOf = (rail: HTMLElement, activeId: string) => {
-  const link = rail.querySelector<HTMLElement>(
-    `[data-nav-id="${CSS.escape(activeId)}"]`
-  );
-  const target =
-    link && link.getClientRects().length > 0
-      ? link
-      : rail.querySelector<HTMLElement>(
-          `[data-nav-group="${CSS.escape(categoryOf(activeId) ?? "")}"]`
-        );
+  const link = navLink(rail, activeId);
+  const target = isRendered(link)
+    ? link
+    : rail.querySelector<HTMLElement>(
+        `[data-nav-group="${CSS.escape(categoryOf(activeId) ?? "")}"]`
+      );
   if (!target) {
     return null;
   }
   return (
     target.getBoundingClientRect().bottom - rail.getBoundingClientRect().top
   );
+};
+
+/** The scroll change that brings `box` inside `view`, less the follow margin. */
+const followDelta = (view: DOMRect, box: DOMRect) => {
+  if (box.top < view.top + FOLLOW_MARGIN) {
+    return box.top - (view.top + FOLLOW_MARGIN);
+  }
+  if (box.bottom > view.bottom - FOLLOW_MARGIN) {
+    return box.bottom - (view.bottom - FOLLOW_MARGIN);
+  }
+  return 0;
 };
 
 /**
@@ -72,19 +102,14 @@ const reachOf = (rail: HTMLElement, activeId: string) => {
  */
 const followLink = (rail: HTMLElement, activeId: string) => {
   const scroller = rail.closest<HTMLElement>("[data-nav-scroller]");
-  const link = rail.querySelector<HTMLElement>(
-    `[data-nav-id="${CSS.escape(activeId)}"]`
-  );
-  if (!scroller || !link || link.getClientRects().length === 0) {
+  const link = navLink(rail, activeId);
+  if (!scroller || !isRendered(link)) {
     return;
   }
-  const view = scroller.getBoundingClientRect();
-  const box = link.getBoundingClientRect();
-  if (box.top < view.top + FOLLOW_MARGIN) {
-    scroller.scrollTop -= view.top + FOLLOW_MARGIN - box.top;
-  } else if (box.bottom > view.bottom - FOLLOW_MARGIN) {
-    scroller.scrollTop += box.bottom - (view.bottom - FOLLOW_MARGIN);
-  }
+  scroller.scrollTop += followDelta(
+    scroller.getBoundingClientRect(),
+    link.getBoundingClientRect()
+  );
 };
 
 /**
@@ -116,6 +141,63 @@ const useTraceReach = (
   return reach;
 };
 
+/** The 1px rail and the Helm Teal trace down to the current link. */
+const CatalogTrace = ({ reach }: { reach: number | null }) => (
+  <>
+    <span
+      aria-hidden="true"
+      className="bg-muted-fg/30 pointer-events-none absolute inset-y-0 start-0 w-px"
+    />
+    <span
+      aria-hidden="true"
+      className={twJoin(
+        "from-primary/45 to-primary pointer-events-none absolute start-0 top-0 h-(--nav-reach) w-px bg-linear-to-b forced-colors:hidden",
+        "transition-[height] duration-[360ms] ease-[cubic-bezier(0.25,1,0.5,1)] motion-reduce:transition-none",
+        reach === null && "opacity-0"
+      )}
+      // SAFETY: `CSSProperties` has no index for custom properties; the
+      // one key is a CSS custom property, which React sets as written.
+      style={{ "--nav-reach": `${reach ?? 0}px` } as CSSProperties}
+    />
+  </>
+);
+
+/** One entry in the index: a plain `#id` link that the page scrolls to. */
+const CatalogNavLink = ({
+  density,
+  entry,
+  isCurrent,
+  onNavigate,
+}: Pick<CatalogNavProps, "onNavigate"> & {
+  density: keyof typeof LINK_SIZE;
+  entry: ComponentEntry;
+  isCurrent: boolean;
+}) => {
+  const t = useTranslations();
+
+  return (
+    <a
+      aria-current={isCurrent ? "location" : undefined}
+      className={twJoin(
+        "text-muted-fg hover:text-fg aria-[current=location]:text-fg block rounded-sm ps-4 transition-colors duration-150 ease-out motion-reduce:transition-none",
+        "focus-visible:outline-ring outline-0 focus-visible:outline-2 focus-visible:outline-offset-2 forced-colors:focus-visible:outline-[Highlight]",
+        "forced-colors:aria-[current=location]:underline",
+        LINK_SIZE[density]
+      )}
+      data-nav-id={entry.id}
+      href={`#${entry.id}`}
+      onClick={(event) => {
+        if (isPlainClick(event)) {
+          event.preventDefault();
+          onNavigate(entry.id);
+        }
+      }}
+    >
+      {t(entry.nameKey)}
+    </a>
+  );
+};
+
 /**
  * The Master Design index, drawn like the Post Outline: a 1px rail, the
  * entries in Muted Ink, the current one in Warm Graphite, and a Helm Teal
@@ -134,14 +216,9 @@ export const CatalogNav = ({
   const railRef = useRef<HTMLDivElement>(null);
   const reach = useTraceReach(railRef, activeId);
 
-  const visible = categories.flatMap((category) => {
-    const entries = query
-      ? category.entries.filter((entry) =>
-          t(entry.nameKey).toLowerCase().includes(query)
-        )
-      : category.entries;
-    return entries.length === 0 ? [] : [{ ...category, entries }];
-  });
+  const visible = filterCategories(query, (entry) =>
+    t(entry.nameKey).toLowerCase().includes(query)
+  );
 
   const [expanded, setExpanded] = useState<Set<string>>(() =>
     categoryIds(categories)
@@ -158,30 +235,10 @@ export const CatalogNav = ({
     );
   }
 
-  const linkSize =
-    density === "compact" ? "py-1 text-sm/6" : "py-2 text-base/6";
-
   return (
     <nav aria-label={t("catalogNavAria")}>
-      <div
-        className="relative"
-        ref={railRef}
-        // SAFETY: `CSSProperties` has no index for custom properties; the
-        // one key is a CSS custom property, which React sets as written.
-        style={{ "--nav-reach": `${reach ?? 0}px` } as CSSProperties}
-      >
-        <span
-          aria-hidden="true"
-          className="bg-muted-fg/30 pointer-events-none absolute inset-y-0 start-0 w-px"
-        />
-        <span
-          aria-hidden="true"
-          className={twJoin(
-            "from-primary/45 to-primary pointer-events-none absolute start-0 top-0 h-(--nav-reach) w-px bg-linear-to-b forced-colors:hidden",
-            "transition-[height] duration-[360ms] ease-[cubic-bezier(0.25,1,0.5,1)] motion-reduce:transition-none",
-            reach === null && "opacity-0"
-          )}
-        />
+      <div className="relative" ref={railRef}>
+        <CatalogTrace reach={reach} />
         <DisclosureGroup
           allowsMultipleExpanded
           className={twJoin(
@@ -217,27 +274,12 @@ export const CatalogNav = ({
                 <ul role="list">
                   {category.entries.map((entry) => (
                     <li key={entry.id}>
-                      <a
-                        aria-current={
-                          entry.id === activeId ? "location" : undefined
-                        }
-                        className={twJoin(
-                          "text-muted-fg hover:text-fg aria-[current=location]:text-fg block rounded-sm ps-4 transition-colors duration-150 ease-out motion-reduce:transition-none",
-                          "focus-visible:outline-ring outline-0 focus-visible:outline-2 focus-visible:outline-offset-2 forced-colors:focus-visible:outline-[Highlight]",
-                          "forced-colors:aria-[current=location]:underline",
-                          linkSize
-                        )}
-                        data-nav-id={entry.id}
-                        href={`#${entry.id}`}
-                        onClick={(event) => {
-                          if (isPlainClick(event)) {
-                            event.preventDefault();
-                            onNavigate(entry.id);
-                          }
-                        }}
-                      >
-                        {t(entry.nameKey)}
-                      </a>
+                      <CatalogNavLink
+                        density={density}
+                        entry={entry}
+                        isCurrent={entry.id === activeId}
+                        onNavigate={onNavigate}
+                      />
                     </li>
                   ))}
                 </ul>

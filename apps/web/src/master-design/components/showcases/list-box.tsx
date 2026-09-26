@@ -2,14 +2,11 @@ import { useTranslations } from "next-intl";
 
 import { ListBox, ListBoxItem } from "@/core/components/ui/list-box";
 import { Variant, VariantGrid } from "@/master-design/components/variant";
+import { createFruits } from "@/master-design/constants/fixtures";
 
 export const ListBoxShowcase = () => {
   const t = useTranslations();
-  const fruits = [
-    { id: "apple", name: t("catalogShowcaseApple") },
-    { id: "banana", name: t("catalogShowcaseBanana") },
-    { id: "cherry", name: t("catalogShowcaseCherry") },
-  ];
+  const fruits = createFruits(t);
 
   return (
     <VariantGrid>

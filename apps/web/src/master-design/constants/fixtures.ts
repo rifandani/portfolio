@@ -36,6 +36,12 @@ const createShareData = (t: Translate) => [
   { name: t("catalogShowcaseOther"), value: 90 },
 ];
 
+const createFruits = (t: Translate) => [
+  { id: "apple", name: t("catalogShowcaseApple") },
+  { id: "banana", name: t("catalogShowcaseBanana") },
+  { id: "cherry", name: t("catalogShowcaseCherry") },
+];
+
 /** HSL so hue-channel color widgets don't throw (`Unknown color channel: hue` on RGB hex). */
 const brandHsl = "hsl(216, 98%, 52%)";
 
@@ -89,6 +95,7 @@ const demoUsers: DemoUser[] = [
 
 export {
   brandHsl,
+  createFruits,
   createRevenueConfig,
   createRevenueData,
   createShareConfig,

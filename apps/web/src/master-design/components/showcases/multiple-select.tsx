@@ -7,14 +7,11 @@ import {
   MultipleSelectItem,
 } from "@/core/components/ui/multiple-select";
 import { Variant, VariantGrid } from "@/master-design/components/variant";
+import { createFruits } from "@/master-design/constants/fixtures";
 
 export const MultipleSelectShowcase = () => {
   const t = useTranslations();
-  const fruits = [
-    { id: "apple", name: t("catalogShowcaseApple") },
-    { id: "banana", name: t("catalogShowcaseBanana") },
-    { id: "cherry", name: t("catalogShowcaseCherry") },
-  ];
+  const fruits = createFruits(t);
 
   return (
     <VariantGrid>
