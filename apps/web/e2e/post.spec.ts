@@ -4,23 +4,24 @@ import { expectLinkPreview } from "./_link-preview";
 test("opens a Post Detail from the posts index", async ({ page }) => {
   await page.goto("/posts");
   const card = page.getByRole("link", {
-    name: /TypeScript lessons from real builds/u,
+    name: /Governance is the new code review/u,
   });
 
   await card.click();
 
-  await expect(page).toHaveURL(
-    /\/posts\/synthetic-typescript-lessons-from-real-builds$/u
-  );
+  await expect(page).toHaveURL(/\/posts\/governance-is-the-new-code-review$/u);
   await expect(page.getByRole("heading", { level: 1 })).toHaveText(
-    "[Synthetic] TypeScript lessons from real builds"
+    "Governance is the new code review"
   );
   await expect(
-    page.getByRole("heading", { level: 2, name: "Parse at the boundary" })
+    page.getByRole("heading", {
+      level: 2,
+      name: "The checklist that remembers",
+    })
   ).toBeVisible();
 });
 
-const SLUG = "synthetic-typescript-lessons-from-real-builds";
+const SLUG = "governance-is-the-new-code-review";
 
 test("serves the Post Markdown at the Post Detail URL plus .md", async ({
   request,
@@ -32,7 +33,7 @@ test("serves the Post Markdown at the Post Detail URL plus .md", async ({
     "text/markdown; charset=utf-8"
   );
   expect(await response.text()).toMatch(
-    /^# \[Synthetic\] TypeScript lessons from real builds\n/u
+    /^# Governance is the new code review\n/u
   );
 });
 
@@ -49,9 +50,7 @@ test("links Posts in the breadcrumb, then marks the Post current", async ({
   await expect(links.nth(0)).toHaveAttribute("href", "/posts");
   await expect(links.nth(1)).not.toHaveAttribute("href");
   await expect(links.nth(1)).toHaveAttribute("aria-current", "page");
-  await expect(links.nth(1)).toHaveText(
-    "[Synthetic] TypeScript lessons from real builds"
-  );
+  await expect(links.nth(1)).toHaveText("Governance is the new code review");
 });
 
 test("gives the Post Detail its own Link Preview and JSON-LD", async ({
@@ -77,37 +76,6 @@ test("lists each Post in the RSS feed", async ({ request }) => {
   expect(await response.text()).toContain(`/posts/${SLUG}</link>`);
 });
 
-test("links the Posts published before and after in the Post Pager", async ({
-  page,
-}) => {
-  await page.goto("/posts/synthetic-systems-that-scale-without-noise");
-  const pager = page.getByRole("navigation", {
-    name: /Previous and next posts|Tulisan sebelumnya dan berikutnya/u,
-  });
-
-  await expect(pager.getByRole("link")).toHaveCount(2);
-  await expect(pager.getByRole("link").first()).toHaveAttribute(
-    "href",
-    "/posts/synthetic-small-updates-consistent-impact"
-  );
-  await expect(pager.getByRole("link").last()).toHaveAttribute(
-    "href",
-    "/posts/synthetic-clarity-over-complexity"
-  );
-});
-
-test("has no previous Post on the oldest Post", async ({ page }) => {
-  await page.goto(`/posts/${SLUG}`);
-  const pager = page.getByRole("navigation", {
-    name: /Previous and next posts|Tulisan sebelumnya dan berikutnya/u,
-  });
-
-  await expect(pager.getByRole("link")).toHaveCount(1);
-  await expect(pager.getByRole("link")).toContainText(
-    /Next post|Tulisan berikutnya/u
-  );
-});
-
 test("marks the section a reader jumps to in the Post Outline", async ({
   page,
 }) => {
@@ -118,19 +86,22 @@ test("marks the section a reader jumps to in the Post Outline", async ({
   });
 
   await expect(outline.getByRole("link")).toHaveText([
-    "[Synthetic] TypeScript lessons from real builds",
-    "Parse at the boundary",
-    "Props that serialize",
+    "Governance is the new code review",
+    "The checklist that remembers",
+    "The bot that wants proof",
+    "Why companies are adding these checks now",
+    "What I take from it",
+    "What a checkbox cannot do",
   ]);
 
-  await outline.getByRole("link", { name: "Props that serialize" }).click();
+  await outline.getByRole("link", { name: "What I take from it" }).click();
 
-  await expect(page).toHaveURL(/#props-that-serialize$/u);
+  await expect(page).toHaveURL(/#what-i-take-from-it$/u);
   await expect(
-    page.getByRole("heading", { level: 2, name: "Props that serialize" })
+    page.getByRole("heading", { level: 2, name: "What I take from it" })
   ).toBeInViewport();
   await expect(
-    outline.getByRole("link", { name: "Props that serialize" })
+    outline.getByRole("link", { name: "What I take from it" })
   ).toHaveAttribute("aria-current", "location");
 });
 

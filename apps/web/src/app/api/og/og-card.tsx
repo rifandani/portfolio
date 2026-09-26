@@ -1,6 +1,7 @@
 /* oxlint-disable react-doctor/only-export-components, react-doctor/no-inline-exhaustive-style -- Satori lays out inline styles only; there is no stylesheet */
 import type { CSSProperties, ReactElement, ReactNode } from "react";
 
+import { brandLogoSvgMarkup } from "@/core/components/brand-logo";
 import type { StillCell } from "@/portfolio/utils/glyph-engine";
 
 import { stillRuns } from "./og-still";
@@ -57,8 +58,12 @@ const GRAIN = `data:image/svg+xml,${encodeURIComponent(
   `<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630"><filter id="g" color-interpolation-filters="sRGB"><feTurbulence type="fractalNoise" baseFrequency="0.45" numOctaves="3" stitchTiles="stitch"/><feColorMatrix type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0 0 0 0"/><feComponentTransfer><feFuncA type="linear" slope="2.2" intercept="-0.6"/></feComponentTransfer></filter><rect width="1200" height="630" filter="url(#g)"/></svg>`
 )}`;
 
+/** The brand logo, the same file as `public/favicon.svg`. */
+const LOGO = `data:image/svg+xml,${encodeURIComponent(brandLogoSvgMarkup)}`;
+const LOGO_PX = 48;
+
 /**
- * The sheet and its chrome: the wordmark signs every card, and `locator`,
+ * The sheet and its chrome: the brand logo signs every card, and `locator`,
  * when there is one, is the path the card stands for, in mono, as the Status
  * Screen prints its line of record.
  */
@@ -113,21 +118,13 @@ const OgFrame = ({
       >
         <div
           style={{
-            alignItems: "baseline",
+            alignItems: "center",
             display: "flex",
             justifyContent: "space-between",
           }}
         >
-          <span
-            style={{
-              color: ink.fg,
-              fontFamily: face.display,
-              fontSize: 28,
-              letterSpacing: "-0.025em",
-            }}
-          >
-            Tri Rizeki Rifandani
-          </span>
+          {/* oxlint-disable-next-line nextjs/no-img-element -- Satori renders plain <img> only */}
+          <img alt="" height={LOGO_PX} src={LOGO} width={LOGO_PX} />
           {locator && (
             <span
               style={{
@@ -433,7 +430,7 @@ export const OgPostCard = ({
         <Title lines={3} size={title.length > 44 ? 56 : 64}>
           {title}
         </Title>
-        <Description lines={2} size={26}>
+        <Description lines={3} size={26}>
           {summary}
         </Description>
         <div
