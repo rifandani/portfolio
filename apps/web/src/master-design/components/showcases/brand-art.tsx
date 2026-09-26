@@ -12,7 +12,7 @@ import {
  * tokens: a file goes onto the destination's background, whatever theme the
  * reader has on. Light is Paper; dark is the dark canvas as it renders.
  */
-export const BRAND_GROUNDS = {
+const BRAND_GROUNDS = {
   light: "bg-white",
   dark: "bg-[#151312]",
 } as const;
@@ -83,7 +83,7 @@ const saveUrl = (url: string, fileName: string) => {
   anchor.click();
 };
 
-export const LOGO_FILE_NAME = "rizki-logo";
+const LOGO_FILE_NAME = "rizki-logo";
 
 /** The PNG edge, in px: large enough for print and slides. */
 export const LOGO_PNG_SIZE = 1024;
