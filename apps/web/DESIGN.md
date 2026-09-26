@@ -153,7 +153,7 @@ components:
 
 This is the visual system for Tri Rizeki Rifandani's public portfolio app. The public surfaces do one job: say who this person is, then let a visitor scan the work. The layout is conventional on purpose — a logo topbar, a hero that states the role in one sentence, then stacked bordered cards for work, projects, and writing. Nothing asks the reader to learn a novel structure before they can read.
 
-The machinery underneath is App Router, React Aria, PWA, SEO, and observability. Accessibility is product truth, not a coat of paint: React Aria focus rings, 44px touch targets, and forced-colors fallbacks are part of the craft. The Component Catalog at `/master-design` remains the kit proof surface and keeps the denser app-chrome density.
+The machinery underneath is App Router, React Aria, PWA, SEO, and observability. Accessibility is product truth, not a coat of paint: React Aria focus rings, 44px touch targets, and forced-colors fallbacks are part of the craft. The Master Design at `/master-design` remains the kit proof surface. It keeps the denser app-chrome density, but it speaks the public vocabulary (see Components).
 
 **Key Characteristics:**
 
@@ -380,7 +380,7 @@ The Post's sections: the title first (it stands for the text before the first he
 
 - **Default navbar:** Hairline bottom, Navbar fill. Items are 8px-radius, medium, 14px from `md`. Hover/press → Fog. Current → Warm Graphite.
 - **Float navbar:** 12px shell, Hairline, resting edge shadow, content padded 16px.
-- **Public site header:** Sticky (`bg-navbar/90`, `backdrop-blur-md`), 56px tall (`h-14`). Left: the logo (32px, `BrandLogo`), linking home, with the short name as its accessible name. Right: About / Projects / Blog plain links, then theme and language toggles. One row at every width — three links do not earn a mobile sheet.
+- **Public site header:** Sticky (`bg-navbar/90`, `backdrop-blur-md`), 56px tall (`h-14`). Left: the logo (32px, `BrandLogo`), linking home, with the short name as its accessible name. When the `componentCatalog` flag is on, a right-click or Shift+F10 on the logo opens the kit context menu at the pointer (`site-logo.client.tsx`): one item, a muted swatch icon, "Master Design" in `font-medium`, and a muted description, linking to `/master-design`. When the flag is off (always in production), the logo keeps the browser's own link menu. Right: About / Projects / Blog plain links, then theme and language toggles. One row at every width — three links do not earn a mobile sheet.
 - **Focus:** 2px ring at 20% Helm Teal plus inset ring.
 
 ### Note (signature)
@@ -413,9 +413,27 @@ One silhouette, two fillings, defined once in `src/portfolio/components/card-she
 
 - **Post Pager (Post Detail):** the same shell with a text-only filling, at the end of the Post, `mt-24` after the text. A mono Muted Ink direction label with an arrow ("← Previous post", "Next post →"), the Roboto semibold title, then the Post Meta. From `sm` the two cards sit side by side at equal height; the next Post takes the right column and aligns right, even when it is alone. Stacked on mobile, both align left. Previous is older and next is newer, so each arrow points the way the reader goes in time. No print, so nothing drifts — the light alone answers the pointer.
 
+### Master Design (internal)
+
+The kit proof surface at `/master-design`, for developers only (`src/master-design/components/catalog.tsx`). It is not a public route, so it does not take `SiteShell`, but it uses the public vocabulary, so a component is seen on the surface it ships on.
+
+- **Canvas:** no fill of its own. The Sand Canvas and its grain show through, and the specimens rest on it directly. A kit Card in a specimen is a sheet on the canvas, never a card in a card.
+- **Topbar:** the public header's material (`bg-navbar/90`, `backdrop-blur-md`, Hairline, 56px): the logo as the home link, a 1px divider, the catalog name in Roboto 600 at 14px, then the theme and language toggles. It runs the full width; the catalog is not held to the 64rem column.
+- **Intro:** the index-title scale `h1`, the count as a mono line of record, then a Lead line. No hero (The One-Hero Rule).
+- **Index:** the Post Outline, extended to groups (`catalog-nav.tsx`). From `lg`, a 16rem side column, sticky under the topbar, with the filter at the top and the index scrolling under it; the column follows the current entry. Below `lg`, a native `<details>` under the intro holds the filter and the index, and a pick closes it. Group names are Meta spaced caps with the count, on the kit Disclosure with its plus/minus indicator. Entries are plain `#id` links: Muted Ink at rest, Warm Graphite on hover and when current (`aria-current="location"`), color only. The 1px rail and the Helm Teal trace are the Post Outline's: the trace fills to the current entry, or to its group when the group is closed, and it is hidden while a filter hides the entry. A filter opens every group it matches.
+- **Categories:** each heads its entries as the posts index heads a year: the name as a Headline `h2`, a 1px rule at 30% Muted Ink, and the count in Meta caps at the end.
+- **Entries:** Hairline rows (`divide-y`), 40px of vertical padding. From `xl` the name holds a 10rem gutter column and stays in view at `top-24` while a long specimen scrolls; below `xl` it heads the specimen. Under the name, the anchor as a mono link (`#button`) with the Link rule sweep, so a developer can copy a deep link. Variant labels stay mono in their real lowercase prop names; swatch groups are Meta caps.
+- **Brand Guidelines:** the first category, above Foundation (`showcases/brand-*.tsx`). It holds guidelines, not components (the `guide` field on a Category): a Lead line under its heading, "N guidelines" as its count, and no place in the intro's component count. Five entries, each drawn from the logo's own data (`BRAND_LOGO_FILLS`), so no copy can drift from `BrandLogo`:
+  - **Logo:** the logo on two fixed plates, light (white) and dark (the dark canvas as it renders, `#151312`). The plates do not follow the theme, because a file is chosen for where it goes, not for the reader's theme. Under them: Copy SVG (the `CopyButton` cross-fade), Download SVG, and Download PNG (1024 px, drawn from the SVG in the browser, so there is no second file), then a Snippet of the component.
+  - **Clear Space & Size:** a construction sheet: dashed guides through the zone and logo edges, the zone washed at 6% Muted Ink, a ghost logo `x` wide in each margin band, and dimension rules for `4x` and `x`. The clear space is `x` = ¼ of the logo width on each side. Then the size ladder, 64 to 16 px: 32 px is the site header, 16 px (the favicon) is the floor.
+  - **Logo Colors:** Logo Navy, Logo Teal, and Disc White as fixed swatches, each over a ruled `dl` of HEX, RGB, and OKLCH. Each value is a button that copies it. They are logo colors, not tokens (see Colors → Logo).
+  - **Logo Misuse:** one correct specimen and five wrong ones (stretched, rotated, colors swapped, a glow, no disc), each the real logo with one change. A check or a cross in the status inks marks each caption. That is a state, so the Status-Is-Not-Brand Rule holds.
+  - **Name:** the full name and the short form in Roboto 600, each with where it is used, then the spellings not to write, struck through.
+- **Motion:** only the trace (360ms, ease-out quart). A pick glides to the section; reduced motion jumps.
+
 ### Status Screen
 
-The page a visitor gets when a route cannot answer (`src/core/components/status-screen.tsx`): the 404 (`not-found.tsx` and the Component Catalog gate, through `NotFoundScreen`) and the error (`error.tsx` for a route segment, `global-error.tsx` for the root layout, both through `ErrorScreen`). It renders through `SiteShell` (The One-Shell Rule), so the visitor keeps the topbar and is never stranded on a blank sheet.
+The page a visitor gets when a route cannot answer (`src/core/components/status-screen.tsx`): the 404 (`not-found.tsx` and the Master Design gate, through `NotFoundScreen`) and the error (`error.tsx` for a route segment, `global-error.tsx` for the root layout, both through `ErrorScreen`). It renders through `SiteShell` (The One-Shell Rule), so the visitor keeps the topbar and is never stranded on a blank sheet.
 
 - **Composition:** left-aligned in the public column, like `/about`, with the page rhythm (`py-16` / `sm:py-24`). The title is a plain sentence at the index-title scale (1.875 / `sm` 2.25rem), not the hero: it states a fact about the page, not the person (The One-Hero Rule). A Lead paragraph names the problem and the recovery, then the actions.
 - **Line of record:** one mono Meta line under the title. For a 404 it is the status and the path that failed (`404 · /posts/x`, the status in Warm Graphite, the path in Muted Ink, `break-all` so a long path wraps). For an error it is the digest ("Reference …"), the one detail a visitor can send back, and on `global-error` the status before it (`500 · Reference …`). It is data, so it is mono; it is never an eyebrow over the title.

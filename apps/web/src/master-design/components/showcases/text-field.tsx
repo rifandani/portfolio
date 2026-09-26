@@ -26,9 +26,9 @@ export const TextFieldShowcase = () => {
       </Variant>
 
       <Variant label="isInvalid">
-        <TextField className="w-64" isInvalid>
+        <TextField className="w-64" defaultValue="not-an-email" isInvalid>
           <Label>{t("email")}</Label>
-          <Input defaultValue="not-an-email" />
+          <Input />
           <FieldError>{t("catalogShowcaseValidEmail")}</FieldError>
         </TextField>
       </Variant>

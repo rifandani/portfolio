@@ -4,7 +4,7 @@ import path from "node:path";
 // fallow-ignore-next-line security-sink -- both components are literals rooted at process.cwd(), not request input
 const APP_DIR = path.join(process.cwd(), "src/app");
 /**
- * `api` serves no pages. `master-design` is the Component Catalog: it is
+ * `api` serves no pages. `master-design` is the Master Design: it is
  * `noindex` and shows a 404 screen when its Feature Flag is off, so a sitemap
  * must not list it.
  */

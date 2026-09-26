@@ -18,16 +18,24 @@ export const TextareaShowcase = () => {
       </Variant>
 
       <Variant label="isInvalid">
-        <TextField className="w-64" isInvalid>
+        <TextField
+          className="w-64"
+          defaultValue={t("catalogShowcaseTooShort")}
+          isInvalid
+        >
           <Label>{t("catalogShowcaseBio")}</Label>
-          <Textarea defaultValue={t("catalogShowcaseTooShort")} />
+          <Textarea />
         </TextField>
       </Variant>
 
       <Variant label="isDisabled">
-        <TextField className="w-64" isDisabled>
+        <TextField
+          className="w-64"
+          defaultValue={t("catalogShowcaseCannotEdit")}
+          isDisabled
+        >
           <Label>{t("catalogShowcaseBio")}</Label>
-          <Textarea defaultValue={t("catalogShowcaseCannotEdit")} />
+          <Textarea />
         </TextField>
       </Variant>
     </VariantGrid>

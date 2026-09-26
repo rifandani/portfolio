@@ -127,7 +127,13 @@ export const useScrollSpy = (ids: string[]): ScrollSpy => {
     }
     setActiveId(id);
     suppressUntilSettled();
-    el.scrollIntoView({ behavior: "smooth", block: "start" });
+    const reduceMotion = window.matchMedia(
+      "(prefers-reduced-motion: reduce)"
+    ).matches;
+    el.scrollIntoView({
+      behavior: reduceMotion ? "instant" : "smooth",
+      block: "start",
+    });
   };
 
   return { activeId, scrollTo };

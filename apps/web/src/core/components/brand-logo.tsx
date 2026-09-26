@@ -20,6 +20,17 @@ export const BRAND_LOGO_FILLS = [
   },
 ] as const;
 
+/**
+ * The logo as a standalone SVG file, from the same data. The brand guidelines
+ * copy and download it; it matches `public/favicon.svg`.
+ */
+export const brandLogoSvgMarkup = [
+  `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${BRAND_LOGO_SIZE} ${BRAND_LOGO_SIZE}">`,
+  `<circle cx="${BRAND_LOGO_SIZE / 2}" cy="${BRAND_LOGO_SIZE / 2}" r="${BRAND_LOGO_SIZE / 2}" fill="#fff"/>`,
+  ...BRAND_LOGO_FILLS.map(({ d, fill }) => `<path fill="${fill}" d="${d}"/>`),
+  "</svg>",
+].join("");
+
 /** The logo as a decorative inline SVG. Name it on the element that holds it. */
 export const BrandLogo = (props: SVGProps<SVGSVGElement>) => (
   <svg
