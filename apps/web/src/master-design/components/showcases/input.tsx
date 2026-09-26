@@ -29,9 +29,9 @@ export const InputShowcase = () => {
       </Variant>
 
       <Variant label="isDisabled">
-        <TextField className="w-64" isDisabled>
+        <TextField className="w-64" defaultValue="you@example.com" isDisabled>
           <Label>{t("email")}</Label>
-          <Input defaultValue="you@example.com" />
+          <Input />
         </TextField>
       </Variant>
     </VariantGrid>

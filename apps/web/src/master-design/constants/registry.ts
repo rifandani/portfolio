@@ -3,6 +3,11 @@ import { AvatarShowcase } from "@/master-design/components/showcases/avatar";
 import { BadgeShowcase } from "@/master-design/components/showcases/badge";
 import { BarChartShowcase } from "@/master-design/components/showcases/bar-chart";
 import { BarListShowcase } from "@/master-design/components/showcases/bar-list";
+import { BrandClearSpaceShowcase } from "@/master-design/components/showcases/brand-clear-space";
+import { BrandColorsShowcase } from "@/master-design/components/showcases/brand-colors";
+import { BrandLogoShowcase } from "@/master-design/components/showcases/brand-logo";
+import { BrandMisuseShowcase } from "@/master-design/components/showcases/brand-misuse";
+import { BrandNameShowcase } from "@/master-design/components/showcases/brand-name";
 import { BreadcrumbsShowcase } from "@/master-design/components/showcases/breadcrumbs";
 import { ButtonShowcase } from "@/master-design/components/showcases/button";
 import { ButtonGroupShowcase } from "@/master-design/components/showcases/button-group";
@@ -89,10 +94,41 @@ import { VisuallyHiddenShowcase } from "@/master-design/components/showcases/vis
 import type { Category } from "@/master-design/types/types";
 
 /**
- * Source of truth for the Component Catalog: drives the nav, the section
+ * Source of truth for the Master Design: drives the nav, the section
  * anchors, and the page order. Add a Component Entry here to surface it.
  */
 export const categories: Category[] = [
+  {
+    id: "brand",
+    nameKey: "catalogCategoryBrand",
+    guide: {
+      descriptionKey: "catalogBrandDescription",
+      countKey: "catalogGuideCount",
+    },
+    entries: [
+      { id: "logo", nameKey: "catalogEntryLogo", Showcase: BrandLogoShowcase },
+      {
+        id: "logo-clear-space",
+        nameKey: "catalogEntryLogoClearSpace",
+        Showcase: BrandClearSpaceShowcase,
+      },
+      {
+        id: "logo-colors",
+        nameKey: "catalogEntryLogoColors",
+        Showcase: BrandColorsShowcase,
+      },
+      {
+        id: "logo-misuse",
+        nameKey: "catalogEntryLogoMisuse",
+        Showcase: BrandMisuseShowcase,
+      },
+      {
+        id: "brand-name",
+        nameKey: "catalogEntryBrandName",
+        Showcase: BrandNameShowcase,
+      },
+    ],
+  },
   {
     id: "foundation",
     nameKey: "catalogCategoryFoundation",
@@ -494,6 +530,11 @@ export const categories: Category[] = [
     ],
   },
 ];
+
+/** How many Component Entries the catalog holds; guidelines are not components. */
+export const componentCount: number = categories
+  .filter((category) => !category.guide)
+  .reduce((count, category) => count + category.entries.length, 0);
 
 /** Flat list of every entry id, in page order (used to seed the scroll spy). */
 export const entryIds: string[] = categories.flatMap((category) =>

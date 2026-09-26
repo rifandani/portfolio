@@ -22,9 +22,9 @@ export const FieldShowcase = () => {
           <Legend>{t("profile")}</Legend>
           <Description>{t("catalogShowcasePublicDetails")}</Description>
           <FieldGroup>
-            <TextField>
+            <TextField defaultValue={t("catalogShowcaseSampleName")}>
               <Label>{t("name")}</Label>
-              <Input defaultValue={t("catalogShowcaseSampleName")} />
+              <Input />
               <Description>{t("catalogShowcaseShownOnProfile")}</Description>
             </TextField>
           </FieldGroup>
@@ -32,9 +32,9 @@ export const FieldShowcase = () => {
       </Variant>
 
       <Variant label="FieldError">
-        <TextField className="w-64" isInvalid>
+        <TextField className="w-64" defaultValue="not-an-email" isInvalid>
           <Label>{t("email")}</Label>
-          <Input defaultValue="not-an-email" />
+          <Input />
           <FieldError>{t("catalogShowcaseValidEmail")}</FieldError>
         </TextField>
       </Variant>

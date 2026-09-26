@@ -14,24 +14,23 @@ For new project, run `/impeccable init` then `/impeccable shape` to update PRODU
 
 ## 📝 Environment Variables
 
-For first timer, you need to create the 2 environments in your github repo. First is `dev` environment, and second is `prod` environment (that's why in `.github/workflows/ci.yml` we stated `environment: dev`). In both environments, name it `WEB_ENV_FILE` (that's why in `.github/workflows/ci.yml` we stated `secrets.WEB_ENV_FILE`).
+For first timer, you need to create a `dev` environment in your github repo (that's why in `.github/workflows/ci.yml` we stated `environment: dev`). In it, add a secret named `WEB_ENV_FILE` (that's why in `.github/workflows/ci.yml` we stated `secrets.WEB_ENV_FILE`).
 
-The value for `WEB_ENV_FILE` in `dev` environment is `.env.dev`, and the value for `WEB_ENV_FILE` in `prod` environment is `.env.prod` for `@workspace/web`.
+The value for `WEB_ENV_FILE` is the content of `apps/web/.env.local` for `@workspace/web`. CI writes it to `apps/web/.env.local`, which `next dev` and `next build` load natively.
 
-Source of truth is local env files. When changing them, update deployment/CI project env too.
+Source of truth is the local env file. When changing it, update deployment/CI project env too.
 
-<!-- For first timer, you need to create 2 environments in your github repo.
-Go to your Github repo -> `Settings` tabs -> `Environments` -> `New environment` -> `dev` and `prod` (that's why in `.github/workflows/ci.yml` we stated `environment: dev` and `environment: prod`).
+<!-- For first timer, you need to create a `dev` environment in your github repo.
+Go to your Github repo -> `Settings` tabs -> `Environments` -> `New environment` -> `dev` (that's why in `.github/workflows/ci.yml` we stated `environment: dev`).
 
 To push our local env variables to the github repo, run:
 
 ```bash
 # that's why in `.github/workflows/ci.yml` we stated `secrets.WEB_ENV_FILE`
-gh secret set WEB_ENV_FILE -e dev -f ./apps/web/.env.dev
-gh secret set WEB_ENV_FILE -e prod -f ./apps/web/.env.prod
+gh secret set WEB_ENV_FILE -e dev < ./apps/web/.env.local
 ```
 
-Source of truth is local env files. When changing them, update deployment/CI project env too. -->
+Source of truth is the local env file. When changing it, update deployment/CI project env too. -->
 
 ## 🗒️ Notes
 

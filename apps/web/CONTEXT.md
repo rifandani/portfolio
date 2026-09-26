@@ -12,11 +12,11 @@ Web app.
 
 **Translation Key**: A flat identifier into a Message Catalog (e.g. `welcome`, `editProfile`). _Avoid_: nested namespaces like `auth.welcome`, i18next paths
 
-### Component Catalog
+### Master Design
 
-**Component Catalog**: The single page at `/master-design` that displays every core UI component for visual inspection by developers and designers. Access is gated by the `componentCatalog` Feature Flag. _Avoid_: master design, styleguide, storybook, docs site
+**Master Design**: The single page at `/master-design` that displays every core UI component for visual inspection by developers and designers. Access is gated by the `componentCatalog` Feature Flag. _Avoid_: component catalog, styleguide, storybook, docs site
 
-**Component Entry**: One component's place in the Component Catalog — its Category membership, its nav item, and its section of the page. _Avoid_: item, doc, page
+**Component Entry**: One component's place in the Master Design — its Category membership, its nav item, and its section of the page. _Avoid_: item, doc, page
 
 **Variant Showcase**: One rendered example within a Component Entry, demonstrating a single combination of a component's props. _Avoid_: demo, example, story
 
@@ -40,7 +40,7 @@ Web app.
 
 ### Public Site
 
-**Public Site**: The set of routes a visitor reads without signing in — Home, About, Projects, Posts. Distinct from the Component Catalog, which serves developers. _Avoid_: marketing site, landing page, front end
+**Public Site**: The set of routes a visitor reads without signing in — Home, About, Projects, Posts. Distinct from the Master Design, which serves developers. _Avoid_: marketing site, landing page, front end
 
 **Site Shell**: The header and footer every Public Site route renders through. A route supplies its content and nothing else. _Avoid_: layout, wrapper, template, chrome
 

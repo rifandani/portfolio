@@ -5,7 +5,7 @@ import { RequestedPath } from "@/core/components/requested-path.client";
 import { StatusScreen } from "@/core/components/status-screen";
 
 /**
- * The 404 page. `not-found` and the Component Catalog gate both render it, so
+ * The 404 page. `not-found` and the Master Design gate both render it, so
  * a gated route reads the same as a route that does not exist.
  */
 export const NotFoundScreen = () => {

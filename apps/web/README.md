@@ -6,9 +6,7 @@
 
 ## 🎯 Todo
 
-- update website logo, then regenerate assets
 - use real CV, and remove cv placeholders
-- use real portrait, and remove portrait placeholders
 - install skills for writing that doesnt sounds like AI-generated, and use simple english
 - add filter or search in posts using URL search params after we have some real contents
 - find out about observability in vercel, should we remove opentelemetry?

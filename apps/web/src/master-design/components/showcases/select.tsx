@@ -8,14 +8,11 @@ import {
   SelectTrigger,
 } from "@/core/components/ui/select";
 import { Variant, VariantGrid } from "@/master-design/components/variant";
+import { createFruits } from "@/master-design/constants/fixtures";
 
 export const SelectShowcase = () => {
   const t = useTranslations();
-  const fruits = [
-    { id: "apple", name: t("catalogShowcaseApple") },
-    { id: "banana", name: t("catalogShowcaseBanana") },
-    { id: "cherry", name: t("catalogShowcaseCherry") },
-  ];
+  const fruits = createFruits(t);
 
   return (
     <VariantGrid>

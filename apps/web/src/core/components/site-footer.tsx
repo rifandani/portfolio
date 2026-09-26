@@ -32,8 +32,8 @@ const siteFiles = [
 ] as const;
 
 /**
- * Public footer, set as a colophon. The name signs in the heading face so it
- * bookends the topbar wordmark; the site files and the year count in mono.
+ * Public footer, set as a colophon. The name signs in the heading face; the
+ * site files and the year count in mono.
  */
 export const SiteFooter = () => {
   const t = useTranslations();

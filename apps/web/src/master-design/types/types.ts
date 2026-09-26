@@ -2,7 +2,7 @@ import type { ComponentType } from "react";
 
 import type { MessageKey } from "@/core/feature-flags/registry";
 
-/** One component's place in the Component Catalog. */
+/** One component's place in the Master Design. */
 export interface ComponentEntry {
   /** Slug used for the section anchor id and the URL hash. */
   id: string;
@@ -16,5 +16,13 @@ export interface Category {
   id: string;
   /** Translation Key for the category heading. */
   nameKey: MessageKey;
+  /**
+   * Set when the category holds guidelines rather than components: a lead
+   * under its heading, its own count noun, and no place in the component count.
+   */
+  guide?: {
+    descriptionKey: MessageKey;
+    countKey: MessageKey;
+  };
   entries: ComponentEntry[];
 }

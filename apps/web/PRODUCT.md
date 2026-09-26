@@ -24,7 +24,7 @@ A personal portfolio for Tri Rizeki Rifandani — not a SaaS product and not a p
 - Local dev via Next (`bun web` / `bun run --filter @workspace/web dev` with portless); Playwright e2e and Vitest unit tests.
 - Public surfaces only; no login or register for visitors.
 - Locales in product: `en` and `id` (next-intl).
-- Internal Component Catalog at `/master-design`, gated by a Feature Flag for developers — not a visitor surface.
+- Internal Master Design at `/master-design`, gated by a Feature Flag for developers — not a visitor surface.
 
 ## Capabilities and Constraints
 
@@ -50,7 +50,7 @@ Undecided / open:
 - Surname / short form: Rizki.
 - Package identity: `@workspace/web`.
 - Reject public branding as a generic Next.js template.
-- Do not use the incorrect SEO author string “Roryki Rifandani” going forward; code that still says that is drift to fix.
+- Write the author as “Tri Rizeki Rifandani” everywhere, including the SEO author string.
 
 ## Evidence on Hand
 
@@ -59,7 +59,6 @@ Undecided / open:
 - Tests and scripts (Playwright, Vitest).
 - Home meta copy already mentions projects, writing, and contact; blog / projects / about are the confirmed product intent.
 - No customer testimonials, case studies, or benchmarks — do not invent them.
-- `package.json` description still says “Bulletproof Next.js 16 Template” — leftover, not evidence of product purpose.
 
 ## Product Principles
 

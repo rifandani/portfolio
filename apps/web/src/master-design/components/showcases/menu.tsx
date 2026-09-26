@@ -1,6 +1,6 @@
 import { useTranslations } from "next-intl";
 
-import { Button } from "@/core/components/ui/button";
+import { buttonStyles } from "@/core/components/ui/button";
 import {
   Menu,
   MenuContent,
@@ -16,8 +16,8 @@ export const MenuShowcase = () => {
     <VariantGrid>
       <Variant label="default">
         <Menu>
-          <MenuTrigger>
-            <Button intent="outline">{t("catalogShowcaseOpen")}</Button>
+          <MenuTrigger className={buttonStyles({ intent: "outline" })}>
+            {t("catalogShowcaseOpen")}
           </MenuTrigger>
           <MenuContent aria-label={t("catalogShowcaseActions")}>
             <MenuItem id="a">{t("catalogShowcaseEdit")}</MenuItem>

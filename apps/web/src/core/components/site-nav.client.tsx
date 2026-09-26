@@ -7,7 +7,7 @@ import { twMerge } from "tailwind-merge";
 
 import { Link } from "@/core/components/ui/link";
 
-export const navLinkClass = twMerge(
+const navLinkClass = twMerge(
   // No padding: the sweeping rule is drawn on the link box, so any padding
   // would push the rule off the text and stretch it past the label.
   "text-muted-fg hover:text-fg text-sm/6 font-medium",

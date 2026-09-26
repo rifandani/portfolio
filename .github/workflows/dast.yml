@@ -109,14 +109,14 @@ jobs:
           WEB_ENV_FILE: ${{ secrets.WEB_ENV_FILE }}
         run: |
           if [ -n "$WEB_ENV_FILE" ]; then
-            echo "$WEB_ENV_FILE" > apps/web/.env.dev
+            echo "$WEB_ENV_FILE" > apps/web/.env.local
           else
-            cp apps/web/.env.example apps/web/.env.dev
+            cp apps/web/.env.example apps/web/.env.local
           fi
           {
             echo 'NEXT_PUBLIC_APP_URL="http://127.0.0.1:4100"'
             echo 'NEXT_PUBLIC_API_BASE_URL="http://127.0.0.1:4100/api"'
-          } >> apps/web/.env.dev
+          } >> apps/web/.env.local
 
       - name: Build
         if: steps.target.outputs.local == 'true'

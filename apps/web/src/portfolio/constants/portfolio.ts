@@ -8,7 +8,7 @@ import type { Messages } from "next-intl";
 
 export const portfolioIdentity = {
   fullName: "Tri Rizeki Rifandani",
-  /** Topbar wordmark — the site has no logo asset. */
+  /** Accessible name of the topbar logo link, and the ID badge lanyard text. */
   shortName: "Rizki",
   /** What the whole site is, for the site metadata and the WebSite node. */
   siteDescription:
@@ -71,11 +71,8 @@ export const aboutContent = {
     outputKeys: ["aboutSkill1", "aboutSkill2", "aboutSkill3", "aboutSkill4"],
   },
   email: "tri.rifandani@gmail.com",
-  /**
-   * [Synthetic] Replace with a real photo. The ID badge frames it close to
-   * 5:6 and anchors it at the top, so crop to 4:5 with the face high.
-   */
-  portraitSrc: "/placeholders/portrait.svg",
+  /** The ID badge frames it close to 5:6 and anchors it at the top. */
+  portraitSrc: "/portrait.png",
   /** Year and month of birth, as `YYYY-MM`. It prints in the reader's Locale. */
   birthMonth: "1998-05",
   /** ISO 3166-1 alpha-3, printed in the ID badge's machine-readable zone. */

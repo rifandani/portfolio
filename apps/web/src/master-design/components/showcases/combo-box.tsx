@@ -8,14 +8,11 @@ import {
 } from "@/core/components/ui/combo-box";
 import { Label } from "@/core/components/ui/field";
 import { Variant, VariantGrid } from "@/master-design/components/variant";
+import { createFruits } from "@/master-design/constants/fixtures";
 
 export const ComboBoxShowcase = () => {
   const t = useTranslations();
-  const fruits = [
-    { id: "apple", name: t("catalogShowcaseApple") },
-    { id: "banana", name: t("catalogShowcaseBanana") },
-    { id: "cherry", name: t("catalogShowcaseCherry") },
-  ];
+  const fruits = createFruits(t);
 
   return (
     <VariantGrid>

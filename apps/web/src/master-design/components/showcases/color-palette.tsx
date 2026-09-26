@@ -206,7 +206,7 @@ export const ColorPaletteShowcase = () => {
     <div className="flex flex-col gap-8">
       {groups.map((group) => (
         <div key={group.labelKey}>
-          <h4 className="text-muted-fg mb-3 text-sm font-medium">
+          <h4 className="text-muted-fg mb-4 font-mono text-xs/5 tracking-[0.08em] uppercase">
             {t(group.labelKey)}
           </h4>
           <VariantGrid>

@@ -7,14 +7,14 @@
       "package": "fast-uri",
       "severity": "high",
       "expires": "2026-11-06",
-      "reason": "Transitive via ajv / dotenvx; awaiting upstream"
+      "reason": "Transitive via ajv / @stryker-mutator/core; awaiting upstream"
     },
     {
       "id": "GHSA-v2hh-gcrm-f6hx",
       "package": "fast-uri",
       "severity": "high",
       "expires": "2026-11-06",
-      "reason": "Transitive via ajv / dotenvx; awaiting upstream"
+      "reason": "Transitive via ajv / @stryker-mutator/core; awaiting upstream"
     },
     {
       "id": "GHSA-89xv-2m56-2m9x",
@@ -57,13 +57,6 @@
       "severity": "high",
       "expires": "2026-11-06",
       "reason": "Transitive via next/vite; bump with framework releases"
-    },
-    {
-      "id": "GHSA-4cwx-7wf7-3272",
-      "package": "undici",
-      "severity": "high",
-      "expires": "2026-11-06",
-      "reason": "Transitive via expo / dotenvx; awaiting upstream"
     },
     {
       "id": "GHSA-28wg-ghj8-5hjv",
