@@ -60,6 +60,12 @@ Web app.
 
 **Preview Section**: A Home section that shows at most three entries and links to its own index. _Avoid_: featured section, highlights, teaser, channel
 
+**Preview Image**: The wide art of one Post or one Project. It shows on its Content Card and at the top of its detail page. It is not the OG Card. _Avoid_: cover, hero image, thumbnail, OG image
+
+**OG Card**: The wide image that a Social Network or a chat app shows when a person shares the address of a Public Site page. The site makes it from the data of that page: a Post and a Project each have their own, and every other page has a page card of its title and description. _Avoid_: OG image, social image, share image
+
+**Link Preview**: What a Social Network or a chat app shows for a shared address: the OG Card, the title, and the description. _Avoid_: unfurl, rich preview, embed, share card
+
 ### Posts
 
 **Post**: One piece of writing on the Public Site. It has one language, and all Locales show the same text. _Avoid_: article, blog, blog post, entry

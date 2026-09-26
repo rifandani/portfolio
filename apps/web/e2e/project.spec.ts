@@ -1,6 +1,7 @@
 import type { Locator } from "@playwright/test";
 
 import { expect, test } from "./_base";
+import { expectLinkPreview } from "./_link-preview";
 
 const SLUG = "synthetic-signal-kit";
 
@@ -34,6 +35,19 @@ test("shows the tags of the Project in place of a date and reading time", async 
     /TypeScript$/u,
   ]);
   await expect(page.locator("article header time")).toHaveCount(0);
+});
+
+test("gives the Project Detail its own Link Preview and JSON-LD", async ({
+  page,
+  request,
+}) => {
+  await page.goto(`/projects/${SLUG}`);
+
+  await expectLinkPreview(page, request, {
+    path: `/projects/${SLUG}`,
+    card: `project=${SLUG}`,
+    type: "CreativeWork",
+  });
 });
 
 test("serves the Project Markdown at the Project Detail URL plus .md", async ({

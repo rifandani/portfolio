@@ -1,3 +1,6 @@
+import type { Metadata } from "next";
+import { getTranslations } from "next-intl/server";
+
 import {
   HomeDirectionContract,
   HomePageContent,
@@ -5,27 +8,26 @@ import {
 import { SiteShell } from "@/core/components/site-shell";
 import {
   createMetadata,
+  createPerson,
   createWebPage,
   createWebSite,
   JsonLd,
 } from "@/core/utils/seo";
+import { portfolioIdentity } from "@/portfolio/constants/portfolio";
 
 const title = "Home";
-const description =
-  "Personal portfolio for Tri Rizeki Rifandani — work experience, projects, and writing.";
-const ldParams = {
-  url:
-    process.env.NODE_ENV === "production"
-      ? "https://web.com"
-      : "https://web.portfolio.localhost",
-  title,
-  description,
-};
+const description = portfolioIdentity.siteDescription;
 
-export const metadata = createMetadata({
-  title,
-  description,
-});
+/** The card leads with the hero headline: "Home" says nothing in a feed. */
+export const generateMetadata = async (): Promise<Metadata> => {
+  const t = await getTranslations();
+  return createMetadata({
+    title,
+    description,
+    path: "/",
+    card: { kind: "page", title: t("homeHeadline"), description },
+  });
+};
 
 export default function HomePage() {
   return (
@@ -34,7 +36,13 @@ export default function HomePage() {
       <SiteShell>
         <HomePageContent />
       </SiteShell>
-      <JsonLd graphs={[createWebSite(ldParams), createWebPage(ldParams)]} />
+      <JsonLd
+        graphs={[
+          createWebSite(),
+          createPerson(),
+          createWebPage({ path: "/", title, description }),
+        ]}
+      />
     </>
   );
 }

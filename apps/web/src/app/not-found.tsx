@@ -10,6 +10,7 @@ export const generateMetadata = async (): Promise<Metadata> => {
   return createMetadata({
     title: t("statusNotFoundMetaTitle"),
     description: t("statusNotFoundDescription"),
+    path: null,
   });
 };
 

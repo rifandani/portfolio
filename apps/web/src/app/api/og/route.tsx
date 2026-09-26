@@ -1,265 +1,168 @@
-/* oxlint-disable react-doctor/no-giant-component */
+import { readFile } from "node:fs/promises";
+import path from "node:path";
+
+import { getLocale, getTranslations } from "next-intl/server";
 import { ImageResponse } from "next/og";
 import type { NextRequest } from "next/server";
 import type { ReactElement } from "react";
 
-import {
-  BRAND_LOGO_FILLS,
-  BRAND_LOGO_SIZE,
-} from "@/core/components/brand-logo";
 import { createError, useLogger, withEvlog } from "@/core/utils/evlog";
+import { traceStill } from "@/portfolio/utils/glyph-engine";
+import { getPost } from "@/post/services/posts";
+import { rulerOf, stampOf } from "@/post/utils/postmark";
+import { postPath } from "@/post/utils/slug";
+import { getProjects } from "@/project/services/projects";
+import { projectPath } from "@/project/utils/project-path";
 
-import { parseOgRequest, rethrowNonError } from "./og-params";
-// const interSemiBold = fetch(
-//   new URL('./Inter-SemiBold.ttf', import.meta.url),
-// ).then(res => res.arrayBuffer())
+import {
+  OgPageCard,
+  OgPostCard,
+  OgProjectCard,
+  STILL_CELL,
+  STILL_COLS,
+  STILL_POSE,
+  STILL_ROWS,
+} from "./og-card";
+import type { OgCard } from "./og-params";
+import {
+  OG_DEFAULT_TITLE,
+  OG_SIZE,
+  parseOgRequest,
+  rethrowNonError,
+} from "./og-params";
+import { previewSourceOf } from "./og-sources";
 
-const LIGHT_GRID_PATHS = [
-  "M421 0V307",
-  "M469 0V307",
-  "M516 0V307",
-  "M564 0V307",
-  "M374 0V307",
-  "M326 0V307",
-  "M135 0V307",
-  "M183 0V307",
-  "M231 0V307",
-  "M278 0V307",
-  "M88 0V307",
-  "M40 0V307",
-  "M707 0V307",
-  "M755 0V307",
-  "M802 0V307",
-  "M659 0V307",
-  "M612 0V307",
-  "M841 105L0 105",
-  "M841 57L0 57",
-  "M841 153L0 153",
-  "M841 201L0 201",
-  "M841 9L0 9",
+/**
+ * The three faces of the site as static files: Satori cannot use
+ * `next/font`, and it reads TTF, not WOFF2. `next.config.ts` adds the folder
+ * to the output file trace, because the route reads it at runtime.
+ */
+// fallow-ignore-next-line security-sink -- both components are literals rooted at process.cwd(), not request input
+const FONT_DIR = path.join(process.cwd(), "src/app/api/og/fonts");
+const FONTS = [
+  { file: "Roboto-SemiBold.ttf", name: "Roboto", weight: 600 },
+  { file: "Quicksand-Medium.ttf", name: "Quicksand", weight: 500 },
+  { file: "IBMPlexMono-Medium.ttf", name: "IBM Plex Mono", weight: 500 },
 ] as const;
 
-const DARK_GRID_PATHS = [
-  "M421.2 4.2V306.8",
-  "M468.8 4.2V306.8",
-  "M516.5 4.2V306.8",
-  "M564.1 4.2V306.8",
-  "M373.5 4.2V306.8",
-  "M325.9 4.2V306.8",
-  "M841 105L0 105",
-  "M841 57L0 57",
-  "M841 153L0 153",
-  "M841 201L0 201",
-  "M841 9L0 9",
-  "M135.3 4.2V306.8",
-  "M182.9 4.2V306.8",
-  "M230.6 4.2V306.8",
-  "M278.2 4.2V306.8",
-  "M87.6 4.2V306.8",
-  "M40 4.2V306.8",
-  "M707.1 4.2V306.8",
-  "M754.7 4.2V306.8",
-  "M802.4 4.2V306.8",
-  "M659.4 4.2V306.8",
-  "M611.8 4.2V306.8",
-] as const;
+const readFonts = () =>
+  Promise.all(
+    FONTS.map(async ({ file, name, weight }) => ({
+      // fallow-ignore-next-line security-sink -- file is a literal of FONTS, not request input
+      data: await readFile(path.join(FONT_DIR, file)),
+      name,
+      style: "normal" as const,
+      weight,
+    }))
+  );
 
-// Satori accepts only intrinsic elements inside `<svg>`, so the shared parts
-// are plain elements and functions, never components.
-const ogGridPaths = (
-  paths: readonly string[],
-  stroke: string
-): ReactElement[] =>
-  paths.map((d) => (
-    <path
-      d={d}
-      key={d}
-      stroke={stroke}
-      strokeDasharray="3.18 3.18"
-      strokeWidth="0.794118"
+let loadedFonts: Awaited<ReturnType<typeof readFonts>> | null = null;
+
+/** Read the faces once per server; a failed read throws and is retried next request. */
+const loadFonts = async () => {
+  loadedFonts ??= await readFonts();
+  return loadedFonts;
+};
+
+// fallow-ignore-next-line security-sink -- both components are literals rooted at process.cwd(), not request input
+const PUBLIC_DIR = path.join(process.cwd(), "public");
+
+/** A Project preview as a source Satori can load: inlined, or a URL. */
+const drawingOf = async (src: string): Promise<string | null> => {
+  const source = previewSourceOf(src, PUBLIC_DIR);
+  if (source === null) {
+    return null;
+  }
+  if (source.kind === "remote") {
+    return source.url;
+  }
+  try {
+    const data = await readFile(source.file);
+    return `data:${source.type};base64,${data.toString("base64")}`;
+  } catch {
+    return null;
+  }
+};
+
+const sheetNumberOf = (value: number) => String(value).padStart(2, "0");
+
+const pageCard = (title: string, description?: string) => (
+  <OgPageCard
+    description={description}
+    still={traceStill(
+      STILL_COLS,
+      STILL_ROWS,
+      STILL_CELL.w,
+      STILL_CELL.h,
+      STILL_POSE
+    )}
+    title={title}
+  />
+);
+
+const postCard = async (slug: string) => {
+  const post = getPost(slug);
+  if (!post) {
+    return null;
+  }
+  const [t, locale] = await Promise.all([getTranslations(), getLocale()]);
+  return (
+    <OgPostCard
+      path={postPath(post.slug)}
+      readingTime={t("postReadingTime", { minutes: post.readingMinutes })}
+      ruler={rulerOf(post.readingMinutes)}
+      stamp={stampOf(post.publishedAt, locale)}
+      summary={post.summary}
+      title={post.title}
     />
-  ));
+  );
+};
 
-// `BRAND_LOGO_FILLS` scaled to a 96px mark centered above the title.
-const BRAND_LOGO = (
-  <g transform="translate(373.5, 105.5) scale(0.0863309)">
-    <circle
-      cx={BRAND_LOGO_SIZE / 2}
-      cy={BRAND_LOGO_SIZE / 2}
-      fill="white"
-      r={BRAND_LOGO_SIZE / 2}
+const projectCard = async (slug: string) => {
+  const projects = getProjects();
+  const index = projects.findIndex((project) => project.slug === slug);
+  const project = projects[index];
+  if (!project) {
+    return null;
+  }
+  const [t, drawing] = await Promise.all([
+    getTranslations(),
+    drawingOf(project.previewSrc),
+  ]);
+  return (
+    <OgProjectCard
+      description={project.description}
+      drawing={drawing}
+      path={projectPath(project.slug)}
+      sheet={{
+        number: sheetNumberOf(index + 1),
+        total: sheetNumberOf(projects.length),
+      }}
+      sheetLabel={t("projectCardSheet")}
+      title={project.title}
     />
-    {BRAND_LOGO_FILLS.map(({ d, fill }) => (
-      <path d={d} fill={fill} key={d} />
-    ))}
-  </g>
-);
+  );
+};
 
-const LightBrandSvg = (): ReactElement => (
-  <svg
-    aria-hidden="true"
-    fill="none"
-    height="441"
-    viewBox="0 0 843 441"
-    width="843"
-    xmlns="http://www.w3.org/2000/svg"
-  >
-    <g clipPath="url(#clip0_5_3)">
-      <rect fill="white" height="441" width="843" />
-      {ogGridPaths(LIGHT_GRID_PATHS, "#999999")}
-      <rect fill="url(#paint0_radial_5_3)" height="441" width="841" x="2" />
-      <g filter="url(#filter0_f_5_3)" opacity="0.3">
-        <path
-          d="M380.2 410C317.7 297.1 289.6 147.2 339.9 79.1C390.3 10.9 509 45.4 547 153.9L452 205L380.2 410Z"
-          fill="#009689"
-        />
-      </g>
+/** The card for a request. A slug the store does not know gets the site card. */
+const cardFor = async (card: OgCard): Promise<ReactElement> => {
+  if (card.kind === "page") {
+    return pageCard(card.title, card.description);
+  }
+  const found =
+    card.kind === "post"
+      ? await postCard(card.slug)
+      : await projectCard(card.slug);
+  return found ?? pageCard(OG_DEFAULT_TITLE);
+};
 
-      {BRAND_LOGO}
-    </g>
-    <defs>
-      <filter
-        colorInterpolationFilters="sRGB"
-        filterUnits="userSpaceOnUse"
-        height="766"
-        id="filter0_f_5_3"
-        width="633"
-        x="114"
-        y="-156"
-      >
-        <feFlood floodOpacity="0" result="BackgroundImageFix" />
-        <feBlend
-          in="SourceGraphic"
-          in2="BackgroundImageFix"
-          mode="normal"
-          result="shape"
-        />
-        <feGaussianBlur
-          result="effect1_foregroundBlur_5_3"
-          stdDeviation="100"
-        />
-      </filter>
-      <radialGradient
-        cx="0"
-        cy="0"
-        gradientTransform="translate(418 -39) rotate(90) scale(336 640.762)"
-        gradientUnits="userSpaceOnUse"
-        id="paint0_radial_5_3"
-        r="1"
-      >
-        <stop stopColor="white" stopOpacity="0" />
-        <stop offset="1" stopColor="white" />
-      </radialGradient>
-      <clipPath id="clip0_5_3">
-        <rect fill="white" height="441" width="843" />
-      </clipPath>
-    </defs>
-  </svg>
-);
-const DarkBrandSvg = (): ReactElement => (
-  <svg
-    aria-hidden="true"
-    fill="none"
-    height="441"
-    viewBox="0 0 843 441"
-    width="843"
-    xmlns="http://www.w3.org/2000/svg"
-  >
-    <g clipPath="url(#clip0_1_4)">
-      <rect fill="black" height="441" width="843" />
-      {ogGridPaths(DARK_GRID_PATHS, "#333333")}
-      <rect fill="url(#paint0_radial_1_4)" height="441" width="841" />
-      <g filter="url(#filter0_f_1_4)" opacity="0.3">
-        <path
-          d="M380.2 410C317.7 297.1 289.6 147.2 339.9 79.1C390.3 10.9 509 45.4 547 153.9L452 205L380.2 410Z"
-          fill="#009689"
-        />
-      </g>
-
-      {BRAND_LOGO}
-    </g>
-    <defs>
-      <filter
-        colorInterpolationFilters="sRGB"
-        filterUnits="userSpaceOnUse"
-        height="766"
-        id="filter0_f_1_4"
-        width="633"
-        x="114"
-        y="-156"
-      >
-        <feFlood floodOpacity="0" result="BackgroundImageFix" />
-        <feBlend
-          in="SourceGraphic"
-          in2="BackgroundImageFix"
-          mode="normal"
-          result="shape"
-        />
-        <feGaussianBlur
-          result="effect1_foregroundBlur_1_4"
-          stdDeviation="100"
-        />
-      </filter>
-      <radialGradient
-        cx="0"
-        cy="0"
-        gradientTransform="translate(416 -39) rotate(90) scale(336 640.762)"
-        gradientUnits="userSpaceOnUse"
-        id="paint0_radial_1_4"
-        r="1"
-      >
-        <stop stopOpacity="0" />
-        <stop offset="1" />
-      </radialGradient>
-      <clipPath id="clip0_1_4">
-        <rect fill="white" height="441" width="843" />
-      </clipPath>
-    </defs>
-  </svg>
-);
-
-export const GET = withEvlog((req: NextRequest): Response | ImageResponse => {
+export const GET = withEvlog(async (req: NextRequest) => {
   const log = useLogger();
   try {
-    const { isLight, title } = parseOgRequest(req);
-    log.set({ og: { isLight, title } });
-    const Background = isLight ? LightBrandSvg : DarkBrandSvg;
-    return new ImageResponse(
-      <div
-        style={{
-          alignItems: "center",
-          display: "flex",
-          justifyContent: "center",
-          position: "relative",
-        }}
-      >
-        <Background />
-        <div
-          style={{
-            color: isLight ? "black" : "white",
-            fontFamily: "Inter",
-            fontSize: "48px",
-            fontWeight: "600",
-            left: "50%",
-            letterSpacing: "-0.04em",
-            maxWidth: "750px",
-            overflowWrap: "break-word",
-            position: "absolute",
-            textAlign: "center",
-            top: "250px",
-            transform: "translateX(-50%)",
-            whiteSpace: "pre-wrap",
-            wordWrap: "break-word",
-          }}
-        >
-          {title}
-        </div>
-      </div>,
-      {
-        width: 843,
-        height: 441,
-      }
-    );
+    const card = parseOgRequest(req);
+    log.set({ og: card });
+    const [element, fonts] = await Promise.all([cardFor(card), loadFonts()]);
+    return new ImageResponse(element, { ...OG_SIZE, fonts });
   } catch (error) {
     rethrowNonError(error);
     throw createError({

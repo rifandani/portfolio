@@ -18,7 +18,7 @@
 2. "fe-monorepo", "be-monorepo" boilerplate
 3. hackathon 2023
 4. kings and legends remake with threejs (need a lot of tokens)
-5. our own AI personal assistant
+5. our own AI personal assistant using mastra
 
 ### New post ideas
 

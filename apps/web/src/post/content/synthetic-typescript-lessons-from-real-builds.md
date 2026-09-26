@@ -3,8 +3,8 @@ slug: synthetic-typescript-lessons-from-real-builds
 title: "[Synthetic] TypeScript lessons from real builds"
 summary: Practical typing patterns that keep RSC boundaries honest.
 publishedAt: 2023-11-07
-ogImageSrc: /placeholders/post-og-4.svg
-ogImageAlt: Synthetic OG art for TypeScript lessons
+previewSrc: /placeholders/post-og-4.svg
+previewAlt: Synthetic preview art for TypeScript lessons
 ---
 
 This is a synthetic placeholder Post. It shows how a Post Detail renders until real writing replaces it.

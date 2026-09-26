@@ -10,6 +10,11 @@ export const portfolioIdentity = {
   fullName: "Tri Rizeki Rifandani",
   /** Accessible name of the topbar logo link, and the ID badge lanyard text. */
   shortName: "Rizki",
+  /** What the whole site is, for the site metadata and the WebSite node. */
+  siteDescription:
+    "Personal portfolio for Tri Rizeki Rifandani — work experience, projects, and writing.",
+  /** The X account, without the `@`. X is not a Social Link on the page. */
+  xHandle: "tri_rizeki",
   /** [Synthetic] Replace with the real title. */
   role: "software engineer",
   copyrightYear: 2026,
