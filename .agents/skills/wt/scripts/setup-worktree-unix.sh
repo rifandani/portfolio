@@ -45,7 +45,7 @@ sync_app_envs() {
 }
 
 echo "==> Syncing app env files from main checkout"
-sync_app_envs apps/web .env.dev .env.prod .env.local
+sync_app_envs apps/web .env.local
 
 echo "==> Checking portless (required for bun web)"
 if ! command -v portless >/dev/null 2>&1; then

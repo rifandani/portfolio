@@ -64,9 +64,9 @@ jobs:
   #         WEB_ENV_FILE: ${{ secrets.WEB_ENV_FILE }}
   #       run: |
   #         if [ -n "$WEB_ENV_FILE" ]; then
-  #           echo "$WEB_ENV_FILE" > apps/web/.env.dev
+  #           echo "$WEB_ENV_FILE" > apps/web/.env.local
   #         else
-  #           cp apps/web/.env.example apps/web/.env.dev
+  #           cp apps/web/.env.example apps/web/.env.local
   #         fi
 
   #     - name: Resolve playwright version
