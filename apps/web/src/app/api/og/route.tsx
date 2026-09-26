@@ -3,6 +3,10 @@ import { ImageResponse } from "next/og";
 import type { NextRequest } from "next/server";
 import type { ReactElement } from "react";
 
+import {
+  BRAND_LOGO_FILLS,
+  BRAND_LOGO_SIZE,
+} from "@/core/components/brand-logo";
 import { createError, useLogger, withEvlog } from "@/core/utils/evlog";
 
 import { parseOgRequest, rethrowNonError } from "./og-params";
@@ -76,21 +80,18 @@ const ogGridPaths = (
     />
   ));
 
-// Same geometry as `public/favicon.svg` (1112 units wide), scaled to a 96px
-// mark centered above the title.
+// `BRAND_LOGO_FILLS` scaled to a 96px mark centered above the title.
 const BRAND_LOGO = (
   <g transform="translate(373.5, 105.5) scale(0.0863309)">
-    <clipPath id="brand_logo_clip">
-      <circle cx="556" cy="556" r="556" />
-    </clipPath>
-    <g clipPath="url(#brand_logo_clip)">
-      <rect fill="#0E2137" height="1112" width="1112" />
-      <path
-        d="M-80 261H637.5A190 175 0 0 1 637.5 611H537.3L1124.5 1239H918.5L-20.4 261Z"
-        fill="white"
-      />
-      <path d="M-20.4 261L918.5 1239H-180V261Z" fill="#03A0A7" />
-    </g>
+    <circle
+      cx={BRAND_LOGO_SIZE / 2}
+      cy={BRAND_LOGO_SIZE / 2}
+      fill="white"
+      r={BRAND_LOGO_SIZE / 2}
+    />
+    {BRAND_LOGO_FILLS.map(({ d, fill }) => (
+      <path d={d} fill={fill} key={d} />
+    ))}
   </g>
 );
 

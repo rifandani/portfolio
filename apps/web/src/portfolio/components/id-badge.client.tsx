@@ -14,7 +14,7 @@ import type { BadgeMotion } from "@/portfolio/utils/id-badge-motion";
 interface IdBadgeProps {
   portraitSrc: string;
   fullName: string;
-  /** The topbar wordmark, woven into the lanyard strap. */
+  /** The short name, woven into the lanyard strap. */
   shortName: string;
   role: string;
   email: string;
@@ -108,10 +108,10 @@ export const IdBadge = ({
                   src={portraitSrc}
                   alt={t("aboutPortraitAlt")}
                   fill
+                  sizes="17rem"
                   className="object-cover object-top"
                   draggable={false}
                   loading="eager"
-                  unoptimized
                 />
               </div>
               <p className="font-display text-fg mt-[5cqw] text-[max(0.8125rem,7.5cqw)]/[1.15] font-semibold tracking-tight text-balance">

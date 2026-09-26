@@ -151,7 +151,7 @@ components:
 
 **Creative North Star: "Plain Speech"**
 
-This is the visual system for Tri Rizeki Rifandani's public portfolio app. The public surfaces do one job: say who this person is, then let a visitor scan the work. The layout is conventional on purpose — a wordmark topbar, a hero that states the role in one sentence, then stacked bordered cards for work, projects, and writing. Nothing asks the reader to learn a novel structure before they can read.
+This is the visual system for Tri Rizeki Rifandani's public portfolio app. The public surfaces do one job: say who this person is, then let a visitor scan the work. The layout is conventional on purpose — a logo topbar, a hero that states the role in one sentence, then stacked bordered cards for work, projects, and writing. Nothing asks the reader to learn a novel structure before they can read.
 
 The machinery underneath is App Router, React Aria, PWA, SEO, and observability. Accessibility is product truth, not a coat of paint: React Aria focus rings, 44px touch targets, and forced-colors fallbacks are part of the craft. The Component Catalog at `/master-design` remains the kit proof surface and keeps the denser app-chrome density.
 
@@ -204,6 +204,10 @@ No tertiary role. `accent` equals `secondary` in light; do not invent a third br
 - **Amber Signal**: Warning fills; dark text on the fill (`amber-signal-fg`).
 - **Info Wash** (`info-subtle`): Informational notes only — no solid info fill exists.
 
+### Logo (not tokens)
+
+- **Logo Navy** (`#0E2137`) and **Logo Teal** (`#03A0A7`): the logo's own fills on a white disc (`src/core/components/brand-logo.tsx`, also `public/favicon.svg` and the OG image). They live only inside the logo, never as UI color, and they do not change with the theme. The logo does not count toward the One Voice Rule.
+
 ### Named Rules
 
 **The One Voice Rule.** Helm Teal occupies ≤10% of any given screen. Its rarity is the point. Never wash a whole view in primary.
@@ -229,7 +233,7 @@ All three load through `next/font/google` in `src/app/layout.tsx` and are expose
 - **Body** (Quicksand 400, 0.875rem / 1.5 from `sm`; 1rem / 1.5 on mobile): Default copy, field text, card descriptions. Muted Ink for supporting copy.
 - **Lead** (Quicksand 400, 1rem / 1.75 at every width): The home summary, the `/about` biography paragraphs, and index-page intros. The one place body copy does not step down at `sm`.
 - **Label** (Quicksand 500, 0.875rem / 1.5): Buttons, field labels, nav items. Badges drop to 0.75rem / 1.25.
-- **Meta** (IBM Plex Mono 500, 0.75rem / `sm` 0.875rem): Date ranges, publish dates, reading time, tech tags, social link labels. The footer is a colophon: the full name signs in Roboto 600 (Fg, tracking-tight, matching the topbar wordmark), and the year, rights line, and build credit set as Meta in spaced caps (0.75rem at every width, `0.08em` tracking, uppercase, tabular year).
+- **Meta** (IBM Plex Mono 500, 0.75rem / `sm` 0.875rem): Date ranges, publish dates, reading time, tech tags, social link labels. The footer is a colophon: the full name signs in Roboto 600 (Fg, tracking-tight), and the year, rights line, and build credit set as Meta in spaced caps (0.75rem at every width, `0.08em` tracking, uppercase, tabular year).
 
 Mobile body and headings step up one Tailwind size so 16px remains the readable floor on touch.
 
@@ -376,7 +380,7 @@ The Post's sections: the title first (it stands for the text before the first he
 
 - **Default navbar:** Hairline bottom, Navbar fill. Items are 8px-radius, medium, 14px from `md`. Hover/press → Fog. Current → Warm Graphite.
 - **Float navbar:** 12px shell, Hairline, resting edge shadow, content padded 16px.
-- **Public site header:** Sticky (`bg-navbar/90`, `backdrop-blur-md`), 56px tall (`h-14`). Left: the wordmark, in the heading face, linking home. Right: About / Projects / Blog plain links, then theme and language toggles. One row at every width — three links do not earn a mobile sheet.
+- **Public site header:** Sticky (`bg-navbar/90`, `backdrop-blur-md`), 56px tall (`h-14`). Left: the logo (32px, `BrandLogo`), linking home, with the short name as its accessible name. Right: About / Projects / Blog plain links, then theme and language toggles. One row at every width — three links do not earn a mobile sheet.
 - **Focus:** 2px ring at 20% Helm Teal plus inset ring.
 
 ### Note (signature)
@@ -445,7 +449,7 @@ The About portrait, printed on an ID card that hangs from a lanyard (`src/portfo
 - **Signature (Back):** his pen signature, traced once into one compound SVG path (`id-badge-signature.tsx`) that fills with `currentColor`, so the theme sets the ink and there is no second drawing. It is 64% of the print width, starts 1.5cqw before the text column as a pen overshoots, and reads to a screen reader as "Signature of …". The line under it is microprint, as on a real card: the full name in 1.5cqw mono caps, repeated, in Muted Ink — a rule at arm's length, text up close. The ink crosses it about four-fifths of the way down, where the tail and the lower loops dip. The "Signature" caption (Meta caps) sits under the line at its end, clear of the tail.
 - **Signature ink:** Helm Teal (`--primary`), the stripe's colour. Primary does not shift between themes (The Same-Signal Rule), so one value reads on the light and the dark card. It prints at 94% opacity, so the microprint shows through where the pen crosses it. Forced colors print it in the system text color.
 - **Scale:** the badge is its own size container, so all print is in `cqw` (with a rem floor for real text) and the card reads the same at 10rem and at the 19rem column.
-- **Lanyard:** a graphite strap that fades in from above with the wordmark woven in Meta caps, and a flat grey clip through the slot. Flat fills and one border — no bevel, no gloss on the metal.
+- **Lanyard:** a graphite strap that fades in from above with the short name woven in Meta caps, and a flat grey clip through the slot. Flat fills and one border — no bevel, no gloss on the metal.
 - **Interaction:** a drag spins the card on its vertical axis; on release the throw carries on and a spring settles it on the face it was heading for. A tap flips it. A fine pointer resting on it leans it up to ~8° toward itself. The drag speed and a flip kick an under-damped pendulum that swings the whole lanyard from the top of the strap. Vertical drag on touch still scrolls the page (`touch-action: pan-y`).
 - **Light:** as the card turns, the face shades toward black by up to 16%, and a narrow gloss band — Helm Teal specular with a pale core, the card-light vocabulary — crosses it. Both are zero when the card faces square, so the resting badge carries no light.
 - **Arrival:** one turn, 450ms after load, so the visitor sees that the card turns. It is skipped if the visitor reached the card first, and under reduced motion. After that the badge moves only when the visitor moves it; the loop stops when every spring has settled, so it is not ambient motion (The One-Moment Rule holds).

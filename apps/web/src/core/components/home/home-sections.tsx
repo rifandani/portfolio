@@ -10,7 +10,7 @@ export const HomeDirectionContract = () => (
     // eslint-disable-next-line react/no-danger -- impeccable direction contract must survive as an HTML comment
     dangerouslySetInnerHTML={{
       __html: `<!--
-THESIS: Conventional personal site — a wordmark topbar, an identity hero at display scale, then card sections for work, projects, and writing.
+THESIS: Conventional personal site — a logo topbar, an identity hero at display scale, then card sections for work, projects, and writing.
 OWN-WORLD: Paper and Cool Graphite, rare Helm Blue, Quicksand body with Roboto headings and IBM Plex Mono meta, soft-rect 8px, bordered cards, flat-by-default.
 STORY: Visitor reads the role sentence, scans the work history, then follows a card into projects or writing.
 FIRST VIEWPORT: Wordmark plus About / Projects / Posts and toggles; the role sentence and summary as the thesis; social links; the first work cards.
