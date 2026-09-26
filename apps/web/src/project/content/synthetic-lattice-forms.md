@@ -3,7 +3,7 @@ slug: synthetic-lattice-forms
 title: "[Synthetic] Lattice Forms"
 description: Form patterns with clear errors, focus, and validation states.
 tags: [React, TanStack Form, Zod]
-order: 3
+order: 4
 previewSrc: /placeholders/project-og-3.svg
 previewAlt: Synthetic preview artwork for Lattice Forms
 demoUrl: https://lattice-forms.example.com

@@ -3,7 +3,7 @@ slug: synthetic-signal-kit
 title: "[Synthetic] Signal Kit"
 description: Accessible component patterns for portfolio and product shells.
 tags: [React Aria, Tailwind, TypeScript]
-order: 1
+order: 2
 previewSrc: /placeholders/project-og-1.svg
 previewAlt: Synthetic preview artwork for Signal Kit
 demoUrl: https://signal-kit.example.com

@@ -97,7 +97,7 @@ test("links the Projects before and after in the Project Pager", async ({
 });
 
 test("has no previous Project on the first Project", async ({ page }) => {
-  await page.goto(`/projects/${SLUG}`);
+  await page.goto("/projects/hanepyon-layover-planner");
   const pager = page.getByRole("navigation", {
     name: /Previous and next projects|Proyek sebelumnya dan berikutnya/u,
   });

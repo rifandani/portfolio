@@ -3,7 +3,7 @@ slug: synthetic-portless-desk
 title: "[Synthetic] Portless Desk"
 description: Local-first tooling notes and developer workflow experiments.
 tags: [Bun, CLI, TypeScript]
-order: 2
+order: 3
 previewSrc: /placeholders/project-og-2.svg
 previewAlt: Synthetic preview artwork for Portless Desk
 githubUrl: https://github.com/rifandani/portfolio

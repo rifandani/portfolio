@@ -1,0 +1,66 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630" role="img" aria-label="A phone with a stack of swipe cards beside a dotted route that runs from a plane, past three numbered stops, to a shrine gate">
+  <defs>
+    <mask id="behind-card">
+      <rect width="1200" height="630" fill="#fff"/>
+      <rect x="160" y="118" width="184" height="284" rx="20" fill="#000"/>
+    </mask>
+    <mask id="off-pins">
+      <rect width="1200" height="630" fill="#fff"/>
+      <circle cx="909" cy="369" r="24" fill="#000"/>
+      <circle cx="800" cy="330" r="24" fill="#000"/>
+      <circle cx="685" cy="315" r="24" fill="#000"/>
+    </mask>
+  </defs>
+  <rect width="1200" height="630" rx="24" fill="#808088" fill-opacity="0.10"/>
+  <g font-family="ui-monospace,SFMono-Regular,Menlo,monospace" fill="#78788a">
+    <g fill="none" stroke="#78788a" stroke-width="4" stroke-linecap="round" stroke-linejoin="round">
+      <rect x="120" y="72" width="264" height="420" rx="36"/>
+      <g mask="url(#behind-card)">
+        <rect x="162" y="120" width="180" height="280" rx="18" stroke-dasharray="8 7" transform="rotate(9 252 400)"/>
+      </g>
+    </g>
+    <rect x="162" y="120" width="180" height="280" rx="18" fill-opacity="0.12"/>
+    <rect x="162" y="120" width="180" height="280" rx="18" fill="none" stroke="#78788a" stroke-width="4"/>
+    <rect x="182" y="140" width="44" height="8" rx="4" fill-opacity="0.55"/>
+    <rect x="230" y="140" width="44" height="8" rx="4" fill-opacity="0.55"/>
+    <rect x="278" y="140" width="44" height="8" rx="4" fill-opacity="0.22"/>
+    <rect x="182" y="322" width="112" height="18" rx="9" fill-opacity="0.55"/>
+    <rect x="182" y="354" width="64" height="16" rx="8" fill-opacity="0.385"/>
+    <rect x="254" y="354" width="68" height="16" rx="8" fill-opacity="0.385"/>
+    <g fill="none" stroke="#78788a" stroke-width="4" stroke-linecap="round" stroke-linejoin="round">
+      <circle cx="196" cy="444" r="22"/>
+      <path d="M188 436l16 16M204 436l-16 16"/>
+      <circle cx="308" cy="444" r="22"/>
+      <path d="M308 455c-9-6-14-11-14-17a7 7 0 0 1 14-2a7 7 0 0 1 14 2c0 6-5 11-14 17z"/>
+    </g>
+    <text x="480" y="140" font-size="24" font-weight="600" letter-spacing="2">LAYOVER PLAN · 3 HOURS</text>
+    <text x="480" y="202" font-size="22" font-weight="600" letter-spacing="1.5">¥2,500</text>
+    <rect x="614" y="178" width="2" height="32" fill-opacity="0.3"/>
+    <text x="646" y="202" font-size="22" font-weight="600" letter-spacing="1.5">2H 30M</text>
+    <rect x="780" y="178" width="2" height="32" fill-opacity="0.3"/>
+    <text x="812" y="202" font-size="22" font-weight="600" letter-spacing="1.5">12M BY TRAIN</text>
+    <g fill="none" stroke="#78788a" stroke-width="4" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M1010 430C920 400 900 330 800 330S660 300 604 300" stroke-dasharray="2 12" mask="url(#off-pins)"/>
+      <path d="M538 256h72M544 270h60M556 256v46M592 256v46M534 250q40 -10 80 0"/>
+      <g transform="translate(1046 446) rotate(-24)">
+        <path d="M-30 0h58M4 0l-14 -28M4 0l-14 28M-22 0l-10 -12M-22 0l-10 12"/>
+      </g>
+    </g>
+    <g font-size="20" font-weight="700" text-anchor="middle">
+      <g fill="none" stroke="#78788a" stroke-width="4">
+        <circle cx="909" cy="369" r="20"/>
+        <circle cx="800" cy="330" r="20"/>
+        <circle cx="685" cy="315" r="20"/>
+      </g>
+      <circle cx="909" cy="369" r="18" fill="#808088" fill-opacity="0.18"/>
+      <circle cx="800" cy="330" r="18" fill="#808088" fill-opacity="0.18"/>
+      <circle cx="685" cy="315" r="18" fill="#808088" fill-opacity="0.18"/>
+      <text x="909" y="376">1</text>
+      <text x="800" y="337">2</text>
+      <text x="685" y="322">3</text>
+    </g>
+    <rect x="480" y="420" width="220" height="16" rx="8" fill-opacity="0.385"/>
+    <rect x="480" y="450" width="160" height="16" rx="8" fill-opacity="0.22"/>
+  </g>
+  <rect x="96" y="520" width="1008" height="1" fill="#78788a" fill-opacity="0.3"/>
+</svg>

@@ -3,7 +3,7 @@ slug: synthetic-quiet-charts
 title: "[Synthetic] Quiet Charts"
 description: Restrained data display for status and trend reading.
 tags: [Recharts, SVG, Design tokens]
-order: 4
+order: 5
 previewSrc: /placeholders/project-og-4.svg
 previewAlt: Synthetic preview artwork for Quiet Charts
 demoUrl: https://quiet-charts.example.com
