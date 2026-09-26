@@ -27,7 +27,7 @@ To push our local env variables to the github repo, run:
 
 ```bash
 # that's why in `.github/workflows/ci.yml` we stated `secrets.WEB_ENV_FILE`
-gh secret set WEB_ENV_FILE -e dev -f ./apps/web/.env.local
+gh secret set WEB_ENV_FILE -e dev < ./apps/web/.env.local
 ```
 
 Source of truth is the local env file. When changing it, update deployment/CI project env too. -->
