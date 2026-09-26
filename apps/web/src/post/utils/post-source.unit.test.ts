@@ -7,8 +7,8 @@ slug: clarity-over-complexity
 title: "Clarity: over complexity"
 summary: Why restrained UI systems help people scan faster.
 publishedAt: 2024-05-12
-ogImageSrc: /placeholders/post-og-1.svg
-ogImageAlt: OG art for Clarity over complexity
+previewSrc: /placeholders/post-og-1.svg
+previewAlt: Preview art for Clarity over complexity
 ---`;
 
 const source = (text: string) => ({ path: "clarity.md", text });
@@ -26,10 +26,31 @@ describe("parsePostSource", () => {
       title: "Clarity: over complexity",
       summary: "Why restrained UI systems help people scan faster.",
       publishedAt: "2024-05-12",
-      ogImageSrc: "/placeholders/post-og-1.svg",
-      ogImageAlt: "OG art for Clarity over complexity",
+      updatedAt: "2024-05-12",
+      previewSrc: "/placeholders/post-og-1.svg",
+      previewAlt: "Preview art for Clarity over complexity",
       readingMinutes: 1,
     });
+  });
+
+  it("reads the update date when the Post Source gives one", () => {
+    const text = FRONTMATTER.replace(
+      "publishedAt: 2024-05-12",
+      "publishedAt: 2024-05-12\nupdatedAt: 2024-06-01"
+    );
+
+    expect(parsePostSource(source(text)).updatedAt).toBe("2024-06-01");
+  });
+
+  it("rejects an update date before the publish date", () => {
+    const text = FRONTMATTER.replace(
+      "publishedAt: 2024-05-12",
+      "publishedAt: 2024-05-12\nupdatedAt: 2024-05-11"
+    );
+
+    expect(() => parsePostSource(source(text))).toThrow(
+      /clarity\.md[\s\S]*updatedAt/u
+    );
   });
 
   it("parses the Markdown text into the Post Document", () => {

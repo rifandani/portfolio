@@ -2,16 +2,20 @@ import type { Metadata } from "next";
 import { getTranslations } from "next-intl/server";
 import Image from "next/image";
 import { notFound } from "next/navigation";
-import type { BreadcrumbList, CreativeWork } from "schema-dts";
 
 import { DetailBreadcrumbs } from "@/core/components/detail-breadcrumbs";
 import { SiteContainer } from "@/core/components/site-container";
 import { SiteShell } from "@/core/components/site-shell";
 import { Heading } from "@/core/components/ui/heading";
-import { ENV } from "@/core/constants/env";
-import { createMetadata, JsonLd } from "@/core/utils/seo";
+import {
+  absoluteUrl,
+  createBreadcrumbList,
+  createMetadata,
+  createPerson,
+  createWebSite,
+  JsonLd,
+} from "@/core/utils/seo";
 import { PreviewMorph } from "@/portfolio/components/preview-morph";
-import { portfolioIdentity } from "@/portfolio/constants/portfolio";
 import { PageActions } from "@/post/components/page-actions.client";
 import { PostDocument } from "@/post/components/post-document";
 import { PostOutline } from "@/post/components/post-outline.client";
@@ -22,6 +26,7 @@ import { ProjectMeta } from "@/project/components/project-meta";
 import { ProjectPager } from "@/project/components/project-pager";
 import { getProject, getProjects } from "@/project/services/projects";
 import { adjacentProjects } from "@/project/utils/project-collection";
+import { createProjectCreativeWork } from "@/project/utils/project-ld";
 import { projectLinksOf } from "@/project/utils/project-links";
 import { projectMarkdownPath, projectPath } from "@/project/utils/project-path";
 
@@ -32,8 +37,7 @@ export const generateStaticParams = () =>
   getProjects().map((project) => ({ slug: project.slug }));
 
 /** Absolute, because an Assistant fetches it from outside the site. */
-const markdownUrlOf = (slug: string) =>
-  new URL(projectMarkdownPath(slug), ENV.NEXT_PUBLIC_APP_URL).href;
+const markdownUrlOf = (slug: string) => absoluteUrl(projectMarkdownPath(slug));
 
 const findProject = async (params: PageProps<"/projects/[slug]">["params"]) => {
   const { slug } = await params;
@@ -46,7 +50,10 @@ export const generateMetadata = async ({
   const project = await findProject(params);
   return createMetadata({
     title: project.title,
+    path: projectPath(project.slug),
+    card: { kind: "project", slug: project.slug },
     description: project.description,
+    openGraph: { type: "article", authors: [absoluteUrl("/about")] },
     alternates: { types: { "text/markdown": markdownUrlOf(project.slug) } },
   });
 };
@@ -65,35 +72,22 @@ export default async function ProjectDetailPage({
     findProject(params),
   ]);
   const { previous, next } = adjacentProjects(getProjects(), project.slug);
-  const url = new URL(projectPath(project.slug), ENV.NEXT_PUBLIC_APP_URL).href;
+  const url = absoluteUrl(projectPath(project.slug));
   const links = projectLinksOf(project);
-  const creativeWork: CreativeWork = {
-    "@type": "CreativeWork",
-    name: project.title,
-    description: project.description,
-    keywords: project.tags.join(", "),
-    url,
-    ...(links.length > 0 && { sameAs: links.map((link) => link.href) }),
-    author: { "@type": "Person", name: portfolioIdentity.fullName },
-  };
-  const breadcrumbList: BreadcrumbList = {
-    "@type": "BreadcrumbList",
-    itemListElement: [
-      {
-        name: t("siteNavProjects"),
-        item: new URL("/projects", ENV.NEXT_PUBLIC_APP_URL).href,
-      },
-      { name: project.title, item: url },
-    ].map((crumb, index) => ({
-      "@type": "ListItem",
-      position: index + 1,
-      ...crumb,
-    })),
-  };
   const outline = outlineOf(project.document);
   return (
     <SiteShell>
-      <JsonLd graphs={[creativeWork, breadcrumbList]} />
+      <JsonLd
+        graphs={[
+          createWebSite(),
+          createPerson(),
+          createProjectCreativeWork(project),
+          createBreadcrumbList([
+            { name: t("siteNavProjects"), path: "/projects" },
+            { name: project.title, path: projectPath(project.slug) },
+          ]),
+        ]}
+      />
       <SiteContainer className="py-16 sm:py-24">
         <article>
           <DetailBreadcrumbs parent="/projects" title={project.title} />

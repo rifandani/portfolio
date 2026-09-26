@@ -13,7 +13,7 @@
  */
 
 /** Dark to light. The first cell is empty so misses print nothing. */
-const RAMP = " .:-=+*#%@";
+export const RAMP = " .:-=+*#%@";
 const RAMP_TOP = RAMP.length - 1;
 /** Glyph levels at or under this print in Muted Ink rather than Warm Graphite. */
 const QUIET_LEVEL = 3;
@@ -23,6 +23,11 @@ const FRAME_MS = 1000 / 30;
 const CYCLE_S = 12;
 /** Morph for the reduced-motion still: mid-melt, so both natures show. */
 const STILL_MORPH = 0.38;
+/** Scene clock and turn of the still, so every still prints the same frame. */
+const STILL_TIME = 1.7;
+const STILL_YAW = 0.62;
+/** The camera looks down on the solid a little. */
+const PITCH = -0.42;
 /** How long the grid scrambles before the solid resolves out of it. */
 const RESOLVE_MS = 1100;
 
@@ -543,6 +548,49 @@ const measureGrid = (
   };
 };
 
+/** One printed cell of a still: its ink and its glyph, or `null` for none. */
+export type StillCell = readonly [ink: Ink, glyph: string] | null;
+
+/**
+ * A still as rows of cells, for a surface with no canvas to print on: the OG
+ * card sets each row as a line of text. By default it is the reduced-motion
+ * still; `morph`, `yaw` and `pitch` pose it for a coarser grid, where the
+ * mid-melt frame reads as a shaded disc. `cellW` and `cellH` are the shape of
+ * one cell in any unit (for a mono face, its advance and its line height).
+ */
+export const traceStill = (
+  cols: number,
+  rows: number,
+  cellW: number,
+  cellH: number,
+  { morph = STILL_MORPH, yaw = STILL_YAW, pitch = PITCH } = {}
+): StillCell[][] => {
+  const grid: Grid = {
+    cellH,
+    cellW,
+    cols,
+    fontPx: 0,
+    height: rows * cellH,
+    levels: new Uint8Array(cols * rows),
+    rows,
+    signal: new Uint8Array(cols * rows),
+    width: cols * cellW,
+  };
+  const scene: Scene = {
+    churn: 0,
+    melt: Math.sin(Math.PI * morph),
+    morph,
+    time: STILL_TIME,
+  };
+  const idle: Lens = { now: 0, strength: 0, trail: [], x: 0, y: 0 };
+  traceGrid(grid, scene, idle, yaw, pitch);
+  return Array.from({ length: rows }, (_row, row) =>
+    Array.from({ length: cols }, (_cell, col) =>
+      inkFor(grid, row * cols + col, 0, 0)
+    )
+  );
+};
+
 /**
  * Mount the engine on a canvas and return its teardown.
  *
@@ -638,13 +686,13 @@ export const mountGlyphEngine = (canvas: HTMLCanvasElement) => {
       churn: 0,
       melt: Math.sin(Math.PI * morph),
       morph,
-      time: reduceMotion ? 1.7 : seconds * 0.9,
+      time: reduceMotion ? STILL_TIME : seconds * 0.9,
     };
 
     state.tiltX += (state.aimX - state.tiltX) * 0.07;
     state.tiltY += (state.aimY - state.tiltY) * 0.07;
-    const yaw = (reduceMotion ? 0.62 : seconds * 0.32) + state.tiltX;
-    const pitch = -0.42 + state.tiltY;
+    const yaw = (reduceMotion ? STILL_YAW : seconds * 0.32) + state.tiltX;
+    const pitch = PITCH + state.tiltY;
     if (!reduceMotion) {
       updateLens(grid, now);
     }

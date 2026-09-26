@@ -3,8 +3,8 @@ slug: synthetic-clarity-over-complexity
 title: "[Synthetic] Clarity over complexity"
 summary: Why restrained UI systems help hiring managers scan faster.
 publishedAt: 2024-05-12
-ogImageSrc: /placeholders/post-og-1.svg
-ogImageAlt: Synthetic OG art for Clarity over complexity
+previewSrc: /placeholders/post-og-1.svg
+previewAlt: Synthetic preview art for Clarity over complexity
 ---
 
 This is a synthetic placeholder Post. It shows how a Post Detail renders until real writing replaces it.

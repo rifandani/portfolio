@@ -9,8 +9,8 @@ slug: ${slug}
 title: ${slug}
 summary: About ${slug}.
 publishedAt: ${publishedAt}
-ogImageSrc: /og.svg
-ogImageAlt: OG art
+previewSrc: /preview.svg
+previewAlt: Preview art
 ---
 
 Text.

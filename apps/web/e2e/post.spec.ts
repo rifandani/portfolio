@@ -1,4 +1,5 @@
 import { expect, test } from "./_base";
+import { expectLinkPreview } from "./_link-preview";
 
 test("opens a Post Detail from the posts index", async ({ page }) => {
   await page.goto("/posts");
@@ -51,6 +52,19 @@ test("links Posts in the breadcrumb, then marks the Post current", async ({
   await expect(links.nth(1)).toHaveText(
     "[Synthetic] TypeScript lessons from real builds"
   );
+});
+
+test("gives the Post Detail its own Link Preview and JSON-LD", async ({
+  page,
+  request,
+}) => {
+  await page.goto(`/posts/${SLUG}`);
+
+  await expectLinkPreview(page, request, {
+    path: `/posts/${SLUG}`,
+    card: `post=${SLUG}`,
+    type: "BlogPosting",
+  });
 });
 
 test("lists each Post in the RSS feed", async ({ request }) => {

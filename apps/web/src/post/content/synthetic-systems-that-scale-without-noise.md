@@ -3,8 +3,8 @@ slug: synthetic-systems-that-scale-without-noise
 title: "[Synthetic] Systems that scale without noise"
 summary: Token discipline, one accent voice, and status that stays status.
 publishedAt: 2024-03-03
-ogImageSrc: /placeholders/post-og-2.svg
-ogImageAlt: Synthetic OG art for Systems that scale
+previewSrc: /placeholders/post-og-2.svg
+previewAlt: Synthetic preview art for Systems that scale
 ---
 
 This is a synthetic placeholder Post. It shows how a Post Detail renders until real writing replaces it.

@@ -6,32 +6,8 @@ import { HiOutlineArrowRight } from "react-icons/hi2";
 import { LitCard } from "@/portfolio/components/lit-card.client";
 import { PreviewMorph } from "@/portfolio/components/preview-morph";
 import type { Post } from "@/post/utils/post-source";
+import { rulerOf, stampOf } from "@/post/utils/postmark";
 import { postPath } from "@/post/utils/slug";
-
-/** The ruler's scale: ten minutes, stretched by a longer Post. */
-const RULER_MIN_SCALE = 10;
-/** Past this the ruler would crowd the arrow; the words still say the full time. */
-const RULER_MAX_SCALE = 40;
-
-/**
- * The parts of a Date Stamp. The day and the year come straight from the ISO
- * date, and the month is formatted in UTC, so no time zone can move a Post to
- * the day before. The month follows the reader's Locale, as the work dates do.
- */
-const stampOf = (iso: string, locale: string) => {
-  const date = new Date(iso);
-  return {
-    month: new Intl.DateTimeFormat(locale, { month: "short", timeZone: "UTC" })
-      .format(date)
-      .replace(/\.$/u, ""),
-    day: iso.slice(8, 10),
-    year: iso.slice(0, 4),
-    full: new Intl.DateTimeFormat(locale, {
-      dateStyle: "long",
-      timeZone: "UTC",
-    }).format(date),
-  };
-};
 
 /**
  * One Post, filed as a Postmark Log entry: a Date Stamp that inks when the
@@ -46,7 +22,7 @@ const stampOf = (iso: string, locale: string) => {
 export const PostCard = async ({ post }: { post: Post }) => {
   const [t, locale] = await Promise.all([getTranslations(), getLocale()]);
   const stamp = stampOf(post.publishedAt, locale);
-  const minutes = Math.min(post.readingMinutes, RULER_MAX_SCALE);
+  const ruler = rulerOf(post.readingMinutes);
 
   return (
     <LitCard href={postPath(post.slug)} className="group">
@@ -66,8 +42,8 @@ export const PostCard = async ({ post }: { post: Post }) => {
               // keys are CSS custom properties, which React sets as written.
               style={
                 {
-                  "--minutes": minutes,
-                  "--scale": Math.max(minutes, RULER_MIN_SCALE),
+                  "--minutes": ruler.minutes,
+                  "--scale": ruler.scale,
                 } as CSSProperties
               }
             />
@@ -110,8 +86,8 @@ export const PostCard = async ({ post }: { post: Post }) => {
           <PreviewMorph kind="post" slug={post.slug}>
             <div className="border-border aspect-1200/630 w-28 overflow-hidden rounded-lg border sm:aspect-auto sm:h-full sm:w-32">
               <Image
-                src={post.ogImageSrc}
-                alt={post.ogImageAlt}
+                src={post.previewSrc}
+                alt={post.previewAlt}
                 width={128}
                 height={67}
                 className="size-full object-cover"

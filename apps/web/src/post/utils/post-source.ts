@@ -22,8 +22,10 @@ export interface Post {
   summary: string;
   /** ISO date (`YYYY-MM-DD`). */
   publishedAt: string;
-  ogImageSrc: string;
-  ogImageAlt: string;
+  /** ISO date of the last real change; the publish date when there is none. */
+  updatedAt: string;
+  previewSrc: string;
+  previewAlt: string;
   readingMinutes: number;
   document: MarkdownDocument;
   /** Post Markdown: what "Copy page" copies (ADR-0004). */
@@ -32,14 +34,24 @@ export interface Post {
 
 const WORDS_PER_MINUTE = 200;
 
-const frontmatterSchema = z.object({
-  slug: slugSchema,
-  title: z.string().min(1),
-  summary: z.string().min(1),
-  publishedAt: z.iso.date(),
-  ogImageSrc: z.string().min(1),
-  ogImageAlt: z.string().min(1),
-});
+const frontmatterSchema = z
+  .object({
+    slug: slugSchema,
+    title: z.string().min(1),
+    summary: z.string().min(1),
+    publishedAt: z.iso.date(),
+    updatedAt: z.iso.date().optional(),
+    previewSrc: z.string().min(1),
+    previewAlt: z.string().min(1),
+  })
+  // ISO dates sort as text, so a string compare is a date compare.
+  .refine(
+    ({ publishedAt, updatedAt }) => (updatedAt ?? publishedAt) >= publishedAt,
+    {
+      message: "must not be before publishedAt",
+      path: ["updatedAt"],
+    }
+  );
 
 /** The text a reader reads in an inline node. Images and breaks have none. */
 const inlineText = (node: InlineNode): string[] => {
@@ -126,6 +138,7 @@ export const parsePostSource = (file: PostSourceFile): Post => {
   );
   return {
     ...data,
+    updatedAt: data.updatedAt ?? data.publishedAt,
     readingMinutes: readingMinutesOf(document),
     document,
     // Post Markdown: an export, not a view (ADR-0004).

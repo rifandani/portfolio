@@ -3,8 +3,8 @@ slug: synthetic-small-updates-consistent-impact
 title: "[Synthetic] Small updates, consistent impact"
 summary: Shipping incremental portfolio surfaces without spectacle debt.
 publishedAt: 2024-01-18
-ogImageSrc: /placeholders/post-og-3.svg
-ogImageAlt: Synthetic OG art for Small updates
+previewSrc: /placeholders/post-og-3.svg
+previewAlt: Synthetic preview art for Small updates
 ---
 
 This is a synthetic placeholder Post. It shows how a Post Detail renders until real writing replaces it.
