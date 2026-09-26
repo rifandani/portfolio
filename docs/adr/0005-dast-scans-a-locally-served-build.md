@@ -66,6 +66,11 @@ The first expected red run is therefore a real finding, not a misconfiguration.
 Fix the CSP or file a dated, URL-scoped, reasoned `alertFilter` entry — the same
 shape as the timed entries in the SCA allowlist. Do not raise the threshold.
 
+> **2026-09-27:** that run happened and was fixed. `proxy.ts` now sends
+> nosecone's default CSP with a per-request script nonce, and only
+> `style-src 'unsafe-inline'` (ZAP 10055) is suppressed, with a dated reason in
+> the plan. See `docs/security/dast.md`.
+
 ## Why there is no active scan
 
 Not because it would be illegitimate. This is a fullstack app: we own

@@ -14,7 +14,7 @@
 #   2. No `ajaxSpider`. The app server-renders, so the plain spider sees real
 #      markup and the extra 10+ minutes of browser driving buys little.
 #   3. `/api` is IN scope. We serve it. Note that `apps/web/src/proxy.ts` has a
-#      matcher that excludes `api`, so these routes carry none of the security
+#      matcher that excludes `api/`, so these routes carry none of the security
 #      headers the page routes get — findings there are real.
 #
 # Adding a route to the app means adding it below.
@@ -24,7 +24,8 @@ env:
     - name: web
       urls:
         - ${ZAP_TARGET}/
-        - ${ZAP_TARGET}/blogs
+        - ${ZAP_TARGET}/about
+        - ${ZAP_TARGET}/posts
         - ${ZAP_TARGET}/projects
         # Gated by the `componentCatalog` Feature Flag, which is OFF outside
         # development — so this seed exercises the gate's rejection path, which
@@ -35,6 +36,11 @@ env:
         - ${ZAP_TARGET}/robots.txt
         - ${ZAP_TARGET}/sitemap.xml
         - ${ZAP_TARGET}/manifest.webmanifest
+        # Machine-readable feeds. Route handlers outside `app/api`, so unlike
+        # `/api` they do pass through `proxy.ts`.
+        - ${ZAP_TARGET}/rss.xml
+        - ${ZAP_TARGET}/llms.txt
+        - ${ZAP_TARGET}/sitemap.md
         # Route handlers. `/api/og` takes user-controlled `title` and `logo`
         # query values and renders them into an image; its defaults make a
         # bare GET valid, so it is reachable without seeding a payload.
@@ -68,7 +74,17 @@ jobs:
   - type: alertFilter
     parameters:
       deleteGlobalAlerts: true
-    alertFilters: []
+    alertFilters:
+      # 2026-09-27 — `style-src 'unsafe-inline'` is nosecone's Next.js default,
+      # and it is load-bearing: sonner injects its stylesheet as a `<style>` with
+      # no nonce, and React `style` props need it too. `script-src` carries a
+      # per-request nonce, which is what stops injected script. Page routes
+      # only; `/api/*` sends no CSP at all and must still report.
+      - ruleId: 10055
+        ruleName: "CSP: style-src unsafe-inline"
+        newRisk: "Info"
+        url: "\\Q${ZAP_TARGET}\\E(?:/(?!api(?:/|$)).*)?"
+        urlRegex: true
 
   - type: spider
     parameters:
@@ -100,9 +116,9 @@ jobs:
 
   # Medium, not High. A passive baseline reads responses; it does not attack, so
   # the server-side logic this app does have is not what it reports on. Its
-  # findings are header-level Mediums — and one of them is known and expected:
-  # `proxy.ts` sets `contentSecurityPolicy: false`. A High threshold would be
-  # green in the face of that, which reads as assurance it does not provide.
+  # findings are header-level Mediums — a missing or weakened CSP among them.
+  # A High threshold would be green in the face of those, which reads as
+  # assurance it does not provide.
   # `warnExitValue: 0` keeps Low findings reportable without failing the run.
   - type: exitStatus
     parameters:

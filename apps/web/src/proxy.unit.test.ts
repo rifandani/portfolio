@@ -2,12 +2,23 @@ import type { NextRequest } from "next/server";
 import type * as NextServer from "next/server";
 import { beforeEach, describe, expect, it, vi } from "vitest";
 
+const CSP = "script-src 'self' 'nonce-abc'";
+
 const nosecone = vi.hoisted(() =>
-  vi.fn(() => new Headers({ "x-frame-options": "DENY" }))
+  vi.fn(
+    () =>
+      new Headers({
+        "content-security-policy": "script-src 'self' 'nonce-abc'",
+        "x-frame-options": "DENY",
+      })
+  )
 );
 
 vi.mock("@nosecone/next", () => ({
-  defaults: { xFrameOptions: "DENY" },
+  defaults: {
+    contentSecurityPolicy: { directives: {} },
+    xFrameOptions: "DENY",
+  },
   nosecone,
 }));
 
@@ -50,19 +61,28 @@ describe("proxy", () => {
   it("exports matcher config that skips api and static assets", async () => {
     const { config } = await loadSut();
     expect(config.matcher).toEqual([
-      "/((?!api|_next/static|_next/image|ingest|jpe?g|webp|png|gif|svg|ttf|woff2?|ico|csv|docx?|xlsx?|zip|sitemap.xml|robots.txt).*)",
+      "/((?!api/|_next/static|_next/image|ingest|jpe?g|webp|png|gif|svg|ttf|woff2?|ico|csv|docx?|xlsx?|zip|sitemap.xml|robots.txt).*)",
     ]);
   });
 
-  it("builds nosecone headers with CSP disabled", async () => {
+  it("builds nosecone headers with the default CSP", async () => {
     const { default: proxy } = await loadSut();
     await proxy(mockRequest());
     expect(nosecone).toHaveBeenCalledWith(
       expect.objectContaining({
-        contentSecurityPolicy: false,
+        contentSecurityPolicy: { directives: {} },
         xFrameOptions: "DENY",
       })
     );
+  });
+
+  it("forwards the CSP on the request so Next.js can apply its nonce", async () => {
+    const { default: proxy } = await loadSut();
+    const response = await proxy(mockRequest());
+
+    const init = nextResponseNext.mock.calls[0]?.[0];
+    expect(init?.request?.headers?.get("content-security-policy")).toBe(CSP);
+    expect(response.headers.get("content-security-policy")).toBe(CSP);
   });
 
   it("forwards request id and sets security headers on the response", async () => {

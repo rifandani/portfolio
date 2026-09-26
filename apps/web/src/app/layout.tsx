@@ -1,3 +1,4 @@
+import { nonce as getNonce } from "@nosecone/next";
 import type { Viewport } from "next";
 import { NextIntlClientProvider } from "next-intl";
 import { getLocale, getMessages } from "next-intl/server";
@@ -32,10 +33,11 @@ export const generateViewport = (): Viewport => ({
 
 const RootLayout = async ({ children }: LayoutProps<"/">) => {
   // Opt-out of static generation for every page so the CSP nonce can be applied
-  const [, locale, messages] = await Promise.all([
+  const [, locale, messages, nonce] = await Promise.all([
     connection(),
     getLocale(),
     getMessages(),
+    getNonce(),
   ]);
 
   return (
@@ -61,6 +63,8 @@ const RootLayout = async ({ children }: LayoutProps<"/">) => {
             enableSystem
             disableTransitionOnChange
             enableColorScheme
+            // Its inline theme script runs before hydration, so it needs the CSP nonce
+            nonce={nonce}
           >
             <NuqsAdapter>
               <AppProviders locale={locale}>{children}</AppProviders>
