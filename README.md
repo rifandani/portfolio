@@ -6,7 +6,7 @@
 
 ## 🎯 Todo
 
-- setup codex, hooks, worktree, mcp, impeccable
+- setup codex, hooks, worktree, mcp, impeccable, herdr
 
 ## 📝 Environment Variables
 
