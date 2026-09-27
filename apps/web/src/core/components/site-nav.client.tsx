@@ -10,7 +10,7 @@ import { Link } from "@/core/components/ui/link";
 const navLinkClass = twMerge(
   // No padding: the sweeping rule is drawn on the link box, so any padding
   // would push the rule off the text and stretch it past the label.
-  "text-muted-fg hover:text-fg text-sm/6 font-medium",
+  "text-muted-fg hover:text-fg text-xs/5 font-medium sm:text-sm/6",
   // The current page holds the rule open and keeps the brighter foreground.
   "aria-[current=page]:text-fg aria-[current=page]:bg-[size:100%_1px]",
   "focus-visible:outline-ring outline-0 focus-visible:outline-2 focus-visible:outline-offset-4"
@@ -20,6 +20,7 @@ const navItems = [
   { href: "/about", labelKey: "siteNavAbout" },
   { href: "/projects", labelKey: "siteNavProjects" },
   { href: "/posts", labelKey: "siteNavPosts" },
+  { href: "/gallery", labelKey: "siteNavGallery" },
 ] as const satisfies readonly { href: Route; labelKey: string }[];
 
 /**
@@ -34,7 +35,7 @@ export const SiteNav = () => {
   return (
     <nav
       aria-label={t("navPrimary")}
-      className="flex items-center gap-5 sm:absolute sm:left-1/2 sm:-translate-x-1/2"
+      className="flex items-center gap-3 sm:absolute sm:left-1/2 sm:-translate-x-1/2 sm:gap-5"
     >
       {navItems.map(({ href, labelKey }) => (
         <Link

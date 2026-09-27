@@ -31,7 +31,7 @@ A personal portfolio for Tri Rizeki Rifandani — not a SaaS product and not a p
 Confirmed:
 
 - Fullstack Next.js 16 App Router (RSC, route handlers).
-- Public portfolio content (blog, projects, about); no visitor auth.
+- Public portfolio content (blog, projects, about, and a media gallery); no visitor auth.
 - No app database for the portfolio today (static / file-backed content).
 - UI built on React Aria Components / Intent UI patterns.
 - PWA assets, SEO (metadata, OG, sitemap, robots), OpenTelemetry/observability hooks.
@@ -40,7 +40,7 @@ Confirmed:
 
 Undecided / open:
 
-- Exact IA and depth of blog, projects, and about sections (committed as the three public content areas; page structure still open).
+- Exact IA and depth of the public content sections; page structure remains open.
 - No formal WCAG level (A/AA/AAA) committed; a11y remains a hard practice constraint via React Aria, not a certified claim.
 - Canonical production hostname (code still has placeholders such as `https://web.com`).
 
@@ -57,7 +57,8 @@ Undecided / open:
 - Runnable public home; theme and language toggles (`en` / `id`).
 - Docs: `docs/observability.md`, `docs/seo.md`, `docs/self-hosting.md`, app `CLAUDE.md` / `README.md`.
 - Tests and scripts (Playwright, Vitest).
-- Home meta copy already mentions projects, writing, and contact; blog / projects / about are the confirmed product intent.
+- `public/gallery/hackathon-2023` contains 13 photos and one video for the first gallery section.
+- Home meta copy mentions projects, writing, and contact; the public site now also has a media gallery.
 - No customer testimonials, case studies, or benchmarks — do not invent them.
 
 ## Product Principles

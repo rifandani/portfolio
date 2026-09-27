@@ -285,10 +285,9 @@ body::before {
 /**
  * Preview morph.
  *
- * The preview image on a Post Card or a Project Card grows into the hero image
- * of its detail page (see `preview-morph.tsx`). The small card snapshot is
- * scaled up on the way, so a short blur mid-flight hides its soft pixels. The
- * page around it swaps at once: the theme sweep rules above keep `root` still.
+ * Post and Project cards grow into the hero image on their detail pages (see
+ * `preview-morph.tsx`). A short blur mid-flight hides the enlarged snapshot's
+ * soft pixels.
  */
 ::view-transition-group(.morph) {
   animation-duration: 400ms;

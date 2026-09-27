@@ -85,6 +85,10 @@ const Carousel = ({
 
   const handleKeyDown = useCallback(
     (event: React.KeyboardEvent<HTMLDivElement>) => {
+      // Media elements use the arrow keys to seek.
+      if (event.target instanceof HTMLMediaElement) {
+        return
+      }
       if (event.key === 'ArrowLeft') {
         event.preventDefault()
         scrollPrev()
@@ -199,6 +203,7 @@ const CarouselButton = ({
   isCircle = true,
   size = 'sq-sm',
   ref,
+  children,
   ...props
 }: ButtonProps & { segment: 'previous' | 'next' }) => {
   const { orientation, scrollPrev, canScrollPrev, scrollNext, canScrollNext } = useCarousel()
@@ -220,7 +225,7 @@ const CarouselButton = ({
       onPress={scroll}
       {...props}
     >
-      <Icon className="size-4" />
+      {children ?? <Icon className="size-4" />}
     </Button>
   )
 }

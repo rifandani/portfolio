@@ -49,6 +49,7 @@ interface ModalContentProps
   size?: keyof typeof sizes
   closeButton?: boolean
   overlay?: Pick<ModalOverlayProps, 'className'>
+  dialogClassName?: string
 }
 
 const ModalContent = ({
@@ -56,6 +57,7 @@ const ModalContent = ({
   isDismissable: isDismissableInternal,
   children,
   overlay,
+  dialogClassName,
   size = 'md',
   role = 'dialog',
   closeButton = true,
@@ -93,7 +95,7 @@ const ModalContent = ({
           className
         )}
       >
-        <Dialog role={role}>
+        <Dialog className={dialogClassName} role={role}>
           {(values) => (
             <>
               {typeof children === 'function' ? children(values) : children}
