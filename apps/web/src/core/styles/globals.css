@@ -234,10 +234,9 @@ html {
  * It is a background surface, so it stays behind content, takes no pointer
  * events, and is announced to nobody.
  */
-body::before {
+body::before,
+.paper-surface::before {
   content: "";
-  position: fixed;
-  inset: 0;
   z-index: -1;
   pointer-events: none;
   background-color: var(--grain);
@@ -251,9 +250,34 @@ body::before {
   mask-repeat: repeat;
 }
 
+body::before {
+  position: fixed;
+  inset: 0;
+}
+
+/**
+ * Opaque paper.
+ *
+ * A sticky bar must hide the content that scrolls under it, but a flat
+ * `--canvas` fill also hides the page grain and reads as a darker strip. This
+ * paints the canvas and then its own grain layer, so the bar is opaque and
+ * still matches the page. The element must be positioned (sticky, relative…).
+ * `isolation` keeps the `z-index: -1` layer above the fill, below the content.
+ */
+.paper-surface {
+  isolation: isolate;
+  background-color: var(--canvas);
+}
+
+.paper-surface::before {
+  position: absolute;
+  inset: 0;
+}
+
 /* Texture is decoration: it must not survive into a forced palette or onto paper. */
 @media (forced-colors: active), print {
-  body::before {
+  body::before,
+  .paper-surface::before {
     display: none;
   }
 }

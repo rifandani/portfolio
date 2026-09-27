@@ -99,3 +99,4 @@ Their feedback made sense. We had built the screens and flow, while a real versi
 
 - [Official link for the event](https://bitconnect.nri.co.jp/2023/)
 - [Behind the scenes: the staff's vision](https://note.nri-digital.jp/n/n2b3ae7ced0cb?hl=en)
+- [Photos from the hackathon](/gallery#hackathon-2023)

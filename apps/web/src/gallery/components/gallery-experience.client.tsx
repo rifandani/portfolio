@@ -589,7 +589,7 @@ export const GalleryExperience = () => {
 
       <nav
         aria-label={t("gallerySections")}
-        className="border-border mt-9 border-y"
+        className="border-border paper-surface sticky top-14 z-10 mt-9 border-y"
       >
         <ul className="flex min-h-12 items-center gap-6 overflow-x-auto">
           {gallerySections.map((section) => (
@@ -615,7 +615,7 @@ export const GalleryExperience = () => {
       {gallerySections.map((section) => (
         <section
           aria-labelledby={`${section.id}-title`}
-          className="scroll-mt-20 pt-10 sm:pt-14"
+          className="scroll-mt-28 pt-10 sm:pt-14"
           id={section.id}
           key={section.id}
         >
