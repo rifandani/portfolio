@@ -1,7 +1,7 @@
 ---
 slug: hanepyon-layover-planner
 title: Hanepyon Layover Planner
-description: A mascot-led PWA that turns a Haneda layover into a 2-hour trip into Kamata.
+description: A mascot-led PWA that turns a Haneda layover into a short trip to Kamata.
 tags: [React, TypeScript, Framer Motion, Mantine, Tailwind, Firebase]
 order: 1
 previewSrc: /previews/hanepyon-layover-planner.svg
@@ -9,49 +9,49 @@ previewAlt: A phone with a stack of swipe cards beside a dotted route that runs 
 githubUrl: https://github.com/rifandani/hackathon-2023
 ---
 
-Your flight leaves in three hours. You can sit at the gate and watch the departures board. Or you can take a 12-minute train to Kamata, soak in a wood-fired sento, eat winged gyoza, and be back before boarding. Hanepyon Layover Planner is a phone app that makes the second choice feel easy.
+With three hours before boarding, you could stay at the gate or ride 12 minutes to Kamata for a wood-fired sento and winged gyoza. Hanepyon Layover Planner helps you plan the trip and get back in time.
 
 ## The brief
 
-The hackathon ran for three days in November 2023 at Haneda Innovation City in Tokyo. The theme was "Trip". The organizers asked teams to connect travelers with Ota City, the ward around Haneda Airport. For many visitors, it is the first piece of Japan they touch, and most of them see the airport and nothing else.
+The hackathon ran for three days in November 2023 at Haneda Innovation City in Tokyo. Its theme was "Trip." Organizers asked teams to connect travelers with Ota City, the ward around Haneda Airport. For many visitors, Haneda is their first stop in Japan, and they leave without seeing Ota City.
 
-Our answer was to give travelers with a few spare hours a short trip into the city, with the city's own mascot as the guide.
+We came up with a short city trip for travelers with spare time. Ota City's mascot would guide them.
 
 ## The product
 
-Hanepyon, the mascot of Ota City, talks the traveler through the whole flow. Each screen has its own voice line.
+Hanepyon, Ota City's mascot, guides the traveler through the app. Each screen has a voice line.
 
 ![Three phone screens: Hanepyon asks if your flight is still a few hours away, a Cultural category card to swipe, and a plan with its cost, duration, route map, and first stop](/images/projects/hanepyon-layover-planner/screens.webp)
 
-1. **Landing.** "Hi bud, is your flight still few hours away?" There is one button: "YUPPP!"
-2. **Avatar.** Pick your guide. Only Hanepyon was ready for the demo.
-3. **Swipe tutorial.** Two practice cards teach the only gesture the app needs: swipe right to like, swipe left to pass.
-4. **Next flight.** "When is your next flight?" In 3, 6, or 12 hours.
-5. **Categories.** Full-screen photo cards for Culinary, Recreational, Relaxation, Shopping, and Cultural. Like three, and Hanepyon says "Great choice!"
-6. **The plan.** One route with a cost, a duration, and a train time: ¥2,500, 2 hours 30 minutes, 12 minutes by train. It has three stops: Kamata Hachiman Shrine, the Taishoyu sento, and Shunkoen for winged gyoza. Tap the map to open transit directions from Haneda in Google Maps, or scan the QR code to take the plan with you.
+1. Landing: "Hi bud, is your flight still a few hours away?" There is one button: "YUPPP!"
+2. Avatar: Choose a guide. Only Hanepyon was ready for the demo.
+3. Swipe tutorial: Two practice cards teach the swipe. Go right to like a place or left to pass.
+4. Next flight: "When is your next flight?" Choose 3, 6, or 12 hours.
+5. Categories: Swipe full-screen photo cards for Culinary, Recreational, Relaxation, Shopping, and Cultural. Like three, and Hanepyon says, "Great choice!"
+6. The plan: See the route, cost, duration, and train time: ¥2,500, 2 hours 30 minutes, and 12 minutes by train. It visits Kamata Hachiman Shrine, Taishoyu sento, and Shunkoen for winged gyoza. Tap the map for Haneda transit directions in Google Maps, or scan the QR code to take the plan with you.
 
-There is no sign-up, no search box, and no list of 200 restaurants. There are only swipes and one plan.
+There is no sign-up or search. Travelers swipe through categories and get a single plan.
 
 ## Ready before the clock started
 
-In a three-day hackathon, the first hours usually go to setup. I did not want to spend them that way. The week before the event, I built a React template for hackathons, so that a small team could ship a full-stack app without a backend team:
+I built a React template the week before the hackathon, so our small team could start on the app as soon as the event began:
 
-- Vite, TypeScript, ESLint, and Prettier, with Husky and commitlint on every commit.
+- Vite, TypeScript, ESLint, and Prettier, with Husky and commitlint for each commit.
 - Mantine and Tailwind for the UI, React Query and Zustand for state, Zod for validation, and React Hook Form for forms.
-- Firebase for auth, Firestore, Storage, Realtime Database, and hosting.
-- The Firebase Emulator Suite for local development. It imports seed data when it starts and exports the latest data when it stops, so every developer has the same data.
+- Firebase for authentication, Firestore, Storage, Realtime Database, and hosting.
+- The Firebase Emulator Suite for local development. It imports seed data at startup and exports the latest data at shutdown, so every developer uses the same data.
 - PWA support with Workbox, and i18n for English and Indonesian.
-- GitHub Actions that deploy to Firebase Hosting on every push to `main`, and to a preview channel on every pull request.
+- GitHub Actions that deploy to Firebase Hosting on each push to `main` and create a preview channel for each pull request.
 
-When the hackathon started, the base was done. From the first hour, we only had to add the business logic.
+The template was ready, so we could build the app's features from the first hour.
 
 ## How we built it
 
-We were a team of six: two software engineers, one designer, and three system consultants. The consultants came up with the idea, built the pitch deck, and helped to pitch. The designer designed the screens. My fellow engineer built the swipe tutorial, the flight-time screen, and the plan page. He also recorded the mascot's voice himself, and he pitched the product on the last day.
+There were six of us: two software engineers, one designer, and three system consultants. The consultants came up with the idea and made the pitch deck. The designer created the screens. My fellow engineer built the swipe tutorial, flight-time screen, and plan page. He also recorded Hanepyon's voice and pitched the product on the last day.
 
-I built the swipe engine, the screen flow, the landing, avatar, and category screens, and the map link.
+I built the swipe engine and screen flow, along with the landing, avatar, and category screens. I also added the map link.
 
-Each category card uses Framer Motion drag. The card decides when you let go: more than 30px to the right is a like, and more than 30px to the left is a pass. The exit animation then throws the card off the screen in that direction.
+I used Framer Motion's drag support for the category cards. A swipe over 30px to the right counts as a like; one over 30px to the left counts as a pass. The card then moves off-screen in that direction.
 
 ```tsx title="Category.tsx" mark="onDragEnd"
 <motion.div
@@ -74,28 +74,28 @@ Each category card uses Framer Motion drag. The card decides when you let go: mo
 >
 ```
 
-The onboarding lives on one route. A `step` query parameter (`landing`, `avatar`, `how-to-use`, `time`, or `category`) picks the screen. The browser back button works, and during the pitch we could open any screen directly from its URL.
+The onboarding flow uses one route. A `step` query parameter (`landing`, `avatar`, `how-to-use`, `time`, or `category`) selects the screen. The browser back button works. During the pitch, we could also open any screen by URL.
 
-The audio was harder than we expected. Browsers block sound until the user touches the page, so the first voice line plays when you tap Hanepyon. After that tap, each screen can start its own line.
+Browsers block audio until the user interacts with the page. The first voice line plays when they tap Hanepyon; each screen can play its own line after that.
 
 ## Real and scripted
 
-The demo is scripted. The plan screen always shows the same three stops. Your swipes and your flight time move you forward, but they do not change the result. We had three days, and we chose to spend them on how the app feels, not on a recommendation engine.
+The demo always shows the same three stops. Swipes and flight time move the traveler through the flow, but the plan stays the same. We had three days, so we focused on the experience and left the recommendation engine for later.
 
-A real version needs four things:
+A real version would need current place data, useful recommendations, accurate timing, and more languages:
 
-- **Real data.** Spots with opening hours, prices, and photos that the city or the shops keep up to date.
-- **Real ranking.** The liked categories and the free hours filter and order the spots. A 3-hour layover has no time for a 2-hour bath.
-- **Real timing.** Live train times, and a buffer for the trip back through security, so that nobody misses a flight because of gyoza.
-- **Real languages.** Japanese, and the languages of the travelers who pass through Haneda.
+- Current place data: The city or local shops would need to keep opening hours, prices, and photos up to date.
+- Recommendations: Liked categories and available time would filter and rank places. A three-hour layover cannot fit a two-hour bath.
+- Timing: The app would need live train times and a buffer to get back through airport security.
+- Languages: The app would need Japanese and the languages spoken by travelers at Haneda.
 
 ## The verdict
 
-We did not win an award. We asked the judges for an honest review. They said that the UI and UX were appealing and that the idea was valid, but that it would be hard to build for real.
+We did not win an award. The judges liked the UI and UX and thought the idea was valid, but said it would be difficult to deploy the app in the airport.
 
-They were right, and the hard part is the list above. The screens were the easy part. The data, the timing, and the partnerships with local shops are the real product. In three days, we proved the experience. The engine is the work that remains.
+Their feedback made sense. We had built the screens and flow, while a real version still needed current place data, reliable timing, local shop partners, and recommendation logic.
 
 ## References
 
 - [Official link for the event](https://bitconnect.nri.co.jp/2023/)
-- [Behind-the-Scenes and Vision from the staff](https://note.nri-digital.jp/n/n2b3ae7ced0cb?hl=en)
+- [Behind the scenes: the staff's vision](https://note.nri-digital.jp/n/n2b3ae7ced0cb?hl=en)
