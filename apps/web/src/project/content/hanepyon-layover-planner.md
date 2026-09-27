@@ -3,7 +3,7 @@ slug: hanepyon-layover-planner
 title: Hanepyon Layover Planner
 description: A mascot-led PWA that turns a Haneda layover into a short trip to Kamata.
 tags: [React, TypeScript, Framer Motion, Mantine, Tailwind, Firebase]
-order: 1
+order: 2
 previewSrc: /previews/hanepyon-layover-planner.svg
 previewAlt: A phone with a stack of swipe cards beside a dotted route that runs from a plane, past three numbered stops, to a shrine gate
 githubUrl: https://github.com/rifandani/hackathon-2023
