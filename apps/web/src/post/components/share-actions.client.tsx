@@ -49,7 +49,6 @@ export const ShareActions = ({
         <Button
           intent="outline"
           size="sq-sm"
-          className="size-9 sm:size-8"
           aria-label={t("postMoreShareOptions")}
         >
           <HiOutlineChevronDown

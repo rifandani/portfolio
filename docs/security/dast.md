@@ -58,7 +58,7 @@ Do that deliberately: it trades a result about the pushed commit for a result ab
 
 - **Passive only.** The spider requests the seeded URLs, submits no forms, and the active scanner never runs.
 - **No active scan yet.** Unlike a frontend-only repository we *do* own everything here, so an active plan is legitimate — it is deferred on triage cost, and would go in a second plan file pointed only at the local server.
-- **`/api` is in scope.** `apps/web/src/proxy.ts` has a matcher that excludes `api`, so route handlers carry none of the security headers the page routes get. Expect findings there; they are real.
+- **`/api` is in scope.** `apps/web/src/proxy.ts` has a matcher that excludes `api/`, so route handlers carry none of the security headers the page routes get. Expect findings there; they are real.
 - **The hosting layer is not covered by default.** Whatever the platform injects or strips in front of the app is only visible in a `target_url` run.
 - **The crawl is seeded by hand.** The app server-renders, so linked pages are discoverable, but an unlinked route stays invisible until it is added to `.github/security/zap/web-baseline.yaml`.
 
@@ -68,7 +68,9 @@ Do that deliberately: it trades a result about the pushed commit for a result ab
 2. Most findings will be **response headers**. For page routes, the fix is `apps/web/src/proxy.ts` (`@nosecone/next`). For `/api/*`, note that the `proxy.ts` matcher excludes them — extending the matcher is the fix, not a per-route header.
 3. Re-run the scan.
 
-**The first red run is expected and is a real finding.** `proxy.ts` sets `contentSecurityPolicy: false` (iconify and `next-themes` depend on it being off), so ZAP reports "Content Security Policy (CSP) Header Not Set" at Medium. Fix it or suppress it with a reason — do not raise the threshold.
+Page routes send nosecone's default CSP with a per-request `script-src` nonce. `proxy.ts` copies the CSP onto the request so Next.js applies the nonce to its own scripts, and `layout.tsx` passes it to `next-themes`. A new inline script that has no nonce is blocked by the browser; give it the nonce from `nonce()` in `@nosecone/next`.
+
+`style-src 'unsafe-inline'` stays on (sonner injects a `<style>` with no nonce), so ZAP rule 10055 is suppressed to Info for page routes in the plan's `alertFilter` job. Fix a Medium or suppress it with a reason — do not raise the threshold.
 
 ## Suppress a finding
 
