@@ -136,6 +136,16 @@ jobs:
           echo "app did not become healthy within 60s" >&2
           exit 1
 
+      # The plan's `report` jobs write into `.zap-reports/` but do not create
+      # it, and a fresh checkout does not have it (it is gitignored). Without
+      # this, ZAP fails with `NoSuchFileException` after the scan. ZAP runs as
+      # uid 1000 in the container, so the directory must be world-writable —
+      # the same thing `scripts/security/zap.ts` does before a local run.
+      - name: Prepare the report directory
+        run: |
+          mkdir -p .zap-reports
+          chmod 0777 .zap-reports
+
       - name: Baseline scan
         uses: zaproxy/action-af@v0.3.0
         env:

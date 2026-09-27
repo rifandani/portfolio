@@ -103,4 +103,5 @@ It is set to `errorLevel: Medium`, not `High`, on purpose: a passive baseline do
 | `ZAP_TARGET points at localhost` | Inside the container `localhost` is the container. Use `web.portfolio.localhost`. |
 | Scan finds zero URLs | `ZAP_TARGET` does not match the context scope, or the app is not actually serving |
 | Permission denied writing reports | ZAP runs as uid 1000; the runner `chmod 0777`s `.zap-reports/` — check it was created |
+| `NoSuchFileException … .zap-reports/…` | ZAP does not create the report directory. `zap.ts` and the workflow's "Prepare the report directory" step create it — check that step ran before the scan |
 | CI job fails at "Serve" | The build started but `/api/health` never answered within 60s — read the build step's output |
