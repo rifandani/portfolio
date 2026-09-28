@@ -1,4 +1,5 @@
 import { nonce as getNonce } from "@nosecone/next";
+import { Analytics } from "@vercel/analytics/react";
 import type { Viewport } from "next";
 import { NextIntlClientProvider } from "next-intl";
 import { getLocale, getMessages } from "next-intl/server";
@@ -71,6 +72,7 @@ const RootLayout = async ({ children }: LayoutProps<"/">) => {
             </NuqsAdapter>
           </NextThemesProvider>
         </NextIntlClientProvider>
+        <Analytics />
       </body>
     </html>
   );

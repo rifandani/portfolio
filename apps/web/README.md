@@ -9,14 +9,13 @@
 - use real CV, and remove cv placeholders
 - add filter or search in posts using URL search params after we have some real contents
 - find out about observability in vercel, should we remove opentelemetry?
-- use other vercel products
+- use other vercel products, Vercel Speed Insights
 
 ### New project ideas
 
 1. this project (also act as nextjs monorepo boilerplate)
-2. "fe-monorepo", "be-monorepo" boilerplate
-3. kings and legends remake with threejs (need a lot of tokens)
-4. our own AI personal assistant using mastra
+2. kings and legends remake with threejs (need a lot of tokens)
+3. our own AI personal assistant using mastra
 
 ### New post ideas
 

@@ -154,3 +154,4 @@ otel-lgtm
 
 # OWASP ZAP writes DAST reports here. They are rebuilt on demand.
 .zap-reports/
+.env*
