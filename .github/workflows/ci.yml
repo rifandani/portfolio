@@ -188,3 +188,6 @@ jobs:
 
       - name: Build
         run: bun web build
+
+  web-e2e:
+    uses: ./.github/workflows/e2e.yml

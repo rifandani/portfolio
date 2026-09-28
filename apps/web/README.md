@@ -1,5 +1,5 @@
 # @workspace/web
 
-## Testing
+## End-to-end tests
 
-**CI limitation**: We can’t run E2E in CI yet because auth must be mocked on the server (RSC/server actions), and `next.onFetch` (Next experimental test mode) only intercepts external `fetch`, not relative URLs handled by Next route handlers. So tests run locally with a local DB.
+Playwright E2E tests run in `ci.yml` for pull requests and pushes to `main`, and can also run manually from the Actions tab. A test failure fails the CI workflow. The public site uses file-backed content and has no session or database setup for these tests. Playwright builds and serves the app with the example environment file before it runs the suite.
