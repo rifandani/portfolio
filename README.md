@@ -4,10 +4,6 @@
 
 [![Mintlify Docs](https://img.shields.io/badge/mintlify-docs-green?logo=mintlify)](https://rifandani-portfolio.mintlify.app)
 
-## 🎯 Todo
-
-~
-
 ## 📝 Environment Variables
 
 For first timer, you need to create a `dev` environment in your github repo (that's why in `.github/workflows/ci.yml` we stated `environment: dev`). In it, add a secret named `WEB_ENV_FILE` (that's why in `.github/workflows/ci.yml` we stated `secrets.WEB_ENV_FILE`).
