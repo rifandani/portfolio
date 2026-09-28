@@ -6,6 +6,7 @@ import {
 } from "@tanstack/highlight/core";
 import { css } from "@tanstack/highlight/languages/css";
 import { json } from "@tanstack/highlight/languages/json";
+import { markdown } from "@tanstack/highlight/languages/markdown";
 import { shell } from "@tanstack/highlight/languages/shell";
 import { ts } from "@tanstack/highlight/languages/ts";
 import { tsx } from "@tanstack/highlight/languages/tsx";
@@ -25,7 +26,7 @@ import type { CodeHighlighter } from "@tanstack/markdown";
  * not registered here.
  */
 const highlighter = createHighlighter({
-  languages: [css, json, shell, ts, tsx],
+  languages: [css, json, markdown, shell, ts, tsx],
 });
 
 const REGISTERED_LANGUAGES = new Set(highlighter.listLanguages());
