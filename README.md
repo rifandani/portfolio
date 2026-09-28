@@ -47,19 +47,6 @@ Source of truth is the local env file. When changing it, update deployment/CI pr
 - [Learn Accessibility](https://web.dev/learn/accessibility/welcome)
 - [WCAG 2.2](https://www.w3.org/TR/WCAG22)
 
-### Observability
-
-- [`grafana/otel-lgtm` docker](https://github.dev/grafana/docker-otel-lgtm/)
-- [Grafana Prometheus](https://grafana.com/docs/grafana/latest/datasources/prometheus/) for metrics
-- [Grafana Tempo](https://grafana.com/docs/grafana/latest/datasources/tempo/) for traces
-- [Grafana Loki](https://grafana.com/docs/grafana/latest/datasources/loki/) for logs
-- [Grafana Pyroscope](https://grafana.com/docs/grafana/latest/datasources/pyroscope/) for profiling
-
-Login to dashboard at `http://localhost:3111` with credentials:
-
-- Username: `admin`
-- Password: `admin`
-
 ### Performance
 
 - [Capo.js](https://rviscomi.github.io/capo.js/) enhancing the performance of HTML `<head>` by reordering it.

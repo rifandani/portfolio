@@ -11,7 +11,6 @@
   "type": "module",
   "scripts": {
     "prepare": "husky",
-    "compose:up": "docker compose -f docker/docker-compose.yml up --build",
     "clean": "rimraf --glob \"**/node_modules\" \"**/dev-dist\" \"**/dist\" \"**/build\" \"**/html\" \"**/playwright\" \"**/playwright-report\" \"**/playwright-test-results\" \"**/bun.lock\" \"**/.next\" \"**/.tanstack\" && bun pm cache rm && bun install",
     "bump:deps": "bunx npm-check-updates --workspaces -u --peer",
     "bump:ui": "bunx shadcn@latest add @intentui/all -o -c apps/web",

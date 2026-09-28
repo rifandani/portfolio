@@ -34,7 +34,7 @@ Confirmed:
 - Public portfolio content (blog, projects, about, and a media gallery); no visitor auth.
 - No app database for the portfolio today (static / file-backed content).
 - UI built on React Aria Components / Intent UI patterns.
-- PWA assets, SEO (metadata, OG, sitemap, robots), OpenTelemetry/observability hooks.
+- PWA assets, SEO (metadata, OG, sitemap, robots), structured evlog logging.
 - MIT license; package identity `@workspace/web`.
 - Author and subject: Tri Rizeki Rifandani; short / surname form: Rizki.
 

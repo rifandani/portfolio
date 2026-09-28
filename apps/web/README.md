@@ -8,7 +8,6 @@
 
 - use real CV, and remove cv placeholders
 - add filter or search in posts using URL search params after we have some real contents
-- find out about observability in vercel, should we remove opentelemetry?
 - use other vercel products, Vercel Speed Insights
 
 ### New project ideas

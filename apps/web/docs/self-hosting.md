@@ -28,8 +28,6 @@ docker build -f docker/web.Dockerfile -t portfolio-web \
   --build-arg NEXT_PUBLIC_APP_TITLE="Tri Rizeki Rifandani" \
   --build-arg NEXT_PUBLIC_APP_URL="https://my-app.com" \
   --build-arg NEXT_PUBLIC_API_BASE_URL="https://api.my-app.com/api" \
-  --build-arg NEXT_PUBLIC_OTEL_EXPORTER_OTLP_ENDPOINT="https://otel.my-app.com" \
-  --build-arg NEXT_PUBLIC_OTEL_LOG_LEVEL="INFO" \
   --build-arg BUILD_ID="$(git rev-parse HEAD)" \
   .
 

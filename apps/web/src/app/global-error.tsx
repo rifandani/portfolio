@@ -1,6 +1,5 @@
 "use client";
 
-import { trace } from "@opentelemetry/api";
 import { log } from "evlog/next/client";
 import type { AbstractIntlMessages } from "next-intl";
 import { NextIntlClientProvider } from "next-intl";
@@ -16,10 +15,6 @@ import {
 } from "react";
 
 import { ErrorScreen } from "@/core/components/error-screen.client";
-import {
-  TRACER_GLOBAL_ERROR,
-  TRACER_GLOBAL_ERROR_ON_ERROR,
-} from "@/core/constants/global";
 import type { I18NLocale } from "@/core/constants/i18n";
 import {
   I18N_COOKIE_NAME,
@@ -28,11 +23,8 @@ import {
 } from "@/core/constants/i18n";
 import { fontVariables } from "@/core/styles/fonts";
 import { errorAttributesFromUnknown } from "@/core/utils/error-helper";
-import { recordException } from "@/core/utils/telemetry";
 
 import "@/core/styles/globals.css";
-
-const tracer = trace.getTracer(TRACER_GLOBAL_ERROR);
 
 /**
  * `global-error` replaces the root layout, so nothing the layout reads on the
@@ -164,15 +156,6 @@ export default function GlobalError({
   const locale = useDeferredValue(liveLocale);
 
   useEffect(() => {
-    recordException({
-      tracer,
-      name: TRACER_GLOBAL_ERROR_ON_ERROR,
-      error: {
-        message: error.message,
-        stack: error.stack,
-        digest: error.digest,
-      },
-    });
     log.error({
       area: "app.globalError",
       phase: "render",

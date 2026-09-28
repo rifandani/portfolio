@@ -1,5 +1,3 @@
-import type { Span } from "@opentelemetry/api";
-import { SpanStatusCode } from "@opentelemetry/api";
 import { HTTPError, TimeoutError } from "ky";
 import { beforeEach, describe, expect, it, vi } from "vitest";
 import { z } from "zod";
@@ -41,21 +39,13 @@ const makeHttpError = (data?: HttpErrorBody) => {
 };
 
 describe("serverErrorMapper", () => {
-  const span = {
-    recordException: vi.fn(),
-    setStatus: vi.fn(),
-  };
-  // SAFETY: `serverErrorMapper` calls only `recordException` and `setStatus`, so
-  // the stub covers its whole use of the span.
-  const spanStub: Span = span as never;
-
   beforeEach(() => {
     vi.clearAllMocks();
   });
 
   it("maps HTTPError with parsed error body", () => {
     const error = makeHttpError({ message: "invalid credentials" });
-    const result = serverErrorMapper(error, spanStub);
+    const result = serverErrorMapper(error);
 
     expect(result).toBe("invalid credentials");
     expect(log.error).toHaveBeenCalledWith(
@@ -65,11 +55,6 @@ describe("serverErrorMapper", () => {
         response: { message: "invalid credentials" },
       })
     );
-    expect(span.recordException).toHaveBeenCalled();
-    expect(span.setStatus).toHaveBeenCalledWith({
-      code: SpanStatusCode.ERROR,
-      message: error.message,
-    });
   });
 
   it("maps HTTPError without parseable body to err.message", () => {
@@ -81,7 +66,7 @@ describe("serverErrorMapper", () => {
 
   it("maps TimeoutError", () => {
     const error = new TimeoutError(new Request("https://api.example.com/x"));
-    const result = serverErrorMapper(error, spanStub);
+    const result = serverErrorMapper(error);
 
     expect(result).toBe(error.message);
     expect(log.error).toHaveBeenCalledWith(
@@ -99,7 +84,7 @@ describe("serverErrorMapper", () => {
       return;
     }
 
-    const result = serverErrorMapper(parsed.error, spanStub);
+    const result = serverErrorMapper(parsed.error);
     expect(result).toContain("email");
     expect(log.error).toHaveBeenCalledWith(
       expect.objectContaining({
@@ -111,7 +96,7 @@ describe("serverErrorMapper", () => {
 
   it("maps unknown errors", () => {
     const error = new Error("unexpected");
-    const result = serverErrorMapper(error, spanStub);
+    const result = serverErrorMapper(error);
 
     expect(result).toBe("unexpected");
     expect(log.error).toHaveBeenCalledWith(

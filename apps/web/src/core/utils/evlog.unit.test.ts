@@ -12,8 +12,6 @@ interface EvlogConfig {
 }
 
 const mocks = vi.hoisted(() => {
-  const flush = vi.fn(async () => {});
-  const drain = { flush };
   const createError = vi.fn();
   const log = { error: vi.fn(), info: vi.fn() };
   // Typed on the one field the enrichment test reads back, so the recorded call
@@ -26,57 +24,28 @@ const mocks = vi.hoisted(() => {
   }));
   const evlogRegister = vi.fn(async () => {});
   const evlogOnRequestError = vi.fn(async () => {});
-  const registerOtelTracerAndMeter = vi.fn(async () => {});
-
   return {
-    flush,
-    drain,
     createError,
     log,
     createEvlog,
-    createOTLPDrain: vi.fn(() => drain),
     createInstrumentation: vi.fn(() => ({
       register: evlogRegister,
       onRequestError: evlogOnRequestError,
     })),
     evlogRegister,
     evlogOnRequestError,
-    registerOtelTracerAndMeter,
     userAgentEnricher: vi.fn(),
     requestSizeEnricher: vi.fn(),
-    traceContextEnricher: vi.fn(),
   };
 });
-
-vi.mock("@/core/constants/env", () => ({
-  ENV: {
-    NEXT_PUBLIC_OTEL_EXPORTER_OTLP_ENDPOINT: "http://localhost:4318",
-  },
-}));
 
 vi.mock("@/core/constants/global", () => ({
   SERVICE_NAME: "web-test",
 }));
 
-vi.mock("@/core/utils/telemetry-register", () => ({
-  registerOtelTracerAndMeter: mocks.registerOtelTracerAndMeter,
-}));
-
 vi.mock("evlog/enrichers", () => ({
   createUserAgentEnricher: () => mocks.userAgentEnricher,
   createRequestSizeEnricher: () => mocks.requestSizeEnricher,
-  createTraceContextEnricher: () => mocks.traceContextEnricher,
-}));
-
-vi.mock("evlog/pipeline", () => ({
-  createDrainPipeline: () => (drain: { flush: () => Promise<void> }) => ({
-    ...drain,
-    flush: mocks.flush,
-  }),
-}));
-
-vi.mock("evlog/otlp", () => ({
-  createOTLPDrain: mocks.createOTLPDrain,
 }));
 
 vi.mock("evlog/next", () => ({
@@ -101,32 +70,17 @@ describe("evlog wiring", () => {
     expect(mocks.createEvlog).toHaveBeenCalledWith(
       expect.objectContaining({
         service: "web-test",
-        drain: expect.objectContaining({ flush: mocks.flush }),
-        sampling: {
-          keep: [{ status: 400 }, { duration: 1000 }],
-          rates: { info: 10 },
-        },
       })
     );
     expect(sut.createError).toBe(mocks.createError);
     expect(sut.log).toBe(mocks.log);
   });
 
-  it("builds the OTLP drain with the env endpoint and service name", async () => {
-    await loadSut();
-
-    expect(mocks.createOTLPDrain).toHaveBeenCalledWith({
-      endpoint: "http://localhost:4318",
-      serviceName: "web-test",
-    });
-  });
-
-  it("registers instrumentation with captureOutput and the shared drain", async () => {
+  it("registers instrumentation to capture output and log to the console", async () => {
     await loadSut();
 
     expect(mocks.createInstrumentation).toHaveBeenCalledWith({
       captureOutput: true,
-      drain: expect.objectContaining({ flush: mocks.flush }),
       service: "web-test",
     });
   });
@@ -142,22 +96,14 @@ describe("evlog wiring", () => {
 
     expect(mocks.userAgentEnricher).toHaveBeenCalledWith(ctx);
     expect(mocks.requestSizeEnricher).toHaveBeenCalledWith(ctx);
-    expect(mocks.traceContextEnricher).toHaveBeenCalledWith(ctx);
     expect(ctx.event.deploymentId).toBe("dpl_1");
     expect(ctx.event.region).toBe("sfo1");
   });
 
-  it("flushEvlog delegates to drain.flush", async () => {
-    const sut = await loadSut();
-    await sut.flushEvlog();
-    expect(mocks.flush).toHaveBeenCalled();
-  });
-
-  it("register runs evlog then otel registration", async () => {
+  it("registers evlog instrumentation", async () => {
     const sut = await loadSut();
     await sut.register();
     expect(mocks.evlogRegister).toHaveBeenCalled();
-    expect(mocks.registerOtelTracerAndMeter).toHaveBeenCalled();
   });
 
   it("onRequestError delegates to evlog handler", async () => {

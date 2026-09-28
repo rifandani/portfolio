@@ -1,7 +1,7 @@
 import type { NextRequest } from "next/server";
 
 import { SERVICE_NAME } from "@/core/constants/global";
-import { createError } from "@/core/utils/evlog";
+import { createError, log } from "@/core/utils/evlog";
 
 import { getAllowedHosts, isAllowedOrigin, parseIngestBody } from "./ingest";
 
@@ -24,6 +24,6 @@ export const POST = async (request: NextRequest) => {
     service: SERVICE_NAME,
     source: "client",
   };
-  console.log("[CLIENT_LOG]", wideEvent);
+  log.info(wideEvent);
   return new Response(null, { status: 204 });
 };
