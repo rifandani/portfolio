@@ -38,7 +38,7 @@ const siteFiles = [
 export const SiteFooter = () => {
   const t = useTranslations();
   return (
-    <footer className="border-border mt-24 border-t">
+    <footer className="border-border mt-24 border-t" data-site-footer>
       <SiteContainer className="flex flex-col gap-4 py-12 sm:flex-row sm:items-baseline sm:justify-between sm:gap-8">
         <Text className="flex flex-wrap items-baseline gap-x-3 gap-y-1">
           <span className="text-fg font-display text-base/6 font-semibold tracking-tight sm:text-sm/6">

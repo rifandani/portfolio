@@ -9,7 +9,10 @@ import { ThemeToggle } from "@/core/components/theme-toggle.client";
  * the theme and language toggles.
  */
 export const SiteHeader = () => (
-  <header className="border-border bg-navbar/90 sticky top-0 z-20 border-b backdrop-blur-md">
+  <header
+    className="border-border bg-navbar/90 sticky top-0 z-20 border-b backdrop-blur-md"
+    data-site-header
+  >
     <SiteContainer className="relative flex h-14 items-center justify-between gap-2">
       <SiteLogo />
 

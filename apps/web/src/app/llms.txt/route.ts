@@ -32,6 +32,11 @@ export const GET = () =>
           note: messages.aboutDescription,
         },
         {
+          name: messages.cvTitle,
+          href: "/cv",
+          note: "Work experience and project achievements; print-ready CV",
+        },
+        {
           name: messages.projectsPageTitle,
           href: "/projects",
           note: "All projects",

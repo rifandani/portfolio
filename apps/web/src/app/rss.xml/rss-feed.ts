@@ -11,6 +11,8 @@ export interface RssFeedInput {
   copyrightYear: number;
   /** Most recent first, as `getPosts` returns them. */
   posts: readonly Pick<Post, "slug" | "title" | "summary" | "publishedAt">[];
+  /** Stable public pages have no publication date, so they omit `pubDate`. */
+  pages?: readonly { href: string; title: string; description: string }[];
 }
 
 const XML_ESCAPES = {
@@ -39,9 +41,10 @@ const element = (name: string, text: string) =>
   `<${name}>${escapeXml(text)}</${name}>`;
 
 /**
- * The site's `/rss.xml`, an RSS 2.0 feed of every Post. `lastBuildDate` is the
- * date of the newest Post, not the build time: the build time would change on
- * each deploy, and a reader would see a change that is not there.
+ * The site's `/rss.xml`, an RSS 2.0 feed of every Post plus stable public
+ * resources. `lastBuildDate` is the date of the newest Post, not the build
+ * time: the build time would change on each deploy, and a reader would see a
+ * change that is not there.
  */
 export const buildRssFeed = ({
   appUrl,
@@ -50,6 +53,7 @@ export const buildRssFeed = ({
   author,
   copyrightYear,
   posts,
+  pages = [],
 }: RssFeedInput) => {
   const url = (route: string) => new URL(route, appUrl).href;
   const [newest] = posts;
@@ -62,6 +66,17 @@ export const buildRssFeed = ({
       `      <guid isPermaLink="true">${escapeXml(link)}</guid>`,
       `      ${element("pubDate", rfc822(post.publishedAt))}`,
       `      ${element("description", post.summary)}`,
+      "    </item>",
+    ].join("\n");
+  });
+  const pageItems = pages.map((page) => {
+    const link = url(page.href);
+    return [
+      "    <item>",
+      `      ${element("title", page.title)}`,
+      `      ${element("link", link)}`,
+      `      <guid isPermaLink="true">${escapeXml(link)}</guid>`,
+      `      ${element("description", page.description)}`,
       "    </item>",
     ].join("\n");
   });
@@ -80,6 +95,7 @@ export const buildRssFeed = ({
     `    ${element("copyright", `Copyright © ${copyrightYear} ${author}`)}`,
     `    <atom:link href="${escapeXml(url("/rss.xml"))}" rel="self" type="application/rss+xml"/>`,
     ...items,
+    ...pageItems,
     "  </channel>",
     "</rss>",
     "",

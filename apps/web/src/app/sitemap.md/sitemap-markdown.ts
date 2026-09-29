@@ -17,15 +17,17 @@ const escapeLinkText = (text: string) => text.replaceAll(/[\\[\]]/gu, "\\$&");
 const capitalize = (word: string) =>
   word.charAt(0).toUpperCase() + word.slice(1);
 
-/** `/` is Home; other routes are named from their segments: `/about` → "About". */
+/** `/` is Home; `/cv` is an initialism; other routes use their segments. */
 const pageName = (route: string) =>
-  route === "/"
-    ? "Home"
-    : route
-        .split("/")
-        .filter(Boolean)
-        .map((segment) => capitalize(segment.replaceAll("-", " ")))
-        .join(" / ");
+  route === "/cv"
+    ? "CV"
+    : (route === "/"
+      ? "Home"
+      : route
+          .split("/")
+          .filter(Boolean)
+          .map((segment) => capitalize(segment.replaceAll("-", " ")))
+          .join(" / "));
 
 /**
  * The sitemap as Markdown, for readers and Assistants: each public page, each

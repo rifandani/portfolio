@@ -77,8 +77,8 @@ export const aboutContent = {
   birthMonth: "1998-05",
   /** ISO 3166-1 alpha-3, printed in the ID badge's machine-readable zone. */
   countryCode: "IDN",
-  /** [Synthetic] Replace with the real CV. It opens in a new tab. */
-  cvHref: "/placeholders/cv.pdf",
+  /** The print-ready CV page. */
+  cvHref: "/cv",
 } as const;
 
 /** Closed set — each id also names the mark the About tech stack renders for it. */

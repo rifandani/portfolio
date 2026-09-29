@@ -18,6 +18,13 @@ export const GET = () =>
       author: portfolioIdentity.fullName,
       copyrightYear: portfolioIdentity.copyrightYear,
       posts: getPosts(),
+      pages: [
+        {
+          href: "/cv",
+          title: messages.cvTitle,
+          description: "Work experience and project achievements.",
+        },
+      ],
     }),
     { headers: { "Content-Type": "application/rss+xml; charset=utf-8" } }
   );
