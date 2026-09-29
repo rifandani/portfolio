@@ -10,9 +10,10 @@ export const resolveFeatureEnabled = ({
   override,
   defaultEnabled,
 }: ResolveFeatureEnabledInput): boolean => {
-  // Production floor: never honor an ON override outside DEV.
+  // Production uses the registry default. The current Master Design default
+  // is enabled in every environment; browser overrides remain DEV-only.
   if (!isDev) {
-    return false;
+    return defaultEnabled;
   }
   if (override !== undefined) {
     return override;

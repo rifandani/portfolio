@@ -24,7 +24,7 @@ Web app.
 
 ### Feature Flags
 
-**Feature Flag**: A named boolean that gates a product surface for local development. Defaults ON in development and OFF otherwise; a developer may override the default via the Feature Flags Devtools panel, and that override persists across reloads until reset. Production builds never honor an ON override for gated surfaces. _Avoid_: kill switch, remote config, experiment, A/B test
+**Feature Flag**: A named boolean that gates a product surface. Each flag uses its registry default outside development; a developer may override the default in development via the Feature Flags Devtools panel, and that override persists across reloads until reset. The Master Design default is ON in every environment for now. _Avoid_: kill switch, remote config, experiment, A/B test
 
 ### Errors
 

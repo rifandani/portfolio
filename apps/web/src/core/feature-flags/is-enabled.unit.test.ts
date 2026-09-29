@@ -4,14 +4,21 @@ import { resolveFeatureEnabled } from "@/core/feature-flags/is-enabled";
 import { useFeatureFlagStore } from "@/core/feature-flags/store";
 
 describe("resolveFeatureEnabled", () => {
-  it("returns false outside DEV even with an ON override", () => {
+  it("uses the default outside DEV and ignores overrides", () => {
     expect(
       resolveFeatureEnabled({
         isDev: false,
         override: true,
         defaultEnabled: true,
       })
-    ).toBe(false);
+    ).toBe(true);
+    expect(
+      resolveFeatureEnabled({
+        isDev: false,
+        override: false,
+        defaultEnabled: true,
+      })
+    ).toBe(true);
   });
 
   it("uses the default in DEV when there is no override", () => {
