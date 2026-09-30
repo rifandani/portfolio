@@ -18,16 +18,19 @@ const capitalize = (word: string) =>
   word.charAt(0).toUpperCase() + word.slice(1);
 
 /** `/` is Home; `/cv` is an initialism; other routes use their segments. */
-const pageName = (route: string) =>
-  route === "/cv"
-    ? "CV"
-    : (route === "/"
-      ? "Home"
-      : route
-          .split("/")
-          .filter(Boolean)
-          .map((segment) => capitalize(segment.replaceAll("-", " ")))
-          .join(" / "));
+const pageName = (route: string) => {
+  if (route === "/cv") {
+    return "CV";
+  }
+  if (route === "/") {
+    return "Home";
+  }
+  return route
+    .split("/")
+    .filter(Boolean)
+    .map((segment) => capitalize(segment.replaceAll("-", " ")))
+    .join(" / ");
+};
 
 /**
  * The sitemap as Markdown, for readers and Assistants: each public page, each

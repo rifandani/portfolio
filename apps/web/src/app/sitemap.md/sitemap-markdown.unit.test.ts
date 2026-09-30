@@ -65,4 +65,10 @@ describe("sitemapMarkdown", () => {
       "## Projects\n\nNo projects yet.\n"
     );
   });
+
+  it("uses the initialism for the CV page", () => {
+    expect(sitemapMarkdown({ ...input, pageRoutes: ["/cv"] })).toContain(
+      "- [CV](https://web.portfolio.localhost/cv)"
+    );
+  });
 });

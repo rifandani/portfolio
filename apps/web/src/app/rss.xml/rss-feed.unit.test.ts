@@ -66,4 +66,27 @@ describe("buildRssFeed", () => {
     expect(feed).not.toContain("<item>");
     expect(feed).toContain("</channel>\n</rss>\n");
   });
+
+  it("includes stable pages without publication dates", () => {
+    const feed = buildRssFeed({
+      ...input,
+      posts: [],
+      pages: [
+        {
+          description: "A page about <work> & more.",
+          href: "/about",
+          title: "About & work",
+        },
+      ],
+    });
+
+    expect(feed).toContain("<title>About &amp; work</title>");
+    expect(feed).toContain(
+      "<link>https://web.portfolio.localhost/about</link>"
+    );
+    expect(feed).toContain(
+      "<description>A page about &lt;work&gt; &amp; more.</description>"
+    );
+    expect(feed).not.toContain("<pubDate>");
+  });
 });
