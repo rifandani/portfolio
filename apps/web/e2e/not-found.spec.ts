@@ -22,5 +22,5 @@ test("should have heading, text description, and back to home link", async ({
   await expect(subtitle).toBeVisible();
   await expect(description).toBeVisible();
   await expect(link).toBeVisible();
-  await expect(link).toHaveText(/Back to Home page|Kembali ke halaman Home/u);
+  await expect(link).toHaveText(/Go to home page|Ke halaman beranda/u);
 });
