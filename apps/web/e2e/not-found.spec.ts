@@ -16,7 +16,7 @@ test("should have heading, text description, and back to home link", async ({
     /The link may be old|Tautannya mungkin sudah lama/u
   );
   const link = main.getByRole("link", {
-    name: /Back to Home page|Kembali ke halaman Home/u,
+    name: /Go to home page|Ke halaman beranda/u,
   });
   await expect(title).toBeVisible();
   await expect(subtitle).toBeVisible();

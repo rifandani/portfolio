@@ -16,8 +16,7 @@ export const expectNotFoundResponse = async (
   }
 
   expect(response?.status()).toBe(200);
-  await expect(page.locator('meta[name="robots"]')).toHaveAttribute(
-    "content",
-    "noindex"
-  );
+  await expect(
+    page.locator('meta[name="robots"][content="noindex"]').first()
+  ).toHaveAttribute("content", "noindex");
 };

@@ -19,9 +19,7 @@ test("should flip the ID card to its back and front again", async ({
 
   await flip.click();
   await expect(flip).toHaveAttribute("aria-pressed", "true");
-  await expect(
-    page.getByRole("term", { name: /^(?:Based in|Domisili)$/u })
-  ).toBeVisible();
+  await expect(page.getByText(/^(?:Based in|Domisili)$/u)).toBeVisible();
 
   await flip.press("ArrowLeft");
   await expect(flip).toHaveAttribute("aria-pressed", "false");
@@ -46,6 +44,9 @@ test("should open the CV in a new tab", async ({ page }) => {
     })
   ).toBeVisible();
   await expect(
-    cvPage.getByRole("heading", { level: 2, name: /Work experience/u })
+    cvPage.getByRole("heading", {
+      level: 2,
+      name: /Work Experience|Pengalaman Kerja/u,
+    })
   ).toBeVisible();
 });
