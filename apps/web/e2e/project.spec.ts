@@ -1,4 +1,5 @@
 import { expect, test } from "./_base";
+import { expectNotFoundResponse } from "./_helper";
 import { expectLinkPreview } from "./_link-preview";
 
 const SLUG = "hanepyon-layover-planner";
@@ -124,7 +125,7 @@ test.describe("unknown Project Slug", () => {
   test("shows the not-found page", async ({ page }) => {
     const response = await page.goto("/projects/no-such-project");
 
-    expect(response?.status()).toBe(404);
+    await expectNotFoundResponse(page, response);
   });
 
   test("has no Project Markdown", async ({ request }) => {

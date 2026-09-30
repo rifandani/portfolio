@@ -19,7 +19,9 @@ test("should flip the ID card to its back and front again", async ({
 
   await flip.click();
   await expect(flip).toHaveAttribute("aria-pressed", "true");
-  await expect(page.getByText("Based in")).toBeVisible();
+  await expect(
+    page.getByRole("term", { name: /^(?:Based in|Domisili)$/u })
+  ).toBeVisible();
 
   await flip.press("ArrowLeft");
   await expect(flip).toHaveAttribute("aria-pressed", "false");
@@ -28,16 +30,22 @@ test("should flip the ID card to its back and front again", async ({
   ).toBeVisible();
 });
 
-test("should open the CV in a new tab", async ({ page, request }) => {
+test("should open the CV in a new tab", async ({ page }) => {
   const cv = page.getByRole("link", { name: /View CV/u });
   await expect(cv).toHaveAttribute("target", "_blank");
   await expect(cv).toHaveAttribute("rel", "noopener noreferrer");
 
-  // Headless Chromium downloads a PDF instead of showing it, so check that
-  // the link resolves to a PDF rather than what the new tab renders.
-  const href = await cv.getAttribute("href");
-  expect(href).not.toBeNull();
-  const response = await request.get(href ?? "");
-  expect(response.ok()).toBe(true);
-  expect(response.headers()["content-type"]).toContain("application/pdf");
+  const popupPromise = page.waitForEvent("popup");
+  await cv.click();
+  const cvPage = await popupPromise;
+
+  await expect(
+    cvPage.getByRole("heading", {
+      level: 1,
+      name: "Tri Rizeki Rifandani",
+    })
+  ).toBeVisible();
+  await expect(
+    cvPage.getByRole("heading", { level: 2, name: /Work experience/u })
+  ).toBeVisible();
 });

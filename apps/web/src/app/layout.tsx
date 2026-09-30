@@ -16,6 +16,9 @@ import { portfolioIdentity } from "@/portfolio/constants/portfolio";
 
 import "@/core/styles/globals.css";
 
+// Vercel serves these script routes. The self-hosted E2E server does not.
+const isE2E = process.env.NEXT_PUBLIC_E2E === "true";
+
 /** The fallback for a route with no metadata of its own; every page sets its own. */
 export const metadata = createMetadata({
   title: "Portfolio",
@@ -73,8 +76,12 @@ const RootLayout = async ({ children }: LayoutProps<"/">) => {
             </NuqsAdapter>
           </NextThemesProvider>
         </NextIntlClientProvider>
-        <Analytics />
-        <SpeedInsights />
+        {isE2E ? null : (
+          <>
+            <Analytics />
+            <SpeedInsights />
+          </>
+        )}
       </body>
     </html>
   );

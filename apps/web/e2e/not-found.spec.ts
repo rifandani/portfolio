@@ -9,10 +9,15 @@ test.beforeEach(async ({ page }) => {
 test("should have heading, text description, and back to home link", async ({
   page,
 }) => {
-  const title = page.getByRole("heading", { level: 1 });
-  const subtitle = page.getByRole("heading", { level: 2 });
-  const description = page.getByRole("paragraph");
-  const link = page.getByRole("link");
+  const main = page.getByRole("main");
+  const title = main.getByRole("heading", { level: 1 });
+  const subtitle = main.getByRole("heading", { level: 2 });
+  const description = main.getByText(
+    /The link may be old|Tautannya mungkin sudah lama/u
+  );
+  const link = main.getByRole("link", {
+    name: /Back to Home page|Kembali ke halaman Home/u,
+  });
   await expect(title).toBeVisible();
   await expect(subtitle).toBeVisible();
   await expect(description).toBeVisible();

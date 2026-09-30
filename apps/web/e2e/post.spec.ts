@@ -1,4 +1,5 @@
 import { expect, test } from "./_base";
+import { expectNotFoundResponse } from "./_helper";
 import { expectLinkPreview } from "./_link-preview";
 
 test("opens a Post Detail from the posts index", async ({ page }) => {
@@ -92,6 +93,7 @@ test("marks the section a reader jumps to in the Post Outline", async ({
     "Why companies are adding these checks now",
     "What I take from it",
     "What a checkbox cannot do",
+    "A honeypot for unread diffs",
   ]);
 
   await outline.getByRole("link", { name: "What I take from it" }).click();
@@ -164,7 +166,7 @@ test.describe("unknown Slug", () => {
   test("shows the not-found page", async ({ page }) => {
     const response = await page.goto("/posts/no-such-post");
 
-    expect(response?.status()).toBe(404);
+    await expectNotFoundResponse(page, response);
     const main = page.getByRole("main");
     await expect(main.getByRole("heading", { level: 1 })).toHaveText(
       /This page does not exist\.|Halaman ini tidak ada\./u
