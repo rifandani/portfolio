@@ -22,7 +22,7 @@ navigate around. Focus rings are only visible when interacting with a keyboard s
 and touch screen users. When we are unable to detect if the user is using a mouse or touch screen, such as
 switching in from a different tab, we show the focus ring.
 
-If CSS classes are not being used for styling, see [useFocusRing](useFocusRing.md) for a hooks version.
+If CSS classes are not being used for styling, see [useFocusRing](./useFocusRing.md) for a hooks version.
 
 ## API
 
@@ -31,7 +31,7 @@ If CSS classes are not being used for styling, see [useFocusRing](useFocusRing.m
 | Name | Type | Default | Description |
 |------|------|---------|-------------|
 | `autoFocus` | `boolean | undefined` | — | Whether the element will be auto focused. |
-| `children` | `React.ReactElement<unknown, string | React.JSXElementConstructor<any>>` | — | Child element to apply CSS classes to. |
+| `children` | `React.ReactElement<React.JSXElementConstructor<any> | unknown, string>` | — | Child element to apply CSS classes to. |
 | `focusClass` | `string | undefined` | — | CSS class to apply when the element is focused. |
 | `focusRingClass` | `string | undefined` | — | CSS class to apply when the element has keyboard focus. |
 | `isTextInput` | `boolean | undefined` | — | Whether the element is a text input. |

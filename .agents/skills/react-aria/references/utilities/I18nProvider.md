@@ -15,7 +15,7 @@ import {I18nProvider} from '@react-aria/i18n';
 `I18nProvider` allows you to override the default locale as determined by the browser/system setting
 with a locale defined by your application (e.g. application setting). This should be done by wrapping
 your entire application in the provider, which will be cause all child elements to receive the new locale
-information via [useLocale](useLocale.md).
+information via [useLocale](./useLocale.md).
 
 ## API
 

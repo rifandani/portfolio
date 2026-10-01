@@ -19,7 +19,7 @@ import {SSRProvider} from '@react-aria/ssr';
 ## Introduction
 
 If you're using React 16 or 17, `SSRProvider` should be used as a wrapper for the entire application during server side rendering.
-It works together with the [useId](useId.md) hook to ensure that auto generated ids are consistent
+It works together with the [useId](./useId.md) hook to ensure that auto generated ids are consistent
 between the client and server by resetting the id internal counter on each request.
 
 ## API

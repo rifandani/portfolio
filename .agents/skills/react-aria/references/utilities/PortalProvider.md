@@ -20,7 +20,7 @@ your React Aria components to send their overlays to the same container.
 ## Example
 
 The example below shows how you can use `UNSAFE_PortalProvider` to portal your Toasts to an arbitrary container. Note that
-the Toast in this example is taken directly from the [React Aria Components Toast documentation](Toast.md), please visit that page for
+the Toast in this example is taken directly from the [React Aria Components Toast documentation](../components/Toast.md), please visit that page for
 a detailed explanation of its implementation.
 
 ```tsx
@@ -29,7 +29,7 @@ import React from 'react';
 import {Button} from 'vanilla-starter/Button';
 import {MyToastRegion} from './MyToastRegion'
 import {UNSAFE_PortalProvider} from '@react-aria/overlays';
-import {UNSTABLE_ToastQueue as ToastQueue} from 'react-aria-components';
+import {UNSTABLE_ToastQueue as ToastQueue} from 'react-aria-components/Toast';
 
 // Define the type for your toast content.
 interface MyToastContent {

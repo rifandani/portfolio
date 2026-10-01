@@ -6,7 +6,7 @@ Returns the current locale and layout direction.
 
 `useLocale` allows components to access the current locale and interface layout direction.
 By default, this is automatically detected based on the browser or system language, but it can
-be overridden by using the [I18nProvider](I18nProvider.md) at the root of your app.
+be overridden by using the [I18nProvider](./I18nProvider.md) at the root of your app.
 
 `useLocale` should be used in the root of your app to define the
 [lang](https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/lang)
@@ -16,7 +16,7 @@ so that the browser knows which language and direction the user interface should
 ## Example
 
 ```tsx
-import {useLocale} from 'react-aria';
+import {useLocale} from 'react-aria/I18nProvider';
 
 function YourApp() {
   let {locale, direction} = useLocale();

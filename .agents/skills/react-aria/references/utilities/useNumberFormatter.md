@@ -1,7 +1,7 @@
 # useNumberFormatter
 
-Provides localized number formatting for the current locale. Automatically updates when the locale changes,
-and handles caching of the number formatter for performance.
+Provides localized number formatting for the current locale. Automatically updates when the
+locale changes, and handles caching of the number formatter for performance.
 
 ## Introduction
 
@@ -14,11 +14,12 @@ information on formatting options.
 ## Example
 
 This example displays a currency value for two locales: USA, and Germany. Two instances of the `Currency` component are rendered,
-using the [I18nProvider](I18nProvider.md) to specify the locale to display.
+using the [I18nProvider](./I18nProvider.md) to specify the locale to display.
 
 ```tsx
 'use client';
-import {I18nProvider, useNumberFormatter} from 'react-aria';
+import {I18nProvider} from 'react-aria/I18nProvider';
+import {useNumberFormatter} from 'react-aria/useNumberFormatter';
 
 function Currency({value, currency}) {
   let formatter = useNumberFormatter({

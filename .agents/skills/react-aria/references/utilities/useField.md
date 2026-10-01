@@ -1,7 +1,7 @@
 # useField
 
-Provides the accessibility implementation for input fields.
-Fields accept user input, gain context from their label, and may display a description or error message.
+Provides the accessibility implementation for input fields. Fields accept user input, gain
+context from their label, and may display a description or error message.
 
 ## Introduction
 
@@ -9,13 +9,13 @@ The `useField` hook associates a form control with a label, and an optional desc
 
 By default, `useField` assumes that the label is a native HTML `<label>` element. However, if you are labeling a non-native form element, be sure to use an element other than a `<label>` and set the `labelElementType` prop appropriately.
 
-**Note**: Many other React Aria hooks such as [useTextField](TextField/useTextField.md), [useSelect](Select/useSelect.md), and [useComboBox](ComboBox/useComboBox.md) already include support for description and error message elements. If you're using one of those hooks, there's no need to use `useField`.
+**Note**: Many other React Aria hooks such as [useTextField](../components/TextField/useTextField.md), [useSelect](../components/Select/useSelect.md), and [useComboBox](../components/ComboBox/useComboBox.md) already include support for description and error message elements. If you're using one of those hooks, there's no need to use `useField`.
 
 ## Example
 
 ```tsx
 'use client';
-import {useField} from 'react-aria';
+import {useField} from 'react-aria/useField';
 
 function ContactPicker(props) {
   let {labelProps, fieldProps, descriptionProps, errorMessageProps} = useField(props);
@@ -60,19 +60,18 @@ function ContactPicker(props) {
 
 | Name | Type | Default | Description |
 |------|------|---------|-------------|
-| `labelElementType` | `ElementType | undefined` | 'label' | The HTML element used to render the label, e.g. 'label', or 'span'. |
-| `label` | `ReactNode` | — | The content to display as the label. |
-| `id` | `string | undefined` | — | The element's unique identifier. See [MDN](https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/id). |
-| `aria-label` | `string | undefined` | — | Defines a string value that labels the current element. |
-| `aria-labelledby` | `string | undefined` | — | Identifies the element (or elements) that labels the current element. |
 | `aria-describedby` | `string | undefined` | — | Identifies the element (or elements) that describes the object. |
 | `aria-details` | `string | undefined` | — | Identifies the element (or elements) that provide a detailed, extended description for the object. |
+| `aria-label` | `string | undefined` | — | Defines a string value that labels the current element. |
+| `aria-labelledby` | `string | undefined` | — | Identifies the element (or elements) that labels the current element. |
 | `description` | `ReactNode` | — | A description for the field. Provides a hint such as specific requirements for what to choose. |
-| `errorMessage` | `ReactNode | ((v: ValidationResult) => ReactNode)` | — | An error message for the field. |
+| `errorMessage` | `((v: ValidationResult) => ReactNode) | ReactNode` | — | An error message for the field. |
+| `id` | `string | undefined` | — | The element's unique identifier. See [MDN](https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/id). |
 | `isInvalid` | `boolean | undefined` | — | Whether the input value is invalid. |
-| `validationState` | `ValidationState | undefined` | — | — |
+| `label` | `ReactNode` | — | The content to display as the label. |
+| `labelElementType` | `ElementType | undefined` | 'label' | The HTML element used to render the label, e.g. 'label', or 'span'. |
+| `validate` | `((value: any) => true | undefined) | ValidationError | null | undefined` | — | A function that returns an error message if a given value is invalid. Validation errors are displayed to the user when the form is submitted if `validationBehavior="native"`. For realtime validation, use the `isInvalid` prop instead. |
 | `validationBehavior` | `"aria" | "native" | undefined` | 'aria' | Whether to use native HTML form validation to prevent form submission when the value is missing or invalid, or mark the field as required or invalid via ARIA. |
-| `validate` | `((value: any) => ValidationError | true | null | undefined) | undefined` | — | A function that returns an error message if a given value is invalid. Validation errors are displayed to the user when the form is submitted if `validationBehavior="native"`. For realtime validation, use the `isInvalid` prop instead. |
 
 ### FieldAria
 
@@ -80,5 +79,5 @@ function ContactPicker(props) {
 |------|------|-------------|
 | `descriptionProps` \* | `DOMAttributes<FocusableElement>` | Props for the description element, if any. |
 | `errorMessageProps` \* | `DOMAttributes<FocusableElement>` | Props for the error message element, if any. |
-| `labelProps` \* | `DOMAttributes<FocusableElement> | LabelHTMLAttributes<HTMLLabelElement>` | Props to apply to the label container element. |
 | `fieldProps` \* | `AriaLabelingProps & DOMProps` | Props to apply to the field container element being labeled. |
+| `labelProps` \* | `DOMAttributes<FocusableElement> | LabelHTMLAttributes<HTMLLabelElement>` | Props to apply to the label container element. |

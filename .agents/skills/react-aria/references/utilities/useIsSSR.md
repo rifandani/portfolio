@@ -12,7 +12,7 @@ and initially hydrated DOM match, but trigger an additional render after hydrati
 run browser-specific code. For example, it could be used to run media queries or feature
 detection for browser-specific APIs that affect rendering but cannot be run server side.
 
-In React 16 and 17, this hook must be used in combination with the [SSRProvider](SSRProvider.md) component
+In React 16 and 17, this hook must be used in combination with the [SSRProvider](./SSRProvider.md) component
 wrapping your application.
 
 ## Example

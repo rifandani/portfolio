@@ -3,7 +3,7 @@
 Manages focus visible state for the page, and subscribes individual components for updates.
 
 ```tsx
-import {useFocusVisible} from 'react-aria';
+import {useFocusVisible} from 'react-aria/useFocusVisible';
 
 function Example() {
   let {isFocusVisible} = useFocusVisible({isTextInput: true});
@@ -32,7 +32,19 @@ the [:focus-visible](https://developer.mozilla.org/en-US/docs/Web/CSS/:focus-vis
 in CSS.
 
 To determine whether a focus ring should be visible for an individual component rather than
-globally, see [useFocusRing](useFocusRing.md).
+globally, see [useFocusRing](./useFocusRing.md).
+
+### Making focus visible
+
+For the most part, focus visibility is handled automatically by `useFocusVisible`. However, if you need to
+manually show the focus ring, such as when moving focus programmatically to the first item
+of an invalid form, you can use `setInteractionModality`.
+
+```tsx
+import {setInteractionModality} from 'react-aria/useFocusVisible';
+
+setInteractionModality('keyboard');
+```
 
 ## API
 
@@ -45,8 +57,8 @@ globally, see [useFocusRing](useFocusRing.md).
 
 | Name | Type | Description |
 |------|------|-------------|
-| `isTextInput` | `boolean | undefined` | Whether the element is a text input. |
 | `autoFocus` | `boolean | undefined` | Whether the element will be auto focused. |
+| `isTextInput` | `boolean | undefined` | Whether the element is a text input. |
 
 ### FocusVisibleResult
 

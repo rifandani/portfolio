@@ -6,7 +6,7 @@ Focus events on child elements will be ignored.
 ```tsx
 
 import React from 'react';
-import {useFocus} from 'react-aria';
+import {useFocus} from 'react-aria/useFocus';
 
 function Example() {
   let [events, setEvents] = React.useState<string[]>([]);
@@ -48,7 +48,7 @@ behavior where focus events do not bubble. This is similar to
 the [:focus](https://developer.mozilla.org/en-US/docs/Web/CSS/:focus) pseudo class
 in CSS.
 
-To handle focus events on descendants of an element, see [useFocusWithin](useFocusWithin.md).
+To handle focus events on descendants of an element, see [useFocusWithin](./useFocusWithin.md).
 
 ## API
 
@@ -62,8 +62,8 @@ To handle focus events on descendants of an element, see [useFocusWithin](useFoc
 | Name | Type | Description |
 |------|------|-------------|
 | `isDisabled` | `boolean | undefined` | Whether the focus events should be disabled. |
-| `onFocus` | `((e: FocusEvent<Target, Element>) => void) | undefined` | Handler that is called when the element receives focus. |
 | `onBlur` | `((e: FocusEvent<Target, Element>) => void) | undefined` | Handler that is called when the element loses focus. |
+| `onFocus` | `((e: FocusEvent<Target, Element>) => void) | undefined` | Handler that is called when the element receives focus. |
 | `onFocusChange` | `((isFocused: boolean) => void) | undefined` | Handler that is called when the element's focus status changes. |
 
 ### FocusResult

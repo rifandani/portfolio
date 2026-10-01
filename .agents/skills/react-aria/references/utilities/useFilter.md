@@ -1,7 +1,8 @@
 # useFilter
 
-Provides localized string search functionality that is useful for filtering or matching items
-in a list. Options can be provided to adjust the sensitivity to case, diacritics, and other parameters.
+Provides localized string search functionality that is useful for filtering or matching items in
+a list. Options can be provided to adjust the sensitivity to case, diacritics, and other
+parameters.
 
 ## Introduction
 
@@ -9,7 +10,7 @@ in a list. Options can be provided to adjust the sensitivity to case, diacritics
 string methods `startsWith`, `endsWith`, and `includes` could be used for this, but do not implement locale
 sensitive matching. `useFilter` provides options to allow ignoring case, diacritics, and Unicode normalization forms,
 which are implemented according to locale-specific rules. It automatically uses the current locale set by the application,
-either via the default browser language or via the [I18nProvider](I18nProvider.md).
+either via the default browser language or via the [I18nProvider](./I18nProvider.md).
 
 ## Example
 
@@ -19,7 +20,7 @@ and diacritics.
 ```tsx
 'use client';
 import React from 'react';
-import {useFilter} from 'react-aria';
+import {useFilter} from 'react-aria/useFilter';
 
 function Example() {
   const composers = [

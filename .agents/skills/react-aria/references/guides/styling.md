@@ -36,7 +36,7 @@ React Aria exposes UI states such as pressed, hovered, and selected using data a
 }
 ```
 
-React Aria includes states such as `data-hovered` and `data-pressed` which are similar to CSS pseudo classes such as `:hover` and `:active`, but work consistently between mouse, touch, and keyboard modalities. You can read more about this in our [blog post series](blog/building-a-button-part-1.md) and our [Interactions](quality.md#interactions) overview.
+React Aria includes states such as `data-hovered` and `data-pressed` which are similar to CSS pseudo classes such as `:hover` and `:active`, but work consistently between mouse, touch, and keyboard modalities. You can read more about this in our [blog post series](blog/building-a-button-part-1.md) and our [Interactions](./quality.md#interactions) overview.
 
 ## Render props
 
@@ -71,7 +71,7 @@ Render props also let you modify the default values provided by React Aria via t
 
 ## Slots
 
-Some patterns include multiple instances of the same component, for example the increment and decrement buttons in a [NumberField](NumberField.md). These are distinguished by the `slot` prop, which can also be used in CSS for styling purposes.
+Some patterns include multiple instances of the same component, for example the increment and decrement buttons in a [NumberField](../components/NumberField.md). These are distinguished by the `slot` prop, which can also be used in CSS for styling purposes.
 
 ```tsx
 <NumberField>
@@ -104,7 +104,7 @@ Some patterns include multiple instances of the same component, for example the 
 
 ## CSS variables
 
-Some components provide CSS variables that you can use in your styling code. For example, [Popover](Popover.md) provides a `--trigger-width` variable, which can be used to make the width of the popover match the width of its trigger.
+Some components provide CSS variables that you can use in your styling code. For example, [Popover](../components/Popover.md) provides a `--trigger-width` variable, which can be used to make the width of the popover match the width of its trigger.
 
 ```css
 .react-aria-Popover {
@@ -251,8 +251,8 @@ React Aria Components supports both [CSS transitions](https://developer.mozilla.
 
 Several components support entry and exit animations via the `data-entering` and `data-exiting` states, or via the corresponding render prop functions.
 
-* `data-entering` represents the starting state of the entry animation. The component will transition from the entering state to the default state when it opens.
-* `data-exiting` represents the ending state of the exit animation. The component will transition from the default state to the exiting state and wait for any animations to complete before being removed from the DOM.
+- `data-entering` represents the starting state of the entry animation. The component will transition from the entering state to the default state when it opens.
+- `data-exiting` represents the ending state of the exit animation. The component will transition from the default state to the exiting state and wait for any animations to complete before being removed from the DOM.
 
 ```css
 .react-aria-Popover {
@@ -317,7 +317,7 @@ Note that unlike CSS transitions, keyframe animations are not interruptible. If 
 
 ### Tailwind
 
-If you are using Tailwind, we recommend using the [tailwindcss-animate](https://github.com/jamiebuilds/tailwindcss-animate) plugin. This includes utilities for building common animations such as fading, sliding, and zooming.
+If you are using Tailwind v4, we recommend using the [tw-animate-css](https://github.com/Wombosvideo/tw-animate-css) library. This includes utilities for building common animations such as fading, sliding, and zooming. (For Tailwind v3, use [tailwindcss-animate](https://github.com/jamiebuilds/tailwindcss-animate) instead.)
 
 ```jsx
 <Popover className="data-[entering]:animate-in data-[entering]:fade-in data-[exiting]:animate-out data-[exiting]:fade-out">
@@ -330,7 +330,7 @@ If you are using Tailwind, we recommend using the [tailwindcss-animate](https://
 [Motion](https://motion.dev) and other JavaScript animation libraries can also be used with React Aria Components. Use [motion.create](https://motion.dev/docs/react-motion-component#custom-components) to create a wrapper component that adds support for Motion's animation props.
 
 ```tsx
-import {Modal, ModalOverlay} from 'react-aria-components';
+import {Modal, ModalOverlay} from 'react-aria-components/Modal';
 import {motion} from 'motion/react';
 
 // Create Motion wrappers.
@@ -398,7 +398,7 @@ function Example() {
 The [AnimatePresence](https://motion.dev/docs/react-animate-presence) component allows you to animate when items are added or removed in collection components. Use `array.map` to create children, and make sure each child has a unique `key` in addition to an `id` to ensure Motion can track it.
 
 ```tsx
-import {GridList, GridListItem} from 'react-aria-components';
+import {GridList, GridListItem} from 'react-aria-components/GridList';
 import {motion, AnimatePresence} from 'motion/react';
 
 const MotionItem = motion.create(GridListItem);

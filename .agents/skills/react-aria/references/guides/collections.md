@@ -27,9 +27,8 @@ Sections or groups of items can be constructed by wrapping the items in a sectio
 ## Menu example
 
 ```tsx
-import {MenuTrigger, Menu, MenuItem, MenuSection} from 'vanilla-starter/Menu';
+import {MenuTrigger, Menu, MenuItem, MenuSection, Header} from 'vanilla-starter/Menu';
 import {Button} from 'vanilla-starter/Button';
-import {Header} from 'react-aria-components';
 
 <MenuTrigger>
   <Button>Menu</Button>
@@ -54,8 +53,7 @@ import {Header} from 'react-aria-components';
 ## ListBox example
 
 ```tsx
-import {ListBox, ListBoxItem, ListBoxSection} from 'vanilla-starter/ListBox';
-import {Header} from 'react-aria-components';
+import {ListBox, ListBoxItem, ListBoxSection, Header} from 'vanilla-starter/ListBox';
 
 <ListBox aria-label="Text style" selectionMode="multiple">
   {/*- begin highlight -*/}
@@ -114,12 +112,12 @@ function Example() {
 
 <InlineAlert variant="informative">
   <Heading>useListData</Heading>
-  <Content>For convenience, React Aria provides a built-in [useListData](useListData.md) hook to manage state for an immutable list of items. It includes methods to add, remove, update, and re-order items, and manage corresponding selection state. See the docs for more details.</Content>
+  <Content>For convenience, React Aria provides a built-in [useListData](../utilities/useListData.md) hook to manage state for an immutable list of items. It includes methods to add, remove, update, and re-order items, and manage corresponding selection state. See the docs for more details.</Content>
 </InlineAlert>
 
 ### Unique ids
 
-All items in a collection must have a unique id, which is used for [selection](selection.md) and to track item updates. By default, React Aria looks for an `id` property on each object in the `items` array. You can also specify an `id` prop when rendering each item. This example uses `item.name` as the `id`.
+All items in a collection must have a unique id, which is used for [selection](./selection.md) and to track item updates. By default, React Aria looks for an `id` property on each object in the `items` array. You can also specify an `id` prop when rendering each item. This example uses `item.name` as the `id`.
 
 ```tsx
 let animals = [
@@ -149,8 +147,7 @@ let animals = [
 Dynamic collections are automatically memoized to improve performance. Rendered item elements are cached based on the object identity of the list item. If rendering an item depends on additional external state, the `dependencies` prop must be provided. This invalidates rendered elements similar to dependencies in React's `useMemo` hook.
 
 ```tsx
-import {ListBox, ListBoxItem} from 'vanilla-starter/ListBox';
-import {Text} from 'react-aria-components';
+import {ListBox, ListBoxItem, Text} from 'vanilla-starter/ListBox';
 import {ToggleButtonGroup} from 'vanilla-starter/ToggleButtonGroup';
 import {ToggleButton} from 'vanilla-starter/ToggleButton';
 import {useState} from 'react';
@@ -226,8 +223,8 @@ Note that adding dependencies will result in the *entire* list being invalidated
 To combine multiple sources of data, or mix static and dynamic items, use the `<Collection>` component.
 
 ```tsx
-import {ListBox, ListBoxSection, ListBoxItem} from 'vanilla-starter/ListBox';
-import {Collection, Header} from 'react-aria-components';
+import {ListBox, ListBoxSection, ListBoxItem, Header} from 'vanilla-starter/ListBox';
+import {Collection} from 'react-aria-components/Collection';
 
 let animals = [
   {id: 1, species: 'Aardvark'},
@@ -266,13 +263,14 @@ let people = [
 
 ## Asynchronous loading
 
-Data can be loaded asynchronously using any data fetching library. [useAsyncList](useAsyncList.md) is a built-in option.
+Data can be loaded asynchronously using any data fetching library. [useAsyncList](../utilities/useAsyncList.md) is a built-in option.
 
 Several components also support infinite scrolling by rendering a `LoadMoreItem` at the end of the list. These trigger loading of additional pages of items and display a loading spinner. Multiple load more items can be rendered at once, e.g. when loading multiple levels of a tree or sections in a list.
 
 ```tsx
-import {Collection, ListBoxLoadMoreItem, useAsyncList} from 'react-aria-components';
-import {ListBox, ListBoxItem} from 'vanilla-starter/ListBox';
+import {Collection} from 'react-aria-components/Collection';
+import {useAsyncList} from 'react-aria-components/useAsyncList';
+import {ListBox, ListBoxItem, ListBoxLoadMoreItem} from 'vanilla-starter/ListBox';
 import {ProgressCircle} from 'vanilla-starter/ProgressCircle';
 
 interface Character {

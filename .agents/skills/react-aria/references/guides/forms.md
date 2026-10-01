@@ -7,7 +7,7 @@ Learn how to integrate with HTML forms, validate and submit data, and use React 
 Accessible forms start with clear, descriptive labels for each field. Rendering a `<Label>` within a field automatically associates it with the input. Additional context can also be added via a secondary `description` slot. The label and description are announced by screen readers when the field is focused.
 
 ```tsx
-import {TextField, Label, Input, Text} from 'react-aria-components';
+import {TextField, Label, Input, Text} from 'react-aria-components/TextField';
 
 <TextField type="password">
   {/*- begin highlight -*/}
@@ -32,7 +32,7 @@ How you submit form data depends on your framework, application, and server. By 
 
 When using React 19, use the `action` prop to handle form submission. This receives a [FormData](https://developer.mozilla.org/en-US/docs/Web/API/FormData) object containing the values for each form field. In React 18 or earlier, use the `onSubmit` event instead.
 
-## Vanilla CSS example
+## React 19 example
 
 ```tsx
 import {Form} from 'vanilla-starter/Form';
@@ -50,6 +50,8 @@ import {Button} from 'vanilla-starter/Button';
   <Button type="submit">Submit</Button>
 </Form>
 ```
+
+## React 18 example
 
 ```tsx
 import {Form} from 'vanilla-starter/Form';
@@ -124,7 +126,7 @@ All React Aria form components integrate with HTML [constraint validation](https
 Use the `FieldError` component to display validation errors with custom styles rather than the browser's default UI.
 
 ```tsx
-import {TextField, Label, Input, FieldError} from 'react-aria-components';
+import {TextField, Label, Input, FieldError} from 'react-aria-components/TextField';
 import {Form} from 'vanilla-starter/Form';
 import {Button} from 'vanilla-starter/Button';
 
@@ -144,11 +146,11 @@ import {Button} from 'vanilla-starter/Button';
 
 Supported constraints include:
 
-* `isRequired` indicates that a field must have a value before the form can be submitted.
-* `minValue` and `maxValue` specify the minimum and maximum value in a date picker or number field.
-* `minLength` and `maxLength` specify the minimum and maximum length of text input.
-* `pattern` provides a custom [regular expression](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Regular_expressions) that a text input must conform to.
-* `type="email"` and `type="url"` provide builtin validation for email addresses and URLs.
+- `isRequired` indicates that a field must have a value before the form can be submitted.
+- `minValue` and `maxValue` specify the minimum and maximum value in a date picker or number field.
+- `minLength` and `maxLength` specify the minimum and maximum length of text input.
+- `pattern` provides a custom [regular expression](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Regular_expressions) that a text input must conform to.
+- `type="email"` and `type="url"` provide builtin validation for email addresses and URLs.
 
 See each component's documentation for more details on the supported validation props.
 
@@ -157,7 +159,7 @@ See each component's documentation for more details on the supported validation 
 By default, the `FieldError` component displays the error message provided by the browser, which is localized in the user's preferred language. You can customize these messages by providing a render prop function to `FieldError`. This receives a list of error strings along with a [ValidityState](https://developer.mozilla.org/en-US/docs/Web/API/ValidityState) object describing why the field is invalid.
 
 ```tsx
-import {TextField, Label, Input, FieldError} from 'react-aria-components';
+import {TextField, Label, Input, FieldError} from 'react-aria-components/TextField';
 import {Form} from 'vanilla-starter/Form';
 import {Button} from 'vanilla-starter/Button';
 
@@ -179,7 +181,7 @@ import {Button} from 'vanilla-starter/Button';
 
 <InlineAlert variant="informative">
   <Heading>Localization</Heading>
-  <Content>The default error messages are localized by the browser using the browser/operating system language setting. React Aria's [I18nProvider](I18nProvider.md) has no effect on validation errors.</Content>
+  <Content>The default error messages are localized by the browser using the browser/operating system language setting. React Aria's [I18nProvider](../utilities/I18nProvider.md) has no effect on validation errors.</Content>
 </InlineAlert>
 
 ### Custom validation
@@ -244,7 +246,7 @@ By default, invalid fields block forms from being submitted. To avoid this, use 
 
 Client side validation is useful to give the user immediate feedback, but data should always be validated on the backend for security and reliability. Your business logic may also include rules which cannot be validated on the frontend.
 
-To display server validation errors, set the `validationErrors` prop on the [Form](Form.md) component. This accepts an object that maps each field's `name` prop to one or more error messages. These are displayed as soon as the `validationErrors` prop is set, and cleared after the user modifies each field's value.
+To display server validation errors, set the `validationErrors` prop on the [Form](../components/Form.md) component. This accepts an object that maps each field's `name` prop to one or more error messages. These are displayed as soon as the `validationErrors` prop is set, and cleared after the user modifies each field's value.
 
 ```tsx
 'use client';
@@ -426,7 +428,7 @@ export async function action({request}: Route.ActionArgs) {
 
 ## Form libraries
 
-In most cases, uncontrolled forms with the builtin validation features are sufficient. However, if you are building a truly complex form, or integrating React Aria components into an existing form, a separate form library such as [React Hook Form](https://react-hook-form.com/) or [Formik](https://formik.org/) may be helpful.
+In most cases, uncontrolled forms with the builtin validation features are sufficient. However, if you are building a truly complex form, or integrating React Aria components into an existing form, a separate form library such as [React Hook Form](https://react-hook-form.com/), [Formik](https://formik.org/), or [Formisch](https://formisch.dev/) may be helpful.
 
 ### React Hook Form
 
