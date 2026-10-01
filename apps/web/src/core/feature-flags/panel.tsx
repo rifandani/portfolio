@@ -1,12 +1,12 @@
 "use client";
 
+import { twJoin } from "cn";
 import { useTranslations } from "next-intl";
 import { useRouter } from "next/navigation";
 import { dash } from "radashi";
 import { useState } from "react";
 import { SwitchButton, SwitchField } from "react-aria-components/Switch";
 import { HiMiniArrowPath } from "react-icons/hi2";
-import { twJoin } from "tailwind-merge";
 
 import { Button } from "@/core/components/ui/button";
 import { resolveFeatureEnabled } from "@/core/feature-flags/is-enabled";

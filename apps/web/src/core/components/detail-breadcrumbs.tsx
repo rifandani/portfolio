@@ -1,5 +1,5 @@
+import { cn } from "cn";
 import { getTranslations } from "next-intl/server";
-import { twMerge } from "tailwind-merge";
 
 import { Breadcrumbs, BreadcrumbsItem } from "@/core/components/ui/breadcrumbs";
 
@@ -33,14 +33,14 @@ export const DetailBreadcrumbs = async ({
   const t = await getTranslations();
   const label = t("navBreadcrumb");
   return (
-    <nav aria-label={label} className={twMerge("flex", className)}>
+    <nav aria-label={label} className={cn("flex", className)}>
       {/* React Aria labels the list too, in English unless told otherwise. */}
       <Breadcrumbs aria-label={label} className="min-w-0">
         <BreadcrumbsItem href={parent} className={crumbClass}>
           {t(PARENTS[parent])}
         </BreadcrumbsItem>
         <BreadcrumbsItem
-          className={twMerge(
+          className={cn(
             crumbClass,
             // React Aria marks the current crumb disabled, and the kit Link
             // dims disabled links to 50%. It is not disabled, only current.

@@ -1,7 +1,7 @@
 "use client";
 
+import { cn } from "cn";
 import { useEffect, useRef } from "react";
-import { twMerge } from "tailwind-merge";
 
 import { Link } from "@/core/components/ui/link";
 import { cardLinkClass } from "@/portfolio/components/card-shell";
@@ -122,7 +122,7 @@ export const LitCard = ({
       <Link
         href={href}
         variant="plain"
-        className={twMerge(cardLinkClass, className)}
+        className={cn(cardLinkClass, className)}
       >
         {children}
       </Link>

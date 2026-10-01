@@ -1,8 +1,8 @@
+import { cn } from "cn";
 import type { Route } from "next";
 import { useTranslations } from "next-intl";
 import type { ReactNode } from "react";
 import { HiOutlineArrowRight } from "react-icons/hi2";
-import { twMerge } from "tailwind-merge";
 
 import { SiteContainer } from "@/core/components/site-container";
 import { SiteShell } from "@/core/components/site-shell";
@@ -34,13 +34,13 @@ const destinations = [
  * name holds a fixed column so the three hints start on one line. The name
  * takes the same sweeping rule as the `underline` Link, driven by the row.
  */
-const destinationLinkClass = twMerge(
+const destinationLinkClass = cn(
   "group grid grid-cols-[1fr_auto] items-baseline gap-x-6 gap-y-1 py-4",
   "sm:grid-cols-[10rem_1fr_auto]",
   "focus-visible:outline-offset-4"
 );
 
-const destinationNameClass = twMerge(
+const destinationNameClass = cn(
   "text-fg font-display justify-self-start text-base/6 font-semibold",
   "bg-[linear-gradient(currentColor,currentColor)] bg-[size:0%_1px] bg-[position:0_100%] bg-no-repeat",
   "transition-[background-size] duration-300 ease-out motion-reduce:transition-none",

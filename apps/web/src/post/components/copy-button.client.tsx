@@ -1,8 +1,8 @@
 "use client";
 
+import { twJoin, cn } from "cn";
 import type { ComponentType, SVGProps } from "react";
 import { HiOutlineCheck } from "react-icons/hi2";
-import { twJoin, twMerge } from "tailwind-merge";
 
 import { Button } from "@/core/components/ui/button";
 import { useClipboard } from "@/core/hooks/use-clipboard";
@@ -47,7 +47,7 @@ export const CopyButton = ({
       <Button
         intent="outline"
         size="sm"
-        className={twMerge(
+        className={cn(
           "transition-[border-color] duration-180 motion-reduce:transition-none",
           copied && "border-success/60"
         )}

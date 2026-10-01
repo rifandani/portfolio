@@ -49,7 +49,7 @@ describe("cx", () => {
   });
 
   // The array form must *unwrap* before popping the render prop. Asserting on the
-  // merged string cannot show that: twMerge flattens a nested array to the same
+  // merged string cannot show that: cn flattens a nested array to the same
   // output, so `toContain` passes either way. A render function as the array's last
   // element diverges observably — unwrapped it becomes the className (result is a
   // function), un-unwrapped the whole array is the className (result is a string).

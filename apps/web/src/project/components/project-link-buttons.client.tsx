@@ -1,9 +1,9 @@
 "use client";
 
+import { cn } from "cn";
 import { useTranslations } from "next-intl";
 import type { ReactNode } from "react";
 import { HiOutlineArrowUpRight, HiOutlineWindow } from "react-icons/hi2";
-import { twMerge } from "tailwind-merge";
 
 import { SpriteIcon } from "@/core/components/icon-sprite";
 import { buttonStyles } from "@/core/components/ui/button";
@@ -42,7 +42,7 @@ export const ProjectLinkButtons = ({
   return (
     <ul
       aria-label={t("projectLinks")}
-      className={twMerge(
+      className={cn(
         "grid gap-3 sm:flex sm:flex-wrap sm:items-center",
         className
       )}
@@ -54,7 +54,7 @@ export const ProjectLinkButtons = ({
             target="_blank"
             rel="noopener noreferrer"
             variant="plain"
-            className={twMerge(
+            className={cn(
               buttonStyles({ intent: index === 0 ? "primary" : "outline" }),
               "group w-full sm:w-auto"
             )}

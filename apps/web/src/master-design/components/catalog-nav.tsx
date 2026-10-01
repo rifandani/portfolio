@@ -1,9 +1,9 @@
 "use client";
 
+import { twJoin } from "cn";
 import { useTranslations } from "next-intl";
 import type { CSSProperties } from "react";
 import { useLayoutEffect, useRef, useState } from "react";
-import { twJoin } from "tailwind-merge";
 
 import {
   Disclosure,

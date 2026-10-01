@@ -1,7 +1,7 @@
+import { twJoin } from "cn";
 import { useTranslations } from "next-intl";
 import type { ComponentProps } from "react";
 import { HiMiniCheck, HiMiniXMark } from "react-icons/hi2";
-import { twJoin } from "tailwind-merge";
 
 import { BRAND_LOGO_FILLS } from "@/core/components/brand-logo";
 import type { MessageKey } from "@/core/feature-flags/registry";

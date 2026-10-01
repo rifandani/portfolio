@@ -1,6 +1,6 @@
+import { cn } from "cn";
 import { getTranslations } from "next-intl/server";
 import { HiOutlineTag } from "react-icons/hi2";
-import { twMerge } from "tailwind-merge";
 
 import type { Project } from "@/project/utils/project-source";
 
@@ -19,7 +19,7 @@ export const ProjectMeta = async ({
   const t = await getTranslations();
   return (
     <div
-      className={twMerge(
+      className={cn(
         "text-muted-fg font-mono text-xs/5 sm:text-sm/6",
         className
       )}

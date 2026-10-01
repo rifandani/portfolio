@@ -1,10 +1,10 @@
 "use client";
 
+import { cn } from "cn";
 import { useLocale, useTranslations } from "next-intl";
 import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
 import { HiOutlineArrowsRightLeft } from "react-icons/hi2";
-import { twMerge } from "tailwind-merge";
 
 import { IdBadgeSignature } from "@/portfolio/components/id-badge-signature";
 import { buildBarcode, buildMrzLines } from "@/portfolio/utils/id-badge";
@@ -87,7 +87,7 @@ export const IdBadge = ({
   const barcode = buildBarcode(fullName);
 
   return (
-    <div className={twMerge("id-badge select-none", className)}>
+    <div className={cn("id-badge select-none", className)}>
       <div ref={swingRef} className="id-badge-swing relative">
         <div aria-hidden="true" className="id-badge-strap">
           <span className="id-badge-strap-weave">

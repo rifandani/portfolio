@@ -1,5 +1,5 @@
+import { cn } from "cn";
 import type { ComponentType, ReactNode } from "react";
-import { twMerge } from "tailwind-merge";
 
 import { Heading } from "@/core/components/ui/heading";
 import { Text } from "@/core/components/ui/text";
@@ -37,7 +37,7 @@ export const HomeSection = ({
       </Heading>
       {action}
     </div>
-    <List className={twMerge("mt-6 flex flex-col gap-4", listClassName)}>
+    <List className={cn("mt-6 flex flex-col gap-4", listClassName)}>
       {children}
     </List>
   </section>

@@ -1,4 +1,4 @@
-import { twMerge } from "tailwind-merge";
+import { cn } from "cn";
 
 import type { ContainerProps } from "@/core/components/ui/container";
 import { Container } from "@/core/components/ui/container";
@@ -13,10 +13,7 @@ import { Container } from "@/core/components/ui/container";
  */
 export const SiteContainer = ({ className, ...props }: ContainerProps) => (
   <Container
-    className={twMerge(
-      "[--container-breakpoint:var(--breakpoint-lg)]",
-      className
-    )}
+    className={cn("[--container-breakpoint:var(--breakpoint-lg)]", className)}
     {...props}
   />
 );
