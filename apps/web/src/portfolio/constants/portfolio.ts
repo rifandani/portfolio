@@ -102,6 +102,7 @@ export type TechId =
   | "opentelemetry"
   | "vitest"
   | "playwright"
+  | "codex"
   | "claude-code"
   | "cursor";
 
@@ -187,6 +188,7 @@ export const techStack = {
       id: "ai",
       labelKey: "aboutStackAi",
       tools: [
+        { id: "codex", name: "Codex" },
         { id: "claude-code", name: "Claude Code" },
         { id: "cursor", name: "Cursor" },
       ],

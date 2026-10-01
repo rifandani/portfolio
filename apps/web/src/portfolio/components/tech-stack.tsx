@@ -36,6 +36,11 @@ const PlaywrightMark: Mark = ({ className }) => (
   <SpriteIcon id="icon-playwright" className={className} />
 );
 
+/** Codex uses the OpenAI mark, which is available in the shared icon sprite. */
+const CodexMark: Mark = ({ className }) => (
+  <SpriteIcon id="icon-chatgpt" className={className} />
+);
+
 /** Monochrome marks: they take `currentColor`, never the brand colors. */
 const TECH_MARKS = {
   typescript: SiTypescript,
@@ -57,6 +62,7 @@ const TECH_MARKS = {
   opentelemetry: SiOpentelemetry,
   vitest: SiVitest,
   playwright: PlaywrightMark,
+  codex: CodexMark,
   "claude-code": SiClaude,
   cursor: SiCursor,
 } satisfies Record<TechId, Mark>;
