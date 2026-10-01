@@ -1,4 +1,4 @@
-import { twMerge } from "tailwind-merge";
+import { cn } from "cn";
 
 import { WorkCard } from "@/portfolio/components/work-card";
 import type { ExperienceEntry } from "@/portfolio/constants/portfolio";
@@ -44,10 +44,10 @@ export const WorkTimelineItem = ({
       aria-hidden="true"
       className="flex w-2.5 shrink-0 flex-col items-center"
     >
-      <span className={twMerge("h-[7px] w-px", !isFirst && "bg-muted-fg/30")} />
+      <span className={cn("h-[7px] w-px", !isFirst && "bg-muted-fg/30")} />
       <span
         data-rail-node
-        className={twMerge(
+        className={cn(
           "relative z-[1] size-2.5 shrink-0 rounded-full border",
           nodeToneOf(entry.isCurrent)
         )}
@@ -55,7 +55,7 @@ export const WorkTimelineItem = ({
       {!isLast && <span className="bg-muted-fg/30 w-px flex-1" />}
     </div>
 
-    <div className={twMerge("min-w-0 flex-1", !isLast && "pb-8 sm:pb-10")}>
+    <div className={cn("min-w-0 flex-1", !isLast && "pb-8 sm:pb-10")}>
       <WorkCard entry={entry} />
     </div>
   </li>

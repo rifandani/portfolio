@@ -1,7 +1,7 @@
 "use client";
 
+import { cn } from "cn";
 import { useEffect, useRef } from "react";
-import { twMerge } from "tailwind-merge";
 
 import { mountGlyphEngine } from "@/portfolio/utils/glyph-engine";
 
@@ -27,7 +27,7 @@ export const GlyphEngine = ({ className }: { className?: string }) => {
   return (
     <div
       aria-hidden="true"
-      className={twMerge("pointer-events-none aspect-square", className)}
+      className={cn("pointer-events-none aspect-square", className)}
     >
       <canvas ref={canvasRef} className="block size-full font-mono" />
     </div>

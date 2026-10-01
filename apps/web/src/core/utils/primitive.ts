@@ -1,12 +1,14 @@
+"use client";
+
+import { cn } from "cn";
+import type { ClassNameValue } from "cn";
 import { composeRenderProps } from "react-aria-components/composeRenderProps";
-import type { ClassNameValue } from "tailwind-merge";
-import { twMerge } from "tailwind-merge";
 
 export const composeTailwindRenderProps = <T>(
   className: string | ((v: T) => string) | undefined,
   tailwind: ClassNameValue
 ): string | ((v: T) => string) =>
-  composeRenderProps(className, (_className) => twMerge(tailwind, _className));
+  composeRenderProps(className, (_className) => cn(tailwind, _className));
 type Render<T> = string | ((v: T) => string) | undefined;
 type CxArgs<T> =
   | [...ClassNameValue[], Render<T>]
@@ -24,6 +26,6 @@ export const cx = <T = unknown>(
   const className = resolvedArgs.pop() as Render<T>;
   // SAFETY: with the render prop popped, only class-name values remain.
   const tailwinds = resolvedArgs as ClassNameValue[];
-  const fixed = twMerge(...tailwinds);
-  return composeRenderProps(className, (cn) => twMerge(fixed, cn));
+  const fixed = cn(...tailwinds);
+  return composeRenderProps(className, (merged) => cn(fixed, merged));
 };

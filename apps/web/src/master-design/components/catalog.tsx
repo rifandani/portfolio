@@ -1,9 +1,9 @@
 "use client";
 
 import { useMount } from "@reactuses/core";
+import { twJoin } from "cn";
 import { useTranslations } from "next-intl";
 import { useRef, useState } from "react";
-import { twJoin } from "tailwind-merge";
 
 import { BrandLogo } from "@/core/components/brand-logo";
 import { LanguageToggle } from "@/core/components/language-toggle.client";

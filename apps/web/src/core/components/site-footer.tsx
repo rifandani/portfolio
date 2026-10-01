@@ -1,5 +1,5 @@
+import { cn } from "cn";
 import { useTranslations } from "next-intl";
-import { twMerge } from "tailwind-merge";
 
 import { SiteContainer } from "@/core/components/site-container";
 import { Text } from "@/core/components/ui/text";
@@ -13,7 +13,7 @@ const footerMetaClass =
  * Site files keep their real, lowercase file names in mono, so they read as
  * the files they are. The rule sweeps in like the `underline` Link variant.
  */
-const footerFileLinkClass = twMerge(
+const footerFileLinkClass = cn(
   "text-muted-fg hover:text-fg font-mono text-xs/5 sm:text-xs/5",
   "bg-[linear-gradient(currentColor,currentColor)] bg-[size:0%_1px] bg-[position:0_100%] bg-no-repeat",
   "transition-[background-size,color] duration-300 ease-out motion-reduce:transition-none",

@@ -1,6 +1,6 @@
+import { cn } from "cn";
 import { getLocale, getTranslations } from "next-intl/server";
 import { HiOutlineCalendarDays, HiOutlineClock } from "react-icons/hi2";
-import { twMerge } from "tailwind-merge";
 
 import type { Post } from "@/post/utils/post-source";
 
@@ -23,7 +23,7 @@ export const PostMeta = async ({
   const [t, locale] = await Promise.all([getTranslations(), getLocale()]);
   return (
     <p
-      className={twMerge(
+      className={cn(
         "text-muted-fg flex flex-wrap items-center gap-x-3 gap-y-1 font-mono text-xs/5 sm:text-sm/6",
         className
       )}

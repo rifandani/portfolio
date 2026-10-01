@@ -1,6 +1,6 @@
+import { cn } from "cn";
 import type { ReactNode } from "react";
 import { HiOutlineArrowLeft, HiOutlineArrowRight } from "react-icons/hi2";
-import { twMerge } from "tailwind-merge";
 
 import { LitCard } from "@/portfolio/components/lit-card.client";
 
@@ -47,11 +47,9 @@ const PagerCard = ({
   const { Arrow, columnClass, labelClass } = pagerCardLayouts[direction];
   return (
     <LitCard href={side.href} className="h-full">
-      <div
-        className={twMerge("relative flex flex-col items-start", columnClass)}
-      >
+      <div className={cn("relative flex flex-col items-start", columnClass)}>
         <span
-          className={twMerge(
+          className={cn(
             "text-muted-fg inline-flex items-center gap-1.5 font-mono text-xs/5 sm:text-sm/6",
             labelClass
           )}

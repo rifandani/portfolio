@@ -1,5 +1,5 @@
+import { cn } from "cn";
 import type { ReactNode, SVGProps } from "react";
-import { twMerge } from "tailwind-merge";
 
 import {
   BRAND_LOGO_FILLS,
@@ -30,7 +30,7 @@ export const BrandPlate = ({
   children: ReactNode;
 }) => (
   <div
-    className={twMerge(
+    className={cn(
       "relative flex items-center justify-center overflow-hidden rounded-lg border",
       ground === "light" ? "border-border" : "border-white/10",
       BRAND_GROUNDS[ground],

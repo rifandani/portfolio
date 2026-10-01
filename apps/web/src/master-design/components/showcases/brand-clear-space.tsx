@@ -1,5 +1,5 @@
+import { twJoin } from "cn";
 import { useTranslations } from "next-intl";
-import { twJoin } from "tailwind-merge";
 
 import type { MessageKey } from "@/core/feature-flags/registry";
 import {

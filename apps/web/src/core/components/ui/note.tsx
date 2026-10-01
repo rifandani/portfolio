@@ -1,14 +1,16 @@
-'use client'
-
-import { HiCheckCircle, HiExclamationCircle, HiInformationCircle } from 'react-icons/hi2'
-import { twJoin, twMerge } from 'tailwind-merge'
+import {
+  HiCheckCircle,
+  HiExclamationCircle,
+  HiInformationCircle,
+} from "react-icons/hi2"
+import { twJoin, cn } from "cn"
 
 export interface NoteProps extends React.HtmlHTMLAttributes<HTMLDivElement> {
-  intent?: 'default' | 'info' | 'warning' | 'danger' | 'success'
+  intent?: "default" | "info" | "warning" | "danger" | "success"
   indicator?: boolean
 }
 
-export function Note({ indicator = true, intent = 'default', className, ...props }: NoteProps) {
+export function Note({ indicator = true, intent = "default", className, ...props }: NoteProps) {
   const iconMap: Record<string, React.ElementType | null> = {
     info: HiInformationCircle,
     warning: HiExclamationCircle,
@@ -22,18 +24,18 @@ export function Note({ indicator = true, intent = 'default', className, ...props
   return (
     <div
       data-slot="note"
-      className={twMerge([
-        'grid w-full grid-cols-[auto_1fr] overflow-hidden rounded-lg border border-current/15 p-4 text-base/6 backdrop-blur-2xl sm:text-sm/6',
-        '*:[a]:hover:underline **:[strong]:font-medium',
-        intent === 'default' && 'bg-muted/50 text-secondary-fg',
-        intent === 'info' &&
-          'bg-info-subtle text-info-subtle-fg **:[.text-muted-fg]:text-info-subtle-fg/70',
-        intent === 'warning' &&
-          'bg-warning-subtle text-warning-subtle-fg **:[.text-muted-fg]:text-warning-subtle-fg/80',
-        intent === 'danger' &&
-          'bg-danger-subtle text-danger-subtle-fg **:[.text-muted-fg]:text-danger-subtle-fg/80',
-        intent === 'success' &&
-          'bg-success-subtle text-success-subtle-fg **:[.text-muted-fg]:text-success-subtle-fg/80',
+      className={cn([
+        "grid w-full grid-cols-[auto_1fr] overflow-hidden rounded-lg border border-current/15 p-4 text-base/6 backdrop-blur-2xl sm:text-sm/6",
+        "*:[a]:hover:underline **:[strong]:font-medium",
+        intent === "default" && "bg-muted/50 text-secondary-fg",
+        intent === "info" &&
+          "bg-info-subtle text-info-subtle-fg **:[.text-muted-fg]:text-info-subtle-fg/70",
+        intent === "warning" &&
+          "bg-warning-subtle text-warning-subtle-fg **:[.text-muted-fg]:text-warning-subtle-fg/80",
+        intent === "danger" &&
+          "bg-danger-subtle text-danger-subtle-fg **:[.text-muted-fg]:text-danger-subtle-fg/80",
+        intent === "success" &&
+          "bg-success-subtle text-success-subtle-fg **:[.text-muted-fg]:text-success-subtle-fg/80",
         className,
       ])}
       {...props}
@@ -41,20 +43,20 @@ export function Note({ indicator = true, intent = 'default', className, ...props
       {IconComponent && indicator && (
         <div
           className={twJoin(
-            'me-3 grid size-8 place-content-center rounded-full border-2',
-            intent === 'warning' && 'border-warning-subtle-fg/40',
-            intent === 'success' && 'border-success-subtle-fg/40',
-            intent === 'danger' && 'border-danger-subtle-fg/40',
-            intent === 'info' && 'border-info-subtle-fg/40'
+            "me-3 grid size-8 place-content-center rounded-full border-2",
+            intent === "warning" && "border-warning-subtle-fg/40",
+            intent === "success" && "border-success-subtle-fg/40",
+            intent === "danger" && "border-danger-subtle-fg/40",
+            intent === "info" && "border-info-subtle-fg/40"
           )}
         >
           <div
             className={twJoin(
-              'grid size-6 place-content-center rounded-full border-2',
-              intent === 'warning' && 'border-warning-subtle-fg/85',
-              intent === 'success' && 'border-success-subtle-fg/85',
-              intent === 'danger' && 'border-danger-subtle-fg/85',
-              intent === 'info' && 'border-info-subtle-fg/85'
+              "grid size-6 place-content-center rounded-full border-2",
+              intent === "warning" && "border-warning-subtle-fg/85",
+              intent === "success" && "border-success-subtle-fg/85",
+              intent === "danger" && "border-danger-subtle-fg/85",
+              intent === "info" && "border-info-subtle-fg/85"
             )}
           >
             <IconComponent className="size-5 shrink-0" />

@@ -1,9 +1,9 @@
 "use client";
 
+import { twJoin } from "cn";
 import { useTranslations } from "next-intl";
 import type { CSSProperties } from "react";
 import { useEffect, useId, useLayoutEffect, useRef, useState } from "react";
-import { twJoin } from "tailwind-merge";
 
 import type { OutlineEntry } from "@/post/utils/post-outline";
 

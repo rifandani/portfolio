@@ -1,4 +1,4 @@
-import { twMerge } from "tailwind-merge";
+import { cn } from "cn";
 
 /**
  * Shared silhouette for project and post cards: soft-rect 8px, hairline
@@ -8,7 +8,7 @@ import { twMerge } from "tailwind-merge";
  * no shell. Every card that uses this shell is also a link, so the shell is
  * only ever the base for `cardLinkClass`.
  */
-const cardShellClass = twMerge(
+const cardShellClass = cn(
   "border-border bg-card text-card-fg rounded-lg border p-5 shadow-xs sm:p-6"
 );
 
@@ -21,7 +21,7 @@ const cardShellClass = twMerge(
  * drifts the preview print. The card itself never moves, so Flat-By-Default
  * holds. Keyboard focus lights it from the centre and keeps the outline ring.
  */
-export const cardLinkClass = twMerge(
+export const cardLinkClass = cn(
   cardShellClass,
   "card-lit block no-underline",
   "focus-visible:outline-ring outline-0 focus-visible:outline-2 focus-visible:outline-offset-2"

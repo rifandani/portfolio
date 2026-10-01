@@ -1,10 +1,10 @@
 "use client";
 
+import { twJoin } from "cn";
 import { useTheme } from "next-themes";
 import { createContext } from "react";
 import type { ComponentPropsWithoutRef, CSSProperties } from "react";
 import type { Toaster } from "sonner";
-import { twJoin } from "tailwind-merge";
 
 import { useResetState } from "@/core/hooks/use-reset-state";
 

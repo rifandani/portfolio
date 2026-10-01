@@ -1,6 +1,6 @@
+import { twJoin } from "cn";
 import { useTranslations } from "next-intl";
 import { HiOutlineCheck, HiOutlineSquare2Stack } from "react-icons/hi2";
-import { twJoin } from "tailwind-merge";
 
 import type { MessageKey } from "@/core/feature-flags/registry";
 import { useClipboard } from "@/core/hooks/use-clipboard";
