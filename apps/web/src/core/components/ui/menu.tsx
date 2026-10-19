@@ -129,11 +129,23 @@ const MenuItem = ({ className, intent, children, ...props }: MenuItemProps) => {
     >
       {(values) => (
         <>
-          {values.isSelected && ["single", "multiple"].includes(values.selectionMode) && (
-            <HiMiniCheck />
+          {typeof children === "function" ? (
+            children(values)
+          ) : typeof children === "string" ? (
+            <DropdownLabel>{children}</DropdownLabel>
+          ) : (
+            children
           )}
 
-          {typeof children === "function" ? children(values) : children}
+          {values.isSelected && ["single", "multiple"].includes(values.selectionMode) && (
+            <HiMiniCheck
+              data-slot="check-indicator"
+              className={cn(
+                "absolute top-1/2 -translate-y-1/2",
+                values.hasSubmenu ? "inset-e-6" : "inset-e-0.5"
+              )}
+            />
+          )}
 
           {values.hasSubmenu && (
             <HiMiniChevronRight

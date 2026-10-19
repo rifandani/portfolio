@@ -91,18 +91,18 @@ const ListBoxItem = <T extends object>({ children, className, ...props }: ListBo
                 />
               </svg>
             )}
-            {isSelected && (
-              <HiMiniCheck
-                className="-mx-0.5 me-2 mt-0.5 h-lh w-5 shrink-0 group-allows-dragging:col-start-2 sm:mt-1 sm:w-4"
-                data-slot="check-indicator"
-              />
-            )}
             {typeof children === "function" ? (
               children(renderProps)
             ) : typeof children === "string" ? (
               <DropdownLabel>{children}</DropdownLabel>
             ) : (
               children
+            )}
+            {isSelected && (
+              <HiMiniCheck
+                className="absolute inset-e-0.5 top-1/2 h-lh w-4 shrink-0 -translate-y-1/2"
+                data-slot="check-indicator"
+              />
             )}
           </>
         )

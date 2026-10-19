@@ -8,7 +8,7 @@ import type { ListBoxItemProps, ListBoxSectionProps } from "react-aria-component
 import { ListBoxItem as ListBoxItemPrimitive, ListBoxSection } from "react-aria-components/ListBox"
 import { Separator, type SeparatorProps } from "react-aria-components/Separator"
 import { Text, type TextProps } from "react-aria-components/Text"
-import { twJoin, cn } from "cn"
+import { cn } from "cn"
 import { tv } from "tailwind-variants"
 import { Keyboard } from "./keyboard"
 
@@ -116,17 +116,13 @@ const DropdownItem = ({ className, children, intent, ...props }: DropdownItemPro
     >
       {composeRenderProps(children, (children, { isSelected }) => (
         <>
+          {typeof children === "string" ? <DropdownLabel>{children}</DropdownLabel> : children}
           {isSelected && (
             <HiMiniCheck
-              className={twJoin(
-                "-ms-0.5 me-1.5 h-lh w-4 shrink-0",
-                "group-has-[svg:not([data-slot='check-indicator'])]:absolute group-has-[svg:not([data-slot='check-indicator'])]:inset-e-0.5 group-has-[svg:not([data-slot='check-indicator'])]:top-1/2 group-has-[svg:not([data-slot='check-indicator'])]:-translate-y-1/2",
-                "group-has-data-[slot=avatar]:absolute group-has-data-[slot=avatar]:inset-e-0.5 group-has-data-[slot=avatar]:top-1/2 group-has-data-[slot=avatar]:-translate-y-1/2"
-              )}
+              className="absolute inset-e-0.5 top-1/2 h-lh w-4 shrink-0 -translate-y-1/2"
               data-slot="check-indicator"
             />
           )}
-          {typeof children === "string" ? <DropdownLabel>{children}</DropdownLabel> : children}
         </>
       ))}
     </ListBoxItemPrimitive>
