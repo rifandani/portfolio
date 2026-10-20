@@ -12,11 +12,11 @@ import { AppToastProvider } from "@/core/providers/toast/provider.client";
 import { WebVitals } from "@/core/providers/web-vitals.client";
 
 /**
- * Devtools carry the TanStack query/form panels and `agentation` — several
- * hundred KB of client JS that a production visitor never opens. A static
- * import keeps all of it in the shared bundle, so the panel is behind both a
- * build-time constant (the branch minifies away in production) and
- * `next/dynamic` (the chunk is requested only once the branch is live).
+ * Devtools carry the TanStack query/form panels — several hundred KB of
+ * client JS that a production visitor never opens. A static import keeps all
+ * of it in the shared bundle, so the panel is behind both a build-time
+ * constant (the branch minifies away in production) and `next/dynamic` (the
+ * chunk is requested only once the branch is live).
  */
 const isDev = process.env.NODE_ENV === "development";
 

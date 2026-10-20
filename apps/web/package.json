@@ -79,7 +79,6 @@
     "@types/react-dom": "19.3.0",
     "@vite-pwa/assets-generator": "2.0.0",
     "@workspace/typescript-config": "workspace:*",
-    "agentation": "3.1.2",
     "babel-plugin-react-compiler": "1.0.0",
     "postcss": "8.5.28",
     "tailwindcss": "4.3.3",

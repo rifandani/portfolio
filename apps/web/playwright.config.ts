@@ -56,7 +56,7 @@ export default defineConfig({
   /* Run your local dev server before starting the tests */
   webServer: {
     timeout: 5 * 60 * 1000, // default is 60s
-    // Keeps TanStack Devtools and Agentation unmounted during E2E runs
+    // Keeps TanStack Devtools unmounted during E2E runs
     env: { NEXT_PUBLIC_E2E: "true" },
     url: baseURL,
     // in CI, we run `build-and-preview` instead of `dev`
