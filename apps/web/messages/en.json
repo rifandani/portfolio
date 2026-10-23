@@ -464,7 +464,7 @@
   "experienceClaudeCodeHighlight5": "Enabled a team with no prior AI coding agent experience to deliver with Claude Code from day one by defining a structured documentation tree and an operational policy for human and agent collaboration.",
   "experienceFrontendStandardName": "Frontend Development Standard for React",
   "experienceFrontendStandardHighlight1": "Maintain the customer's frontend development standard to standardize development across their React projects, delivered as a private UI and design system library, a version-controlled handbook aligned with the official React guidelines, a template app, and a sample app.",
-  "experienceFrontendStandardHighlight2": "Enabled teams to ship consistent UI faster by maintaining a private UI and design system library on Material UI and Emotion, documented in Storybook and protected by Chromatic visual tests.",
+  "experienceFrontendStandardHighlight2": "Enabled 13+ teams to ship consistent UI faster by maintaining a private UI and design system library on Material UI and Emotion, documented in Storybook and verified by Chromatic visual tests.",
   "experienceFrontendStandardHighlight3": "Accelerated new project kickoff by providing a React template app with routing, state management, forms, i18n, authentication, and testing ready to use from the first commit.",
   "experienceFrontendStandardHighlight4": "Shortened the learning curve for new developers by building a React sample app that demonstrates the handbook's practices and the library's capabilities in working code.",
   "experienceLogisticsAftersalesName": "Logistics Aftersales Solutions",
