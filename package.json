@@ -66,7 +66,13 @@
     "brace-expansion": "5.0.12",
     "browserslist": "4.29.1",
     "fast-uri": "3.1.8",
-    "sharp": "0.35.4"
+    "launch-editor": "2.14.2",
+    "seroval": "1.7.7",
+    "seroval-plugins": "1.7.7",
+    "sharp": "0.35.5",
+    "shell-quote": "1.12.0",
+    "source-map-js": "1.2.2",
+    "vite": "8.3.6"
   },
   "engines": {
     "node": ">=26.0.0"
