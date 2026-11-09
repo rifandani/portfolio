@@ -2,7 +2,7 @@ import { describe, expect, it, vi } from "vitest";
 
 import sitemap from "./sitemap";
 
-vi.mock("@/core/constants/env", () => ({
+vi.mock("@/shared/constants/env", () => ({
   ENV: { NEXT_PUBLIC_APP_URL: "https://web.portfolio.localhost" },
 }));
 
@@ -10,7 +10,7 @@ vi.mock("@/app/page-routes", () => ({
   pageRoutes: () => ["/", "/about"],
 }));
 
-vi.mock("@/post/services/posts", () => ({
+vi.mock("@/features/post/services/posts", () => ({
   getPosts: () => [
     {
       publishedAt: "2024-05-12",
@@ -20,7 +20,7 @@ vi.mock("@/post/services/posts", () => ({
   ],
 }));
 
-vi.mock("@/project/services/projects", () => ({
+vi.mock("@/features/project/services/projects", () => ({
   getProjects: () => [{ slug: "signal-kit" }],
 }));
 

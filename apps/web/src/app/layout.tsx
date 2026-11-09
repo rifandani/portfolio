@@ -8,13 +8,13 @@ import { ThemeProvider as NextThemesProvider } from "next-themes";
 import { connection } from "next/server";
 import { NuqsAdapter } from "nuqs/adapters/next/app";
 
-import { IconSprite } from "@/core/components/icon-sprite";
-import { AppProviders } from "@/core/providers/providers.client";
-import { fontVariables } from "@/core/styles/fonts";
-import { createMetadata } from "@/core/utils/seo";
-import { portfolioIdentity } from "@/portfolio/constants/portfolio";
+import { IconSprite } from "@/components/icon-sprite";
+import { AppProviders } from "@/providers/providers.client";
+import { portfolioIdentity } from "@/shared/constants/identity";
+import { fontVariables } from "@/styles/fonts";
+import { createMetadata } from "@/utils/seo";
 
-import "@/core/styles/globals.css";
+import "@/styles/globals.css";
 
 // Vercel serves these script routes. The self-hosted E2E server does not.
 const isE2E = process.env.NEXT_PUBLIC_E2E === "true";

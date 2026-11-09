@@ -104,7 +104,7 @@ Web app.
 
 **Project**: One piece of work on the Public Site. Like a Post, it has one language, and all Locales show the same text. _Avoid_: portfolio item, work, repo, case study
 
-**Project Source**: The written file of one Project — its metadata and its Markdown text, in `src/project/content`. It follows the Post Source rules (ADR-0004, ADR-0005). _Avoid_: md file, content file, project entry
+**Project Source**: The written file of one Project — its metadata and its Markdown text, in `src/features/project/content`. It follows the Post Source rules (ADR-0004, ADR-0005). _Avoid_: md file, content file, project entry
 
 **Tags**: The technologies of one Project, in the order its Project Source gives them. On a Project Detail they take the place of the publish date and the reading time of a Post. _Avoid_: stack, labels, badges, keywords
 

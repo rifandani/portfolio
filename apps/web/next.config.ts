@@ -3,7 +3,7 @@ import path from "node:path";
 import type { NextConfig } from "next";
 import createNextIntlPlugin from "next-intl/plugin";
 
-const withNextIntl = createNextIntlPlugin("./src/core/utils/i18n.ts");
+const withNextIntl = createNextIntlPlugin("./src/server/utils/i18n.ts");
 
 /**
  * Self-hosting (Docker / plain Node) opts in explicitly via BUILD_STANDALONE=1.
@@ -33,7 +33,10 @@ const config: NextConfig = {
    * tracer cannot see a directory read, so name the files. See ADR-0004 (web).
    */
   outputFileTracingIncludes: {
-    "/**": ["./src/post/content/*.md", "./src/project/content/*.md"],
+    "/**": [
+      "./src/features/post/content/*.md",
+      "./src/features/project/content/*.md",
+    ],
     // The OG route reads its faces and the Project previews from disk.
     "/api/og": [
       "./src/app/api/og/fonts/*.ttf",

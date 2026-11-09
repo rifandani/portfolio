@@ -1,18 +1,18 @@
 import { getTranslations } from "next-intl/server";
 
-import { SiteContainer } from "@/core/components/site-container";
-import { SiteShell } from "@/core/components/site-shell";
-import { Heading } from "@/core/components/ui/heading";
-import { Text } from "@/core/components/ui/text";
+import { SiteShell } from "@/app/_components/site-shell";
+import { SiteContainer } from "@/components/site-container";
+import { Heading } from "@/components/ui/heading";
+import { Text } from "@/components/ui/text";
+import { ProjectCard } from "@/features/project/components/project-card";
+import { getProjects } from "@/features/project/services/projects";
+import { createProjectCollection } from "@/features/project/utils/project-ld";
 import {
   createMetadata,
   createPerson,
   createWebSite,
   JsonLd,
-} from "@/core/utils/seo";
-import { ProjectCard } from "@/project/components/project-card";
-import { getProjects } from "@/project/services/projects";
-import { createProjectCollection } from "@/project/utils/project-ld";
+} from "@/utils/seo";
 
 const title = "Projects";
 const description = "Projects by Tri Rizeki Rifandani";

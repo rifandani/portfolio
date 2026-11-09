@@ -1,11 +1,11 @@
 import type { MetadataRoute } from "next";
 
 import { pageRoutes } from "@/app/page-routes";
-import { ENV } from "@/core/constants/env";
-import { getPosts } from "@/post/services/posts";
-import { postPath } from "@/post/utils/slug";
-import { getProjects } from "@/project/services/projects";
-import { projectPath } from "@/project/utils/project-path";
+import { getPosts } from "@/features/post/services/posts";
+import { postPath } from "@/features/post/utils/slug";
+import { getProjects } from "@/features/project/services/projects";
+import { projectPath } from "@/features/project/utils/project-path";
+import { ENV } from "@/shared/constants/env";
 
 const absoluteUrl = (route: string) =>
   new URL(route, ENV.NEXT_PUBLIC_APP_URL).href;

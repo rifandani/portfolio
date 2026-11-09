@@ -3,10 +3,27 @@ import { getTranslations } from "next-intl/server";
 import Image from "next/image";
 import { notFound } from "next/navigation";
 
-import { DetailBreadcrumbs } from "@/core/components/detail-breadcrumbs";
-import { SiteContainer } from "@/core/components/site-container";
-import { SiteShell } from "@/core/components/site-shell";
-import { Heading } from "@/core/components/ui/heading";
+import { SiteShell } from "@/app/_components/site-shell";
+import { DetailBreadcrumbs } from "@/components/detail-breadcrumbs";
+import { PreviewMorph } from "@/components/preview-morph";
+import { SiteContainer } from "@/components/site-container";
+import { Heading } from "@/components/ui/heading";
+import { PageActions } from "@/features/post/components/page-actions.client";
+import { PostDocument } from "@/features/post/components/post-document";
+import { PostOutline } from "@/features/post/components/post-outline.client";
+import { ShareActions } from "@/features/post/components/share-actions.client";
+import { outlineOf, POST_TITLE_ID } from "@/features/post/utils/post-outline";
+import { ProjectLinkButtons } from "@/features/project/components/project-link-buttons.client";
+import { ProjectMeta } from "@/features/project/components/project-meta";
+import { ProjectPager } from "@/features/project/components/project-pager";
+import { getProject, getProjects } from "@/features/project/services/projects";
+import { adjacentProjects } from "@/features/project/utils/project-collection";
+import { createProjectCreativeWork } from "@/features/project/utils/project-ld";
+import { projectLinksOf } from "@/features/project/utils/project-links";
+import {
+  projectMarkdownPath,
+  projectPath,
+} from "@/features/project/utils/project-path";
 import {
   absoluteUrl,
   createBreadcrumbList,
@@ -14,21 +31,7 @@ import {
   createPerson,
   createWebSite,
   JsonLd,
-} from "@/core/utils/seo";
-import { PreviewMorph } from "@/portfolio/components/preview-morph";
-import { PageActions } from "@/post/components/page-actions.client";
-import { PostDocument } from "@/post/components/post-document";
-import { PostOutline } from "@/post/components/post-outline.client";
-import { ShareActions } from "@/post/components/share-actions.client";
-import { outlineOf, POST_TITLE_ID } from "@/post/utils/post-outline";
-import { ProjectLinkButtons } from "@/project/components/project-link-buttons.client";
-import { ProjectMeta } from "@/project/components/project-meta";
-import { ProjectPager } from "@/project/components/project-pager";
-import { getProject, getProjects } from "@/project/services/projects";
-import { adjacentProjects } from "@/project/utils/project-collection";
-import { createProjectCreativeWork } from "@/project/utils/project-ld";
-import { projectLinksOf } from "@/project/utils/project-links";
-import { projectMarkdownPath, projectPath } from "@/project/utils/project-path";
+} from "@/utils/seo";
 
 /** Every Slug is known at build time; any other Slug is a 404. */
 export const dynamicParams = false;

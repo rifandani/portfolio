@@ -1,8 +1,8 @@
 import type { Metadata } from "next";
 import { getTranslations } from "next-intl/server";
 
-import { NotFoundScreen } from "@/core/components/not-found-screen";
-import { createMetadata } from "@/core/utils/seo";
+import { NotFoundScreen } from "@/app/_components/not-found-screen";
+import { createMetadata } from "@/utils/seo";
 
 /** Next.js adds `noindex` to every 404 response, so robots stay default. */
 export const generateMetadata = async (): Promise<Metadata> => {

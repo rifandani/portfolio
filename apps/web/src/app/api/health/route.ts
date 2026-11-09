@@ -1,4 +1,4 @@
-import { useLogger, withEvlog } from "@/core/utils/evlog";
+import { useLogger, withEvlog } from "@/server/utils/evlog";
 
 export const GET = withEvlog(() => {
   const log = useLogger();

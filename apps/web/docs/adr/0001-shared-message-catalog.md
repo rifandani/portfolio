@@ -1,6 +1,6 @@
 # next-intl owns Message Catalogs
 
-The app translates only through next-intl. Message Catalogs live in `apps/web/messages/{locale}.json`. Locale is read from the `NEXT_LOCALE` cookie in `apps/web/src/core/utils/i18n.ts` (`getRequestConfig`). UI uses `useTranslations` / `getTranslations`; locale changes go through `setUserLocaleAction`.
+The app translates only through next-intl. Message Catalogs live in `apps/web/messages/{locale}.json`. Locale is read from the `NEXT_LOCALE` cookie in `apps/web/src/server/utils/i18n.ts` (`getRequestConfig`). UI uses `useTranslations` / `getTranslations`; locale changes go through `setUserLocaleAction`.
 
 ## Considered Options
 

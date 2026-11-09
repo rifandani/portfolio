@@ -1,9 +1,9 @@
 import type { Metadata } from "next";
 import { getTranslations } from "next-intl/server";
 
-import { SiteShell } from "@/core/components/site-shell";
-import { createMetadata } from "@/core/utils/seo";
-import { GalleryExperience } from "@/gallery/components/gallery-experience.client";
+import { SiteShell } from "@/app/_components/site-shell";
+import { GalleryExperience } from "@/features/gallery/components/gallery-experience.client";
+import { createMetadata } from "@/utils/seo";
 
 export const generateMetadata = async (): Promise<Metadata> => {
   const t = await getTranslations();

@@ -1,8 +1,8 @@
 /* oxlint-disable react-doctor/only-export-components, react-doctor/no-inline-exhaustive-style -- Satori lays out inline styles only; there is no stylesheet */
 import type { CSSProperties, ReactElement, ReactNode } from "react";
 
-import { brandLogoSvgMarkup } from "@/core/components/brand-logo";
-import type { StillCell } from "@/portfolio/utils/glyph-engine";
+import { brandLogoSvgMarkup } from "@/components/brand-logo";
+import type { StillCell } from "@/features/portfolio/utils/glyph-engine";
 
 import { stillRuns } from "./og-still";
 import type { StillTone } from "./og-still";

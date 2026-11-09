@@ -5,15 +5,24 @@
     "patterns": ["apps/*", "packages/*"]
   },
   "ignoreExports": [
-    { "file": "apps/web/**/components/ui/**", "exports": ["*"] },
-    { "file": "apps/web/src/core/hooks/**", "exports": ["*"] },
-    { "file": "apps/web/src/core/utils/evlog.ts", "exports": ["*"] },
+    {
+      "file": "apps/web/**/components/ui/**",
+      "exports": ["*"]
+    },
+    {
+      "file": "apps/web/src/hooks/**",
+      "exports": ["*"]
+    },
+    {
+      "file": "apps/web/src/server/utils/evlog.ts",
+      "exports": ["*"]
+    },
     {
       "file": "vitest.msw.ts",
       "exports": ["*"]
     },
     {
-      "file": "apps/web/src/core/utils/i18n.ts",
+      "file": "apps/web/src/server/utils/i18n.ts",
       "exports": ["default"]
     }
   ],
@@ -29,8 +38,8 @@
       "files": [
         "apps/web/pwa-assets.config.ts",
         "apps/web/src/test/server-only-stub.ts",
-        "apps/web/src/core/components/typed-links.client.tsx",
-        "apps/web/src/core/hooks/**",
+        "apps/web/src/components/typed-links.client.tsx",
+        "apps/web/src/hooks/**",
         "oxfmt.config.ts",
         "oxlint.config.ts",
         "stryker.config.mjs",
@@ -42,7 +51,7 @@
       }
     },
     {
-      "files": ["apps/web/src/core/hooks/**"],
+      "files": ["apps/web/src/hooks/**"],
       "rules": {
         "unused-types": "off"
       }
@@ -54,14 +63,14 @@
     "ignore": [
       "apps/web/playwright.config.ts",
       "apps/web/vitest.config.ts",
-      "apps/web/src/core/styles/globals.css",
-      "apps/web/src/core/utils/telemetry.ts",
-      "apps/web/src/core/hooks/use-cdn-file-mutation.ts",
-      "apps/web/src/core/hooks/use-cdn-file-query.ts",
-      "apps/web/src/core/hooks/use-clipboard.ts",
-      "apps/web/src/core/hooks/use-lazy-query.ts",
-      "apps/web/src/core/hooks/use-mobile.ts",
-      "apps/web/src/core/providers/toast/context.client.tsx"
+      "apps/web/src/styles/globals.css",
+      "apps/web/src/utils/telemetry.ts",
+      "apps/web/src/hooks/use-cdn-file-mutation.ts",
+      "apps/web/src/hooks/use-cdn-file-query.ts",
+      "apps/web/src/hooks/use-clipboard.ts",
+      "apps/web/src/hooks/use-lazy-query.ts",
+      "apps/web/src/hooks/use-mobile.ts",
+      "apps/web/src/providers/toast/context.client.tsx"
     ]
   },
   "health": {

@@ -14,17 +14,17 @@ import {
   useSyncExternalStore,
 } from "react";
 
-import { ErrorScreen } from "@/core/components/error-screen.client";
-import type { I18NLocale } from "@/core/constants/i18n";
+import { ErrorScreen } from "@/app/_components/error-screen.client";
+import type { I18NLocale } from "@/shared/constants/i18n";
 import {
   I18N_COOKIE_NAME,
   I18N_DEFAULT_LOCALE,
   I18N_LOCALES,
-} from "@/core/constants/i18n";
-import { fontVariables } from "@/core/styles/fonts";
-import { errorAttributesFromUnknown } from "@/core/utils/error-helper";
+} from "@/shared/constants/i18n";
+import { fontVariables } from "@/styles/fonts";
+import { errorAttributesFromUnknown } from "@/utils/error-helper";
 
-import "@/core/styles/globals.css";
+import "@/styles/globals.css";
 
 /**
  * `global-error` replaces the root layout, so nothing the layout reads on the

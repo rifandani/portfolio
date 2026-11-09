@@ -1,5 +1,5 @@
-import { postMarkdownPath } from "@/post/utils/slug";
-import { projectMarkdownPath } from "@/project/utils/project-path";
+import { postMarkdownPath } from "@/features/post/utils/slug";
+import { projectMarkdownPath } from "@/features/project/utils/project-path";
 
 /** One entry of an llms.txt file list: a link and an optional note. */
 interface LlmsTxtLink {

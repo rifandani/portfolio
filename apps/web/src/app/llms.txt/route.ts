@@ -1,10 +1,7 @@
-import { ENV } from "@/core/constants/env";
-import {
-  portfolioIdentity,
-  socialLinks,
-} from "@/portfolio/constants/portfolio";
-import { getPosts } from "@/post/services/posts";
-import { getProjects } from "@/project/services/projects";
+import { getPosts } from "@/features/post/services/posts";
+import { getProjects } from "@/features/project/services/projects";
+import { ENV } from "@/shared/constants/env";
+import { portfolioIdentity, socialLinks } from "@/shared/constants/identity";
 
 // llms.txt has one language, like a Post, so it reads the English Message Catalog directly.
 import messages from "../../../messages/en.json";

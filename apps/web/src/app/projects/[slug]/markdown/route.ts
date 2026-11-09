@@ -1,6 +1,6 @@
 import { notFound } from "next/navigation";
 
-import { getProject, getProjects } from "@/project/services/projects";
+import { getProject, getProjects } from "@/features/project/services/projects";
 
 /**
  * The Project Markdown as plain text. Readers and Assistants reach it at

@@ -3,8 +3,8 @@
 import { log } from "evlog/next/client";
 import { useEffect } from "react";
 
-import { ErrorScreen } from "@/core/components/error-screen.client";
-import { errorAttributesFromUnknown } from "@/core/utils/error-helper";
+import { ErrorScreen } from "@/app/_components/error-screen.client";
+import { errorAttributesFromUnknown } from "@/utils/error-helper";
 
 /**
  * designed to catch errors during rendering (not inside event handlers) to show a fallback UI instead of crashing the whole app.

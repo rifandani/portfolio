@@ -1,15 +1,15 @@
 import type { Metadata } from "next";
 import { getLocale, getTranslations } from "next-intl/server";
 
-import { SiteContainer } from "@/core/components/site-container";
-import { SiteShell } from "@/core/components/site-shell";
-import { createMetadata } from "@/core/utils/seo";
-import { CvPrintButton } from "@/portfolio/components/cv-print-button.client";
+import { SiteShell } from "@/app/_components/site-shell";
+import { SiteContainer } from "@/components/site-container";
+import { CvPrintButton } from "@/features/portfolio/components/cv-print-button.client";
 import {
   aboutContent,
   experienceEntries,
-  portfolioIdentity,
-} from "@/portfolio/constants/portfolio";
+} from "@/features/portfolio/constants/portfolio";
+import { portfolioIdentity } from "@/shared/constants/identity";
+import { createMetadata } from "@/utils/seo";
 
 import styles from "./cv.module.css";
 

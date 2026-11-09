@@ -5,7 +5,7 @@ export default defineConfig({
   ...ultracite,
   ignorePatterns: [
     ...(ultracite.ignorePatterns ?? []),
-    "**/apps/*/src/core/components/ui/**",
+    "**/apps/*/src/components/ui/**",
     "**/.agents",
     "**/.claude",
     "**/.cursor",

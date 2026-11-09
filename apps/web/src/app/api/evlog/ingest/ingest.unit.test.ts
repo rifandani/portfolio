@@ -3,11 +3,11 @@ import { describe, expect, it, vi } from "vitest";
 
 import { getAllowedHosts, isAllowedOrigin, parseIngestBody } from "./ingest";
 
-vi.mock("@/core/constants/env", () => ({
+vi.mock("@/shared/constants/env", () => ({
   ENV: { NEXT_PUBLIC_APP_URL: "https://web.portfolio.localhost" },
 }));
 
-vi.mock("@/core/utils/evlog", () => ({
+vi.mock("@/server/utils/evlog", () => ({
   createError: (opts: { message: string }) => {
     const error = new Error(opts.message);
     Object.assign(error, opts);

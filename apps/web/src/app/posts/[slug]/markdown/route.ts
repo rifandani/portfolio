@@ -1,6 +1,6 @@
 import { notFound } from "next/navigation";
 
-import { getPost, getPosts } from "@/post/services/posts";
+import { getPost, getPosts } from "@/features/post/services/posts";
 
 /**
  * The Post Markdown as plain text. Readers and Assistants reach it at

@@ -24,7 +24,7 @@ A flaky gate is worse than no gate: it gets disabled or forced through within a 
 
 > **Suppress only what is un-killable, never what is merely untested.** A survivor you *could* kill with a better assertion is the finding. If you cannot write the one-sentence proof of unreachability into the `: reason`, it is not an Equivalent Mutant — it is a missing test.
 
-Suppress the narrowest thing that is provably equivalent. `disable next-line all` is almost always too broad. The real example, from `apps/web/src/core/utils/net.ts`:
+Suppress the narrowest thing that is provably equivalent. `disable next-line all` is almost always too broad. The real example, from `apps/web/src/utils/net.ts`:
 
 ```ts
 return xForwardedFor.split(",")[0]?.trim() ?? null;
@@ -50,13 +50,13 @@ Three were drafted before the first run, on the theory that "constants" and "con
 
 | Drafted subtraction | Assumed | Measured |
 | --- | --- | --- |
-| `!**/constants/**` | literal tables | `apps/web/src/core/constants/core.ts` scores **100%** (a `reduce` and `* 1024` arithmetic); name-constant tables in `apps/web/src/core/constants/global.ts` are accepted noise |
-| `!apps/web/src/core/constants/http.ts` | "106 lines of literal table" | **0 mutants.** It is numeric status codes and type aliases; Stryker has no numeric-literal mutator. The glob was dead config, and the `"application/json"` example justifying it does not appear in the file |
+| `!**/constants/**` | literal tables | `apps/web/src/shared/constants/core.ts` scores **100%** (a `reduce` and `* 1024` arithmetic); name-constant tables in `apps/web/src/shared/constants/global.ts` are accepted noise |
+| `!apps/web/src/shared/constants/http.ts` | "106 lines of literal table" | **0 mutants.** It is numeric status codes and type aliases; Stryker has no numeric-literal mutator. The glob was dead config, and the `"application/json"` example justifying it does not appear in the file |
 | `!apps/web/src/app/{robots,sitemap}.ts` | literal-table shape | `robots.ts` **100%**, `sitemap.ts` **93.18%** — among the best-scoring files in the repo |
 
 The lesson is the rule: **a directory name is not evidence, and neither is a plausible-sounding example.** Subtract a file only after reading a report for it.
 
-What that leaves is genuine, accepted noise rather than hidden noise: roughly 18 of the surviving mutants are `StringLiteral` replacements on exported name constants (`apps/web/src/core/constants/global.ts`, `apps/web/src/core/constants/date.ts` — telemetry meter and tracer names). Killing those requires a test that restates the constant, which is the padding ADR-0001's coverage amendment exists to prevent. They stay visible and unkilled. Treat a `StringLiteral` survivor on a bare name constant as known noise; treat any *other* mutator surviving in those files as a real finding, which is exactly the distinction a blanket exclusion would have destroyed.
+What that leaves is genuine, accepted noise rather than hidden noise: roughly 18 of the surviving mutants are `StringLiteral` replacements on exported name constants (`apps/web/src/shared/constants/global.ts`, `apps/web/src/shared/constants/date.ts` — telemetry meter and tracer names). Killing those requires a test that restates the constant, which is the padding ADR-0001's coverage amendment exists to prevent. They stay visible and unkilled. Treat a `StringLiteral` survivor on a bare name constant as known noise; treat any *other* mutator surviving in those files as a real finding, which is exactly the distinction a blanket exclusion would have destroyed.
 
 `mutator.excludedMutations` is set to `[]` explicitly rather than omitted, so the choice is visible where a reader would look for it. It is the right escape hatch for "this whole mutator class is noise here", but that is an empirical claim, and making it before reading a report blinds the tool to its own best findings — the same mistake the blanket `constants` glob made.
 
@@ -111,7 +111,7 @@ The result is the argument for the tool. Every module below is at or near 100% *
 
 | Module | Score | Behavioural survivors |
 | --- | --- | --- |
-| `apps/web/src/core/utils/seo.tsx` | **worst in repo** — 54.69%, 64 mutants | **2** — the rest is `"Indonesia"`, `"en_US"`, image dimensions |
+| `apps/web/src/utils/seo.tsx` | **worst in repo** — 54.69%, 64 mutants | **2** — the rest is `"Indonesia"`, `"en_US"`, image dimensions |
 | `apps/web/src/core/middlewares/rate-limit/store.ts` | outside the worst 8 — 66.67% | **16** — including off-by-one boundaries in a rate limiter |
 
 Sorting the HTML report by score sends you to `seo.tsx` and away from the rate limiter. So read the survivor list, not the column.
@@ -123,8 +123,8 @@ The report's own filters are **status-only** (`Killed`, `Survived`, `Timeout`, `
 | Site | Mutant | Why it is behaviour, not noise |
 | --- | --- | --- |
 | `rate-limit/core.ts:23` | `standardHeaders = "draft-6"` → `""` | Selects which RFC draft header format the limiter emits |
-| `apps/web/src/core/utils/core.ts:268` | `createObjectToFormData("index")` → `""` | That argument is the array-index key format for generated FormData keys |
-| `apps/web/src/core/utils/dom.ts:27` | `link.target = "_blank"` → `""` | Changes whether the download opens in a new tab |
+| `apps/web/src/utils/core.ts:268` | `createObjectToFormData("index")` → `""` | That argument is the array-index key format for generated FormData keys |
+| `apps/web/src/utils/dom.ts:27` | `link.target = "_blank"` → `""` | Changes whether the download opens in a new tab |
 
 That is the same error as the blanket `!**/constants/**` glob above — a proxy standing in for reading the report — except in code, where it fails silently on every run instead of loudly once. The accepted-noise classes named in this ADR are specific sites argued individually; they are not a mutator whitelist.
 
@@ -134,16 +134,16 @@ It is also why `mutator.excludedMutations` stays empty rather than dropping `Str
 
 | Module | Mutation score | Mutants | Class |
 | --- | --- | --- | --- |
-| `apps/web/src/core/constants/global.ts` | 0.00% | 4 | accepted noise (name constants) |
-| `apps/web/src/core/constants/date.ts` | 33.33% | 3 | accepted noise (format strings) |
-| `apps/web/src/core/apis/cdn.ts` | (see later runs) | — | mixed schema/repository; Zod half is accepted noise |
-| `apps/web/src/core/utils/seo.tsx` | 54.69% | 64 | **Candidate Survivors** |
-| `apps/web/src/core/utils/evlog.ts` | 56.00% | 25 | **Candidate Survivors** |
-| `apps/web/src/core/utils/logger.ts` | 62.96% | 27 | mostly accepted noise |
+| `apps/web/src/shared/constants/global.ts` | 0.00% | 4 | accepted noise (name constants) |
+| `apps/web/src/shared/constants/date.ts` | 33.33% | 3 | accepted noise (format strings) |
+| `apps/web/src/lib/apis/cdn.ts` | (see later runs) | — | mixed schema/repository; Zod half is accepted noise |
+| `apps/web/src/utils/seo.tsx` | 54.69% | 64 | **Candidate Survivors** |
+| `apps/web/src/server/utils/evlog.ts` | 56.00% | 25 | **Candidate Survivors** |
+| `apps/web/src/utils/logger.ts` | 62.96% | 27 | mostly accepted noise |
 
 The point of the fourth column: a low score is not automatically a finding. Four of the seven worst-scoring modules are noise this ADR has already argued is not worth killing — they are listed rather than excluded precisely so the distinction stays visible and re-checkable. `seo.tsx` is the real work.
 
-Against all that, `apps/web/src/core/utils/{security,error-helper,field-error-message,server-form-error,net,primitive}.ts` all score 100%, as do `apps/web/src/app/robots.ts` and `og-params.ts`. This is not a uniform "the tests are weak" signal; it is specific, which is what makes it actionable.
+Against all that, `apps/web/src/utils/{security,error-helper,field-error-message,server-form-error,net,primitive}.ts` all score 100%, as do `apps/web/src/app/robots.ts` and `og-params.ts`. This is not a uniform "the tests are weak" signal; it is specific, which is what makes it actionable.
 
 The second accepted-noise class, alongside the name constants above: **Zod constraint mutants in mixed schema/repository modules** (historically `apis/{auth,better-auth}.ts`; now `apis/cdn.ts`) — `z.string().min(6)` → `.max(6)`, and similar. ADR-0001 puts plain Zod shapes out of test scope, and these files stay in the allowlist only because their repository functions are MSW-tested. The schema half is therefore unasserted by policy, not by accident. Pure-schema modules were removed from the allowlist outright on 2026-08-03 (ADR-0001 amendment) — this report is what caused that.
 
@@ -151,8 +151,8 @@ Two findings confirmed and fixed on adoption, as the worked example of the loop:
 
 | Module | Before | After | What was missing |
 | --- | --- | --- | --- |
-| `apps/web/src/core/utils/net.ts` | 92.59% | **100%** | No test sent a space-padded `X-Forwarded-For`, so nothing pinned `.trim()` |
-| `apps/web/src/core/utils/primitive.ts` | 50.00% | **100%** | `cx()`'s array-unwrap branch was asserted with `toContain`, which passes either way because `twMerge` flattens a nested array to the same string. Killing it needed a render function as the array's last element (function vs string result), plus a case with an array *among several* args to pin the `args.length === 1` half of the guard |
+| `apps/web/src/utils/net.ts` | 92.59% | **100%** | No test sent a space-padded `X-Forwarded-For`, so nothing pinned `.trim()` |
+| `apps/web/src/utils/primitive.ts` | 50.00% | **100%** | `cx()`'s array-unwrap branch was asserted with `toContain`, which passes either way because `twMerge` flattens a nested array to the same string. Killing it needed a render function as the array's last element (function vs string result), plus a case with an array *among several* args to pin the `args.length === 1` half of the guard |
 
 | `apps/web/src/core/middlewares/rate-limit/store.ts` | 66.67% | **85.54%** — all 16 logic survivors killed; the 12 that remain are log-message literals | The tests asserted `totalHits`, which is read back from the *mocked* update result — so they proved the mock, not the store. Every arithmetic and boundary mutant in the counting logic was invisible. Fixed by asserting the `set()` payload the store actually writes, adding both `lastRequest === windowStart` boundary cases, and asserting `log.error` was **not** called on the `!record` and empty-`returning()` paths — those yield `undefined`/`1` whether they take the intended branch or get rescued by the `catch`, so only the absence of a logged error tells them apart |
 
@@ -160,7 +160,7 @@ The `primitive.ts` case is the argument for mutation testing in one line: the br
 
 `store.ts` also lost a redundant guard. `if (result.length === 0) return;` sat directly above `if (!record) return;`, and destructuring an empty array already yields `undefined`, so every mutant of the length check survived: no input can reach one guard without the other producing the same result. The right response to provably redundant code is deletion, not a `// Stryker disable`.
 
-Findings left open deliberately: `apps/web/src/core/utils/core.ts` (17 logic survivors, 13 of them `Regex` — each pattern is exercised by one happy input), and `apps/web/src/core/utils/cookie.ts` (9, including the same dropped-`.trim()` shape already fixed in `net.ts`). The `ObjectLiteral → {}` survivors across `evlog.ts` mean nothing asserts the shape of emitted telemetry payloads — real, but asserting telemetry bodies is brittle enough to defer. Working through survivors is the tool's ongoing job, not part of adopting it.
+Findings left open deliberately: `apps/web/src/utils/core.ts` (17 logic survivors, 13 of them `Regex` — each pattern is exercised by one happy input), and `apps/web/src/utils/cookie.ts` (9, including the same dropped-`.trim()` shape already fixed in `net.ts`). The `ObjectLiteral → {}` survivors across `evlog.ts` mean nothing asserts the shape of emitted telemetry payloads — real, but asserting telemetry bodies is brittle enough to defer. Working through survivors is the tool's ongoing job, not part of adopting it.
 
 Stryker also warns that 251 mutants (16%) are *static* — evaluated at module load — and estimates them at 95% of run time. `ignoreStatic` would skip them, but they are skipped as **Ignored**, not killed, so it buys speed by discarding signal. At a 3-minute run there is nothing to buy. Left off.
 
@@ -176,7 +176,7 @@ Three environment fixes were needed before the first successful run. Each is a w
 
 ## Sandbox
 
-Stryker copies the repo into `.stryker-tmp` and symlinks `node_modules`. Former `@workspace/core` modules now live under `apps/web/src/core` and resolve through the `@` Vitest alias (`apps/web/vitest.config.ts`), so mutants in those files reach the same tests that cover them.
+Stryker copies the repo into `.stryker-tmp` and symlinks `node_modules`. Former `@workspace/core` modules now use the default Bulletproof folders under `apps/web/src` (web ADR-0006) and resolve through the `@` Vitest alias (`apps/web/vitest.config.ts`), so mutants in those files reach the same tests that cover them.
 
 > The Vitest `@` alias is required for path resolution inside the sandbox; it is not a leftover of the deleted `@workspace/core` package alias.
 

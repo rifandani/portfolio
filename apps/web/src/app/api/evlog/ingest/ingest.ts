@@ -1,7 +1,7 @@
 import type { NextRequest } from "next/server";
 
-import { ENV } from "@/core/constants/env";
-import { createError } from "@/core/utils/evlog";
+import { createError } from "@/server/utils/evlog";
+import { ENV } from "@/shared/constants/env";
 
 const VALID_LEVELS = ["info", "error", "warn", "debug"] as const;
 

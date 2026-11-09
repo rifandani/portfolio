@@ -1,5 +1,5 @@
-import { RAMP } from "@/portfolio/utils/glyph-engine";
-import type { StillCell } from "@/portfolio/utils/glyph-engine";
+import { RAMP } from "@/features/portfolio/utils/glyph-engine";
+import type { StillCell } from "@/features/portfolio/utils/glyph-engine";
 
 /**
  * What a run prints in: a ramp level (1 to 9, the glyph's place in the ramp),

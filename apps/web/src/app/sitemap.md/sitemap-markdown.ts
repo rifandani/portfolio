@@ -1,7 +1,10 @@
-import type { Post } from "@/post/utils/post-source";
-import { postMarkdownPath, postPath } from "@/post/utils/slug";
-import { projectMarkdownPath, projectPath } from "@/project/utils/project-path";
-import type { Project } from "@/project/utils/project-source";
+import type { Post } from "@/features/post/utils/post-source";
+import { postMarkdownPath, postPath } from "@/features/post/utils/slug";
+import {
+  projectMarkdownPath,
+  projectPath,
+} from "@/features/project/utils/project-path";
+import type { Project } from "@/features/project/utils/project-source";
 
 interface SitemapMarkdownInput {
   appTitle: string;

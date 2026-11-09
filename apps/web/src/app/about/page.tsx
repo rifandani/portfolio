@@ -1,20 +1,20 @@
 import type { Metadata } from "next";
 import { getTranslations } from "next-intl/server";
 
-import { SiteContainer } from "@/core/components/site-container";
-import { SiteShell } from "@/core/components/site-shell";
-import { Heading } from "@/core/components/ui/heading";
-import { Text } from "@/core/components/ui/text";
-import { createMetadata } from "@/core/utils/seo";
-import { CvLink } from "@/portfolio/components/cv-link.client";
-import { IdBadge } from "@/portfolio/components/id-badge.client";
-import { SkillNet } from "@/portfolio/components/skill-net";
-import { TechStack } from "@/portfolio/components/tech-stack";
+import { SiteShell } from "@/app/_components/site-shell";
+import { SiteContainer } from "@/components/site-container";
+import { Heading } from "@/components/ui/heading";
+import { Text } from "@/components/ui/text";
+import { CvLink } from "@/features/portfolio/components/cv-link.client";
+import { IdBadge } from "@/features/portfolio/components/id-badge.client";
+import { SkillNet } from "@/features/portfolio/components/skill-net";
+import { TechStack } from "@/features/portfolio/components/tech-stack";
 import {
   aboutContent,
   experienceEntries,
-  portfolioIdentity,
-} from "@/portfolio/constants/portfolio";
+} from "@/features/portfolio/constants/portfolio";
+import { portfolioIdentity } from "@/shared/constants/identity";
+import { createMetadata } from "@/utils/seo";
 
 /** The job title from the CV */
 const currentRole =

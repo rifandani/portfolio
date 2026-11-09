@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { getTranslations } from "next-intl/server";
 
 import { MasterDesignGate } from "@/app/master-design/gate.client";
-import { createMetadata } from "@/core/utils/seo";
+import { createMetadata } from "@/utils/seo";
 
 export const generateMetadata = async (): Promise<Metadata> => {
   const t = await getTranslations();

@@ -9,9 +9,9 @@ Any path or behavior in:
 | Surface | Where it usually lives |
 | --- | --- |
 | Auth / Session / credentials | `**/auth/**`, session storage, `apps/web/src/proxy.ts` |
-| Public API / HTTP contracts | `apps/web/src/core/apis/**`, `apps/web/src/core/services/http.ts`, `apps/web/src/app/api/**`, server actions |
+| Public API / HTTP contracts | `apps/web/src/lib/apis/**`, `apps/web/src/lib/services/http.ts`, `apps/web/src/app/api/**`, server actions |
 | MCP | `.mcp.json`, MCP server configs |
-| Design system | `apps/web/src/core/components/ui/**`, `apps/web/src/master-design/**`, design tokens, `globals.css` that define the system |
+| Design system | `apps/web/src/components/ui/**`, `apps/web/src/features/master-design/**`, design tokens, `globals.css` that define the system |
 | DB schema | `**/*.prisma`, `**/schema.ts`, migrations |
 | Agent skills / always-loaded agent config | `.agents/skills/**`, `.claude/skills/**`, `.cursor/skills/**`, `AGENTS.md`, `CLAUDE.md` |
 | Merge gates | `.github/workflows/**`, `scripts/security/**`, `security/**`, secrets, deploy env, permissions that decide what may merge |

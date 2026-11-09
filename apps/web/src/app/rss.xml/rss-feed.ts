@@ -1,5 +1,5 @@
-import type { Post } from "@/post/utils/post-source";
-import { postPath } from "@/post/utils/slug";
+import type { Post } from "@/features/post/utils/post-source";
+import { postPath } from "@/features/post/utils/slug";
 
 export interface RssFeedInput {
   /** The site origin that every site path resolves against. */
