@@ -1,6 +1,6 @@
 /* oxlint-disable typescript/no-empty-interface typescript/no-empty-object-type */
 import type en from "./messages/en.json";
-import type { formats } from "./src/core/utils/i18n";
+import type { formats } from "./src/server/utils/i18n";
 
 const locales = ["en", "id"] as const;
 type Messages = typeof en;

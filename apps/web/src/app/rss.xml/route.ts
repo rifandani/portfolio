@@ -1,6 +1,6 @@
-import { ENV } from "@/core/constants/env";
-import { portfolioIdentity } from "@/portfolio/constants/portfolio";
-import { getPosts } from "@/post/services/posts";
+import { getPosts } from "@/features/post/services/posts";
+import { ENV } from "@/shared/constants/env";
+import { portfolioIdentity } from "@/shared/constants/identity";
 
 // The feed has one language, like a Post, so it reads the English Message Catalog directly.
 import messages from "../../../messages/en.json";

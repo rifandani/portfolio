@@ -169,7 +169,7 @@ Visual rejections: marketing-landing spectacle, neon accents, skeuomorphism, dec
 
 ## Colors
 
-Warm stone-neutral paper with a single desaturated teal as the action voice. Canonical values live in `:root` as OKLCH (`src/core/styles/globals.css`); dark theme inverts surfaces, not the signal.
+Warm stone-neutral paper with a single desaturated teal as the action voice. Canonical values live in `:root` as OKLCH (`src/styles/globals.css`); dark theme inverts surfaces, not the signal.
 
 ### Primary
 
@@ -206,7 +206,7 @@ No tertiary role. `accent` equals `secondary` in light; do not invent a third br
 
 ### Logo (not tokens)
 
-- **Logo Navy** (`#0E2137`) and **Logo Teal** (`#03A0A7`): the logo's own fills on a white disc (`src/core/components/brand-logo.tsx`, also `public/favicon.svg` and the OG image). They live only inside the logo, never as UI color, and they do not change with the theme. The logo does not count toward the One Voice Rule.
+- **Logo Navy** (`#0E2137`) and **Logo Teal** (`#03A0A7`): the logo's own fills on a white disc (`src/components/brand-logo.tsx`, also `public/favicon.svg` and the OG image). They live only inside the logo, never as UI color, and they do not change with the theme. The logo does not count toward the One Voice Rule.
 
 ### Named Rules
 
@@ -220,7 +220,7 @@ No tertiary role. `accent` equals `secondary` in light; do not invent a third br
 
 **Heading Font:** Roboto (`--font-display`) **Body Font:** Quicksand (`--font-sans`) **Meta / Mono Font:** IBM Plex Mono (`--font-mono`)
 
-All three load through `next/font/google` in `src/app/layout.tsx` and are exposed as Tailwind theme variables in `src/core/styles/globals.css`. Do not add a fourth family, and do not set body copy in the heading face.
+All three load through `next/font/google` in `src/app/layout.tsx` and are exposed as Tailwind theme variables in `src/styles/globals.css`. Do not add a fourth family, and do not set body copy in the heading face.
 
 **Character:** Roboto gives headings a flatter, more neutral skeleton than the rounded Quicksand body, so hierarchy reads as a change of voice rather than a change of size alone. IBM Plex Mono carries dates, durations, tech tags, and code — anything a reader scans rather than reads.
 
@@ -253,7 +253,7 @@ App-kit `Container` is `max-width: 80rem` (`xl`) with 16px horizontal padding. N
 
 Public surfaces use `SiteContainer` instead: the same `Container` capped at `lg` (64rem). The kit width is sized for dense app chrome; the public column is one text-led read. Header, page content, and footer all share `SiteContainer`, so the topbar aligns with the content.
 
-Every public route renders through `SiteShell` (`src/core/components/site-shell.tsx`): sticky header, `<main>`, footer. A new public surface writes its content and nothing else.
+Every public route renders through `SiteShell` (`src/app/_components/site-shell.tsx`): sticky header, `<main>`, footer. A new public surface writes its content and nothing else.
 
 Public page rhythm: page padding `py-16` / `sm:py-24`; sections separated by `mt-24`; cards within a section stacked at `gap-4`. Work experience is the exception: its rows carry their own 32px / `sm` 40px bottom spacing so the rail runs through the interval instead of jumping it, and so shell-less rows still read as separate entries. The posts index is the other exception: it files its entries by year (see Postmark Log). Generosity here is vertical, not horizontal — the column stays at 64rem.
 
@@ -389,7 +389,7 @@ Status callout: 8px, 16px padding, 15% current-color border, `backdrop-blur-2xl`
 
 ### Content Card (signature)
 
-One silhouette, two fillings, defined once in `src/portfolio/components/card-shell.ts` and used by `ProjectCard` (the Drawing Sheet filling, below) and `PostCard` on home and on both index pages. Every card that wears it is also a link, so the shell only ever reaches the page through `cardLinkClass`.
+One silhouette, two fillings, defined once in `src/components/card-shell.ts` and used by `ProjectCard` (the Drawing Sheet filling, below) and `PostCard` on home and on both index pages. Every card that wears it is also a link, so the shell only ever reaches the page through `cardLinkClass`.
 
 - **Shell:** Card fill, 1px Hairline, 8px radius, `shadow-xs`, 20px / `sm` 24px padding.
 - **Media:** one wide preview image in a fixed frame that owns the 1px Hairline border and the clip (`aspect-[1200/630]`). On post cards it is a small thumbnail at the far end of the Postmark Log entry (`w-28` / `sm:w-32`); on project cards it is the drawing of the Drawing Sheet. The frame never moves; the print inside it does. The 48×48 soft-rect logo belongs to work rows only.
@@ -415,7 +415,7 @@ One silhouette, two fillings, defined once in `src/portfolio/components/card-she
 
 ### Master Design (internal)
 
-The kit proof surface at `/master-design`, for developers only (`src/master-design/components/catalog.tsx`). It is not a public route, so it does not take `SiteShell`, but it uses the public vocabulary, so a component is seen on the surface it ships on.
+The kit proof surface at `/master-design`, for developers only (`src/features/master-design/components/catalog.tsx`). It is not a public route, so it does not take `SiteShell`, but it uses the public vocabulary, so a component is seen on the surface it ships on.
 
 - **Canvas:** no fill of its own. The Sand Canvas and its grain show through, and the specimens rest on it directly. A kit Card in a specimen is a sheet on the canvas, never a card in a card.
 - **Topbar:** the public header's material (`bg-navbar/90`, `backdrop-blur-md`, Hairline, 56px): the logo as the home link, a 1px divider, the catalog name in Roboto 600 at 14px, then the theme and language toggles. It runs the full width; the catalog is not held to the 64rem column.
@@ -433,18 +433,18 @@ The kit proof surface at `/master-design`, for developers only (`src/master-desi
 
 ### Status Screen
 
-The page a visitor gets when a route cannot answer (`src/core/components/status-screen.tsx`): the 404 (`not-found.tsx` and the Master Design gate, through `NotFoundScreen`) and the error (`error.tsx` for a route segment, `global-error.tsx` for the root layout, both through `ErrorScreen`). It renders through `SiteShell` (The One-Shell Rule), so the visitor keeps the topbar and is never stranded on a blank sheet.
+The page a visitor gets when a route cannot answer (`src/app/_components/status-screen.tsx`): the 404 (`not-found.tsx` and the Master Design gate, through `NotFoundScreen`) and the error (`error.tsx` for a route segment, `global-error.tsx` for the root layout, both through `ErrorScreen`). It renders through `SiteShell` (The One-Shell Rule), so the visitor keeps the topbar and is never stranded on a blank sheet.
 
 - **Composition:** left-aligned in the public column, like `/about`, with the page rhythm (`py-16` / `sm:py-24`). The title is a plain sentence at the index-title scale (1.875 / `sm` 2.25rem), not the hero: it states a fact about the page, not the person (The One-Hero Rule). A Lead paragraph names the problem and the recovery, then the actions.
 - **Line of record:** one mono Meta line under the title. For a 404 it is the status and the path that failed (`404 · /posts/x`, the status in Warm Graphite, the path in Muted Ink, `break-all` so a long path wraps). For an error it is the digest ("Reference …"), the one detail a visitor can send back, and on `global-error` the status before it (`500 · Reference …`). It is data, so it is mono; it is never an eyebrow over the title.
 - **No false status:** a segment error claims no code, because it can happen in the browser after a 200. Only `global-error` shows 500: the root layout failed, so the response is a 500.
-- **Global error:** `global-error` replaces the root layout, so it brings the layout's parts itself: `globals.css`, the shared faces (`src/core/styles/fonts.ts`), the theme provider, and the messages for the locale cookie, loaded on demand so no other page pays for them. If the chrome throws, it falls back to the same screen without the header and footer, never to a blank page.
+- **Global error:** `global-error` replaces the root layout, so it brings the layout's parts itself: `globals.css`, the shared faces (`src/styles/fonts.ts`), the theme provider, and the messages for the locale cookie, loaded on demand so no other page pays for them. If the chrome throws, it falls back to the same screen without the header and footer, never to a blank page.
 - **Actions:** the 404 has one primary "Go to home page". The error has a primary "Try again" (it calls `retry`) and an outline "Go to home page". Both links look like buttons through `HomeLink` (`home-link.client.tsx`).
 - **The way on:** a Title-scale `h2`, "Pages on this site", over the three public areas in the topbar's order, as Hairline rows (`divide-y border-y`, like the Tech Stack layers, no card). Each row is one link: the name in Roboto semibold, the page's own intro in Muted Ink, an arrow at the end. From `sm` the name holds a 10rem column so the hints start on one line; below `sm` the hint wraps under the name. Hover and focus sweep the Link rule under the name and step the arrow 2px right and to Warm Graphite. Reduced motion keeps the colors and drops the travel.
 
 ### Glyph Engine (signature)
 
-The home hero's one authored motion (`src/portfolio/utils/glyph-engine.ts`, mounted by `glyph-engine.client.tsx`). It acts out the headline: a solid raymarched once per character cell on a Canvas 2D and printed in IBM Plex Mono, like donut.c. A hard-faceted icosahedron (craft) melts into a gyroid-displaced blob (obsession), holds, then locks back into its facets. There is no library; the renderer is about 550 lines of plain TypeScript.
+The home hero's one authored motion (`src/features/portfolio/utils/glyph-engine.ts`, mounted by `glyph-engine.client.tsx`). It acts out the headline: a solid raymarched once per character cell on a Canvas 2D and printed in IBM Plex Mono, like donut.c. A hard-faceted icosahedron (craft) melts into a gyroid-displaced blob (obsession), holds, then locks back into its facets. There is no library; the renderer is about 550 lines of plain TypeScript.
 
 - **Cycle:** 12s. Craft holds 4.5s, melts 2.5s (ease-in-out), obsession holds 3s, locks back in 1.3s (ease-out quart — quicker and harder than the melt, because precision is the craft half's character). The surface churns hardest mid-transition.
 - **Print:** ramp ` .:-=+*#%@`, about 36 columns, stepped at ~30fps so it reads as print, not video. The first 1.1s scrambles the cells inside the bound and resolves the solid out of the noise.
@@ -459,7 +459,7 @@ The home hero's one authored motion (`src/portfolio/utils/glyph-engine.ts`, moun
 
 ### ID Badge (signature, About)
 
-The About portrait, printed on an ID card that hangs from a lanyard (`src/portfolio/components/id-badge.client.tsx`, motion in `src/portfolio/utils/id-badge-motion.ts`, print data in `src/portfolio/utils/id-badge.ts`, rules under `.id-badge` in `globals.css`). It is the page's one object a visitor can pick up.
+The About portrait, printed on an ID card that hangs from a lanyard (`src/features/portfolio/components/id-badge.client.tsx`, motion in `src/features/portfolio/utils/id-badge-motion.ts`, print data in `src/features/portfolio/utils/id-badge.ts`, rules under `.id-badge` in `globals.css`). It is the page's one object a visitor can pick up.
 
 - **Card:** CR80 proportions (54:86), 3px thick. Each face is the card material — Card fill, 1px Hairline, `shadow-xs`, a 5.5cqw corner — and two side edges close the gap, so the card keeps a side when it turns edge-on. A pill slot at the top; a 2.2cqw Helm Teal stripe along the foot. The stripe on the front and the signature on the back are the only teal at rest (The One Voice Rule): each face carries one teal mark.
 - **Front:** slot, portrait, the full name (Roboto 600), then the job title from the current work entry (Muted Ink). Nothing else: the name and the role are what a badge is read for.
@@ -476,7 +476,7 @@ The About portrait, printed on an ID card that hangs from a lanyard (`src/portfo
 
 ### Skill Net (About)
 
-What I bring, drawn as a schematic (`src/portfolio/components/skill-net.tsx`, keys in `aboutContent.skills` in `portfolio.ts`, rules under `.skill-net` in `globals.css`). Curiosity is the source, and the other four are what it feeds. The drawing tells the reader what the order alone did not, and it acts out the biography's start on an Arduino board.
+What I bring, drawn as a schematic (`src/features/portfolio/components/skill-net.tsx`, keys in `aboutContent.skills` in `portfolio.ts`, rules under `.skill-net` in `globals.css`). Curiosity is the source, and the other four are what it feeds. The drawing tells the reader what the order alone did not, and it acts out the biography's start on an Arduino board.
 
 - **Source:** "Curiosity that compounds." A via — a 14px graphite pad with a drilled centre — then the name in Roboto 600 at 1.125rem / `sm` 1.25rem over Lead copy in Muted Ink.
 - **Outputs:** the other four, each a 10px square pad (2px corners, 45% Muted Ink border, Canvas fill), the name in Roboto 600 at 1rem, then Body copy in Muted Ink. Square pads are the schematic's mark; circles belong to the work rail.
@@ -489,7 +489,7 @@ What I bring, drawn as a schematic (`src/portfolio/components/skill-net.tsx`, ke
 
 ### Tech Stack (About)
 
-The tools, drawn as a cross-section (`src/portfolio/components/tech-stack.tsx`, data in `techStack` in `portfolio.ts`, rules under `.tech-spine` in `globals.css`). It follows What I bring. It acts out the biography's line "one language took me all the way from the button to the database".
+The tools, drawn as a cross-section (`src/features/portfolio/components/tech-stack.tsx`, data in `techStack` in `portfolio.ts`, rules under `.tech-spine` in `globals.css`). It follows What I bring. It acts out the biography's line "one language took me all the way from the button to the database".
 
 - **Layers:** Interface, Styling, Server, Data, Platform, then Testing and AI tools, from the button down, as Hairline rows (`divide-y border-y`, no card). The layer name is Meta spaced caps in a 7rem column from `sm`; below `sm` it sits over its tools.
 - **Tools:** a 36px tile in the card material (Paper, 1px Hairline, `shadow-xs`, 8px) holding the mark at 18px in Warm Graphite, then the name in mono, Warm Graphite. The names are tech tags, so they are mono (The Three-Face Rule). Marks are monochrome from `react-icons/si` and take `currentColor`, never brand colors; Playwright, which that set does not ship, is `#icon-playwright` in the sprite.
@@ -499,7 +499,7 @@ The tools, drawn as a cross-section (`src/portfolio/components/tech-stack.tsx`, 
 
 ### Work Rail (signature)
 
-Work experience reads as a chronology, so its rows hang off a vertical rail in the left gutter (`src/portfolio/components/work-timeline-item.tsx`). The row carries no card shell: a dated entry already held by a rail does not need a second container, and the card borders fight the line. Separation comes from the rail and the row interval instead.
+Work experience reads as a chronology, so its rows hang off a vertical rail in the left gutter (`src/features/portfolio/components/work-timeline-item.tsx`). The row carries no card shell: a dated entry already held by a rail does not need a second container, and the card borders fight the line. Separation comes from the rail and the row interval instead.
 
 - **Gutter:** a 10px rail column, then 16px / `sm` 20px to the row's 48×48 logo.
 - **Line:** 1px at 30% Muted Ink. Hairline is tuned to separate a card from the canvas and disappears when it has to carry a bare line on the dark canvas.

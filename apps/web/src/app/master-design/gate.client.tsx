@@ -1,8 +1,8 @@
 "use client";
 
-import { NotFoundScreen } from "@/core/components/not-found-screen";
-import { useFeatureEnabled } from "@/core/feature-flags/use-feature-enabled";
-import { MasterDesignPage } from "@/master-design/components/catalog-page";
+import { NotFoundScreen } from "@/app/_components/not-found-screen";
+import { MasterDesignPage } from "@/features/master-design/components/catalog-page";
+import { useFeatureEnabled } from "@/lib/feature-flags/use-feature-enabled";
 
 /**
  * Client gate for the Master Design: wait for Feature Flag rehydration,

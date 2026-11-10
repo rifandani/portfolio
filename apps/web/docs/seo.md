@@ -1,6 +1,6 @@
 # Metadata: SEO (Search Engine Optimization)
 
-Each page sets its head tags with `createMetadata` and its structured data with `JsonLd` (both in `src/core/utils/seo.tsx`).
+Each page sets its head tags with `createMetadata` and its structured data with `JsonLd` (both in `src/utils/seo.tsx`).
 
 ## JSON-LD
 
@@ -48,4 +48,4 @@ Both sitemaps list the same URLs, from the same two sources:
 
 ## RSS feed
 
-`GET /rss.xml` gives feed readers an [RSS 2.0](https://www.rssboard.org/rss-specification) feed of every Post, newest first: the title, the Post Detail link, the date, and the summary. `lastBuildDate` is the date of the newest Post, not the build time. Every page names the feed in a `<link rel="alternate" type="application/rss+xml">` tag (from `createMetadata` in `src/core/utils/seo.tsx`).
+`GET /rss.xml` gives feed readers an [RSS 2.0](https://www.rssboard.org/rss-specification) feed of every Post, newest first: the title, the Post Detail link, the date, and the summary. `lastBuildDate` is the date of the newest Post, not the build time. Every page names the feed in a `<link rel="alternate" type="application/rss+xml">` tag (from `createMetadata` in `src/utils/seo.tsx`).

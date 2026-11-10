@@ -42,7 +42,7 @@ export default defineConfig({
   ],
   ignorePatterns: [
     ...(core.ignorePatterns ?? []),
-    "**/apps/*/src/core/components/ui/**",
+    "**/apps/*/src/components/ui/**",
     "**/.agents",
     "**/.claude",
     "**/.cursor",

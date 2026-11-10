@@ -1,8 +1,8 @@
 import { pageRoutes } from "@/app/page-routes";
 import { sitemapMarkdown } from "@/app/sitemap.md/sitemap-markdown";
-import { ENV } from "@/core/constants/env";
-import { getPosts } from "@/post/services/posts";
-import { getProjects } from "@/project/services/projects";
+import { getPosts } from "@/features/post/services/posts";
+import { getProjects } from "@/features/project/services/projects";
+import { ENV } from "@/shared/constants/env";
 
 /**
  * Next.js caches `sitemap.ts` by default, but not a plain Route Handler. Force

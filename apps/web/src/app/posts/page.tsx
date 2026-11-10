@@ -1,19 +1,19 @@
 import { getTranslations } from "next-intl/server";
 
-import { SiteContainer } from "@/core/components/site-container";
-import { SiteShell } from "@/core/components/site-shell";
-import { Heading } from "@/core/components/ui/heading";
-import { Text } from "@/core/components/ui/text";
+import { SiteShell } from "@/app/_components/site-shell";
+import { SiteContainer } from "@/components/site-container";
+import { Heading } from "@/components/ui/heading";
+import { Text } from "@/components/ui/text";
+import { PostCard } from "@/features/post/components/post-card";
+import { getPosts } from "@/features/post/services/posts";
+import { postsByYear } from "@/features/post/utils/post-collection";
+import { createBlog } from "@/features/post/utils/post-ld";
 import {
   createMetadata,
   createPerson,
   createWebSite,
   JsonLd,
-} from "@/core/utils/seo";
-import { PostCard } from "@/post/components/post-card";
-import { getPosts } from "@/post/services/posts";
-import { postsByYear } from "@/post/utils/post-collection";
-import { createBlog } from "@/post/utils/post-ld";
+} from "@/utils/seo";
 
 const title = "Posts";
 const description = "Writings and thoughts by Tri Rizeki Rifandani";

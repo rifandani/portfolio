@@ -6,13 +6,20 @@ import { ImageResponse } from "next/og";
 import type { NextRequest } from "next/server";
 import type { ReactElement } from "react";
 
-import { createError, useLogger, withEvlog } from "@/core/utils/evlog";
-import { traceStill } from "@/portfolio/utils/glyph-engine";
-import { getPost } from "@/post/services/posts";
-import { rulerOf, stampOf } from "@/post/utils/postmark";
-import { postPath } from "@/post/utils/slug";
-import { getProjects } from "@/project/services/projects";
-import { projectPath } from "@/project/utils/project-path";
+import { traceStill } from "@/features/portfolio/utils/glyph-engine";
+import { getPost } from "@/features/post/services/posts";
+import { rulerOf, stampOf } from "@/features/post/utils/postmark";
+import { postPath } from "@/features/post/utils/slug";
+import { getProjects } from "@/features/project/services/projects";
+import { projectPath } from "@/features/project/utils/project-path";
+import { createError, useLogger, withEvlog } from "@/server/utils/evlog";
+import type { OgCard } from "@/utils/og-params";
+import {
+  OG_DEFAULT_TITLE,
+  OG_SIZE,
+  parseOgRequest,
+  rethrowNonError,
+} from "@/utils/og-params";
 
 import {
   OgPageCard,
@@ -23,13 +30,6 @@ import {
   STILL_POSE,
   STILL_ROWS,
 } from "./og-card";
-import type { OgCard } from "./og-params";
-import {
-  OG_DEFAULT_TITLE,
-  OG_SIZE,
-  parseOgRequest,
-  rethrowNonError,
-} from "./og-params";
 import { previewSourceOf } from "./og-sources";
 
 /**

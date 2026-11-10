@@ -2,7 +2,7 @@ import { describe, expect, it, vi } from "vitest";
 
 import robots from "./robots";
 
-vi.mock("@/core/constants/env", () => ({
+vi.mock("@/shared/constants/env", () => ({
   ENV: { NEXT_PUBLIC_APP_URL: "https://web.portfolio.localhost" },
 }));
 

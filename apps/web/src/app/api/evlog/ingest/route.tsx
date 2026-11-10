@@ -1,7 +1,7 @@
 import type { NextRequest } from "next/server";
 
-import { SERVICE_NAME } from "@/core/constants/global";
-import { createError, log } from "@/core/utils/evlog";
+import { createError, log } from "@/server/utils/evlog";
+import { SERVICE_NAME } from "@/shared/constants/global";
 
 import { getAllowedHosts, isAllowedOrigin, parseIngestBody } from "./ingest";
 

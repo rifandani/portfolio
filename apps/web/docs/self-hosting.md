@@ -50,7 +50,7 @@ This split is not cosmetic — getting it wrong bakes secrets into an image:
   secrets at container start; never copy them into the image (`.dockerignore`
   excludes every `.env*`).
 - The image therefore builds with `SKIP_ENV_VALIDATION=1`
-  (see [`env.ts`](../src/core/constants/env.ts)) so missing build-time env does
+  (see [`env.ts`](../src/shared/constants/env.ts)) so missing build-time env does
   not fail the image build. Validation still runs at server boot when env is set.
 
 Reading a server env var at **runtime** (rather than having it inlined at build)

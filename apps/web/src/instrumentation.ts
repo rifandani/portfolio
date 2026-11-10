@@ -4,5 +4,5 @@ import { defineNodeInstrumentation } from "evlog/next/instrumentation";
  * type onRequestError = Instrumentation.onRequestError
  */
 export const { register, onRequestError } = defineNodeInstrumentation(
-  () => import("./core/utils/evlog")
+  () => import("./server/utils/evlog")
 );

@@ -1,0 +1,16 @@
+{
+  "$schema": "../../node_modules/fallow/schema.json",
+  "boundaries": {
+    "preset": "bulletproof",
+    "coverage": {
+      "requireAllFiles": true,
+      "allowUnmatched": [
+        "*.config.{ts,mjs}",
+        "*.d.ts",
+        "e2e/**",
+        "src/proxy.ts",
+        "src/instrumentation.ts"
+      ]
+    }
+  }
+}

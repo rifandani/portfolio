@@ -23,5 +23,5 @@ Two consequences worth keeping in mind. An exact pin means CI no longer picks up
 
 ## Consequences
 
-- App code imports former core modules via `@/core/...`.
+- App modules use the `@/*` alias. The default Bulletproof folders replace the former `src/core` directory; see [web ADR-0006](../../apps/web/docs/adr/0006-strict-bulletproof-boundaries.md).
 - Node / Bun version pins remain the cross-cutting rule from this ADR.

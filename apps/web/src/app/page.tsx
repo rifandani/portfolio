@@ -4,16 +4,16 @@ import { getTranslations } from "next-intl/server";
 import {
   HomeDirectionContract,
   HomePageContent,
-} from "@/core/components/home/home-sections";
-import { SiteShell } from "@/core/components/site-shell";
+} from "@/app/_components/home-sections";
+import { SiteShell } from "@/app/_components/site-shell";
+import { portfolioIdentity } from "@/shared/constants/identity";
 import {
   createMetadata,
   createPerson,
   createWebPage,
   createWebSite,
   JsonLd,
-} from "@/core/utils/seo";
-import { portfolioIdentity } from "@/portfolio/constants/portfolio";
+} from "@/utils/seo";
 
 const title = "Home";
 const description = portfolioIdentity.siteDescription;

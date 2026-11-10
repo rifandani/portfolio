@@ -1,6 +1,6 @@
 # Network-boundary mocking with MSW
 
-The three unit tests covering the API layer faked HTTP by replacing imports (`vi.mock("ky")`, `vi.mock("@/core/services/http")`, hand-rolled `{ instance: { post } }` objects), so real ky never ran and a wrong prefix, dropped header, or bad path template could not fail a test. They now fake at the network boundary with `msw@2` (`setupServer`, Node only), which runs real ky, real URL construction, and real Zod parsing. This does **not** widen ADR-0001's scope: unit tests remain pure module logic under `environment: "node"` — no jsdom, no RTL, no browser mode, no `msw/browser`. Playwright mocking is unchanged (`apps/web` keeps `next/experimental/testmode/playwright`).
+The three unit tests covering the API layer faked HTTP by replacing imports (`vi.mock("ky")`, `vi.mock("@/lib/services/http")`, hand-rolled `{ instance: { post } }` objects), so real ky never ran and a wrong prefix, dropped header, or bad path template could not fail a test. They now fake at the network boundary with `msw@2` (`setupServer`, Node only), which runs real ky, real URL construction, and real Zod parsing. This does **not** widen ADR-0001's scope: unit tests remain pure module logic under `environment: "node"` — no jsdom, no RTL, no browser mode, no `msw/browser`. Playwright mocking is unchanged (`apps/web` keeps `next/experimental/testmode/playwright`).
 
 ## Vocabulary
 
@@ -12,7 +12,7 @@ The three unit tests covering the API layer faked HTTP by replacing imports (`vi
 
 ## Scope
 
-MSW applies to exactly one file — `apps/web/src/core/apis/cdn.unit.test.ts`. That is the complete set: no other test in the suite touches the network. (Earlier revisions also covered `auth` / `better-auth` API modules; those modules were removed with the portfolio’s public-site cut.)
+MSW applies to exactly one file — `apps/web/src/lib/apis/cdn.unit.test.ts`. That is the complete set: no other test in the suite touches the network. (Earlier revisions also covered `auth` / `better-auth` API modules; those modules were removed with the portfolio’s public-site cut.)
 
 ## Considered Options
 
@@ -51,7 +51,7 @@ Interceptor install costs ~140ms per *file*, so the bill scales with files touch
 
 ## Amendments
 
-**2026-09-21 — the set is two files.** `apps/web/src/core/services/http.unit.test.ts` now fakes at the Network Boundary, so the list under [Scope](#scope) is `apps/web/src/core/apis/cdn.unit.test.ts` and `apps/web/src/core/services/http.unit.test.ts`.
+**2026-09-21 — the set is two files.** `apps/web/src/lib/services/http.unit.test.ts` now fakes at the Network Boundary, so the list under [Scope](#scope) is `apps/web/src/lib/apis/cdn.unit.test.ts` and `apps/web/src/lib/services/http.unit.test.ts`.
 
 The scope rule is unchanged; the file moved across it. `Http` used to be a constructor call that built no request of its own — it handed a configured ky instance to the `apis/` modules and they did the building, which is why its test asserted object identity (`expect(http.instance).not.toBe(before)`) and sent nothing. It can now attach an Access Token in a `beforeRequest` hook and end the Session on a 401 in `afterResponse`, so it builds and inspects requests, and **the rule of thumb selects it**: fake at the Network Boundary, because everything the module does to the request really executes.
 
