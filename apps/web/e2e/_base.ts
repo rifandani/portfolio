@@ -62,4 +62,3 @@ export const test = base.extend<TestOptions>({
   },
 });
 export { expect } from "@playwright/test";
-export type { Page } from "@playwright/test";

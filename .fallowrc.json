@@ -100,6 +100,7 @@
     "msw",
     "postcss-load-config",
     "workbox-core",
-    "babel-plugin-react-compiler"
+    "babel-plugin-react-compiler",
+    "oxlint-plugin-react-doctor"
   ]
 }
