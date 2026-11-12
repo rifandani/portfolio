@@ -4,6 +4,7 @@ import {
   HomeIdentity,
   HomePosts,
   HomeProjects,
+  HomeTalks,
 } from "@/features";
 
 /** Emitted HTML direction contract for audit (new-work §5). */
@@ -29,5 +30,6 @@ export const HomePageContent = () => (
     <HomeExperience />
     <HomeProjects />
     <HomePosts />
+    <HomeTalks />
   </SiteContainer>
 );

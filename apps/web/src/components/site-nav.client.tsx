@@ -10,7 +10,7 @@ import { Link } from "@/components/ui/link";
 const navLinkClass = cn(
   // No padding: the sweeping rule is drawn on the link box, so any padding
   // would push the rule off the text and stretch it past the label.
-  "text-muted-fg hover:text-fg text-xs/5 font-medium sm:text-sm/6",
+  "text-muted-fg hover:text-fg inline-flex min-h-11 items-center text-xs/5 font-medium sm:text-sm/6 md:min-h-0",
   // The current page holds the rule open and keeps the brighter foreground.
   "aria-[current=page]:text-fg aria-[current=page]:bg-[size:100%_1px]",
   "focus-visible:outline-ring outline-0 focus-visible:outline-2 focus-visible:outline-offset-4"
@@ -20,6 +20,7 @@ const navItems = [
   { href: "/about", labelKey: "siteNavAbout" },
   { href: "/projects", labelKey: "siteNavProjects" },
   { href: "/posts", labelKey: "siteNavPosts" },
+  { href: "/talks", labelKey: "siteNavTalks" },
   { href: "/gallery", labelKey: "siteNavGallery" },
 ] as const satisfies readonly { href: Route; labelKey: string }[];
 
@@ -35,7 +36,7 @@ export const SiteNav = () => {
   return (
     <nav
       aria-label={t("navPrimary")}
-      className="flex items-center gap-3 sm:absolute sm:left-1/2 sm:-translate-x-1/2 sm:gap-5"
+      className="order-last flex w-full flex-wrap items-center justify-center gap-x-3 gap-y-1 pb-2 sm:gap-x-5 md:absolute md:left-1/2 md:order-none md:w-auto md:-translate-x-1/2 md:flex-nowrap md:pb-0"
     >
       {navItems.map(({ href, labelKey }) => (
         <Link

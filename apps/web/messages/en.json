@@ -589,5 +589,12 @@
   "galleryKamataNight": "Kamata at night",
   "siteNavGallery": "Gallery",
   "postsYearCount": "{count, plural, one {# post} other {# posts}}",
-  "postsPageTitle": "Posts"
+  "postsPageTitle": "Posts",
+  "siteNavTalks": "Talks",
+  "talksPageTitle": "Talks",
+  "talksPageIntro": "Sharing sessions and slides that I have created over the years while working at my company.",
+  "homeAllTalks": "All talks",
+  "talksEmpty": "No talks added yet.",
+  "talkCreatedOn": "Created",
+  "talkViewSlides": "View slides"
 }

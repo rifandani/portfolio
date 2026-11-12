@@ -61,6 +61,7 @@ export default defineConfig({
         "apps/web/src/server/utils/evlog.ts",
         "apps/web/src/features/post/services/posts.ts",
         "apps/web/src/features/project/services/projects.ts",
+        "apps/web/src/features/talk/services/talks.ts",
         "apps/web/src/proxy.ts",
       ],
     },

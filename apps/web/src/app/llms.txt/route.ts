@@ -21,7 +21,7 @@ export const GET = () =>
         {
           name: "Home",
           href: "/",
-          note: "Identity, work experience, and previews of projects and posts",
+          note: "Identity, work experience, and previews of projects, posts, and talks",
         },
         {
           name: messages.aboutTitle,
@@ -39,6 +39,11 @@ export const GET = () =>
           note: "All projects",
         },
         { name: messages.postsPageTitle, href: "/posts", note: "All posts" },
+        {
+          name: messages.talksPageTitle,
+          href: "/talks",
+          note: messages.talksPageIntro,
+        },
       ],
       posts: getPosts(),
       projects: getProjects(),

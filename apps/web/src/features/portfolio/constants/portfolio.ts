@@ -22,7 +22,7 @@ export const aboutContent = {
   },
   email: "tri.rifandani@gmail.com",
   /** The ID badge frames it close to 5:6 and anchors it at the top. */
-  portraitSrc: "/portrait.png",
+  portraitSrc: "/portrait.webp",
   /** Year and month of birth, as `YYYY-MM`. It prints in the reader's Locale. */
   birthMonth: "1998-05",
   /** ISO 3166-1 alpha-3, printed in the ID badge's machine-readable zone. */

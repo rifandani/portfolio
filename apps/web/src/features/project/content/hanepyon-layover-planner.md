@@ -32,6 +32,8 @@ Hanepyon, Ota City's mascot, guides the traveler through the app. Each screen ha
 
 There is no sign-up or search. Travelers swipe through categories and get a single plan.
 
+![A walkthrough of the app on a phone: Hanepyon asks about your flight, you pick an avatar, practice the swipe, choose 3 hours, like three categories, and get a plan with three stops in Kamata](/images/projects/hanepyon-layover-planner/flow.svg)
+
 ## Ready before the clock started
 
 I built a React template the week before the hackathon, so our small team could start on the app as soon as the event began:
@@ -52,6 +54,8 @@ There were six of us: two software engineers, one designer, and three system con
 I built the swipe engine and screen flow, along with the landing, avatar, and category screens. I also added the map link.
 
 I used Framer Motion's drag support for the category cards. A swipe over 30px to the right counts as a like; one over 30px to the left counts as a pass. The card then moves off-screen in that direction.
+
+![Category cards on a phone: a drag of 220 px to the right likes Cultural, a drag to the left passes Shopping, two more likes make three, and Hanepyon says Great choice](/images/projects/hanepyon-layover-planner/swipe.svg)
 
 ```tsx title="Category.tsx" mark="onDragEnd"
 <motion.div

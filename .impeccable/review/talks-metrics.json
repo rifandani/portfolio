@@ -1,0 +1,226 @@
+[
+  {
+    "scenario": {
+      "name": "desktop",
+      "width": 1440,
+      "locale": "en",
+      "theme": "light"
+    },
+    "metrics": {
+      "width": 1440,
+      "scrollWidth": 1440,
+      "theme": "light",
+      "body": {
+        "color": "lab(46.3763 2.35897 4.26992)",
+        "fontSize": "16px",
+        "lineHeight": "28px"
+      },
+      "date": {
+        "value": "Nov 10, 2026",
+        "color": "lab(46.3763 2.35897 4.26992)"
+      },
+      "link": {
+        "color": "lab(44.4134 -33.1436 -4.22149)",
+        "height": 44
+      },
+      "headerOverlap": false
+    },
+    "errors": []
+  },
+  {
+    "scenario": {
+      "name": "desktop-dark",
+      "width": 1440,
+      "locale": "en",
+      "theme": "dark"
+    },
+    "metrics": {
+      "width": 1440,
+      "scrollWidth": 1440,
+      "theme": "dark",
+      "body": {
+        "color": "lab(66.2166 1.88044 3.20326)",
+        "fontSize": "16px",
+        "lineHeight": "28px"
+      },
+      "date": {
+        "value": "Nov 10, 2026",
+        "color": "lab(66.2166 1.88044 3.20326)"
+      },
+      "link": {
+        "color": "lab(84.8977 -48.1516 -1.3321)",
+        "height": 44
+      },
+      "headerOverlap": false
+    },
+    "errors": []
+  },
+  {
+    "scenario": {
+      "name": "mobile",
+      "width": 390,
+      "locale": "id",
+      "theme": "light"
+    },
+    "metrics": {
+      "width": 390,
+      "scrollWidth": 390,
+      "theme": "light",
+      "body": {
+        "color": "lab(46.3763 2.35897 4.26992)",
+        "fontSize": "16px",
+        "lineHeight": "28px"
+      },
+      "date": {
+        "value": "10 Nov 2026",
+        "color": "lab(46.3763 2.35897 4.26992)"
+      },
+      "link": {
+        "color": "lab(44.4134 -33.1436 -4.22149)",
+        "height": 44
+      },
+      "headerOverlap": false
+    },
+    "errors": []
+  },
+  {
+    "scenario": {
+      "name": "mobile-dark",
+      "width": 390,
+      "locale": "id",
+      "theme": "dark"
+    },
+    "metrics": {
+      "width": 390,
+      "scrollWidth": 390,
+      "theme": "dark",
+      "body": {
+        "color": "lab(66.2166 1.88044 3.20326)",
+        "fontSize": "16px",
+        "lineHeight": "28px"
+      },
+      "date": {
+        "value": "10 Nov 2026",
+        "color": "lab(66.2166 1.88044 3.20326)"
+      },
+      "link": {
+        "color": "lab(84.8977 -48.1516 -1.3321)",
+        "height": 44
+      },
+      "headerOverlap": false
+    },
+    "errors": []
+  },
+  {
+    "scenario": {
+      "name": "header-en-640",
+      "width": 640,
+      "locale": "en",
+      "theme": "light"
+    },
+    "metrics": {
+      "width": 640,
+      "scrollWidth": 640,
+      "theme": "light",
+      "body": {
+        "color": "lab(46.3763 2.35897 4.26992)",
+        "fontSize": "16px",
+        "lineHeight": "28px"
+      },
+      "date": {
+        "value": "Nov 10, 2026",
+        "color": "lab(46.3763 2.35897 4.26992)"
+      },
+      "link": {
+        "color": "lab(44.4134 -33.1436 -4.22149)",
+        "height": 44
+      },
+      "headerOverlap": false
+    },
+    "errors": []
+  },
+  {
+    "scenario": {
+      "name": "header-id-640",
+      "width": 640,
+      "locale": "id",
+      "theme": "light"
+    },
+    "metrics": {
+      "width": 640,
+      "scrollWidth": 640,
+      "theme": "light",
+      "body": {
+        "color": "lab(46.3763 2.35897 4.26992)",
+        "fontSize": "16px",
+        "lineHeight": "28px"
+      },
+      "date": {
+        "value": "10 Nov 2026",
+        "color": "lab(46.3763 2.35897 4.26992)"
+      },
+      "link": {
+        "color": "lab(44.4134 -33.1436 -4.22149)",
+        "height": 44
+      },
+      "headerOverlap": false
+    },
+    "errors": []
+  },
+  {
+    "scenario": {
+      "name": "header-en-768",
+      "width": 768,
+      "locale": "en",
+      "theme": "light"
+    },
+    "metrics": {
+      "width": 768,
+      "scrollWidth": 768,
+      "theme": "light",
+      "body": {
+        "color": "lab(46.3763 2.35897 4.26992)",
+        "fontSize": "16px",
+        "lineHeight": "28px"
+      },
+      "date": {
+        "value": "Nov 10, 2026",
+        "color": "lab(46.3763 2.35897 4.26992)"
+      },
+      "link": {
+        "color": "lab(44.4134 -33.1436 -4.22149)",
+        "height": 44
+      },
+      "headerOverlap": false
+    },
+    "errors": []
+  },
+  {
+    "scenario": {
+      "name": "header-id-768",
+      "width": 768,
+      "locale": "id",
+      "theme": "light"
+    },
+    "metrics": {
+      "width": 768,
+      "scrollWidth": 768,
+      "theme": "light",
+      "body": {
+        "color": "lab(46.3763 2.35897 4.26992)",
+        "fontSize": "16px",
+        "lineHeight": "28px"
+      },
+      "date": {
+        "value": "10 Nov 2026",
+        "color": "lab(46.3763 2.35897 4.26992)"
+      },
+      "link": {
+        "color": "lab(44.4134 -33.1436 -4.22149)",
+        "height": 44
+      },
+      "headerOverlap": false
+    },
+    "errors": []
+  }
+]
