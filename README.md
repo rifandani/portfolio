@@ -36,10 +36,6 @@ Source of truth is the local env file. When changing it, update deployment/CI pr
 
 - [@workspace/typescript-config](./packages/typescript-config/README.md)
 
-## Architecture checks
-
-Run `bun check:boundaries` to check the web app source with the default Bulletproof preset. CI runs the same command and fails on a forbidden import or a source file outside all zones. See the [boundary decision](./apps/web/docs/adr/0006-strict-bulletproof-boundaries.md) for the rules and file locations.
-
 ## 📚 References
 
 ### Accessibility
