@@ -156,7 +156,7 @@ test("translates the labels and date while keeping the Talk text", async ({
     })
   ).toBeVisible();
   await expect(
-    agentReadinessYear.getByRole("link", { name: /Lihat slide/u })
+    agentReadiness.getByRole("link", { name: /Lihat slide/u })
   ).toBeVisible();
 });
 
