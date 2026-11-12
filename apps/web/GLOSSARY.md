@@ -40,7 +40,7 @@ Web app.
 
 ### Public Site
 
-**Public Site**: The set of routes a visitor reads without signing in — Home, About, Projects, Posts. Distinct from the Master Design, which serves developers. _Avoid_: marketing site, landing page, front end
+**Public Site**: The set of routes a visitor reads without signing in — Home, About, Projects, Posts, Talks, Gallery. Distinct from the Master Design, which serves developers. _Avoid_: marketing site, landing page, front end
 
 **Site Shell**: The header and footer every Public Site route renders through. A route supplies its content and nothing else. _Avoid_: layout, wrapper, template, chrome
 
@@ -50,7 +50,7 @@ Web app.
 
 **Role Sentence**: The single sentence at display scale that states what the person does. Distinct from the role title, which is a short noun phrase. _Avoid_: tagline, headline, slogan, bio
 
-**Content Card**: The one card silhouette the Public Site uses for every entry. Comes in three fillings — Work Card, Project Card, Post Card. _Avoid_: tile, panel, item, row
+**Content Card**: The card silhouette for work history, Projects, and Posts on the Public Site. Comes in three fillings — Work Card, Project Card, Post Card. _Avoid_: tile, panel, item, row
 
 **Work Card**: A Content Card for one role in the work history. Static — a role has no destination. _Avoid_: experience item, job card, channel row
 
@@ -117,3 +117,9 @@ Web app.
 **Project Markdown**: The Markdown text a reader copies from a Project Detail: the title as a heading, the description, and the Project Source text without its metadata. Its address is the Project Detail address plus `.md`. _Avoid_: raw markdown, page markdown
 
 **Project Pager**: The two links at the end of a Project Detail to the Projects beside it in Project Order. The first Project has no previous Project, and the last has no next Project. _Avoid_: pagination, prev/next, related projects
+
+### Talks
+
+**Talk**: One slide deck created by Tri Rizeki Rifandani during his work at a company. A later presentation or update of the same deck remains the same Talk. _Avoid_: event, presentation session, Post, Project
+
+**Talk Creation Date**: The date when a Talk was first created. A later presentation or update does not change this date. _Avoid_: presentation date, publish date, update date

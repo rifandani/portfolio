@@ -14,7 +14,7 @@ export const SiteHeader = () => (
     className="border-border bg-navbar/90 sticky top-0 z-20 border-b backdrop-blur-md"
     data-site-header
   >
-    <SiteContainer className="relative flex h-14 items-center justify-between gap-2">
+    <SiteContainer className="relative flex min-h-14 flex-wrap items-center justify-between gap-x-2 gap-y-0 pt-2 md:h-14 md:flex-nowrap md:pt-0">
       <SiteLogo />
 
       <SiteNav />

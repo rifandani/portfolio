@@ -589,5 +589,12 @@
   "galleryKamataNight": "Kamata pada malam hari",
   "siteNavGallery": "Galeri",
   "postsYearCount": "{count} tulisan",
-  "postsPageTitle": "Tulisan"
+  "postsPageTitle": "Tulisan",
+  "siteNavTalks": "Presentasi",
+  "talksPageTitle": "Presentasi",
+  "talksPageIntro": "Slide yang saya buat selama bertahun-tahun bekerja di perusahaan saya.",
+  "homeAllTalks": "Semua presentasi",
+  "talksEmpty": "Belum ada presentasi yang ditambahkan.",
+  "talkCreatedOn": "Dibuat",
+  "talkViewSlides": "Lihat slide"
 }
