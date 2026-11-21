@@ -99,7 +99,7 @@ Tampilan Ghost menunjukkan piksel yang dihapus, sehingga kamu bisa melihat apa y
 
 Rekaman layar sering terlalu besar untuk aplikasi chat atau email. Cinch melakukan untuk video apa yang Squeeze lakukan untuk gambar. Beri Cinch Target ukuran file, atau pilih Video Preset (Light, Balanced, atau Strong) kalau kamu hanya ingin file yang lebih kecil.
 
-![Cinch dengan Target 3 MB mengubah rekaman layar 1080p berukuran 12,3 MB menjadi MP4 2,8 MB, berkurang 77%](/images/projects/ritools/cinch.webp)
+![Cinch mengambil video 1080p berukuran 12,8 MB dengan Target 3 MB, mengompresnya menjadi 2,5 MB, dan membandingkan keduanya berdampingan](/images/projects/ritools/cinch.svg)
 
 Dalam mode Target, Cinch menghitungnya untukmu. Kalau Target terlalu kecil untuk resolusi input, Cinch memilih Fit Scale yang lebih rendah dan menyebutkannya di baris itu. Kalau output pertama masih melebihi Target, Cinch melakukan encode sekali lagi. Kamu juga bisa mengatur Max Resolution, membatasi frame rate, atau menghapus audio.
 
@@ -125,7 +125,7 @@ Cinch menulis MP4 (H.264 dan AAC) atau WebM (VP9 dan Opus). Cinch melakukan enco
 
 **Easel adalah kertas kalkir di atas fotomu.** Easel memotong, memutar, meluruskan, membalik, menyesuaikan warna, menerapkan filter, mengisi area, dan menambahkan teks, bentuk, dan watermark. Easel tidak pernah mengubah piksel aslinya. Easel menyimpan perubahanmu di Edit Stack dan menggambar ulang gambarnya dari yang asli setiap kali, sehingga undo dan redo selalu tepat. Reload tetap mempertahankan gambar yang terbuka beserta editnya.
 
-![Easel dengan sebuah gambar terbuka di tab Crop, di samping Finetune, Filter, Fill, Annotate, Watermark, Redact, dan Resize, dengan preset crop untuk media sosial](/images/projects/ritools/easel.webp)
+![Easel membuka foto beruang kutub, memotongnya menjadi persegi Instagram, menerapkan filter Noir, dan menambahkan watermark teks merah](/images/projects/ritools/easel.svg)
 
 Redaction (Cover atau Mosaic) masuk ke dalam piksel saat export, sehingga file tidak menyimpan piksel tersembunyi di bawahnya. Hasil export juga tidak menyimpan metadata.
 
