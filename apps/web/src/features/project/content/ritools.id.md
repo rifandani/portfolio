@@ -9,9 +9,9 @@ Sebuah portal lowongan kerja menolak foto 3,5 MB kamu. Batasnya 300 KB. Kamu men
 
 ![Halaman utama Ritools: judul Free and Local, sidebar dengan sepuluh Tool, dan kartu Tool dengan nama yang terpotong seperti surat tebusan](/images/projects/ritools/catalog.webp)
 
-## Binatu dan mesin cuci
+## Laundry dan mesin cuci
 
-Tool online bekerja seperti binatu. Kamu menyerahkan pakaianmu kepada orang asing, memercayai ruang belakangnya, dan membayar per potong. Ritools adalah mesin cuci di rumahmu sendiri: pakaian tetap di rumah, dan tidak ada yang menghitung berapa kali kamu mencuci.
+Tool online bekerja seperti laundry. Kamu menyerahkan pakaianmu kepada orang asing, memercayai ruang belakangnya, dan membayar per potong. Ritools adalah mesin cuci di rumahmu sendiri: pakaian tetap di rumah, dan tidak ada yang menghitung berapa kali kamu mencuci.
 
 ![Dua jalur beranimasi. Tool online biasa mengirim file kamu ke server lalu kembali. Ritools menyimpan file di dalam perangkatmu, tempat tab browser mengubahnya menjadi file baru.](/images/projects/ritools/no-upload.svg)
 
