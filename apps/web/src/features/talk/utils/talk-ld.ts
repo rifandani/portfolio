@@ -1,6 +1,6 @@
 import type { CollectionPage } from "schema-dts";
 
-import type { Talk } from "@/features/talk/data/talks";
+import type { LocalizedTalk } from "@/features/talk/data/talks";
 import {
   absoluteUrl,
   CONTENT_LANGUAGE,
@@ -15,7 +15,7 @@ export const createTalkCollection = ({
 }: {
   title: string;
   description: string;
-  talks: readonly Talk[];
+  talks: readonly LocalizedTalk[];
 }): CollectionPage => {
   const url = absoluteUrl("/talks");
   return {
@@ -38,6 +38,7 @@ export const createTalkCollection = ({
           description: talk.description,
           dateCreated: talk.createdAt,
           url: talk.link,
+          // The language of the slides, which stay in English.
           inLanguage: CONTENT_LANGUAGE,
           author: personRef,
         },

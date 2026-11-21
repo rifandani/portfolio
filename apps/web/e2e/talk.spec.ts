@@ -121,7 +121,7 @@ test("shows a dated Talk and opens its slides in a new tab", async ({
   ).toHaveAttribute("href", "https://cli-rifandani.vercel.app/");
 });
 
-test("translates the labels and date while keeping the Talk text", async ({
+test("translates the labels, the date, and the Talk text", async ({
   page,
   context,
 }) => {
@@ -137,7 +137,13 @@ test("translates the labels and date while keeping the Talk text", async ({
   ).toHaveText("Agent Readiness");
   await expect(
     page.getByRole("article").filter({ hasText: "Agent Readiness" })
-  ).toContainText("Making websites and codebases work for AI agents");
+  ).toContainText("Membuat situs web dan codebase bisa dipakai oleh AI agent");
+  await expect(
+    page.getByRole("heading", {
+      level: 3,
+      name: "Mengejar Ketertinggalan tentang Large Language Model (LLM)",
+    })
+  ).toBeVisible();
   await expect(
     page.getByRole("heading", { level: 3, name: "CLI" })
   ).toBeVisible();
