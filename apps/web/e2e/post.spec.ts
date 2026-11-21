@@ -91,19 +91,20 @@ test("marks the section a reader jumps to in the Post Outline", async ({
     "The checklist that remembers",
     "The bot that wants proof",
     "Why companies are adding these checks now",
-    "What I take from it",
+    "Three questions, three answers",
+    "What I get out of it",
     "What a checkbox cannot do",
     "A honeypot for unread diffs",
   ]);
 
-  await outline.getByRole("link", { name: "What I take from it" }).click();
+  await outline.getByRole("link", { name: "What I get out of it" }).click();
 
-  await expect(page).toHaveURL(/#what-i-take-from-it$/u);
+  await expect(page).toHaveURL(/#what-i-get-out-of-it$/u);
   await expect(
-    page.getByRole("heading", { level: 2, name: "What I take from it" })
+    page.getByRole("heading", { level: 2, name: "What I get out of it" })
   ).toBeInViewport();
   await expect(
-    outline.getByRole("link", { name: "What I take from it" })
+    outline.getByRole("link", { name: "What I get out of it" })
   ).toHaveAttribute("aria-current", "location");
 });
 
