@@ -1,5 +1,10 @@
 import { postMarkdownPath } from "@/features/post/utils/slug";
 import { projectMarkdownPath } from "@/features/project/utils/project-path";
+import {
+  I18N_DEFAULT_LOCALE,
+  I18N_LOCALE_NAMES,
+  I18N_TRANSLATED_LOCALES,
+} from "@/shared/constants/i18n";
 
 /** One entry of an llms.txt file list: a link and an optional note. */
 interface LlmsTxtLink {
@@ -67,17 +72,25 @@ export const buildLlmsTxt = ({
     [
       `Base URL: ${origin}`,
       "",
-      "Every Post and Project has a Markdown version: add `.md` to its URL (`/posts/<slug>` → `/posts/<slug>.md`, `/projects/<slug>` → `/projects/<slug>.md`). The Post and Project links below go to the Markdown version.",
+      "Every Post and Project has a Markdown version: add `.md` to its URL (`/posts/<slug>` → `/posts/<slug>.md`, `/projects/<slug>` → `/projects/<slug>.md`). Every Post also has an Indonesian Markdown version at `/posts/<slug>.id.md`. The Post and Project links below go to the Markdown version.",
     ].join("\n"),
     ...section(baseUrl, "Pages", pages),
     ...section(
       baseUrl,
       "Posts",
-      posts.map((post) => ({
-        name: post.title,
-        href: postMarkdownPath(post.slug),
-        note: post.summary,
-      }))
+      // Each Post Translation follows its English Post (ADR-0004).
+      posts.flatMap((post) => [
+        {
+          name: post.title,
+          href: postMarkdownPath(post.slug, I18N_DEFAULT_LOCALE),
+          note: post.summary,
+        },
+        ...I18N_TRANSLATED_LOCALES.map((locale) => ({
+          name: `${post.title} (${I18N_LOCALE_NAMES[locale]})`,
+          href: postMarkdownPath(post.slug, locale),
+          note: "The same Post in Indonesian",
+        })),
+      ])
     ),
     ...section(
       baseUrl,

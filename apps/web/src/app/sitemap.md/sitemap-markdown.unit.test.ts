@@ -28,7 +28,7 @@ describe("sitemapMarkdown", () => {
     expect(sitemapMarkdown(input)).toMatchInlineSnapshot(`
       "# Tri Rizeki Rifandani sitemap
 
-      Every public page of this site. Each post and project is also available as plain Markdown: add \`.md\` to its URL.
+      Every public page of this site. Each post and project is also available as plain Markdown: add \`.md\` to its URL. Each post is also in Indonesian: add \`.id.md\` to its URL.
 
       ## Discovery
 
@@ -45,7 +45,7 @@ describe("sitemapMarkdown", () => {
 
       ## Posts
 
-      - [\\[Synthetic\\] Clarity over complexity](https://web.portfolio.localhost/posts/clarity-over-complexity) — Why restrained UI systems help. (2024-05-12) · [Markdown](https://web.portfolio.localhost/posts/clarity-over-complexity.md)
+      - [\\[Synthetic\\] Clarity over complexity](https://web.portfolio.localhost/posts/clarity-over-complexity) — Why restrained UI systems help. (2024-05-12) · [Markdown](https://web.portfolio.localhost/posts/clarity-over-complexity.md) · [Markdown (Bahasa Indonesia)](https://web.portfolio.localhost/posts/clarity-over-complexity.id.md)
 
       ## Projects
 

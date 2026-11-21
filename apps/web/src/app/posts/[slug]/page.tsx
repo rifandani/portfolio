@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { getTranslations } from "next-intl/server";
+import { getLocale, getTranslations } from "next-intl/server";
 import Image from "next/image";
 import { notFound } from "next/navigation";
 
@@ -19,6 +19,8 @@ import { adjacentPosts } from "@/features/post/utils/post-collection";
 import { createBlogPosting } from "@/features/post/utils/post-ld";
 import { outlineOf, POST_TITLE_ID } from "@/features/post/utils/post-outline";
 import { postMarkdownPath, postPath } from "@/features/post/utils/slug";
+import type { I18NLocale } from "@/shared/constants/i18n";
+import { I18N_DEFAULT_LOCALE } from "@/shared/constants/i18n";
 import {
   absoluteUrl,
   createBreadcrumbList,
@@ -32,14 +34,16 @@ import {
 export const dynamicParams = false;
 
 export const generateStaticParams = () =>
-  getPosts().map((post) => ({ slug: post.slug }));
+  getPosts(I18N_DEFAULT_LOCALE).map((post) => ({ slug: post.slug }));
 
 /** Absolute, because an Assistant fetches it from outside the site. */
-const markdownUrlOf = (slug: string) => absoluteUrl(postMarkdownPath(slug));
+const markdownUrlOf = (slug: string, locale: I18NLocale) =>
+  absoluteUrl(postMarkdownPath(slug, locale));
 
+/** The Post Translation of the reader's Locale (ADR-0004). */
 const findPost = async (params: PageProps<"/posts/[slug]">["params"]) => {
-  const { slug } = await params;
-  return getPost(slug) ?? notFound();
+  const [{ slug }, locale] = await Promise.all([params, getLocale()]);
+  return getPost(slug, locale) ?? notFound();
 };
 
 export const generateMetadata = async ({
@@ -57,7 +61,9 @@ export const generateMetadata = async ({
       modifiedTime: post.updatedAt,
       authors: [absoluteUrl("/about")],
     },
-    alternates: { types: { "text/markdown": markdownUrlOf(post.slug) } },
+    alternates: {
+      types: { "text/markdown": markdownUrlOf(post.slug, post.locale) },
+    },
   });
 };
 
@@ -65,7 +71,7 @@ export default async function PostDetailPage({
   params,
 }: PageProps<"/posts/[slug]">) {
   const [t, post] = await Promise.all([getTranslations(), findPost(params)]);
-  const { previous, next } = adjacentPosts(getPosts(), post.slug);
+  const { previous, next } = adjacentPosts(getPosts(post.locale), post.slug);
   const url = absoluteUrl(postPath(post.slug));
   const outline = outlineOf(post.document);
   return (
@@ -91,7 +97,7 @@ export default async function PostDetailPage({
                 <ShareActions url={url} title={post.title} />
                 <PageActions
                   markdown={post.markdown}
-                  markdownUrl={markdownUrlOf(post.slug)}
+                  markdownUrl={markdownUrlOf(post.slug, post.locale)}
                 />
               </div>
             </div>

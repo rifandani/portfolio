@@ -12,8 +12,14 @@ describe("postPath", () => {
 
 describe("postMarkdownPath", () => {
   it("places the Post Markdown at the Post Detail path plus .md", () => {
-    expect(postMarkdownPath("clarity-over-complexity")).toBe(
+    expect(postMarkdownPath("clarity-over-complexity", "en")).toBe(
       "/posts/clarity-over-complexity.md"
+    );
+  });
+
+  it("puts the Locale before .md for a non-English Post Translation", () => {
+    expect(postMarkdownPath("clarity-over-complexity", "id")).toBe(
+      "/posts/clarity-over-complexity.id.md"
     );
   });
 });

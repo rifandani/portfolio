@@ -3,6 +3,8 @@ import path from "node:path";
 import type { NextConfig } from "next";
 import createNextIntlPlugin from "next-intl/plugin";
 
+import { I18N_TRANSLATED_LOCALES } from "./src/shared/constants/i18n";
+
 const withNextIntl = createNextIntlPlugin("./src/server/utils/i18n.ts");
 
 /**
@@ -45,7 +47,13 @@ const config: NextConfig = {
   },
   rewrites: () =>
     Promise.resolve([
-      { source: "/posts/:slug.md", destination: "/posts/:slug/markdown" },
+      // Each Post Translation has its own Post Markdown (ADR-0004). These
+      // come first, as `:slug.md` would also match `{slug}.id.md`.
+      ...I18N_TRANSLATED_LOCALES.map((locale) => ({
+        source: `/posts/:slug.${locale}.md`,
+        destination: `/posts/:slug/markdown/${locale}`,
+      })),
+      { source: "/posts/:slug.md", destination: "/posts/:slug/markdown/en" },
       {
         source: "/projects/:slug.md",
         destination: "/projects/:slug/markdown",

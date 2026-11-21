@@ -5,6 +5,7 @@ import type {
 } from "@tanstack/markdown";
 import { z } from "zod";
 
+import type { I18NLocale } from "@/shared/constants/i18n";
 import { readableCode } from "@/utils/highlighter";
 import {
   markdownExportOf,
@@ -16,7 +17,9 @@ import type { MarkdownSourceFile } from "@/utils/markdown-source";
 /** One Post Source file as read from disk. */
 export type PostSourceFile = MarkdownSourceFile;
 
+/** One Post Translation: a Post in one Locale. */
 export interface Post {
+  locale: I18NLocale;
   slug: string;
   title: string;
   summary: string;
@@ -52,6 +55,18 @@ const frontmatterSchema = z
       path: ["updatedAt"],
     }
   );
+
+/**
+ * The frontmatter of a Post Translation other than the English one. It holds
+ * only what changes with the Locale; the English Post Source holds the rest.
+ */
+const translationFrontmatterSchema = z.strictObject({
+  title: z.string().min(1),
+  summary: z.string().min(1),
+  previewAlt: z.string().min(1),
+  /** ISO date the text last matched the English Post Source. */
+  translatedAt: z.iso.date(),
+});
 
 /** The text a reader reads in an inline node. Images and breaks have none. */
 const inlineText = (node: InlineNode): string[] => {
@@ -125,6 +140,18 @@ const readingMinutesOf = (document: MarkdownDocument) => {
   return Math.max(1, Math.ceil(words / WORDS_PER_MINUTE));
 };
 
+/** The parts of a Post that change with the Locale. */
+const translatedParts = (
+  data: { title: string; summary: string },
+  document: MarkdownDocument,
+  body: string
+) => ({
+  readingMinutes: readingMinutesOf(document),
+  document,
+  // Post Markdown: an export, not a view (ADR-0004).
+  markdown: markdownExportOf(data.title, data.summary, body),
+});
+
 /**
  * Parse one Post Source into a Post. Throws, naming the file, when the
  * frontmatter is missing or invalid or a Code Block cannot render as written,
@@ -137,11 +164,41 @@ export const parsePostSource = (file: PostSourceFile): Post => {
     "Post Source"
   );
   return {
+    locale: "en",
     ...data,
     updatedAt: data.updatedAt ?? data.publishedAt,
-    readingMinutes: readingMinutesOf(document),
-    document,
-    // Post Markdown: an export, not a view (ADR-0004).
-    markdown: markdownExportOf(data.title, data.summary, body),
+    ...translatedParts(data, document, body),
+  };
+};
+
+/**
+ * Parse the Post Source of a non-English Post Translation onto its English
+ * Post. Throws, naming the file, when the frontmatter is invalid or the text
+ * is older than the last English update, so a stale Translation stops the
+ * build (ADR-0004).
+ */
+export const parsePostTranslationSource = (
+  file: PostSourceFile,
+  locale: I18NLocale,
+  english: Post
+): Post => {
+  const { data, document, body } = parseMarkdownSource(
+    file,
+    translationFrontmatterSchema,
+    "Post Source"
+  );
+  // ISO dates sort as text, so a string compare is a date compare.
+  if (data.translatedAt < english.updatedAt) {
+    throw new Error(
+      `Stale Post Translation ${file.path}: translatedAt ${data.translatedAt} is before the English updatedAt ${english.updatedAt}`
+    );
+  }
+  return {
+    ...english,
+    locale,
+    title: data.title,
+    summary: data.summary,
+    previewAlt: data.previewAlt,
+    ...translatedParts(data, document, body),
   };
 };

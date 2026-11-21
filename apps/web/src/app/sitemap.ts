@@ -6,6 +6,7 @@ import { postPath } from "@/features/post/utils/slug";
 import { getProjects } from "@/features/project/services/projects";
 import { projectPath } from "@/features/project/utils/project-path";
 import { ENV } from "@/shared/constants/env";
+import { I18N_DEFAULT_LOCALE } from "@/shared/constants/i18n";
 
 const absoluteUrl = (route: string) =>
   new URL(route, ENV.NEXT_PUBLIC_APP_URL).href;
@@ -17,7 +18,7 @@ const absoluteUrl = (route: string) =>
  */
 const sitemap = (): MetadataRoute.Sitemap => [
   ...pageRoutes().map((route) => ({ url: absoluteUrl(route) })),
-  ...getPosts().map((post) => ({
+  ...getPosts(I18N_DEFAULT_LOCALE).map((post) => ({
     lastModified: post.updatedAt,
     url: absoluteUrl(postPath(post.slug)),
   })),
