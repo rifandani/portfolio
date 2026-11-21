@@ -126,15 +126,15 @@ Cinch writes MP4 (H.264 and AAC) or WebM (VP9 and Opus). It encodes with the bro
 
 **Tabular is a multitool for tables.** It keeps several files open in tabs, edits cell values, removes duplicates, splits and merges CSV files, and compares two versions by a key you choose. It also writes a PDF report.
 
-![Tabular showing a line chart of a stock list, with Diff, Dedupe, Split, and Merge in the toolbar](/images/projects/ritools/tabular.webp)
+![Tabular opens two stock lists in tabs, draws a bar chart, removes three duplicate rows with Dedupe, and compares the two versions by SKU with Diff](/images/projects/ritools/tabular.svg)
 
 **Folio is a print shop on your desk.** It rewords text, redacts, signs, fills forms, arranges pages, and adds an invisible OCR layer. A wording edit must pass its own inspection: Folio reads the new text back, then renders the page and checks that nothing moved outside the edit. If a check fails, it writes nothing.
 
-![Folio with a sample PDF open on the Redact tab, beside View, Annotate, Shapes, Insert, Form, and Measure](/images/projects/ritools/folio.webp)
+![Folio opens a sample PDF, fills in its form, marks two lines of text for redaction, and replaces them with black boxes](/images/projects/ritools/folio.svg)
 
 **Quill is a notebook that lives in your browser.** It stores documents and folders on your device, and it renders math, tables, and Mermaid diagrams as you type.
 
-![Quill in Split mode with Markdown source on the left and rendered math and a flowchart on the right](/images/projects/ritools/quill.webp)
+![Quill writes Release notes in the local Library, renders a table, math, and a Mermaid flowchart beside the source in Split mode, and shows the finished document in Read mode](/images/projects/ritools/quill.svg)
 
 **Cleave is a light table for two drafts.** Every difference in your text or code jumps out. Resolve then keeps Before, After, or both for each Change. Cleave also opens a file full of git conflict markers and offers the same choices, so you can untangle a merge in a browser tab.
 

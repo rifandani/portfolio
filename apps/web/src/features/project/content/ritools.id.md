@@ -109,15 +109,15 @@ Cinch menulis MP4 (H.264 dan AAC) atau WebM (VP9 dan Opus). Cinch melakukan enco
 
 **Tabular adalah multitool untuk tabel.** Tabular membuka beberapa file di tab, mengedit nilai sel, menghapus duplikat, memisah dan menggabungkan file CSV, dan membandingkan dua versi berdasarkan kunci yang kamu pilih. Tabular juga membuat laporan PDF.
 
-![Tabular menampilkan grafik garis dari daftar saham, dengan Diff, Dedupe, Split, dan Merge di toolbar](/images/projects/ritools/tabular.webp)
+![Tabular membuka dua daftar stok di tab, menggambar grafik batang, menghapus tiga baris duplikat dengan Dedupe, lalu membandingkan kedua versi berdasarkan SKU dengan Diff](/images/projects/ritools/tabular.svg)
 
 **Folio adalah percetakan di mejamu.** Folio mengubah kata-kata, menyensor, menandatangani, mengisi form, menyusun halaman, dan menambahkan lapisan OCR yang tidak terlihat. Edit kata-kata harus lolos pemeriksaannya sendiri: Folio membaca kembali teks baru, lalu me-render halaman dan memeriksa bahwa tidak ada yang bergeser di luar edit itu. Kalau pemeriksaan gagal, Folio tidak menulis apa pun.
 
-![Folio dengan sampel PDF terbuka di tab Redact, di samping View, Annotate, Shapes, Insert, Form, dan Measure](/images/projects/ritools/folio.webp)
+![Folio membuka PDF contoh, mengisi form-nya, menandai dua baris teks untuk disensor, lalu menggantinya dengan kotak hitam](/images/projects/ritools/folio.svg)
 
 **Quill adalah buku catatan yang tinggal di browser kamu.** Quill menyimpan dokumen dan folder di perangkatmu, dan me-render matematika, tabel, dan diagram Mermaid saat kamu mengetik.
 
-![Quill dalam mode Split dengan sumber Markdown di kiri dan matematika serta flowchart yang sudah di-render di kanan](/images/projects/ritools/quill.webp)
+![Quill menulis Release notes di Library lokal, me-render tabel, rumus matematika, dan flowchart Mermaid di samping source dalam mode Split, lalu menampilkan dokumen jadinya dalam mode Read](/images/projects/ritools/quill.svg)
 
 **Cleave adalah meja lampu untuk dua draf.** Setiap perbedaan dalam teks atau kode kamu langsung terlihat. Resolve lalu mempertahankan Before, After, atau keduanya untuk setiap Change. Cleave juga membuka file yang penuh dengan penanda konflik git dan menawarkan pilihan yang sama, sehingga kamu bisa mengurai merge di tab browser.
 
