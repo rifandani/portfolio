@@ -47,7 +47,7 @@ export const GET = () =>
         },
       ],
       posts: getPosts(I18N_DEFAULT_LOCALE),
-      projects: getProjects(),
+      projects: getProjects(I18N_DEFAULT_LOCALE),
       optional: [
         {
           name: "Markdown sitemap",

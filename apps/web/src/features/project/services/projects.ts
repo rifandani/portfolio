@@ -5,6 +5,7 @@ import path from "node:path";
 import { cache } from "react";
 
 import { collectProjects } from "@/features/project/utils/project-collection";
+import type { I18NLocale } from "@/shared/constants/i18n";
 
 /**
  * Project Sources live beside the code, not in `public/`. `next.config.ts`
@@ -29,9 +30,13 @@ const readProjectSources = () =>
 
 /**
  * Logic Seam shell (ADR-0001): reads the disk and delegates to
- * `collectProjects`. `cache` parses each Project Source once per request.
+ * `collectProjects`. `cache` parses the Project Sources once per request and
+ * Locale. The caller names the Locale: a page passes the reader's, and a feed
+ * for crawlers passes the default (ADR-0004).
  */
-export const getProjects = cache(() => collectProjects(readProjectSources()));
+export const getProjects = cache((locale: I18NLocale) =>
+  collectProjects(readProjectSources(), locale)
+);
 
-export const getProject = (slug: string) =>
-  getProjects().find((project) => project.slug === slug);
+export const getProject = (slug: string, locale: I18NLocale) =>
+  getProjects(locale).find((project) => project.slug === slug);

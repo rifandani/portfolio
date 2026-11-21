@@ -19,7 +19,7 @@ export const GET = () =>
       appUrl: ENV.NEXT_PUBLIC_APP_URL,
       pageRoutes: pageRoutes(),
       posts: getPosts(I18N_DEFAULT_LOCALE),
-      projects: getProjects(),
+      projects: getProjects(I18N_DEFAULT_LOCALE),
     }),
     { headers: { "Content-Type": "text/markdown; charset=utf-8" } }
   );

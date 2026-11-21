@@ -121,7 +121,8 @@ const postCard = async (slug: string) => {
 };
 
 const projectCard = async (slug: string) => {
-  const projects = getProjects();
+  // Crawlers send no Locale cookie, so the OG Card is always English (ADR-0004).
+  const projects = getProjects(I18N_DEFAULT_LOCALE);
   const index = projects.findIndex((project) => project.slug === slug);
   const project = projects[index];
   if (!project) {

@@ -4,6 +4,7 @@ title: Monorepo Boilerplates
 description: Two open-source starter monorepos, with React and Expo on the client and Hono and Effect on the server.
 tags: [TypeScript, React, Expo, Hono, Effect, Drizzle, OpenTelemetry, Bun]
 order: 2
+updatedAt: 2026-11-21
 previewSrc: /previews/monorepo-boilerplates.svg
 previewAlt: A browser window and a phone on a shared core package, with a dotted line to two stacked server boxes labeled Hono and Effect
 demoUrl: https://rifandani-fe-monorepo-spa.vercel.app/

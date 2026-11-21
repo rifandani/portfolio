@@ -22,7 +22,7 @@ const sitemap = (): MetadataRoute.Sitemap => [
     lastModified: post.updatedAt,
     url: absoluteUrl(postPath(post.slug)),
   })),
-  ...getProjects().map((project) => ({
+  ...getProjects(I18N_DEFAULT_LOCALE).map((project) => ({
     url: absoluteUrl(projectPath(project.slug)),
   })),
 ];

@@ -28,6 +28,7 @@ A Post is one Markdown file in the repo (the Post Source), with YAML frontmatter
 - Each Post Translation has its own Post Markdown URL: `/posts/{slug}.md` (en) and `/posts/{slug}.{locale}.md`. These URLs are prerendered and do not read the cookie. "Copy page" and the Assistant Handoff use the URL of the Translation the reader sees.
 - Page metadata and JSON-LD follow the Locale. The OG Card, RSS, and `sitemap.xml` stay English. `llms.txt` and `sitemap.md` list the Post Markdown URL of every Translation.
 - Translators do not change Code Blocks (code, comments, fence metadata). Heading ids come from the translated headings, so anchors differ between Translations.
+- Projects follow the same Translation rules. The English Project Source is `{slug}.md` and holds all shared metadata (`slug`, `tags`, `order`, `updatedAt`, `previewSrc`, `demoUrl`, `githubUrl`). Each other Locale has `{slug}.{locale}.md`, whose frontmatter holds only `title`, `description`, `previewAlt`, and `translatedAt`. `updatedAt` is required on a Project Source, because it has no other date; it is not shown. Each Project Translation has its own Project Markdown URL (`/projects/{slug}.md`, `/projects/{slug}.{locale}.md`). One module (`src/utils/markdown-translation.ts`) pairs the files and runs the checks for both.
 - The parser returns frontmatter as a raw string. We parse it as YAML and check it with a zod schema. A bad Post Source stops the build.
 
 ## Considered Options

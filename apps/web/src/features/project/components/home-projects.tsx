@@ -1,4 +1,4 @@
-import { getTranslations } from "next-intl/server";
+import { getLocale, getTranslations } from "next-intl/server";
 
 import { HomeSection, HomeSectionEmpty } from "@/components/home/home-section";
 import { Link } from "@/components/ui/link";
@@ -8,8 +8,8 @@ import { getProjects } from "@/features/project/services/projects";
 const HOME_PREVIEW_COUNT = 3;
 
 export const HomeProjects = async () => {
-  const t = await getTranslations();
-  const allProjects = getProjects();
+  const [t, locale] = await Promise.all([getTranslations(), getLocale()]);
+  const allProjects = getProjects(locale);
   const projects = allProjects.slice(0, HOME_PREVIEW_COUNT);
   return (
     <HomeSection

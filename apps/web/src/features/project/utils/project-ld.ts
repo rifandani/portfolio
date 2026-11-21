@@ -3,15 +3,12 @@ import type { CollectionPage, CreativeWork } from "schema-dts";
 import { projectLinksOf } from "@/features/project/utils/project-links";
 import { projectPath } from "@/features/project/utils/project-path";
 import type { Project } from "@/features/project/utils/project-source";
-import {
-  absoluteUrl,
-  CONTENT_LANGUAGE,
-  ogCardUrl,
-  personRef,
-  webSiteRef,
-} from "@/utils/seo";
+import { absoluteUrl, ogCardUrl, personRef, webSiteRef } from "@/utils/seo";
 
-type ProjectFacts = Pick<Project, "slug" | "title" | "description" | "tags"> &
+type ProjectFacts = Pick<
+  Project,
+  "locale" | "slug" | "title" | "description" | "tags"
+> &
   Partial<Pick<Project, "demoUrl" | "githubUrl">>;
 
 const COLLECTION_PATH = "/projects";
@@ -35,7 +32,8 @@ export const createProjectCreativeWork = (
     description: project.description,
     image: ogCardUrl({ kind: "project", slug: project.slug }),
     keywords: project.tags.join(", "),
-    inLanguage: CONTENT_LANGUAGE,
+    // The language of the Project Translation on the page (ADR-0004).
+    inLanguage: project.locale,
     author: personRef,
     ...(links.length > 0 && { sameAs: links.map((link) => link.href) }),
   };

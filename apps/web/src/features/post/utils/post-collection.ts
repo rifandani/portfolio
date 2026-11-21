@@ -4,59 +4,7 @@ import {
 } from "@/features/post/utils/post-source";
 import type { Post, PostSourceFile } from "@/features/post/utils/post-source";
 import type { I18NLocale } from "@/shared/constants/i18n";
-import {
-  I18N_DEFAULT_LOCALE,
-  I18N_TRANSLATED_LOCALES,
-  isI18NLocale,
-} from "@/shared/constants/i18n";
-
-/** `{base}.{locale}.md` is a Post Translation; `{base}.md` is English. */
-const TRANSLATION_PATH = /^(?<base>.+)\.(?<locale>[a-z]{2})\.md$/u;
-
-interface TranslationFile {
-  file: PostSourceFile;
-  base: string;
-  locale: I18NLocale;
-}
-
-/** Split the files into English Post Sources and Post Translations. */
-const partitionFiles = (files: readonly PostSourceFile[]) => {
-  const english: PostSourceFile[] = [];
-  const translations: TranslationFile[] = [];
-  for (const file of files) {
-    const groups = TRANSLATION_PATH.exec(file.path)?.groups;
-    if (!groups) {
-      english.push(file);
-      continue;
-    }
-    const { base = "", locale = "" } = groups;
-    if (!isI18NLocale(locale) || locale === I18N_DEFAULT_LOCALE) {
-      throw new Error(
-        `Unknown Locale "${locale}" in Post Translation ${file.path}`
-      );
-    }
-    translations.push({ file, base, locale });
-  }
-  return { english, translations };
-};
-
-/** Parse the English Post Sources, keyed by base path. Throws on a duplicate Slug (ADR-0005). */
-const parseEnglish = (files: readonly PostSourceFile[]) => {
-  const pathBySlug = new Map<string, string>();
-  const postByBase = new Map<string, Post>();
-  for (const file of files) {
-    const post = parsePostSource(file);
-    const claimedBy = pathBySlug.get(post.slug);
-    if (claimedBy) {
-      throw new Error(
-        `Duplicate Slug "${post.slug}" in ${claimedBy} and ${file.path}`
-      );
-    }
-    pathBySlug.set(post.slug, file.path);
-    postByBase.set(file.path.replace(/\.md$/u, ""), post);
-  }
-  return postByBase;
-};
+import { collectTranslatedSources } from "@/utils/markdown-translation";
 
 /**
  * Parse every Post Source and return the Posts in one Locale, most recent
@@ -67,42 +15,14 @@ const parseEnglish = (files: readonly PostSourceFile[]) => {
 export const collectPosts = (
   files: readonly PostSourceFile[],
   locale: I18NLocale
-): Post[] => {
-  const { english, translations } = partitionFiles(files);
-  const postByBase = parseEnglish(english);
-  const translated = new Map<string, Post>();
-  for (const { file, base, locale: fileLocale } of translations) {
-    const post = postByBase.get(base);
-    if (!post) {
-      throw new Error(
-        `Post Translation ${file.path} has no English Post Source ${base}.md`
-      );
-    }
-    translated.set(
-      `${base}.${fileLocale}`,
-      parsePostTranslationSource(file, fileLocale, post)
-    );
-  }
-  const translationOf = (base: string, needed: I18NLocale) => {
-    const post = translated.get(`${base}.${needed}`);
-    if (!post) {
-      throw new Error(
-        `Post Source ${base}.md has no Post Translation for Locale "${needed}" (${base}.${needed}.md)`
-      );
-    }
-    return post;
-  };
-  const posts = [...postByBase].map(([base, post]) => {
-    // Throws on the first missing Post Translation, whatever the Locale.
-    for (const needed of I18N_TRANSLATED_LOCALES) {
-      translationOf(base, needed);
-    }
-    return locale === I18N_DEFAULT_LOCALE ? post : translationOf(base, locale);
-  });
-  return posts.toSorted(
-    (a, b) => Date.parse(b.publishedAt) - Date.parse(a.publishedAt)
-  );
-};
+): Post[] =>
+  collectTranslatedSources(files, {
+    name: "Post",
+    parse: parsePostSource,
+    parseTranslation: parsePostTranslationSource,
+  })
+    .map((source) => source.inLocale(locale))
+    .toSorted((a, b) => Date.parse(b.publishedAt) - Date.parse(a.publishedAt));
 
 /** The Posts beside one Post in publish order, as the Post Pager shows them. */
 export interface AdjacentPosts<TPost> {

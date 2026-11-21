@@ -72,7 +72,7 @@ export const buildLlmsTxt = ({
     [
       `Base URL: ${origin}`,
       "",
-      "Every Post and Project has a Markdown version: add `.md` to its URL (`/posts/<slug>` → `/posts/<slug>.md`, `/projects/<slug>` → `/projects/<slug>.md`). Every Post also has an Indonesian Markdown version at `/posts/<slug>.id.md`. The Post and Project links below go to the Markdown version.",
+      "Every Post and Project has a Markdown version: add `.md` to its URL (`/posts/<slug>` → `/posts/<slug>.md`, `/projects/<slug>` → `/projects/<slug>.md`). Every Post and Project also has an Indonesian Markdown version at `/posts/<slug>.id.md` and `/projects/<slug>.id.md`. The Post and Project links below go to the Markdown version.",
     ].join("\n"),
     ...section(baseUrl, "Pages", pages),
     ...section(
@@ -95,11 +95,19 @@ export const buildLlmsTxt = ({
     ...section(
       baseUrl,
       "Projects",
-      projects.map((project) => ({
-        name: project.title,
-        href: projectMarkdownPath(project.slug),
-        note: project.description,
-      }))
+      // Each Project Translation follows its English Project (ADR-0004).
+      projects.flatMap((project) => [
+        {
+          name: project.title,
+          href: projectMarkdownPath(project.slug, I18N_DEFAULT_LOCALE),
+          note: project.description,
+        },
+        ...I18N_TRANSLATED_LOCALES.map((locale) => ({
+          name: `${project.title} (${I18N_LOCALE_NAMES[locale]})`,
+          href: projectMarkdownPath(project.slug, locale),
+          note: `The same Project in ${I18N_LOCALE_NAMES[locale]}`,
+        })),
+      ])
     ),
     ...section(baseUrl, "Optional", optional),
   ];

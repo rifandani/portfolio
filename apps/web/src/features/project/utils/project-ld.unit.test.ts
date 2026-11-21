@@ -13,6 +13,7 @@ vi.mock("@/shared/constants/env", () => ({
 }));
 
 const project = {
+  locale: "en" as const,
   slug: "signal-kit",
   title: "Signal Kit",
   description: "Accessible patterns.",
@@ -43,6 +44,12 @@ describe("createProjectCreativeWork", () => {
         "https://github.com/rifandani/signal-kit",
       ],
     });
+  });
+
+  it("gives the language of the Project Translation on the page", () => {
+    expect(
+      createProjectCreativeWork({ ...project, locale: "id" })
+    ).toMatchObject({ inLanguage: "id" });
   });
 
   it("gives no sameAs to a Project without Project Links", () => {

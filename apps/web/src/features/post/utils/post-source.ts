@@ -14,6 +14,7 @@ import {
   slugSchema,
 } from "@/utils/markdown-source";
 import type { MarkdownSourceFile } from "@/utils/markdown-source";
+import { assertTranslationIsCurrent } from "@/utils/markdown-translation";
 
 /** One Post Source file as read from disk. */
 export type PostSourceFile = MarkdownSourceFile;
@@ -188,12 +189,12 @@ export const parsePostTranslationSource = (
     translationFrontmatterSchema,
     "Post Source"
   );
-  // ISO dates sort as text, so a string compare is a date compare.
-  if (data.translatedAt < english.updatedAt) {
-    throw new Error(
-      `Stale Post Translation ${file.path}: translatedAt ${data.translatedAt} is before the English updatedAt ${english.updatedAt}`
-    );
-  }
+  assertTranslationIsCurrent({
+    name: "Post",
+    path: file.path,
+    translatedAt: data.translatedAt,
+    updatedAt: english.updatedAt,
+  });
   return {
     ...english,
     locale,

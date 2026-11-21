@@ -15,6 +15,7 @@ tags:
     PWA,
   ]
 order: 1
+updatedAt: 2026-11-21
 previewSrc: /previews/ritools.svg
 previewAlt: A browser window with eight Tool tiles inside a dashed line labeled your device, and a crossed-out cloud outside the line
 demoUrl: https://ritools.vercel.app/
