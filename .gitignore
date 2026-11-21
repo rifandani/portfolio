@@ -8,6 +8,7 @@ playwright
 blob-report
 playwright.cache
 coverage
+.vitest/
 /.stryker-tmp
 stryker.log
 # The vitest runner writes ./stryker-setup-${STRYKER_MUTATOR_WORKER}.js into cwd,
@@ -148,6 +149,9 @@ otel-lgtm
 # agent worktrees
 .worktrees/
 .claude/worktrees/
+
+# Impeccable rewrites this hook cache on its own.
+.impeccable/hook.cache.json
 
 # PR Lens writes its previews here. They are rebuilt on demand.
 .pr-lens/
