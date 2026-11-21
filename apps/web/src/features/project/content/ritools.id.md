@@ -1,13 +1,13 @@
 ---
 title: Ritools
-description: Delapan tool gratis untuk gambar, PDF, tabel, dan teks. Semuanya berjalan di browser, dan file kamu tetap di perangkatmu.
-previewAlt: Jendela browser dengan delapan kotak Tool di dalam garis putus-putus berlabel your device, dan awan yang dicoret di luar garis itu
+description: Sepuluh tool gratis untuk gambar, video, PDF, tabel, dan teks. Semuanya berjalan di browser, dan file kamu tetap di perangkatmu.
+previewAlt: Jendela browser dengan sepuluh kotak Tool di dalam garis putus-putus berlabel your device, dan awan yang dicoret di luar garis itu
 translatedAt: 2026-11-21
 ---
 
 Sebuah portal lowongan kerja menolak foto 3,5 MB kamu. Batasnya 300 KB. Kamu mencari kompresor, dan hasil pertama meminta file kamu diunggah ke server mereka, meminta akun, atau meminta paket berbayar untuk sisa batch-nya. Ritools melakukan pekerjaan yang sama di satu tab browser: tanpa akun, tanpa upload, dan tanpa batas selain perangkatmu.
 
-![Halaman utama Ritools: judul Free and Local, sidebar dengan delapan Tool, dan kartu Tool dengan nama yang terpotong seperti surat tebusan](/images/projects/ritools/catalog.webp)
+![Halaman utama Ritools: judul Free and Local, sidebar dengan sepuluh Tool, dan kartu Tool dengan nama yang terpotong seperti surat tebusan](/images/projects/ritools/catalog.webp)
 
 ## Binatu dan mesin cuci
 
@@ -23,22 +23,24 @@ Janji ini datang dari strukturnya. Kebijakan privasi memintamu memercayai sebuah
 - **Tanpa akun:** Buka halamannya dan langsung mulai.
 - **Tanpa batas:** Memori dan CPU kamu adalah satu-satunya batas, dan situs ini mengatakannya.
 - **Bisa offline:** Setelah dipakai pertama kali, sebuah Tool tetap berfungsi di pesawat.
-- **Siap untuk agent:** Empat Tool mendukung WebMCP, sehingga agent di browser kamu bisa menjalankannya untukmu.
+- **Siap untuk agent:** Enam Tool mendukung WebMCP, sehingga agent di browser kamu bisa menjalankannya untukmu.
 - **Tanpa instalasi:** Setiap Tool adalah tautan, dan situs ini bisa diinstal sebagai PWA kalau kamu ingin ikonnya.
 - **Penggunaan komersial:** Pekerjaan untuk klien dipersilakan, tanpa biaya.
 
-## Delapan Tool, satu tab
+## Sepuluh Tool, satu tab
 
-Semua Tool berbagi satu shell, jadi kamu cukup mempelajari sidebar-nya sekali. Empat Tool membuat file, dan empat lainnya membuka dokumen untuk diedit. Keempat pembuat file itu juga menerima perintah dari AI agent melalui WebMCP.
+Semua Tool berbagi satu shell, jadi kamu cukup mempelajari sidebar-nya sekali. Lima Tool membuat file, dan lima lainnya membuka dokumen untuk diedit. Kelima pembuat file itu dan Easel juga menerima perintah dari AI agent melalui WebMCP.
 
 - **Squeeze** mengompres satu batch gambar sampai ukuran file target.
 - **Expose** membaca metadata file, lalu menghapus grup yang kamu pilih.
 - **Qraft** membuat kode QR dan lebih dari 40 jenis kode lainnya.
 - **Unmask** menghapus latar belakang gambar dan membiarkanmu memperbaiki hasilnya.
+- **Cinch** mengompres satu batch video sampai ukuran file target.
 - **Tabular** menampilkan, mengedit, dan mengonversi file CSV dan Excel.
 - **Folio** menampilkan, mengedit, dan mengompres PDF.
 - **Quill** menyimpan pustaka Markdown di browser kamu.
 - **Cleave** membandingkan dua teks dan menyelesaikan setiap perubahan.
+- **Easel** memotong, menyesuaikan, memberi anotasi, dan menyensor satu gambar dalam satu waktu.
 
 ## Squeeze: kemas sampai batas berat
 
@@ -93,7 +95,15 @@ Model berjalan di tab kamu dengan ONNX Runtime Web, memakai WebGPU kalau browser
 
 Tampilan Ghost menunjukkan piksel yang dihapus, sehingga kamu bisa melihat apa yang perlu dikembalikan. Wand mengambil area dengan warna yang mirip, dan Brush melukis goresan. Setiap edit masuk ke log operasi, dan export memutar ulang log itu pada Matte beresolusi penuh. Gambar akhir tetap tajam walaupun kamu melukis di pratinjau yang lebih kecil.
 
-## Empat editor
+## Cinch: batas berat yang sama, untuk video
+
+Rekaman layar sering terlalu besar untuk aplikasi chat atau email. Cinch melakukan untuk video apa yang Squeeze lakukan untuk gambar. Beri Cinch Target ukuran file, atau pilih Video Preset (Light, Balanced, atau Strong) kalau kamu hanya ingin file yang lebih kecil.
+
+Dalam mode Target, Cinch menghitungnya untukmu. Kalau Target terlalu kecil untuk resolusi input, Cinch memilih Fit Scale yang lebih rendah dan menyebutkannya di baris itu. Kalau output pertama masih melebihi Target, Cinch melakukan encode sekali lagi. Kamu juga bisa mengatur Max Resolution, membatasi frame rate, atau menghapus audio.
+
+Cinch menulis MP4 (H.264 dan AAC) atau WebM (VP9 dan Opus). Cinch melakukan encode dengan WebCodecs milik browser melalui Mediabunny, sehingga bisa memakai encoder video hardware di perangkatmu. Cinch tidak membawa ffmpeg.wasm, jadi tidak ada mesin besar yang perlu diunduh.
+
+## Lima editor
 
 **Tabular adalah multitool untuk tabel.** Tabular membuka beberapa file di tab, mengedit nilai sel, menghapus duplikat, memisah dan menggabungkan file CSV, dan membandingkan dua versi berdasarkan kunci yang kamu pilih. Tabular juga membuat laporan PDF.
 
@@ -111,24 +121,30 @@ Tampilan Ghost menunjukkan piksel yang dihapus, sehingga kamu bisa melihat apa y
 
 ![Cleave mengambil dua versi sebuah fungsi, menunjukkan Change secara berdampingan, membuka Resolve, dan menerima satu Change](/images/projects/ritools/cleave.svg)
 
-## WebMCP: empat Tool menerima perintah dari agent kamu
+**Easel adalah kertas kalkir di atas fotomu.** Easel memotong, memutar, meluruskan, membalik, menyesuaikan warna, menerapkan filter, mengisi area, dan menambahkan teks, bentuk, dan watermark. Easel tidak pernah mengubah piksel aslinya. Easel menyimpan perubahanmu di Edit Stack dan menggambar ulang gambarnya dari yang asli setiap kali, sehingga undo dan redo selalu tepat. Reload tetap mempertahankan gambar yang terbuka beserta editnya.
+
+Redaction (Cover atau Mosaic) masuk ke dalam piksel saat export, sehingga file tidak menyimpan piksel tersembunyi di bawahnya. Hasil export juga tidak menyimpan metadata.
+
+## WebMCP: enam Tool menerima perintah dari agent kamu
 
 Agent di situs web biasa memesan dengan menunjuk gambar. Agent membaca screenshot, menebak tombol mana yang penting, dan berharap tata letaknya tidak berubah. WebMCP memberinya menu: setiap aksi punya nama, deskripsi, dan skema bertipe.
 
-Squeeze, Expose, Qraft, dan Unmask menerbitkan menu itu. Di sini agent browser menjalankan Qraft di situs live tanpa klik. Setiap frame menunjukkan panggilan nyata dan hasilnya.
+Squeeze, Expose, Qraft, Unmask, Cinch, dan Easel menerbitkan menu itu. Di sini agent browser menjalankan Qraft di situs live tanpa klik. Setiap frame menunjukkan panggilan nyata dan hasilnya.
 
 ![Agent browser mengendalikan Qraft tanpa klik: agent menampilkan daftar Agent Actions, membuka Qraft, mengatur payload, dan memberi gaya pada kode dengan gradien merah](/images/projects/ritools/webmcp.svg)
 
-Masing-masing dari keempat Tool menambahkan aksinya sendiri saat kamu membukanya, totalnya 34:
+Masing-masing dari keenam Tool menambahkan aksinya sendiri saat kamu membukanya, totalnya 48:
 
 - **Squeeze (6):** Atur Target, jalankan Batch, hentikan, hapus gambar, dan unduh.
 - **Expose (8):** Buka sampel, baca Metadata Report, pilih preset, bersihkan, dan unduh.
 - **Qraft (9):** Atur kode dan gayanya, render, buat batch dan label sheet, dan unduh.
 - **Unmask (11):** Muat sampel, ubah pengaturan, potong, edit Matte, undo, redo, dan unduh.
+- **Cinch (6):** Ubah pengaturan, jalankan Batch, hentikan, kosongkan, dan unduh.
+- **Easel (8):** Buka sampel, potong ke preset, putar, balik, sesuaikan, terapkan filter, dan export.
 
-Aksi ke-35, `open_tool`, berfungsi di setiap halaman dan membuka salah satu dari keempat Tool itu. Para editor tetap manual: Tabular, Folio, Quill, dan Cleave tidak menerbitkan aksi sendiri.
+Aksi ke-49, `open_tool`, berfungsi di setiap halaman dan membuka salah satu dari keenam Tool itu. Editor lainnya tetap manual: Tabular, Folio, Quill, dan Cleave tidak menerbitkan aksi sendiri.
 
-Janji lokal tetap berlaku. Byte file tidak pernah masuk ke atau keluar dari Agent Action, sehingga agent hanya bekerja pada file yang kamu masukkan ke Batch. Hanya kamu yang memilih logo Qraft, dan unduhan melewati jalur yang sama dengan klikmu sendiri. Hasil yang berisi teks dari file membawa petunjuk peringatan, karena sebuah file bisa berisi teks yang ditulis untuk mengarahkan agent.
+Janji lokal tetap berlaku. Byte file tidak pernah masuk ke atau keluar dari Agent Action, sehingga agent hanya bekerja pada file yang kamu buka. Hanya kamu yang memilih logo Qraft, dan unduhan melewati jalur yang sama dengan klikmu sendiri. Hasil yang berisi teks dari file membawa petunjuk peringatan, karena sebuah file bisa berisi teks yang ditulis untuk mengarahkan agent.
 
 Ritools memakai WebMCP native kalau browser memilikinya. Kalau tidak, Ritools memuat polyfill untuk agent di transport MCP-B, dan mengunci polyfill itu ke origin-nya sendiri. Pengaturan default-nya akan membiarkan frame atau extension mana pun memanggil sebuah aksi.
 
@@ -139,9 +155,11 @@ Tab browser punya ruang mesin yang lebih besar dari dugaan kebanyakan orang. Set
 - Squeeze: codec jSquash, termasuk MozJPEG dan AVIF.
 - Expose: ExifTool 13.59 dalam WebAssembly.
 - Unmask: ISNet di ONNX Runtime Web.
+- Cinch: Mediabunny di atas WebCodecs milik browser.
 - Folio: PDFium melalui EmbedPDF, pdf-lib, dan Tesseract.
 - Quill: Tiptap, dengan Pele untuk Mermaid.
 - Cleave: Pierre Diffs.
+- Easel: pass WebGL2, Fabric.js, dan jSquash.
 
 Pekerjaan berat berjalan di Web Worker, sehingga halaman tetap responsif. Service worker menyimpan setiap mesin di cache setelah pertama dipakai. TanStack Start dan React menggambar situsnya, dan Effect menjalankan logika aplikasinya.
 
@@ -156,6 +174,8 @@ Ritools mengatakan "no cap", bukan "unlimited", karena batasnya ada: perangkatmu
 - Penggunaan pertama setiap mesin butuh koneksi jaringan.
 - Unmask tidak menjanjikan tepi yang sempurna pada rambut, bulu, kaca, atau motion blur, dan tidak membaca file HEIC, TIFF, atau RAW.
 - Expose hanya menghapus metadata. Expose tidak bisa menghapus watermark piksel.
+- Cinch hanya membaca MP4, MOV, WebM, dan MKV, dan browser kamu menentukan codec mana yang bisa dibacanya.
+- Easel membuka paling banyak 10 gambar sekaligus, dan tidak menyimpan file proyek.
 - Tabular mengedit nilai sel dan tidak mempertahankan formula Excel.
 - Folio menganggap pengubahan kata-kata sebagai beta: font yang sama, tanpa reflow.
 - Hasil Agent Action masuk ke agent browser kamu, dan agent itu mungkin mengirimnya ke model remote. Ritools tidak mengunggah apa pun, tetapi hasil Expose berisi nilai metadata, jadi pilih agent kamu dengan hati-hati.
