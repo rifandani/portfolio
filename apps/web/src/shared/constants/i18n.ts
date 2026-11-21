@@ -11,3 +11,6 @@ export const I18N_LOCALE_NAMES = {
 export const I18N_TRANSLATED_LOCALES = I18N_LOCALES.filter(
   (locale) => locale !== I18N_DEFAULT_LOCALE
 );
+/** Whether a value from outside (a cookie, a path) is a supported Locale. */
+export const isI18NLocale = (value?: string): value is I18NLocale =>
+  I18N_LOCALES.some((locale) => locale === value);

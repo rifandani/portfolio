@@ -88,7 +88,7 @@ export const buildLlmsTxt = ({
         ...I18N_TRANSLATED_LOCALES.map((locale) => ({
           name: `${post.title} (${I18N_LOCALE_NAMES[locale]})`,
           href: postMarkdownPath(post.slug, locale),
-          note: "The same Post in Indonesian",
+          note: `The same Post in ${I18N_LOCALE_NAMES[locale]}`,
         })),
       ])
     ),

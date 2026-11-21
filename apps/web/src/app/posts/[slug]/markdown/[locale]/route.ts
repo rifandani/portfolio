@@ -1,8 +1,11 @@
 import { notFound } from "next/navigation";
 
 import { getPost, getPosts } from "@/features/post/services/posts";
-import type { I18NLocale } from "@/shared/constants/i18n";
-import { I18N_DEFAULT_LOCALE, I18N_LOCALES } from "@/shared/constants/i18n";
+import {
+  I18N_DEFAULT_LOCALE,
+  I18N_LOCALES,
+  isI18NLocale,
+} from "@/shared/constants/i18n";
 
 /**
  * The Post Markdown of one Post Translation as plain text. Readers and
@@ -19,15 +22,12 @@ export const generateStaticParams = () =>
     I18N_LOCALES.map((locale) => ({ slug: post.slug, locale }))
   );
 
-const isLocale = (value: string): value is I18NLocale =>
-  I18N_LOCALES.some((locale) => locale === value);
-
 export const GET = async (
   _request: Request,
   { params }: RouteContext<"/posts/[slug]/markdown/[locale]">
 ) => {
   const { slug, locale } = await params;
-  const post = (isLocale(locale) && getPost(slug, locale)) || notFound();
+  const post = (isI18NLocale(locale) && getPost(slug, locale)) || notFound();
   return new Response(post.markdown, {
     headers: { "Content-Type": "text/markdown; charset=utf-8" },
   });

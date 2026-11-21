@@ -118,6 +118,21 @@ describe("collectPosts", () => {
     ).toThrow(/orphan\.id\.md/u);
   });
 
+  it("rejects shared metadata in a Post Translation, naming the file", () => {
+    const english = file("a.md", "hello", "2024-01-01");
+    const withSlug = {
+      path: "a.id.md",
+      text: translation("a.id.md", "halo", "2024-01-01").text.replace(
+        "---\ntitle:",
+        "---\nslug: halo\ntitle:"
+      ),
+    };
+
+    expect(() => collectPosts([english, withSlug], "en")).toThrow(
+      /a\.id\.md[\s\S]*slug/u
+    );
+  });
+
   it("rejects a Post Translation for an unknown Locale", () => {
     expect(() =>
       collectPosts(

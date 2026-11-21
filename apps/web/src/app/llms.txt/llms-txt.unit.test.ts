@@ -51,7 +51,7 @@ describe("buildLlmsTxt", () => {
         "## Posts",
         "",
         "- [Clarity over complexity](https://example.com/posts/clarity-over-complexity.md): Why simple wins.",
-        "- [Clarity over complexity (Bahasa Indonesia)](https://example.com/posts/clarity-over-complexity.id.md): The same Post in Indonesian",
+        "- [Clarity over complexity (Bahasa Indonesia)](https://example.com/posts/clarity-over-complexity.id.md): The same Post in Bahasa Indonesia",
         "",
         "## Projects",
         "",

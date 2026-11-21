@@ -6,15 +6,12 @@ import type { Post, PostSourceFile } from "@/features/post/utils/post-source";
 import type { I18NLocale } from "@/shared/constants/i18n";
 import {
   I18N_DEFAULT_LOCALE,
-  I18N_LOCALES,
   I18N_TRANSLATED_LOCALES,
+  isI18NLocale,
 } from "@/shared/constants/i18n";
 
 /** `{base}.{locale}.md` is a Post Translation; `{base}.md` is English. */
 const TRANSLATION_PATH = /^(?<base>.+)\.(?<locale>[a-z]{2})\.md$/u;
-
-const isLocale = (value: string): value is I18NLocale =>
-  I18N_LOCALES.some((locale) => locale === value);
 
 interface TranslationFile {
   file: PostSourceFile;
@@ -23,7 +20,7 @@ interface TranslationFile {
 }
 
 /** Split the files into English Post Sources and Post Translations. */
-const sortFiles = (files: readonly PostSourceFile[]) => {
+const partitionFiles = (files: readonly PostSourceFile[]) => {
   const english: PostSourceFile[] = [];
   const translations: TranslationFile[] = [];
   for (const file of files) {
@@ -33,7 +30,7 @@ const sortFiles = (files: readonly PostSourceFile[]) => {
       continue;
     }
     const { base = "", locale = "" } = groups;
-    if (!isLocale(locale) || locale === I18N_DEFAULT_LOCALE) {
+    if (!isI18NLocale(locale) || locale === I18N_DEFAULT_LOCALE) {
       throw new Error(
         `Unknown Locale "${locale}" in Post Translation ${file.path}`
       );
@@ -71,7 +68,7 @@ export const collectPosts = (
   files: readonly PostSourceFile[],
   locale: I18NLocale
 ): Post[] => {
-  const { english, translations } = sortFiles(files);
+  const { english, translations } = partitionFiles(files);
   const postByBase = parseEnglish(english);
   const translated = new Map<string, Post>();
   for (const { file, base, locale: fileLocale } of translations) {
@@ -96,6 +93,7 @@ export const collectPosts = (
     return post;
   };
   const posts = [...postByBase].map(([base, post]) => {
+    // Throws on the first missing Post Translation, whatever the Locale.
     for (const needed of I18N_TRANSLATED_LOCALES) {
       translationOf(base, needed);
     }

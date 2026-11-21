@@ -6,6 +6,7 @@ import type {
 import { z } from "zod";
 
 import type { I18NLocale } from "@/shared/constants/i18n";
+import { I18N_DEFAULT_LOCALE } from "@/shared/constants/i18n";
 import { readableCode } from "@/utils/highlighter";
 import {
   markdownExportOf,
@@ -164,7 +165,7 @@ export const parsePostSource = (file: PostSourceFile): Post => {
     "Post Source"
   );
   return {
-    locale: "en",
+    locale: I18N_DEFAULT_LOCALE,
     ...data,
     updatedAt: data.updatedAt ?? data.publishedAt,
     ...translatedParts(data, document, body),
