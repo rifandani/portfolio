@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { getTranslations } from "next-intl/server";
+import { getLocale, getTranslations } from "next-intl/server";
 import Image from "next/image";
 import { notFound } from "next/navigation";
 
@@ -24,6 +24,8 @@ import {
   projectMarkdownPath,
   projectPath,
 } from "@/features/project/utils/project-path";
+import type { I18NLocale } from "@/shared/constants/i18n";
+import { I18N_DEFAULT_LOCALE } from "@/shared/constants/i18n";
 import {
   absoluteUrl,
   createBreadcrumbList,
@@ -37,14 +39,16 @@ import {
 export const dynamicParams = false;
 
 export const generateStaticParams = () =>
-  getProjects().map((project) => ({ slug: project.slug }));
+  getProjects(I18N_DEFAULT_LOCALE).map((project) => ({ slug: project.slug }));
 
 /** Absolute, because an Assistant fetches it from outside the site. */
-const markdownUrlOf = (slug: string) => absoluteUrl(projectMarkdownPath(slug));
+const markdownUrlOf = (slug: string, locale: I18NLocale) =>
+  absoluteUrl(projectMarkdownPath(slug, locale));
 
+/** The Project Translation of the reader's Locale (ADR-0004). */
 const findProject = async (params: PageProps<"/projects/[slug]">["params"]) => {
-  const { slug } = await params;
-  return getProject(slug) ?? notFound();
+  const [{ slug }, locale] = await Promise.all([params, getLocale()]);
+  return getProject(slug, locale) ?? notFound();
 };
 
 export const generateMetadata = async ({
@@ -57,7 +61,11 @@ export const generateMetadata = async ({
     card: { kind: "project", slug: project.slug },
     description: project.description,
     openGraph: { type: "article", authors: [absoluteUrl("/about")] },
-    alternates: { types: { "text/markdown": markdownUrlOf(project.slug) } },
+    alternates: {
+      types: {
+        "text/markdown": markdownUrlOf(project.slug, project.locale),
+      },
+    },
   });
 };
 
@@ -74,7 +82,10 @@ export default async function ProjectDetailPage({
     getTranslations(),
     findProject(params),
   ]);
-  const { previous, next } = adjacentProjects(getProjects(), project.slug);
+  const { previous, next } = adjacentProjects(
+    getProjects(project.locale),
+    project.slug
+  );
   const url = absoluteUrl(projectPath(project.slug));
   const links = projectLinksOf(project);
   const outline = outlineOf(project.document);
@@ -101,7 +112,7 @@ export default async function ProjectDetailPage({
                 <ShareActions url={url} title={project.title} />
                 <PageActions
                   markdown={project.markdown}
-                  markdownUrl={markdownUrlOf(project.slug)}
+                  markdownUrl={markdownUrlOf(project.slug, project.locale)}
                 />
               </div>
             </div>

@@ -1,9 +1,10 @@
 import { getPosts } from "@/features/post/services/posts";
 import { getProjects } from "@/features/project/services/projects";
 import { ENV } from "@/shared/constants/env";
+import { I18N_DEFAULT_LOCALE } from "@/shared/constants/i18n";
 import { portfolioIdentity, socialLinks } from "@/shared/constants/identity";
 
-// llms.txt has one language, like a Post, so it reads the English Message Catalog directly.
+// llms.txt is in English and links each Post Translation (ADR-0004). So it reads the English Message Catalog directly.
 import messages from "../../../messages/en.json";
 import { buildLlmsTxt } from "./llms-txt";
 
@@ -45,8 +46,8 @@ export const GET = () =>
           note: messages.talksPageIntro,
         },
       ],
-      posts: getPosts(),
-      projects: getProjects(),
+      posts: getPosts(I18N_DEFAULT_LOCALE),
+      projects: getProjects(I18N_DEFAULT_LOCALE),
       optional: [
         {
           name: "Markdown sitemap",

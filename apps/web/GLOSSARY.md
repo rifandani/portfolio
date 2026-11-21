@@ -68,13 +68,15 @@ Web app.
 
 ### Posts
 
-**Post**: One piece of writing on the Public Site. It has one language, and all Locales show the same text. _Avoid_: article, blog, blog post, entry
+**Post**: One piece of writing on the Public Site. It has one Post Translation for each Locale, and the Locale of the reader selects which one shows. _Avoid_: article, blog, blog post, entry
 
-**Post Source**: The written file of one Post — its metadata and its Markdown text. It is the canonical form of the Post. _Avoid_: md file, content file, raw post
+**Post Translation**: The text of one Post in one Locale. The English one is the original; the other ones follow it. Every Post has a Post Translation for every Locale, and each one must be as recent as the English one. Translations share the Slug, the dates, the images, and the code of their Post. _Avoid_: version, localized post, i18n post, variant
+
+**Post Source**: The written file of one Post Translation — its metadata and its Markdown text. The English Post Source holds the metadata that all Translations share. It is the canonical form of the Post. _Avoid_: md file, content file, raw post
 
 **Post Document**: The parsed tree of one Post's text. All views of the Post come from it, not from the Post Source text. _Avoid_: body, content, AST, markdown
 
-**Post Markdown**: The Markdown text a reader copies from a Post Detail: the title as a heading, the summary, and the Post Source text without its metadata. It is an export, not a view, so it comes from the Post Source text and not from the Post Document. It also has its own address, so a reader or an Assistant can open it as plain text. _Avoid_: raw markdown, page markdown, md, source text
+**Post Markdown**: The Markdown text a reader copies from a Post Detail: the title as a heading, the summary, and the Post Source text without its metadata. It is an export, not a view, so it comes from the Post Source text and not from the Post Document. Each Post Translation has its own Post Markdown at its own address, so a reader or an Assistant can open it as plain text. _Avoid_: raw markdown, page markdown, md, source text
 
 **Page Actions**: The "Copy page" button and the menu next to it at the top of a Post Detail. Each action gives the Post Markdown to the reader or to an Assistant. _Avoid_: share menu, toolbar, options, split button
 
@@ -102,9 +104,11 @@ Web app.
 
 ### Projects
 
-**Project**: One piece of work on the Public Site. Like a Post, it has one language, and all Locales show the same text. _Avoid_: portfolio item, work, repo, case study
+**Project**: One piece of work on the Public Site. It has one Project Translation for each Locale, and the Locale of the reader selects which one shows. _Avoid_: portfolio item, work, repo, case study
 
-**Project Source**: The written file of one Project — its metadata and its Markdown text, in `src/features/project/content`. It follows the Post Source rules (ADR-0004, ADR-0005). _Avoid_: md file, content file, project entry
+**Project Translation**: The text of one Project in one Locale. The English one is the original; the other ones follow it. Every Project has a Project Translation for every Locale, and each one must be as recent as the English one. Translations share the Slug, the Tags, the Project Order, the images, the Project Links, and the code of their Project. _Avoid_: version, localized project, i18n project, variant
+
+**Project Source**: The written file of one Project Translation — its metadata and its Markdown text, in `src/features/project/content`. The English Project Source holds the metadata that all Translations share. It follows the Post Source rules (ADR-0004, ADR-0005). _Avoid_: md file, content file, project entry
 
 **Tags**: The technologies of one Project, in the order its Project Source gives them. On a Project Detail they take the place of the publish date and the reading time of a Post. _Avoid_: stack, labels, badges, keywords
 
@@ -114,12 +118,12 @@ Web app.
 
 **Project Links**: The links of a Project Detail to the Project itself: its live demo (`demoUrl`) and its GitHub repository (`githubUrl`). Each is optional in the Project Source, and each opens in a new tab. They show as buttons under the description. _Avoid_: CTA, external links, repo link, live link
 
-**Project Markdown**: The Markdown text a reader copies from a Project Detail: the title as a heading, the description, and the Project Source text without its metadata. Its address is the Project Detail address plus `.md`. _Avoid_: raw markdown, page markdown
+**Project Markdown**: The Markdown text a reader copies from a Project Detail: the title as a heading, the description, and the Project Source text without its metadata. Each Project Translation has its own Project Markdown at its own address. _Avoid_: raw markdown, page markdown
 
 **Project Pager**: The two links at the end of a Project Detail to the Projects beside it in Project Order. The first Project has no previous Project, and the last has no next Project. _Avoid_: pagination, prev/next, related projects
 
 ### Talks
 
-**Talk**: One slide deck created by Tri Rizeki Rifandani during his work at a company. A later presentation or update of the same deck remains the same Talk. _Avoid_: event, presentation session, Post, Project
+**Talk**: One slide deck created by Tri Rizeki Rifandani during his work at a company. A later presentation or update of the same deck remains the same Talk. Its title and description have a text for each Locale; the slides stay in their own language. _Avoid_: event, presentation session, Post, Project
 
 **Talk Creation Date**: The date when a Talk was first created. A later presentation or update does not change this date. _Avoid_: presentation date, publish date, update date

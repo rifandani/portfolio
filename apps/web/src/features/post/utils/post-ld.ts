@@ -2,17 +2,12 @@ import type { Blog, BlogPosting } from "schema-dts";
 
 import type { Post } from "@/features/post/utils/post-source";
 import { postPath } from "@/features/post/utils/slug";
-import {
-  absoluteUrl,
-  CONTENT_LANGUAGE,
-  ogCardUrl,
-  personRef,
-  webSiteRef,
-} from "@/utils/seo";
+import type { I18NLocale } from "@/shared/constants/i18n";
+import { absoluteUrl, ogCardUrl, personRef, webSiteRef } from "@/utils/seo";
 
 type PostFacts = Pick<
   Post,
-  "slug" | "title" | "summary" | "publishedAt" | "updatedAt"
+  "locale" | "slug" | "title" | "summary" | "publishedAt" | "updatedAt"
 >;
 
 const BLOG_PATH = "/posts";
@@ -33,7 +28,8 @@ export const createBlogPosting = (post: PostFacts): BlogPosting => {
     image: ogCardUrl({ kind: "post", slug: post.slug }),
     datePublished: post.publishedAt,
     dateModified: post.updatedAt,
-    inLanguage: CONTENT_LANGUAGE,
+    // The language of the Post Translation on the page (ADR-0004).
+    inLanguage: post.locale,
     author: personRef,
     publisher: personRef,
     isPartOf: blogRef,
@@ -47,10 +43,13 @@ export const createBlogPosting = (post: PostFacts): BlogPosting => {
 export const createBlog = ({
   title,
   description,
+  locale,
   posts,
 }: {
   title: string;
   description: string;
+  /** The Locale of the Post Translations in `posts`. */
+  locale: I18NLocale;
   posts: readonly PostFacts[];
 }): Blog => ({
   "@type": "Blog",
@@ -58,7 +57,7 @@ export const createBlog = ({
   url: absoluteUrl(BLOG_PATH),
   name: title,
   description,
-  inLanguage: CONTENT_LANGUAGE,
+  inLanguage: locale,
   author: personRef,
   publisher: personRef,
   isPartOf: webSiteRef,

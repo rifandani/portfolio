@@ -13,6 +13,7 @@ import { postPath } from "@/features/post/utils/slug";
 import { getProjects } from "@/features/project/services/projects";
 import { projectPath } from "@/features/project/utils/project-path";
 import { createError, useLogger, withEvlog } from "@/server/utils/evlog";
+import { I18N_DEFAULT_LOCALE } from "@/shared/constants/i18n";
 import type { OgCard } from "@/utils/og-params";
 import {
   OG_DEFAULT_TITLE,
@@ -101,7 +102,8 @@ const pageCard = (title: string, description?: string) => (
 );
 
 const postCard = async (slug: string) => {
-  const post = getPost(slug);
+  // Crawlers send no Locale cookie, so the OG Card is always English (ADR-0004).
+  const post = getPost(slug, I18N_DEFAULT_LOCALE);
   if (!post) {
     return null;
   }
@@ -119,7 +121,8 @@ const postCard = async (slug: string) => {
 };
 
 const projectCard = async (slug: string) => {
-  const projects = getProjects();
+  // Crawlers send no Locale cookie, so the OG Card is always English (ADR-0004).
+  const projects = getProjects(I18N_DEFAULT_LOCALE);
   const index = projects.findIndex((project) => project.slug === slug);
   const project = projects[index];
   if (!project) {

@@ -1,4 +1,4 @@
-import { getTranslations } from "next-intl/server";
+import { getLocale, getTranslations } from "next-intl/server";
 
 import { SiteShell } from "@/app/_components/site-shell";
 import { SiteContainer } from "@/components/site-container";
@@ -22,8 +22,8 @@ const description =
 export const metadata = createMetadata({ title, description, path: "/talks" });
 
 export default async function TalksPage() {
-  const t = await getTranslations();
-  const talks = getTalks();
+  const [t, locale] = await Promise.all([getTranslations(), getLocale()]);
+  const talks = getTalks(locale);
   const years = talksByYear(talks);
 
   return (

@@ -3,6 +3,11 @@ import path from "node:path";
 import type { NextConfig } from "next";
 import createNextIntlPlugin from "next-intl/plugin";
 
+import {
+  I18N_DEFAULT_LOCALE,
+  I18N_TRANSLATED_LOCALES,
+} from "./src/shared/constants/i18n";
+
 const withNextIntl = createNextIntlPlugin("./src/server/utils/i18n.ts");
 
 /**
@@ -44,13 +49,21 @@ const config: NextConfig = {
     ],
   },
   rewrites: () =>
-    Promise.resolve([
-      { source: "/posts/:slug.md", destination: "/posts/:slug/markdown" },
-      {
-        source: "/projects/:slug.md",
-        destination: "/projects/:slug/markdown",
-      },
-    ]),
+    Promise.resolve(
+      // Each Post and Project Translation has its own Markdown (ADR-0004).
+      // The Translations come first, as `:slug.md` would also match
+      // `{slug}.id.md`.
+      ["posts", "projects"].flatMap((kind) => [
+        ...I18N_TRANSLATED_LOCALES.map((locale) => ({
+          source: `/${kind}/:slug.${locale}.md`,
+          destination: `/${kind}/:slug/markdown/${locale}`,
+        })),
+        {
+          source: `/${kind}/:slug.md`,
+          destination: `/${kind}/:slug/markdown/${I18N_DEFAULT_LOCALE}`,
+        },
+      ])
+    ),
   experimental: {
     testProxy: true, // for e2e testing server side
   },

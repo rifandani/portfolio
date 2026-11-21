@@ -1,4 +1,4 @@
-import { getTranslations } from "next-intl/server";
+import { getLocale, getTranslations } from "next-intl/server";
 
 import { SiteShell } from "@/app/_components/site-shell";
 import { SiteContainer } from "@/components/site-container";
@@ -24,15 +24,15 @@ export const metadata = createMetadata({
 });
 
 export default async function ProjectsPage() {
-  const t = await getTranslations();
-  const projects = getProjects();
+  const [t, locale] = await Promise.all([getTranslations(), getLocale()]);
+  const projects = getProjects(locale);
   return (
     <SiteShell>
       <JsonLd
         graphs={[
           createWebSite(),
           createPerson(),
-          createProjectCollection({ title, description, projects }),
+          createProjectCollection({ title, description, locale, projects }),
         ]}
       />
       <SiteContainer className="py-16 sm:py-24">

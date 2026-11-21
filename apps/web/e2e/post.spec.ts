@@ -38,6 +38,37 @@ test("serves the Post Markdown at the Post Detail URL plus .md", async ({
   );
 });
 
+test("serves the Indonesian Post Markdown at the Post Detail URL plus .id.md", async ({
+  request,
+}) => {
+  const response = await request.get(`/posts/${SLUG}.id.md`);
+
+  expect(response.status()).toBe(200);
+  expect(await response.text()).toMatch(
+    /^# Governance adalah code review yang baru\n/u
+  );
+});
+
+test("shows the Indonesian Post Translation for the id Locale", async ({
+  page,
+  context,
+}) => {
+  await context.addCookies([
+    { name: "NEXT_LOCALE", value: "id", url: "http://localhost" },
+  ]);
+  await page.goto(`/posts/${SLUG}`);
+
+  await expect(page.getByRole("heading", { level: 1 })).toHaveText(
+    "Governance adalah code review yang baru"
+  );
+  await expect(
+    page.getByRole("heading", { level: 2, name: "Checklist yang tidak lupa" })
+  ).toBeVisible();
+  await expect(
+    page.locator('link[rel="alternate"][type="text/markdown"]')
+  ).toHaveAttribute("href", new RegExp(`/posts/${SLUG}\\.id\\.md$`, "u"));
+});
+
 test("links Posts in the breadcrumb, then marks the Post current", async ({
   page,
 }) => {

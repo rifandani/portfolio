@@ -5,6 +5,7 @@ import path from "node:path";
 import { cache } from "react";
 
 import { collectPosts } from "@/features/post/utils/post-collection";
+import type { I18NLocale } from "@/shared/constants/i18n";
 
 /**
  * Post Sources live beside the code, not in `public/`. `next.config.ts` adds
@@ -29,9 +30,13 @@ const readPostSources = () =>
 
 /**
  * Logic Seam shell (ADR-0001): reads the disk and delegates to `collectPosts`.
- * `cache` parses each Post Source once per request.
+ * `cache` parses the Post Sources once per request and Locale. The caller
+ * names the Locale: a page passes the reader's, and a feed for crawlers
+ * passes the default (ADR-0004).
  */
-export const getPosts = cache(() => collectPosts(readPostSources()));
+export const getPosts = cache((locale: I18NLocale) =>
+  collectPosts(readPostSources(), locale)
+);
 
-export const getPost = (slug: string) =>
-  getPosts().find((post) => post.slug === slug);
+export const getPost = (slug: string, locale: I18NLocale) =>
+  getPosts(locale).find((post) => post.slug === slug);

@@ -1,40 +1,47 @@
-import { parseProjectSource } from "@/features/project/utils/project-source";
+import {
+  parseProjectSource,
+  parseProjectTranslationSource,
+} from "@/features/project/utils/project-source";
 import type { Project } from "@/features/project/utils/project-source";
+import type { I18NLocale } from "@/shared/constants/i18n";
 import type { MarkdownSourceFile } from "@/utils/markdown-source";
+import { collectTranslatedSources } from "@/utils/markdown-translation";
 
-/** Throws when two Project Sources claim the same value of `key`, naming both files. */
-const assertUnique = (
-  projects: readonly { project: Project; path: string }[],
-  key: "slug" | "order",
-  label: string
+/** Throws when two Project Sources claim the same `order`, naming both files. */
+const assertUniqueOrder = (
+  sources: readonly { project: Project; path: string }[]
 ) => {
-  const pathByValue = new Map<string | number, string>();
-  for (const { project, path } of projects) {
-    const claimedBy = pathByValue.get(project[key]);
+  const pathByOrder = new Map<number, string>();
+  for (const { project, path } of sources) {
+    const claimedBy = pathByOrder.get(project.order);
     if (claimedBy) {
       throw new Error(
-        `Duplicate ${label} "${project[key]}" in ${claimedBy} and ${path}`
+        `Duplicate order "${project.order}" in ${claimedBy} and ${path}`
       );
     }
-    pathByValue.set(project[key], path);
+    pathByOrder.set(project.order, path);
   }
 };
 
 /**
- * Parse every Project Source into Projects, in their `order`. Throws when two
- * Project Sources claim the same Slug, as a silent suffix would change a URL
- * (ADR-0005), or the same `order`, as the list order would then be a guess.
+ * Parse every Project Source and return the Projects in one Locale, in their
+ * `order`. Every Project must have a Project Translation for every Locale
+ * (ADR-0004), so all files are checked whatever the Locale. Throws, naming
+ * the file, on a duplicate Slug, as a silent suffix would change a URL
+ * (ADR-0005), on a duplicate `order`, as the list order would then be a
+ * guess, and on a missing, orphan, or stale Translation.
  */
 export const collectProjects = (
-  files: readonly MarkdownSourceFile[]
+  files: readonly MarkdownSourceFile[],
+  locale: I18NLocale
 ): Project[] => {
-  const parsed = files.map((file) => ({
-    project: parseProjectSource(file),
-    path: file.path,
-  }));
-  assertUnique(parsed, "slug", "Slug");
-  assertUnique(parsed, "order", "order");
-  return parsed
+  const sources = collectTranslatedSources(files, {
+    name: "Project",
+    parse: parseProjectSource,
+    parseTranslation: parseProjectTranslationSource,
+  }).map(({ path, inLocale }) => ({ path, project: inLocale(locale) }));
+  assertUniqueOrder(sources);
+  return sources
     .map(({ project }) => project)
     .toSorted((a, b) => a.order - b.order);
 };

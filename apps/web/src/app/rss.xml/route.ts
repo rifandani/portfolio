@@ -1,8 +1,9 @@
 import { getPosts } from "@/features/post/services/posts";
 import { ENV } from "@/shared/constants/env";
+import { I18N_DEFAULT_LOCALE } from "@/shared/constants/i18n";
 import { portfolioIdentity } from "@/shared/constants/identity";
 
-// The feed has one language, like a Post, so it reads the English Message Catalog directly.
+// The feed is English only: crawlers send no Locale cookie (ADR-0004). So it reads the English Message Catalog directly.
 import messages from "../../../messages/en.json";
 import { buildRssFeed } from "./rss-feed";
 
@@ -17,7 +18,7 @@ export const GET = () =>
       description: messages.postsPageIntro,
       author: portfolioIdentity.fullName,
       copyrightYear: portfolioIdentity.copyrightYear,
-      posts: getPosts(),
+      posts: getPosts(I18N_DEFAULT_LOCALE),
       pages: [
         {
           href: "/cv",

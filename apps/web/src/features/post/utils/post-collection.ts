@@ -1,28 +1,28 @@
-import { parsePostSource } from "@/features/post/utils/post-source";
+import {
+  parsePostSource,
+  parsePostTranslationSource,
+} from "@/features/post/utils/post-source";
 import type { Post, PostSourceFile } from "@/features/post/utils/post-source";
+import type { I18NLocale } from "@/shared/constants/i18n";
+import { collectTranslatedSources } from "@/utils/markdown-translation";
 
 /**
- * Parse every Post Source into Posts, most recent first. Throws when two
- * Post Sources claim the same Slug, as a silent suffix would change a URL
- * (ADR-0005).
+ * Parse every Post Source and return the Posts in one Locale, most recent
+ * first. Every Post must have a Post Translation for every Locale (ADR-0004),
+ * so all files are checked whatever the Locale. Throws, naming the file, on a
+ * duplicate Slug, a missing or orphan Translation, or a stale Translation.
  */
-export const collectPosts = (files: readonly PostSourceFile[]): Post[] => {
-  const pathBySlug = new Map<string, string>();
-  const posts = files.map((file) => {
-    const post = parsePostSource(file);
-    const claimedBy = pathBySlug.get(post.slug);
-    if (claimedBy) {
-      throw new Error(
-        `Duplicate Slug "${post.slug}" in ${claimedBy} and ${file.path}`
-      );
-    }
-    pathBySlug.set(post.slug, file.path);
-    return post;
-  });
-  return posts.toSorted(
-    (a, b) => Date.parse(b.publishedAt) - Date.parse(a.publishedAt)
-  );
-};
+export const collectPosts = (
+  files: readonly PostSourceFile[],
+  locale: I18NLocale
+): Post[] =>
+  collectTranslatedSources(files, {
+    name: "Post",
+    parse: parsePostSource,
+    parseTranslation: parsePostTranslationSource,
+  })
+    .map((source) => source.inLocale(locale))
+    .toSorted((a, b) => Date.parse(b.publishedAt) - Date.parse(a.publishedAt));
 
 /** The Posts beside one Post in publish order, as the Post Pager shows them. */
 export interface AdjacentPosts<TPost> {

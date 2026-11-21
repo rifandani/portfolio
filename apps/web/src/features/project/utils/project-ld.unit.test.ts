@@ -13,6 +13,7 @@ vi.mock("@/shared/constants/env", () => ({
 }));
 
 const project = {
+  locale: "en" as const,
   slug: "signal-kit",
   title: "Signal Kit",
   description: "Accessible patterns.",
@@ -45,6 +46,12 @@ describe("createProjectCreativeWork", () => {
     });
   });
 
+  it("gives the language of the Project Translation on the page", () => {
+    expect(
+      createProjectCreativeWork({ ...project, locale: "id" })
+    ).toMatchObject({ inLanguage: "id" });
+  });
+
   it("gives no sameAs to a Project without Project Links", () => {
     expect(createProjectCreativeWork(project)).not.toHaveProperty("sameAs");
   });
@@ -55,6 +62,7 @@ describe("createProjectCollection", () => {
     const collection = createProjectCollection({
       title: "Projects",
       description: "Work.",
+      locale: "en",
       projects: [
         project,
         { ...project, slug: "quiet-charts", title: "Quiet Charts" },
@@ -67,6 +75,7 @@ describe("createProjectCollection", () => {
       url: "https://web.test/projects",
       name: "Projects",
       description: "Work.",
+      inLanguage: "en",
       isPartOf: { "@id": "https://web.test/#website" },
       author: { "@id": "https://web.test/#person" },
       mainEntity: {

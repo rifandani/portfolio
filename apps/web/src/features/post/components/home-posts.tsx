@@ -1,4 +1,4 @@
-import { getTranslations } from "next-intl/server";
+import { getLocale, getTranslations } from "next-intl/server";
 
 import { HomeSection, HomeSectionEmpty } from "@/components/home/home-section";
 import { Link } from "@/components/ui/link";
@@ -8,8 +8,8 @@ import { getPosts } from "@/features/post/services/posts";
 const HOME_PREVIEW_COUNT = 3;
 
 export const HomePosts = async () => {
-  const t = await getTranslations();
-  const posts = getPosts().slice(0, HOME_PREVIEW_COUNT);
+  const [t, locale] = await Promise.all([getTranslations(), getLocale()]);
+  const posts = getPosts(locale).slice(0, HOME_PREVIEW_COUNT);
   return (
     <HomeSection
       id="home-posts-heading"

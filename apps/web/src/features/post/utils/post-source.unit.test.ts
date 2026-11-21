@@ -22,6 +22,7 @@ describe("parsePostSource", () => {
     } = parsePostSource(source(`${FRONTMATTER}\n\nShort text.\n`));
 
     expect(post).toEqual({
+      locale: "en",
       slug: "clarity-over-complexity",
       title: "Clarity: over complexity",
       summary: "Why restrained UI systems help people scan faster.",

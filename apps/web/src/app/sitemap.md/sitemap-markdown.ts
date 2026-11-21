@@ -5,6 +5,12 @@ import {
   projectPath,
 } from "@/features/project/utils/project-path";
 import type { Project } from "@/features/project/utils/project-source";
+import type { I18NLocale } from "@/shared/constants/i18n";
+import {
+  I18N_DEFAULT_LOCALE,
+  I18N_LOCALE_NAMES,
+  I18N_TRANSLATED_LOCALES,
+} from "@/shared/constants/i18n";
 
 interface SitemapMarkdownInput {
   appTitle: string;
@@ -47,24 +53,33 @@ export const sitemapMarkdown = ({
   projects,
 }: SitemapMarkdownInput) => {
   const url = (route: string) => new URL(route, appUrl).href;
+  // Each Post and Project Translation has its own Markdown (ADR-0004).
+  const translationLinks = (
+    slug: string,
+    markdownPath: (slug: string, locale: I18NLocale) => string
+  ) =>
+    I18N_TRANSLATED_LOCALES.map(
+      (locale) =>
+        ` · [Markdown (${I18N_LOCALE_NAMES[locale]})](${url(markdownPath(slug, locale))})`
+    ).join("");
   const postLines =
     posts.length > 0
       ? posts.map(
           (post) =>
-            `- [${escapeLinkText(post.title)}](${url(postPath(post.slug))}) — ${post.summary} (${post.publishedAt}) · [Markdown](${url(postMarkdownPath(post.slug))})`
+            `- [${escapeLinkText(post.title)}](${url(postPath(post.slug))}) — ${post.summary} (${post.publishedAt}) · [Markdown](${url(postMarkdownPath(post.slug, I18N_DEFAULT_LOCALE))})${translationLinks(post.slug, postMarkdownPath)}`
         )
       : ["No posts yet."];
   const projectLines =
     projects.length > 0
       ? projects.map(
           (project) =>
-            `- [${escapeLinkText(project.title)}](${url(projectPath(project.slug))}) — ${project.description} · [Markdown](${url(projectMarkdownPath(project.slug))})`
+            `- [${escapeLinkText(project.title)}](${url(projectPath(project.slug))}) — ${project.description} · [Markdown](${url(projectMarkdownPath(project.slug, I18N_DEFAULT_LOCALE))})${translationLinks(project.slug, projectMarkdownPath)}`
         )
       : ["No projects yet."];
   return [
     `# ${appTitle} sitemap`,
     "",
-    "Every public page of this site. Each post and project is also available as plain Markdown: add `.md` to its URL.",
+    "Every public page of this site. Each post and project is also available as plain Markdown: add `.md` to its URL. Each post and project is also in Indonesian: add `.id.md` to its URL.",
     "",
     "## Discovery",
     "",

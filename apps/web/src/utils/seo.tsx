@@ -22,8 +22,9 @@ const publisher = portfolioIdentity.fullName;
 const xHandle = `@${portfolioIdentity.xHandle}`;
 
 /**
- * The language of every Post and every Project. A Locale changes the UI around
- * them, not their text, so their JSON-LD and `og:locale` stay the same.
+ * The language of the Talk slide decks, and of what crawlers see. A Post and a
+ * Project have a Translation for each Locale, and their JSON-LD names the
+ * Locale on the page (ADR-0004); `og:locale` stays this one.
  */
 export const CONTENT_LANGUAGE = "en";
 /** `CONTENT_LANGUAGE` in the `language_TERRITORY` form Open Graph wants. */

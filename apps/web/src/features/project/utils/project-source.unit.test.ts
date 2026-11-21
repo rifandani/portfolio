@@ -8,6 +8,7 @@ title: "Signal Kit: accessible parts"
 description: Accessible component patterns for product shells.
 tags: [React Aria, Tailwind]
 order: 1
+updatedAt: 2026-01-01
 previewSrc: /placeholders/project-og-1.svg
 previewAlt: Preview art for Signal Kit
 ---`;
@@ -23,11 +24,13 @@ describe("parseProjectSource", () => {
     } = parseProjectSource(source(`${FRONTMATTER}\n\nShort text.\n`));
 
     expect(project).toEqual({
+      locale: "en",
       slug: "signal-kit",
       title: "Signal Kit: accessible parts",
       description: "Accessible component patterns for product shells.",
       tags: ["React Aria", "Tailwind"],
       order: 1,
+      updatedAt: "2026-01-01",
       previewSrc: "/placeholders/project-og-1.svg",
       previewAlt: "Preview art for Signal Kit",
     });

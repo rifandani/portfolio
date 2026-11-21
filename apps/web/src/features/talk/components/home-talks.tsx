@@ -1,4 +1,4 @@
-import { getTranslations } from "next-intl/server";
+import { getLocale, getTranslations } from "next-intl/server";
 
 import { HomeSection, HomeSectionEmpty } from "@/components/home/home-section";
 import { Link } from "@/components/ui/link";
@@ -8,8 +8,8 @@ import { getTalks } from "@/features/talk/services/talks";
 const HOME_PREVIEW_COUNT = 3;
 
 export const HomeTalks = async () => {
-  const t = await getTranslations();
-  const talks = getTalks(HOME_PREVIEW_COUNT);
+  const [t, locale] = await Promise.all([getTranslations(), getLocale()]);
+  const talks = getTalks(locale, HOME_PREVIEW_COUNT);
   return (
     <HomeSection
       id="home-talks-heading"

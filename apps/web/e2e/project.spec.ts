@@ -64,6 +64,34 @@ test("serves the Project Markdown at the Project Detail URL plus .md", async ({
   expect(await response.text()).toMatch(/^# Hanepyon Layover Planner\n/u);
 });
 
+test("serves the Indonesian Project Markdown at the Project Detail URL plus .id.md", async ({
+  request,
+}) => {
+  const response = await request.get(`/projects/${SLUG}.id.md`);
+
+  expect(response.status()).toBe(200);
+  expect(await response.text()).toMatch(
+    /^# Hanepyon Layover Planner\n\nPWA yang dipandu maskot/u
+  );
+});
+
+test("shows the Indonesian Project Translation for the id Locale", async ({
+  page,
+  context,
+}) => {
+  await context.addCookies([
+    { name: "NEXT_LOCALE", value: "id", url: "http://localhost" },
+  ]);
+  await page.goto(`/projects/${SLUG}`);
+
+  await expect(
+    page.getByRole("heading", { level: 2, name: "Tantangannya" })
+  ).toBeVisible();
+  await expect(
+    page.locator('link[rel="alternate"][type="text/markdown"]')
+  ).toHaveAttribute("href", new RegExp(`/projects/${SLUG}\\.id\\.md$`, "u"));
+});
+
 test("links Projects in the breadcrumb, then marks the Project current", async ({
   page,
 }) => {

@@ -1,4 +1,4 @@
-import { getTranslations } from "next-intl/server";
+import { getLocale, getTranslations } from "next-intl/server";
 
 import { SiteShell } from "@/app/_components/site-shell";
 import { SiteContainer } from "@/components/site-container";
@@ -27,8 +27,8 @@ export const metadata = createMetadata({ title, description, path: "/posts" });
  * ruled line.
  */
 export default async function PostsPage() {
-  const t = await getTranslations();
-  const allPosts = getPosts();
+  const [t, locale] = await Promise.all([getTranslations(), getLocale()]);
+  const allPosts = getPosts(locale);
   const years = postsByYear(allPosts);
   return (
     <SiteShell>
@@ -36,7 +36,7 @@ export default async function PostsPage() {
         graphs={[
           createWebSite(),
           createPerson(),
-          createBlog({ title, description, posts: allPosts }),
+          createBlog({ title, description, locale, posts: allPosts }),
         ]}
       />
       <SiteContainer className="py-16 sm:py-24">

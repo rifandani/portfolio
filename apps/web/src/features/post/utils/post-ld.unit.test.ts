@@ -10,6 +10,7 @@ vi.mock("@/shared/constants/env", () => ({
 }));
 
 const post = {
+  locale: "en" as const,
   slug: "a-post",
   title: "A Post",
   summary: "A summary.",
@@ -35,6 +36,12 @@ describe("createBlogPosting", () => {
       isPartOf: { "@id": "https://web.test/posts#blog" },
     });
   });
+
+  it("names the language of the Post Translation", () => {
+    expect(
+      createBlogPosting({ ...post, locale: "id", title: "Sebuah Post" })
+    ).toMatchObject({ headline: "Sebuah Post", inLanguage: "id" });
+  });
 });
 
 describe("createBlog", () => {
@@ -42,6 +49,7 @@ describe("createBlog", () => {
     const blog = createBlog({
       title: "Posts",
       description: "Writing.",
+      locale: "en",
       posts: [post, { ...post, slug: "b-post", title: "B Post" }],
     });
 
