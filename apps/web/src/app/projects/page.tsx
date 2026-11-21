@@ -32,7 +32,7 @@ export default async function ProjectsPage() {
         graphs={[
           createWebSite(),
           createPerson(),
-          createProjectCollection({ title, description, projects }),
+          createProjectCollection({ title, description, locale, projects }),
         ]}
       />
       <SiteContainer className="py-16 sm:py-24">

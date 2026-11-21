@@ -3,6 +3,7 @@ import type { CollectionPage, CreativeWork } from "schema-dts";
 import { projectLinksOf } from "@/features/project/utils/project-links";
 import { projectPath } from "@/features/project/utils/project-path";
 import type { Project } from "@/features/project/utils/project-source";
+import type { I18NLocale } from "@/shared/constants/i18n";
 import { absoluteUrl, ogCardUrl, personRef, webSiteRef } from "@/utils/seo";
 
 type ProjectFacts = Pick<
@@ -43,10 +44,13 @@ export const createProjectCreativeWork = (
 export const createProjectCollection = ({
   title,
   description,
+  locale,
   projects,
 }: {
   title: string;
   description: string;
+  /** The Locale of the Project Translations in `projects`. */
+  locale: I18NLocale;
   projects: readonly ProjectFacts[];
 }): CollectionPage => {
   const url = absoluteUrl(COLLECTION_PATH);
@@ -56,6 +60,7 @@ export const createProjectCollection = ({
     url,
     name: title,
     description,
+    inLanguage: locale,
     isPartOf: webSiteRef,
     author: personRef,
     mainEntity: {

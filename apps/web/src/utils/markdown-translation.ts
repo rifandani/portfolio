@@ -15,10 +15,13 @@ interface TranslationFile {
   locale: I18NLocale;
 }
 
+/** The domain name of a translated Markdown source, for error messages. */
+type TranslatedKindName = "Post" | "Project";
+
 /** How one kind of translated Markdown source (Post, Project) is parsed. */
 interface TranslatedKind<TItem> {
-  /** The domain name in error messages: "Post" gives "Post Source" and "Post Translation". */
-  name: string;
+  /** "Post" gives "Post Source" and "Post Translation" in error messages. */
+  name: TranslatedKindName;
   /** Parse one English source. */
   parse: (file: MarkdownSourceFile) => TItem;
   /** Parse one non-English source onto its English item. */
@@ -30,7 +33,10 @@ interface TranslatedKind<TItem> {
 }
 
 /** Split the files into English sources and Translations. */
-const partitionFiles = (files: readonly MarkdownSourceFile[], name: string) => {
+const partitionFiles = (
+  files: readonly MarkdownSourceFile[],
+  name: TranslatedKindName
+) => {
   const english: MarkdownSourceFile[] = [];
   const translations: TranslationFile[] = [];
   for (const file of files) {
@@ -137,7 +143,7 @@ export const assertTranslationIsCurrent = ({
   translatedAt,
   updatedAt,
 }: {
-  name: string;
+  name: TranslatedKindName;
   path: string;
   translatedAt: string;
   updatedAt: string;

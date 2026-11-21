@@ -67,6 +67,32 @@ describe("createTalkCollection", () => {
     });
   });
 
+  it("gives the text in the Locale but keeps the language of the slides", () => {
+    const collection = createTalkCollection({
+      title: "Presentasi",
+      description: "Slide.",
+      talks: [
+        {
+          ...talk,
+          description:
+            "Membuat situs web dan codebase bisa dipakai oleh AI agent",
+        },
+      ],
+    });
+
+    expect(collection.mainEntity).toMatchObject({
+      itemListElement: [
+        {
+          item: {
+            description:
+              "Membuat situs web dan codebase bisa dipakai oleh AI agent",
+            inLanguage: "en",
+          },
+        },
+      ],
+    });
+  });
+
   it("returns an empty ItemList when there are no Talks", () => {
     expect(
       createTalkCollection({

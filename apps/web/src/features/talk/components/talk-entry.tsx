@@ -3,7 +3,7 @@ import { getLocale, getTranslations } from "next-intl/server";
 import { HiOutlineArrowUpRight } from "react-icons/hi2";
 
 import { Link } from "@/components/ui/link";
-import type { LocalizedTalk } from "@/features/talk/data/talks";
+import type { TalkInLocale } from "@/features/talk/data/talks";
 
 const dateOptions = {
   day: "numeric",
@@ -21,7 +21,7 @@ export const TalkEntry = async ({
   talk,
   className,
 }: {
-  talk: LocalizedTalk;
+  talk: TalkInLocale;
   className?: string;
 }) => {
   const [t, locale] = await Promise.all([getTranslations(), getLocale()]);

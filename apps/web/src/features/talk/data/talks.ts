@@ -13,12 +13,10 @@ export interface Talk {
 }
 
 /** One Talk with its title and description in one Locale, as a page shows it. */
-export interface LocalizedTalk {
+export type TalkInLocale = Omit<Talk, "title" | "description"> & {
   readonly title: string;
   readonly description: string;
-  readonly createdAt: string;
-  readonly link: string;
-}
+};
 
 export const talks: readonly Talk[] = [
   {

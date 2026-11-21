@@ -62,6 +62,7 @@ describe("createProjectCollection", () => {
     const collection = createProjectCollection({
       title: "Projects",
       description: "Work.",
+      locale: "en",
       projects: [
         project,
         { ...project, slug: "quiet-charts", title: "Quiet Charts" },
@@ -74,6 +75,7 @@ describe("createProjectCollection", () => {
       url: "https://web.test/projects",
       name: "Projects",
       description: "Work.",
+      inLanguage: "en",
       isPartOf: { "@id": "https://web.test/#website" },
       author: { "@id": "https://web.test/#person" },
       mainEntity: {

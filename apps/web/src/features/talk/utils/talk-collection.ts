@@ -1,4 +1,4 @@
-import type { LocalizedTalk, Talk } from "@/features/talk/data/talks";
+import type { TalkInLocale, Talk } from "@/features/talk/data/talks";
 import type { I18NLocale } from "@/shared/constants/i18n";
 
 /**
@@ -9,7 +9,7 @@ export const collectTalks = (
   sources: readonly Talk[],
   locale: I18NLocale,
   limit?: number
-): LocalizedTalk[] => {
+): TalkInLocale[] => {
   const sorted = sources.toSorted((a, b) =>
     b.createdAt.localeCompare(a.createdAt)
   );
@@ -23,8 +23,8 @@ export const collectTalks = (
 };
 
 /** Group a newest-first collection by its date's year, without time zone shifts. */
-export const talksByYear = (collection: readonly LocalizedTalk[]) => {
-  const years: { year: string; talks: LocalizedTalk[] }[] = [];
+export const talksByYear = (collection: readonly TalkInLocale[]) => {
+  const years: { year: string; talks: TalkInLocale[] }[] = [];
   for (const talk of collection) {
     const year = talk.createdAt.slice(0, 4);
     const last = years.at(-1);
