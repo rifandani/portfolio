@@ -38,6 +38,7 @@ export type TechId =
   | "nextjs"
   | "expo"
   | "tanstack"
+  | "xstate"
   | "shadcn"
   | "tailwindcss"
   | "sass"
@@ -54,7 +55,8 @@ export type TechId =
   | "playwright"
   | "codex"
   | "claude-code"
-  | "cursor";
+  | "cursor"
+  | "grok-bot";
 
 interface Tech {
   id: TechId;
@@ -88,6 +90,7 @@ export const techStack = {
         { id: "nextjs", name: "Next.js" },
         { id: "expo", name: "Expo" },
         { id: "tanstack", name: "TanStack" },
+        { id: "xstate", name: "XState" },
         { id: "shadcn", name: "shadcn/ui" },
       ],
     },
@@ -141,6 +144,7 @@ export const techStack = {
         { id: "codex", name: "Codex" },
         { id: "claude-code", name: "Claude Code" },
         { id: "cursor", name: "Cursor" },
+        { id: "grok-bot", name: "Grok Bot" },
       ],
     },
   ],

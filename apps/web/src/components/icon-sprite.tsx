@@ -148,6 +148,16 @@ export const IconSprite = () => (
         />
       </symbol>
       {/* #endregion */}
+      {/* #region icon-grok-bot */}
+      {/* Traced from the Grok Bot Play Store icon (ai.x.grok.bot): the ball the tile crops, with two slanted eyes cut out. */}
+      <symbol id="icon-grok-bot" viewBox="0 0 24 24">
+        <path
+          fill="currentColor"
+          fillRule="evenodd"
+          d="M0 8.446A14.386 14.386 0 0 1 23.134 24H0ZM15.207 9.825L18.397 14.264A1.233 1.233 0 0 0 20.399 12.825L17.21 8.386A1.233 1.233 0 0 0 15.207 9.825ZM8.353 13.81L10.785 17.257A1.828 1.828 0 0 0 13.772 15.15L11.34 11.702A1.828 1.828 0 0 0 8.353 13.81Z"
+        />
+      </symbol>
+      {/* #endregion */}
     </defs>
   </svg>
 );

@@ -21,6 +21,7 @@ import {
   SiTypescript,
   SiVercel,
   SiVitest,
+  SiXstate,
 } from "react-icons/si";
 
 import { SpriteIcon } from "@/components/icon-sprite";
@@ -41,6 +42,11 @@ const CodexMark: Mark = ({ className }) => (
   <SpriteIcon id="icon-chatgpt" className={className} />
 );
 
+/** `react-icons` does not ship the Grok Bot mark, so it comes from the sprite. */
+const GrokBotMark: Mark = ({ className }) => (
+  <SpriteIcon id="icon-grok-bot" className={className} />
+);
+
 /** Monochrome marks: they take `currentColor`, never the brand colors. */
 const TECH_MARKS = {
   typescript: SiTypescript,
@@ -48,6 +54,7 @@ const TECH_MARKS = {
   nextjs: SiNextdotjs,
   expo: SiExpo,
   tanstack: SiTanstack,
+  xstate: SiXstate,
   shadcn: SiShadcnui,
   tailwindcss: SiTailwindcss,
   sass: SiSass,
@@ -65,6 +72,7 @@ const TECH_MARKS = {
   codex: CodexMark,
   "claude-code": SiClaude,
   cursor: SiCursor,
+  "grok-bot": GrokBotMark,
 } satisfies Record<TechId, Mark>;
 
 const layerLabelClass =
