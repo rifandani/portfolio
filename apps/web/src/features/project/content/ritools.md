@@ -116,6 +116,8 @@ The Ghost view shows the removed pixels, so you can see what to restore. The Wan
 
 A screen recording is often too large for a chat app or an email. Cinch does for video what Squeeze does for images. Give it a Target file size, or pick a Video Preset (Light, Balanced, or Strong) when you only want a smaller file.
 
+![Cinch with a 3 MB Target turns a 12.3 MB, 1080p screen recording into a 2.8 MB MP4, a 77% reduction](/images/projects/ritools/cinch.webp)
+
 In Target mode, Cinch does the math for you. If the Target is too small for the input resolution, it picks a lower Fit Scale and names it in the row. If the first output is still over the Target, it encodes one more time. You can also set a Max Resolution, cap the frame rate, or remove the audio.
 
 Cinch writes MP4 (H.264 and AAC) or WebM (VP9 and Opus). It encodes with the browser's own WebCodecs through Mediabunny, so it can use the hardware video encoder in your device. It ships no ffmpeg.wasm, so it has no large engine to download.
@@ -139,6 +141,8 @@ Cinch writes MP4 (H.264 and AAC) or WebM (VP9 and Opus). It encodes with the bro
 ![Cleave takes two versions of a function, shows the Changes side by side, opens Resolve, and accepts one Change](/images/projects/ritools/cleave.svg)
 
 **Easel is tracing paper over your photo.** It crops, rotates, straightens, flips, adjusts color, applies filters, fills areas, and adds text, shapes, and a watermark. Easel never changes the original pixels. It keeps your changes in an Edit Stack and draws the image again from the original each time, so undo and redo are exact. A reload keeps your open images and their edits.
+
+![Easel with an image open on the Crop tab, beside Finetune, Filter, Fill, Annotate, Watermark, Redact, and Resize, with crop presets for social networks](/images/projects/ritools/easel.webp)
 
 A Redaction (a Cover or a Mosaic) goes into the pixels at export, so the file holds no hidden pixels below it. The export also holds no metadata.
 
