@@ -8,6 +8,7 @@
 ## Todo
 
 - add SEO simulator section into master design page: SERP preview, social previews (facebook, x/twitter, linkedin, discord, slack), og cards preview
+- add https://sheikhgpt.org/ project, deen, one message, alif lam
 
 ## New Project
 
